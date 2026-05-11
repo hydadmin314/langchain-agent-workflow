@@ -8,3 +8,7 @@ class BaseAgent(ABC):
     @abstractmethod
     def run(self, query: str) -> str:
         pass
+
+    def reset(self) -> None:
+        """重置当前会话上下文。"""
+        return None
