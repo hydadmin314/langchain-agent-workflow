@@ -4,7 +4,6 @@ from typing import Any
 from langchain.tools import tool
 
 from tools.product_tool import display_text
-from tools.recommend_tool import choose_package_tiers, rank_candidates
 from tools.requirement_parser import parse_requirement_payload
 
 
@@ -170,35 +169,22 @@ def build_recommended_choice(items: list[dict[str, Any]]) -> dict[str, Any] | No
 
 def build_comparison_response(query: str) -> dict[str, Any]:
     parsed = parse_requirement_payload(query)
-    candidates = rank_candidates(parsed)
-    comparison_items, comparison_basis = select_comparison_items(parsed, candidates)
-
-    response = {
+    return {
         "raw_query": query,
         "parsed_requirements": parsed,
-        "comparison_basis": comparison_basis,
+        "comparison_basis": "pending_module_rebuild",
         "summary": {
-            "candidate_count": len(candidates),
-            "compared_count": len(comparison_items),
-            "ready_for_comparison": len(comparison_items) >= 2,
+            "candidate_count": 0,
+            "compared_count": 0,
+            "ready_for_comparison": False,
         },
         "follow_up_questions": parsed.get("follow_up_questions", []),
-        "comparison_dimensions": build_comparison_dimensions(comparison_items),
-        "observations": build_observations(comparison_items, parsed),
-        "recommended_choice": build_recommended_choice(comparison_items),
-        "compared_items": comparison_items,
+        "comparison_dimensions": {},
+        "observations": [],
+        "recommended_choice": None,
+        "compared_items": [],
+        "message": "旧通用对比逻辑已下线，后续将改为接收各产品核算模块输出的候选方案。",
     }
-
-    if not comparison_items:
-        response["message"] = "当前没有找到可比对的候选，请补充型号、规格、分类或预算。"
-    elif len(comparison_items) == 1:
-        response["message"] = "当前只找到 1 个候选，建议再补一个型号、规格或品牌后再做对比。"
-    elif parsed.get("follow_up_questions"):
-        response["message"] = "已生成初步比对结果，补充缺失信息后可以得到更稳定的对比结论。"
-    else:
-        response["message"] = "已生成可直接用于销售沟通的方案比对结果。"
-
-    return response
 
 
 def format_money(value: Any) -> str:
