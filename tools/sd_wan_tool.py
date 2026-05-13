@@ -47,26 +47,56 @@ def _resolve_required_bandwidth(parsed: dict[str, Any]) -> tuple[int | None, str
     if bandwidth_values:
         return int(max(bandwidth_values)), "客户明确提出带宽规格"
 
+    estimates: list[tuple[int, str]] = []
     site_count = parsed.get("spec_requirements", {}).get("site_count")
     branch_count = parsed.get("spec_requirements", {}).get("branch_count")
     user_count = parsed.get("spec_requirements", {}).get("user_count")
+    inferred_nodes, inferred_reason = _resolve_node_count(parsed)
 
-    if site_count or branch_count:
-        nodes = site_count or (branch_count + 1)
+    if site_count or branch_count or inferred_nodes > 1:
+        nodes = site_count or (branch_count + 1 if branch_count else inferred_nodes)
         if nodes <= 3:
-            return 10, "未给明确带宽，按小规模多点组网预估 10M"
-        if nodes <= 6:
-            return 20, "未给明确带宽，按中等规模多点组网预估 20M"
-        return 30, "未给明确带宽，按较多站点组网预估 30M"
+            estimates.append((10, f"按小规模多点组网预估 10M（{inferred_reason}）"))
+        elif nodes <= 6:
+            estimates.append((20, f"按中等规模多点组网预估 20M（{inferred_reason}）"))
+        else:
+            estimates.append((30, f"按较多站点组网预估 30M（{inferred_reason}）"))
 
     if user_count:
         if user_count <= 20:
-            return 10, "未给明确带宽，按用户规模预估 10M"
-        if user_count <= 50:
-            return 20, "未给明确带宽，按用户规模预估 20M"
-        return 30, "未给明确带宽，按用户规模预估 30M"
+            estimates.append((10, "按用户规模预估 10M"))
+        elif user_count <= 50:
+            estimates.append((20, "按用户规模预估 20M"))
+        else:
+            estimates.append((30, "按用户规模预估 30M"))
+
+    if estimates:
+        bandwidth, reason = max(estimates, key=lambda item: item[0])
+        return bandwidth, "未给明确带宽，" + reason
 
     return None, None
+
+
+def _parse_site_count_from_query(query: str) -> int | None:
+    query_norm = normalize_text(query)
+    numerals = {
+        "一": 1,
+        "二": 2,
+        "两": 2,
+        "三": 3,
+        "四": 4,
+        "五": 5,
+        "六": 6,
+        "七": 7,
+        "八": 8,
+        "九": 9,
+        "十": 10,
+    }
+    match = re.search(r"(\d+|[一二两三四五六七八九十])个?(?:办公室|办公点|站点|网点|门店|分公司|城市)", query_norm)
+    if not match:
+        return None
+    value = match.group(1)
+    return int(value) if value.isdigit() else numerals.get(value)
 
 
 def _resolve_node_count(parsed: dict[str, Any]) -> tuple[int, str]:
@@ -77,6 +107,14 @@ def _resolve_node_count(parsed: dict[str, Any]) -> tuple[int, str]:
         return max(1, int(site_count)), "按客户明确站点数核算"
     if branch_count:
         return max(1, int(branch_count) + 1), "按分支数 + 总部估算节点数"
+    parsed_site_count = _parse_site_count_from_query(parsed.get("raw_query", ""))
+    if parsed_site_count:
+        return max(1, parsed_site_count), "按需求文本中的办公点/站点数量核算"
+    locations = parsed.get("locations") or []
+    location_count = len({item.get("label") for item in locations if item.get("label")})
+    query_norm = normalize_text(parsed.get("raw_query"))
+    if location_count >= 2 and any(term in query_norm for term in ("组网", "互联", "办公室", "办公点", "站点")):
+        return location_count, "按需求中出现的多个办公地点估算节点数"
     query_norm = normalize_text(parsed.get("raw_query"))
     if any(term in query_norm for term in ("总部", "总公司")) and any(
         term in query_norm for term in ("分公司", "分支", "门店", "办公室")
@@ -124,6 +162,15 @@ def _build_pricing_input(
         "quantity": node_count,
         "unit": product.get("unit"),
         "unit_price": base_price,
+        "price_source": {
+            "product_id": product.get("product_id"),
+            "source_product_no": product.get("source_product_no"),
+            "product_name": product.get("product_name"),
+            "spec_text": product.get("spec_text"),
+            "billing_cycle": product.get("billing_cycle"),
+            "sale_price": base_price,
+            "currency": product.get("price_currency", "CNY"),
+        },
         "setup_fee": product.get("setup_fee") or 0,
         "discount_rule": selected_discount_rule,
         "discount_options": [_discount_rule(option) for option in product.get("discount_options", [])],
@@ -158,7 +205,8 @@ def _build_package_quote(
     budget = parsed.get("budget") or {}
     budget_upper = budget.get("upper_cny")
     unit_price = product.get("annual_price") or product.get("sale_price")
-    budget_fit = budget_upper is None or unit_price is None or _number(unit_price) <= budget_upper
+    list_total = _number(unit_price) * node_count if unit_price is not None else None
+    budget_fit = budget_upper is None or list_total is None or list_total <= budget_upper
     meets_bandwidth = required_bandwidth is None or (bandwidth is not None and bandwidth >= required_bandwidth)
 
     score = 0
@@ -185,6 +233,7 @@ def _build_package_quote(
         "billing_cycle": product.get("billing_cycle"),
         "unit": product.get("unit"),
         "annual_price": product.get("annual_price") or product.get("sale_price"),
+        "list_total": list_total,
         "node_count": node_count,
         "discount_options": discount_options,
         "selected_discount": selected_discount_rule,
@@ -210,7 +259,7 @@ def _build_advantages(
     elif bandwidth is not None and bandwidth >= required_bandwidth:
         advantages.append(f"带宽不低于需求 {required_bandwidth}M")
     if budget_fit:
-        advantages.append("单节点标价在预算内，最终总价待 calculator 确认")
+        advantages.append("按节点数计算的标价总额在预算内，最终总价待 calculator 确认")
     if selected_discount:
         advantages.append(f"可向 calculator 传入{selected_discount.get('label')}授权规则")
     return advantages
@@ -225,7 +274,7 @@ def _build_tradeoffs(
     if required_bandwidth is not None and bandwidth is not None and bandwidth < required_bandwidth:
         tradeoffs.append(f"带宽低于需求 {required_bandwidth}M")
     if not budget_fit:
-        tradeoffs.append("单节点标价超出当前预算，最终总价待 calculator 确认")
+        tradeoffs.append("按节点数计算的标价总额超出当前预算，最终折后总价待 calculator 确认")
     if required_bandwidth is not None and bandwidth is not None and bandwidth > required_bandwidth:
         tradeoffs.append("配置高于当前需求，成本更高但预留增长空间")
     return tradeoffs
@@ -402,7 +451,7 @@ def render_sd_wan_quote_response(response: dict[str, Any]) -> str:
         f"已生成 pricing_input，折扣与总价待 calculator 确认。"
     )
     if not recommendation.get("budget_fit"):
-        lines.append("预算提示：单节点标价已超预算，节点总价与折扣后价格以 calculator 确认结果为准。")
+        lines.append("预算提示：按节点数计算的标价总额已超预算，折扣后价格以 calculator 确认结果为准。")
 
     lines.append("")
     lines.append("套餐对比：")

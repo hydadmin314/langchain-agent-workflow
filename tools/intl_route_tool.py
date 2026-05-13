@@ -314,6 +314,15 @@ def build_candidate(
             "product_id": product.get("product_id"),
             "product_name": product.get("product_name"),
             "base_price": sale_price,
+            "price_source": {
+                "product_id": product.get("product_id"),
+                "source_product_no": product.get("source_product_no"),
+                "product_name": product.get("product_name"),
+                "spec_text": product.get("spec_text"),
+                "billing_cycle": product.get("billing_cycle"),
+                "sale_price": sale_price,
+                "currency": product.get("price_currency", "CNY"),
+            },
             "price_basis": product.get("price_basis"),
             "billing_cycle": product.get("billing_cycle"),
             "unit": product.get("unit"),
@@ -381,6 +390,10 @@ def build_intl_route_response(query: str) -> dict[str, Any]:
         build_candidate(role_code, role_name, product, parsed, bandwidth_plan)
         for role_code, role_name, product in selected_products
     ]
+    recommendation = next(
+        (candidate for candidate in candidates if candidate.get("role_code") == "recommended"),
+        candidates[0] if candidates else None,
+    )
 
     follow_up_questions = build_follow_up_questions(parsed, bandwidth_plan)
     module_hit = any(item.get("module_key") == MODULE_KEY for item in rule_result.get("routed_modules", []))
@@ -407,6 +420,12 @@ def build_intl_route_response(query: str) -> dict[str, Any]:
         "scenario_context": build_context_summary(parsed),
         "bandwidth_plan": bandwidth_plan,
         "available_bandwidths": available_bandwidths,
+        "summary": {
+            "candidate_count": len(candidates),
+            "recommended_product_id": recommendation.get("product_id") if recommendation else None,
+            "recommended_pricing_input": recommendation.get("pricing_input") if recommendation else None,
+        },
+        "recommendation": recommendation,
         "candidates": candidates,
         "follow_up_questions": follow_up_questions,
         "ready_for_comparison": len(candidates) >= 2,

@@ -79,8 +79,8 @@ def _load_isp_products() -> list[dict[str, Any]]:
     )
 
 
-def _build_setup_fee_lookup() -> dict[tuple[str, str], float]:
-    lookup: dict[tuple[str, str], float] = {}
+def _build_setup_fee_lookup() -> dict[tuple[str, str], dict[str, Any]]:
+    lookup: dict[tuple[str, str], dict[str, Any]] = {}
     for product in load_flat_products():
         if product.get("category") != ISP_CATEGORY:
             continue
@@ -90,7 +90,17 @@ def _build_setup_fee_lookup() -> dict[tuple[str, str], float]:
         billing_cycle = display_text(product.get("billing_cycle"), "")
         if not billing_cycle:
             continue
-        lookup[(display_text(product.get("product_name")), billing_cycle)] = _number(product.get("sale_price"))
+        lookup[(display_text(product.get("product_name")), billing_cycle)] = {
+            "amount": _number(product.get("sale_price")),
+            "product_id": product.get("product_id"),
+            "source_product_no": product.get("source_product_no"),
+            "product_name": product.get("product_name"),
+            "spec_text": product.get("spec_text"),
+            "spec_detail": product.get("spec_detail"),
+            "billing_cycle": product.get("billing_cycle"),
+            "sale_price": product.get("sale_price"),
+            "currency": product.get("price_currency", "CNY"),
+        }
     return lookup
 
 
@@ -150,7 +160,37 @@ def _ip_capacity(product: dict[str, Any]) -> int:
     return max(numbers) if numbers else 0
 
 
-def _build_pricing_input(product: dict[str, Any], setup_fee: float) -> dict[str, Any]:
+def _ip_description(product: dict[str, Any]) -> str:
+    description = display_text(product.get("description"), "").strip()
+    return description if "ip" in description.lower() else ""
+
+
+def _setup_fee_amount(setup_fee_source: dict[str, Any] | None) -> float:
+    if not setup_fee_source:
+        return 0
+    return _number(setup_fee_source.get("amount"))
+
+
+def _source_label(source: dict[str, Any] | None) -> str:
+    if not source:
+        return ""
+    parts = []
+    if source.get("product_id"):
+        parts.append(str(source["product_id"]))
+    if source.get("source_product_no") is not None:
+        parts.append(f"source_product_no {source['source_product_no']}")
+    if source.get("spec_text"):
+        parts.append(display_text(source["spec_text"]))
+    if source.get("sale_price") is not None:
+        parts.append(_format_money(source["sale_price"]))
+    return "，".join(parts)
+
+
+def _build_pricing_input(
+    product: dict[str, Any],
+    setup_fee: float,
+    setup_fee_source: dict[str, Any] | None,
+) -> dict[str, Any]:
     return {
         "pricing_stage": "module_pricing_input",
         "calculator_required": True,
@@ -162,7 +202,17 @@ def _build_pricing_input(product: dict[str, Any], setup_fee: float) -> dict[str,
         "quantity": 1,
         "unit": product.get("unit"),
         "unit_price": product.get("sale_price"),
+        "price_source": {
+            "product_id": product.get("product_id"),
+            "source_product_no": product.get("source_product_no"),
+            "product_name": product.get("product_name"),
+            "spec_text": product.get("spec_text"),
+            "billing_cycle": product.get("billing_cycle"),
+            "sale_price": product.get("sale_price"),
+            "currency": product.get("price_currency", "CNY"),
+        },
         "setup_fee": setup_fee,
+        "setup_fee_source": setup_fee_source,
         "discount_rule": None,
         "note": "ISP 模块只提供套餐费、初装费和计费周期，首期与总价由 calculator 统一确认。",
     }
@@ -173,12 +223,13 @@ def _build_quote(
     parsed: dict[str, Any],
     required_bandwidth: int | None,
     line_preference: str | None,
-    setup_lookup: dict[tuple[str, str], float],
+    setup_lookup: dict[tuple[str, str], dict[str, Any]],
 ) -> dict[str, Any]:
     down_mbps, up_mbps = _extract_bandwidth_pair(product)
     billing_cycle = display_text(product.get("billing_cycle"))
-    setup_fee = setup_lookup.get((display_text(product.get("product_name")), billing_cycle), 0)
-    pricing_input = _build_pricing_input(product, setup_fee)
+    setup_fee_source = setup_lookup.get((display_text(product.get("product_name")), billing_cycle))
+    setup_fee = _setup_fee_amount(setup_fee_source)
+    pricing_input = _build_pricing_input(product, setup_fee, setup_fee_source)
     budget = parsed.get("budget") or {}
     budget_upper = budget.get("upper_cny")
     sale_price_reference = _number(product.get("sale_price"))
@@ -205,6 +256,8 @@ def _build_quote(
         score += 10
     if needs_ip and ip_count > 0:
         score += 25
+    elif needs_ip:
+        score -= 20
     if is_symmetric:
         score += 10
     if budget_fit:
@@ -232,6 +285,7 @@ def _build_quote(
         "billing_cycle": billing_cycle,
         "sale_price": product.get("sale_price"),
         "setup_fee": setup_fee,
+        "setup_fee_source": setup_fee_source,
         "pricing_input": pricing_input,
         "ip_count": ip_count,
         "description": product.get("description"),
@@ -266,8 +320,11 @@ def _build_advantages(
         advantages.append("线路类型匹配客户诉求")
     if down_mbps == up_mbps:
         advantages.append("上下行对称，适合专线和公网服务场景")
-    if needs_ip and _ip_capacity(product) > 0:
-        advantages.append(f"包含可用 IP 资源（约 {_ip_capacity(product)} 个）")
+    ip_description = _ip_description(product)
+    if needs_ip and ip_description:
+        advantages.append(f"产品表描述：{ip_description}")
+    elif needs_ip and _ip_capacity(product) > 0:
+        advantages.append(f"包含可用 IP 资源（按产品表提取 {_ip_capacity(product)} 个）")
     if budget_fit:
         advantages.append("按模块预估口径在预算内")
     return advantages
@@ -316,8 +373,8 @@ def build_isp_quote_response(query: str) -> dict[str, Any]:
     quotes.sort(
         key=lambda item: (
             not item["meets_bandwidth"],
-            not item["budget_fit"],
             -item["score"],
+            not item["budget_fit"],
             _number(item["sale_price"], float("inf")),
             item["max_bandwidth_mbps"],
             item["product_id"],
@@ -345,7 +402,7 @@ def build_isp_quote_response(query: str) -> dict[str, Any]:
             "recommended_pricing_input": recommendation.get("pricing_input") if recommendation else None,
         },
         "recommendation": recommendation,
-        "compare_items": _select_compare_items(quotes, recommendation),
+        "compare_items": _select_compare_items(quotes, recommendation, required_bandwidth, line_preference),
         "all_quotes": quotes,
     }
 
@@ -353,39 +410,88 @@ def build_isp_quote_response(query: str) -> dict[str, Any]:
 def _select_compare_items(
     quotes: list[dict[str, Any]],
     recommendation: dict[str, Any] | None,
+    required_bandwidth: int | None = None,
+    line_preference: str | None = None,
 ) -> list[dict[str, Any]]:
     if not quotes:
         return []
     selected = []
     seen_ids = set()
 
-    cheaper = None
-    if recommendation:
-        cheaper_candidates = [
-            item for item in quotes if _number(item["sale_price"]) < _number(recommendation["sale_price"])
-        ]
-        cheaper = max(cheaper_candidates, key=lambda item: _number(item["sale_price"]), default=None)
+    def add_items(items: list[dict[str, Any]]) -> None:
+        for item in items:
+            if not item or item["product_id"] in seen_ids:
+                continue
+            selected.append(item)
+            seen_ids.add(item["product_id"])
+            if len(selected) >= DEFAULT_COMPARE_LIMIT:
+                return
 
-    higher = None
-    if recommendation:
-        higher_candidates = [
-            item for item in quotes if item["max_bandwidth_mbps"] > recommendation["max_bandwidth_mbps"]
-        ]
-        higher = min(higher_candidates, key=lambda item: item["max_bandwidth_mbps"], default=None)
+    def compare_sort_key(item: dict[str, Any]) -> tuple[Any, ...]:
+        bandwidth = item.get("comparable_bandwidth_mbps") or item.get("max_bandwidth_mbps") or 0
+        bandwidth_distance = 0 if required_bandwidth is None else abs(bandwidth - required_bandwidth)
+        same_line = bool(line_preference and item.get("line_kind") == line_preference)
+        return (
+            not item.get("meets_bandwidth"),
+            not same_line,
+            bandwidth_distance,
+            not item.get("budget_fit"),
+            _number(item.get("sale_price"), float("inf")),
+            item.get("product_id"),
+        )
 
-    cheapest_fit = min(
-        (item for item in quotes if item.get("budget_fit")),
-        key=lambda item: _number(item["sale_price"]),
-        default=None,
+    add_items([recommendation] if recommendation else [])
+    if len(selected) >= DEFAULT_COMPARE_LIMIT:
+        return selected
+
+    same_product = []
+    if recommendation:
+        same_product = [
+            item
+            for item in quotes
+            if item.get("product_name") == recommendation.get("product_name")
+            and item.get("meets_bandwidth")
+            and (
+                required_bandwidth is None
+                or item.get("comparable_bandwidth_mbps") == required_bandwidth
+            )
+        ]
+    add_items(sorted(same_product, key=compare_sort_key))
+    if len(selected) >= DEFAULT_COMPARE_LIMIT:
+        return selected
+
+    same_line_meeting = [
+        item
+        for item in quotes
+        if item.get("meets_bandwidth")
+        and (not line_preference or item.get("line_kind") == line_preference)
+    ]
+    add_items(sorted(same_line_meeting, key=compare_sort_key))
+    if len(selected) >= DEFAULT_COMPARE_LIMIT:
+        return selected
+
+    meeting_budget = [item for item in quotes if item.get("meets_bandwidth") and item.get("budget_fit")]
+    add_items(sorted(meeting_budget, key=compare_sort_key))
+    if len(selected) >= DEFAULT_COMPARE_LIMIT:
+        return selected
+
+    meeting_any = [item for item in quotes if item.get("meets_bandwidth")]
+    add_items(sorted(meeting_any, key=compare_sort_key))
+    if len(selected) >= DEFAULT_COMPARE_LIMIT:
+        return selected
+
+    # Only fall back to lower-spec products when the catalog has too few items that satisfy the hard bandwidth requirement.
+    below_requirement = [
+        item for item in quotes if required_bandwidth is not None and not item.get("meets_bandwidth")
+    ]
+    below_requirement.sort(
+        key=lambda item: (
+            -(item.get("comparable_bandwidth_mbps") or item.get("max_bandwidth_mbps") or 0),
+            _number(item.get("sale_price"), float("inf")),
+            item.get("product_id"),
+        )
     )
-
-    for item in [recommendation, cheaper, higher, cheapest_fit, *quotes]:
-        if not item or item["product_id"] in seen_ids:
-            continue
-        selected.append(item)
-        seen_ids.add(item["product_id"])
-        if len(selected) >= DEFAULT_COMPARE_LIMIT:
-            break
+    add_items(below_requirement)
     return selected
 
 
@@ -435,13 +541,22 @@ def render_isp_quote_response(response: dict[str, Any]) -> str:
         f"初装费 {_format_money(recommendation.get('setup_fee'))}，"
         f"已生成 pricing_input，首期与总价待 calculator 确认。"
     )
+    setup_source = _source_label(recommendation.get("setup_fee_source"))
+    if setup_source:
+        lines.append(f"费用来源：初装费来自产品表 {setup_source}。")
     if not recommendation.get("budget_fit"):
         lines.append("预算提示：按模块预估口径可能超出预算，最终以 calculator 确认结果为准。")
 
     lines.append("")
     lines.append("套餐对比：")
     for quote in response.get("compare_items", []):
-        ip_text = f"，可用 IP 约 {quote['ip_count']} 个" if quote.get("ip_count") else ""
+        ip_description = display_text(quote.get("description"), "").strip()
+        if "ip" in ip_description.lower():
+            ip_text = f"，产品表描述：{ip_description}"
+        elif quote.get("ip_count"):
+            ip_text = f"，可用 IP 按产品表提取 {quote['ip_count']} 个"
+        else:
+            ip_text = ""
         symmetry = "上下行对称" if quote.get("is_symmetric") else "上下行不对称"
         lines.append(
             f"- {display_text(quote.get('product_name'))} {display_text(quote.get('spec_text'))}："
@@ -449,6 +564,9 @@ def render_isp_quote_response(response: dict[str, Any]) -> str:
             f"初装费 {_format_money(quote.get('setup_fee'))}，pricing_input 待 calculator 确认，"
             f"{symmetry}{ip_text}。"
         )
+        quote_setup_source = _source_label(quote.get("setup_fee_source"))
+        if quote_setup_source:
+            lines.append(f"  费用来源：初装费来自产品表 {quote_setup_source}")
         if quote.get("advantages"):
             lines.append("  优势：" + "；".join(quote["advantages"]))
         if quote.get("tradeoffs"):

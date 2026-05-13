@@ -1,4 +1,5 @@
 import json
+import re
 from typing import Any
 
 from langchain.tools import tool
@@ -16,6 +17,15 @@ SUPPORTED_MODULES = {
     "intl_route_optimization": "国际路由优化",
     "isp_private_line": "ISP 专线",
 }
+DERIVED_QUERY_MARKERS = (
+    "候选方案",
+    "推荐核算方案",
+    "低带宽备选方案",
+    "扩容备选方案",
+    "候选明细",
+    "标价口径",
+    "pricing_input",
+)
 
 
 def _number(value: Any, default: float = 0) -> float:
@@ -34,6 +44,45 @@ def _format_money(value: Any) -> str:
     if amount.is_integer():
         return f"{int(amount)} 元"
     return f"{amount:.2f} 元"
+
+
+def _looks_like_derived_tool_output(query: str) -> bool:
+    if not query:
+        return False
+    has_marker = any(marker in query for marker in DERIVED_QUERY_MARKERS)
+    has_product_id = bool(re.search(r"(intl_route_optimization|sd_wan|isp)-\d+", query))
+    return has_marker and has_product_id
+
+
+def _source_label(source: dict[str, Any] | None) -> str:
+    if not source:
+        return ""
+    parts = []
+    if source.get("product_id"):
+        parts.append(str(source["product_id"]))
+    if source.get("source_product_no") is not None:
+        parts.append(f"source_product_no {source['source_product_no']}")
+    if source.get("spec_text"):
+        parts.append(display_text(source["spec_text"]))
+    if source.get("sale_price") is not None:
+        parts.append(_format_money(source["sale_price"]))
+    return "，".join(parts)
+
+
+def _discount_rule_label(rule: dict[str, Any] | None) -> str:
+    if not rule:
+        return ""
+    parts = []
+    if rule.get("rule_code"):
+        parts.append(str(rule["rule_code"]))
+    if rule.get("label"):
+        parts.append(display_text(rule["label"]))
+    if rule.get("discount_rate") is not None:
+        rate = _number(rule.get("discount_rate"), 1)
+        parts.append(f"{rate * 10:g} 折")
+    if rule.get("base_field"):
+        parts.append(f"基于 {display_text(rule['base_field'])}")
+    return "，".join(parts)
 
 
 def _normalize_label(value: Any) -> str:
@@ -144,6 +193,7 @@ def calculate_pricing_input(
         "quantity": quantity,
         "unit": pricing_input.get("unit"),
         "unit_price": unit_price,
+        "price_source": pricing_input.get("price_source"),
         "original_subtotal": original_subtotal,
         "discount_rule": discount_rule,
         "discount_rate": discount_rate,
@@ -152,6 +202,7 @@ def calculate_pricing_input(
         "discounted_unit_price": discounted_unit_price,
         "discounted_subtotal": discounted_subtotal,
         "setup_fee": setup_fee,
+        "setup_fee_source": pricing_input.get("setup_fee_source"),
         "setup_total": setup_total,
         "payable_total": payable_total,
         "budget_upper": budget_upper,
@@ -271,6 +322,20 @@ def render_calculator_response(response: dict[str, Any]) -> str:
             f"应付合计 {_format_money(item.get('payable_total'))}{budget_text}"
         )
         lines.append(f"   规则说明：{item.get('discount_reason')}")
+        price_source = _source_label(item.get("price_source"))
+        setup_source = _source_label(item.get("setup_fee_source"))
+        source_lines = []
+        if price_source:
+            source_lines.append(f"套餐价来自产品表 {price_source}")
+        if setup_source:
+            source_lines.append(f"初装/调试费来自产品表 {setup_source}")
+        elif item.get("setup_total"):
+            source_lines.append("初装/调试费未携带来源，请回查产品模块输出")
+        discount_source = _discount_rule_label(item.get("discount_rule"))
+        if discount_source:
+            source_lines.append(f"折扣规则来自产品数据 {discount_source}")
+        if source_lines:
+            lines.append("   费用来源：" + "；".join(source_lines))
 
     return "\n".join(lines)
 
@@ -283,6 +348,12 @@ def calculator(query: str) -> str:
     - SD-WAN：ICT 签约 8 折，直签 7 折；未指定签约方式时不自动套折扣。
     - 国际路由优化：只有年付套餐享受年付 95 折，月付不享受。
     - ISP 专线：按套餐费 + 初装费核算，当前不套折扣。
+    输入必须是客户原始需求，不要传入其他工具输出、候选方案摘要或改写后的产品清单。
     """
+    if _looks_like_derived_tool_output(query):
+        return (
+            "Calculator 输入错误：请传入客户原始需求，不要传入候选方案摘要或其他工具输出。"
+            "例如传入“客户北京上海广州三个办公室要组网，大概30个人用，想年付，ICT签约，预算10万以内”。"
+        )
     response = build_calculator_response(query)
     return render_calculator_response(response)
