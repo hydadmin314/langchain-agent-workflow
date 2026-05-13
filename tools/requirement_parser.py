@@ -322,10 +322,19 @@ def extract_feature_keywords(query_norm: str) -> list[str]:
 def extract_spec_requirements(query: str) -> dict[str, Any]:
     bandwidth_terms = []
     bandwidth_mbps = []
+
+    def add_bandwidth(raw_value: str) -> None:
+        value = float(raw_value)
+        normalized_value = int(value) if value.is_integer() else value
+        bandwidth_terms.append(f"{raw_value}M")
+        bandwidth_mbps.append(normalized_value)
+
     for match in re.finditer(r"(\d+(?:\.\d+)?)\s*M(?![A-Za-z])", query, re.IGNORECASE):
-        value = float(match.group(1))
-        bandwidth_terms.append(f"{match.group(1)}M")
-        bandwidth_mbps.append(int(value) if value.is_integer() else value)
+        add_bandwidth(match.group(1))
+    for match in re.finditer(r"(\d+(?:\.\d+)?)\s*兆(?:宽带|带宽)?", query, re.IGNORECASE):
+        add_bandwidth(match.group(1))
+    for match in re.finditer(r"(\d+(?:\.\d+)?)\s*(?:宽带|带宽)", query, re.IGNORECASE):
+        add_bandwidth(match.group(1))
 
     port_count = None
     port_match = re.search(r"(\d+)\s*口", query)

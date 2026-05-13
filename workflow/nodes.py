@@ -1,3 +1,5 @@
+import re
+
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
 from langgraph.graph import END
 from langgraph.prebuilt import ToolNode
@@ -8,6 +10,7 @@ from tools.generator_tool import (
     render_quote_sheet_response,
     render_recommendation_response,
 )
+from tools.requirement_parser import parse_requirement_payload
 from tools.tool_list import ALL_TOOLS
 from workflow.state import AgentState
 
@@ -51,6 +54,8 @@ def _is_generator_request(text: str | None) -> bool:
         return False
     terms = (
         "生成报价单",
+        "生成报价",
+        "生成方案",
         "生成方案书",
         "生成报价说明",
         "正式报价",
@@ -58,6 +63,8 @@ def _is_generator_request(text: str | None) -> bool:
         "方案书",
         "报价说明",
         "最终输出",
+        "出一份方案",
+        "出方案",
         "出一份报价",
         "出报价",
     )
@@ -82,14 +89,82 @@ def _is_quote_sheet_request(text: str | None) -> bool:
 
 
 def _latest_business_query(state: AgentState) -> str | None:
-    for message in reversed(state["messages"]):
+    return _resolved_business_query(state) or _latest_human_query(state)
+
+
+def _has_sales_modifier(text: str) -> bool:
+    if re.search(r"\d+(?:\.\d+)?\s*(?:m|M|兆|宽带|带宽)", text):
+        return True
+    terms = (
+        "预算",
+        "一年",
+        "一个月",
+        "试用",
+        "先试",
+        "年付",
+        "月付",
+        "直签",
+        "ict",
+        "折扣",
+        "优惠",
+        "带宽",
+        "宽带",
+        "兆",
+    )
+    return any(term in text for term in terms)
+
+
+def _has_standalone_scene(text: str) -> bool:
+    parsed = parse_requirement_payload(text)
+    return bool(
+        parsed.get("scenarios")
+        or parsed.get("target_categories")
+        or parsed.get("explicit_categories")
+        or parsed.get("model_keywords")
+    )
+
+
+def _starts_new_requirement(text: str) -> bool:
+    terms = (
+        "另一个客户",
+        "另外一个客户",
+        "新客户",
+        "新需求",
+        "重新",
+        "换一个",
+        "再来一个",
+    )
+    return any(term in text for term in terms)
+
+
+def _is_context_follow_up(text: str, previous_query: str | None) -> bool:
+    if not previous_query or _is_generator_request(text):
+        return False
+    stripped = text.strip()
+    if not stripped or _starts_new_requirement(stripped) or not _has_sales_modifier(stripped):
+        return False
+    if len(stripped) <= 24:
+        return True
+    return not _has_standalone_scene(stripped)
+
+
+def _merge_business_query(previous_query: str, follow_up: str) -> str:
+    return f"{previous_query}；补充条件：{follow_up}"
+
+
+def _resolved_business_query(state: AgentState) -> str | None:
+    resolved: str | None = None
+    for message in state["messages"]:
         if not isinstance(message, HumanMessage):
             continue
-        content = str(message.content)
-        if _is_generator_request(content):
+        content = str(message.content).strip()
+        if not content or _is_generator_request(content):
             continue
-        return content
-    return _latest_human_query(state)
+        if _is_context_follow_up(content, resolved):
+            resolved = _merge_business_query(resolved or "", content)
+        else:
+            resolved = content
+    return resolved
 
 
 def _tool_names(state: AgentState) -> set[str]:
@@ -112,11 +187,17 @@ def agent_think_node(state: AgentState) -> AgentState:
                 else:
                     content = render_quote_proposal_response(response)
                 return {"messages": [AIMessage(content=content)]}
+        if isinstance(last_msg, HumanMessage):
+            latest_query = str(last_msg.content)
+            resolved_query = _resolved_business_query(state)
+            if resolved_query and resolved_query != latest_query:
+                response = build_quote_proposal_response(resolved_query)
+                return {"messages": [AIMessage(content=render_recommendation_response(response))]}
         if isinstance(last_msg, ToolMessage) and last_msg.name in {"generate_quote_proposal", "generate_quote_sheet"}:
             return {"messages": [AIMessage(content=last_msg.content)]}
         if isinstance(last_msg, ToolMessage) and last_msg.name == "retrieve_sales_context":
             names = _tool_names(state)
-            query = _latest_human_query(state)
+            query = _resolved_business_query(state) or _latest_human_query(state)
             if query and "calculator" in names:
                 response = build_quote_proposal_response(query)
                 if _is_generator_request(query):

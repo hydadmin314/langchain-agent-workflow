@@ -171,6 +171,28 @@ def _setup_fee_amount(setup_fee_source: dict[str, Any] | None) -> float:
     return _number(setup_fee_source.get("amount"))
 
 
+def _ranking_bandwidth(
+    down_mbps: int | None,
+    up_mbps: int | None,
+    required_bandwidth: int | None,
+    needs_dedicated_quality: bool,
+) -> int | None:
+    values = [value for value in (down_mbps, up_mbps) if value is not None]
+    if not values:
+        return None
+    if needs_dedicated_quality:
+        return min(values)
+    if required_bandwidth is None:
+        return max(values)
+    return min(values, key=lambda value: (abs(value - required_bandwidth), value))
+
+
+def _bandwidth_distance(ranking_bandwidth: int | None, required_bandwidth: int | None) -> int:
+    if ranking_bandwidth is None or required_bandwidth is None:
+        return 0
+    return abs(ranking_bandwidth - required_bandwidth)
+
+
 def _source_label(source: dict[str, Any] | None) -> str:
     if not source:
         return ""
@@ -234,15 +256,20 @@ def _build_quote(
     budget_upper = budget.get("upper_cny")
     sale_price_reference = _number(product.get("sale_price"))
     budget_fit = budget_upper is None or sale_price_reference <= budget_upper
+    budget_overrun = 0 if budget_fit or budget_upper is None else round(sale_price_reference - _number(budget_upper), 2)
     max_bandwidth = max(value for value in (down_mbps, up_mbps) if value is not None)
     min_bandwidth = min(value for value in (down_mbps, up_mbps) if value is not None)
     is_symmetric = down_mbps == up_mbps
     kind = _line_kind(product)
     ip_count = _ip_capacity(product)
+    has_ip_resource = ip_count > 0 or bool(_ip_description(product))
     network = parsed.get("network_requirements", {})
     needs_ip = network.get("requires_public_ip") or network.get("requires_fixed_ip")
+    ip_requirement_fit = not needs_ip or has_ip_resource
     needs_dedicated_quality = bool(needs_ip or network.get("requires_dedicated_line") or line_preference in {"domestic_premium", "international_premium"})
     comparable_bandwidth = min_bandwidth if needs_dedicated_quality else max_bandwidth
+    ranking_bandwidth = _ranking_bandwidth(down_mbps, up_mbps, required_bandwidth, needs_dedicated_quality)
+    bandwidth_distance = _bandwidth_distance(ranking_bandwidth, required_bandwidth)
     meets_bandwidth = required_bandwidth is None or comparable_bandwidth >= required_bandwidth
 
     score = 0
@@ -267,8 +294,13 @@ def _build_quote(
     requested_cycles = parsed.get("billing_cycles") or []
     if requested_cycles and billing_cycle in requested_cycles:
         score += 15
-    if required_bandwidth is not None and max_bandwidth == required_bandwidth:
-        score += 10
+    if required_bandwidth is not None:
+        if bandwidth_distance == 0:
+            score += 25
+        elif ranking_bandwidth is not None and ranking_bandwidth > required_bandwidth:
+            score -= min(30, bandwidth_distance // 10)
+        else:
+            score -= min(20, bandwidth_distance // 5)
     score -= int(sale_price_reference // 10000)
 
     return {
@@ -281,6 +313,8 @@ def _build_quote(
         "max_bandwidth_mbps": max_bandwidth,
         "min_bandwidth_mbps": min_bandwidth,
         "comparable_bandwidth_mbps": comparable_bandwidth,
+        "ranking_bandwidth_mbps": ranking_bandwidth,
+        "bandwidth_distance_mbps": bandwidth_distance,
         "is_symmetric": is_symmetric,
         "billing_cycle": billing_cycle,
         "sale_price": product.get("sale_price"),
@@ -292,6 +326,8 @@ def _build_quote(
         "meets_bandwidth": meets_bandwidth,
         "budget_fit_on_list_price": budget_fit,
         "budget_fit": budget_fit,
+        "budget_overrun": budget_overrun,
+        "ip_requirement_fit": ip_requirement_fit,
         "score": score,
         "advantages": _build_advantages(product, required_bandwidth, line_preference, needs_ip, budget_fit),
         "tradeoffs": _build_tradeoffs(product, required_bandwidth, line_preference, needs_ip, budget_fit),
@@ -370,16 +406,29 @@ def build_isp_quote_response(query: str) -> dict[str, Any]:
     if requested_cycles:
         quotes = [quote for quote in quotes if quote["billing_cycle"] in requested_cycles] or quotes
 
-    quotes.sort(
-        key=lambda item: (
+    def recommendation_sort_key(item: dict[str, Any]) -> tuple[Any, ...]:
+        same_line_penalty = 0
+        if line_preference:
+            if item.get("line_kind") == line_preference:
+                same_line_penalty = 0
+            elif item.get("line_kind") in {"domestic_premium", "international_premium"}:
+                same_line_penalty = 1
+            else:
+                same_line_penalty = 2
+        return (
             not item["meets_bandwidth"],
-            -item["score"],
+            not item.get("ip_requirement_fit", True),
             not item["budget_fit"],
+            item.get("budget_overrun", 0),
+            same_line_penalty,
+            item.get("bandwidth_distance_mbps", 0) if required_bandwidth is not None else 0,
             _number(item["sale_price"], float("inf")),
+            -item["score"],
             item["max_bandwidth_mbps"],
             item["product_id"],
         )
-    )
+
+    quotes.sort(key=recommendation_sort_key)
     recommendation = quotes[0] if quotes else None
     return {
         "raw_query": query,
@@ -429,11 +478,15 @@ def _select_compare_items(
 
     def compare_sort_key(item: dict[str, Any]) -> tuple[Any, ...]:
         bandwidth = item.get("comparable_bandwidth_mbps") or item.get("max_bandwidth_mbps") or 0
-        bandwidth_distance = 0 if required_bandwidth is None else abs(bandwidth - required_bandwidth)
+        bandwidth_distance = item.get("bandwidth_distance_mbps")
+        if bandwidth_distance is None:
+            bandwidth_distance = 0 if required_bandwidth is None else abs(bandwidth - required_bandwidth)
         same_line = bool(line_preference and item.get("line_kind") == line_preference)
         return (
             not item.get("meets_bandwidth"),
+            not item.get("ip_requirement_fit", True),
             not same_line,
+            item.get("budget_overrun", 0),
             bandwidth_distance,
             not item.get("budget_fit"),
             _number(item.get("sale_price"), float("inf")),
@@ -453,7 +506,7 @@ def _select_compare_items(
             and item.get("meets_bandwidth")
             and (
                 required_bandwidth is None
-                or item.get("comparable_bandwidth_mbps") == required_bandwidth
+                or item.get("bandwidth_distance_mbps") == 0
             )
         ]
     add_items(sorted(same_product, key=compare_sort_key))
