@@ -1,5 +1,6 @@
 import json
 import re
+from datetime import date
 from typing import Any
 
 from langchain.tools import tool
@@ -75,6 +76,10 @@ def _budget_line(item: dict[str, Any]) -> str:
     if item.get("budget_fit"):
         return f"预算内，余量 {_format_money(item.get('budget_delta'))}"
     return f"超预算 {_format_money(abs(item.get('budget_delta') or 0))}"
+
+
+def _tax_text() -> str:
+    return "待财务确认"
 
 
 def _requirement_summary(parsed: dict[str, Any], module_name: str | None) -> list[str]:
@@ -211,6 +216,181 @@ def render_quote_proposal_response(response: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def _quote_line_items(recommended: dict[str, Any], compare_item: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+    spec_text = display_text((compare_item or {}).get("spec_text"), display_text(recommended.get("billing_cycle")))
+    items = [
+        {
+            "product_or_service": display_text(recommended.get("product_name"), display_text(recommended.get("product_id"))),
+            "brand": "待填写",
+            "spec_model": f"{spec_text}，{display_text(recommended.get('product_id'))}",
+            "unit": display_text(recommended.get("unit"), "项"),
+            "quantity": recommended.get("quantity"),
+            "unit_price": recommended.get("discounted_unit_price"),
+            "amount": recommended.get("discounted_subtotal"),
+            "note": recommended.get("discount_reason"),
+        }
+    ]
+    if _number(recommended.get("setup_total")) > 0:
+        items.append(
+            {
+                "product_or_service": "初装/调试费",
+                "brand": "待填写",
+                "spec_model": display_text(recommended.get("product_id")),
+                "unit": "项",
+                "quantity": recommended.get("quantity"),
+                "unit_price": recommended.get("setup_fee"),
+                "amount": recommended.get("setup_total"),
+                "note": "按产品表初装/调试费来源核算",
+            }
+        )
+    return items
+
+
+def render_quote_sheet_response(response: dict[str, Any]) -> str:
+    parsed = response["parsed_requirements"]
+    calculator = response["calculator"]
+    rag = response["rag"]
+    recommended = response.get("recommended_pricing")
+    recommended_compare = response.get("recommended_compare") or {}
+
+    lines = ["报价单模板数据"]
+    lines.append("以下字段按 data/raw/报价单模板.xlsx 的结构整理；空缺项请销售填写。")
+    lines.append("")
+    lines.append("一、报价单基础信息")
+    lines.append(f"- 报价单编号：待填写")
+    lines.append(f"- 报价日期：{date.today().isoformat()}")
+    lines.append("- 报价单位：待填写")
+    lines.append("- 客户名称：待填写")
+    lines.append("- 报价方联系人 / 固定电话 / 手机 / E-mail：待填写")
+    lines.append("- 客户方联系人 / 固定电话 / 手机 / E-mail：待填写")
+    lines.append("- 报价方地址：上海市杨浦区国霞路259号绿地新江湾大厦1号楼323室")
+    lines.append("- 客户地址：待填写")
+    lines.append("- 币种：中国，人民币")
+
+    if not recommended:
+        lines.append("")
+        lines.append("当前未找到可报价明细，请补充客户场景、产品线或预算信息后重试。")
+        return "\n".join(lines)
+
+    lines.append("")
+    lines.append("二、报价明细")
+    lines.append("| 序号 | 产品或服务 | 品牌 | 规格型号 | 单位 | 数量 | 单价(不含税) | 金额(不含税) | 税率 | 税额 | 价税合计 |")
+    lines.append("|---|---|---|---|---|---:|---:|---:|---|---|---|")
+    for index, item in enumerate(_quote_line_items(recommended, recommended_compare), start=1):
+        lines.append(
+            f"| {index} | {item['product_or_service']} | {item['brand']} | {item['spec_model']} | "
+            f"{item['unit']} | {item['quantity']} | {_format_money(item['unit_price'])} | "
+            f"{_format_money(item['amount'])} | {_tax_text()} | {_tax_text()} | {_tax_text()} |"
+        )
+
+    lines.append("")
+    lines.append("三、合计")
+    lines.append(f"- 金额小计（按产品表价格口径）：{_format_money(recommended.get('payable_total'))}")
+    lines.append("- 税率、税额、价税合计：产品数据未配置，需财务确认。")
+    if recommended.get("budget_upper") is not None:
+        lines.append(f"- 预算匹配：{_budget_line(recommended)}")
+
+    lines.append("")
+    lines.append("四、费用来源")
+    price_source = _source_label(recommended.get("price_source"))
+    setup_source = _source_label(recommended.get("setup_fee_source"))
+    if price_source:
+        lines.append(f"- 套餐价来源：产品表 {price_source}")
+    if setup_source:
+        lines.append(f"- 初装/调试费来源：产品表 {setup_source}")
+    lines.append(f"- 折扣/价格规则：{recommended.get('discount_reason')}")
+
+    lines.append("")
+    lines.append("五、服务条款（模板原文）")
+    lines.append("- 此报价单按客户需求报价，有效期为15天；")
+    lines.append("- 如客户补充需求重新拟定报价单，此报价单作废；")
+    lines.append("- 此报价单内硬件设备从发货之日起质保一年；")
+    lines.append("- 客户确认此报价后签订订单或合同，按订单或合同约定方式付款；")
+    lines.append("- 客户付款后发货，遇节假日顺延，发票随货提供。")
+
+    if rag.get("unsupported_claims"):
+        lines.append("")
+        lines.append("六、需销售确认")
+        lines.append("- SLA、开通周期、免费测试、巡检、赠品、IP 赠送、调试费减免、锁价等：产品数据未配置，需销售确认。")
+        lines.append("- 当前 RAG 知识库未配置，不能补充产品数据和工具结果之外的技术优势或服务承诺。")
+
+    lines.append("")
+    lines.append("原始需求备注")
+    lines.append(f"- {response['raw_query']}")
+    return "\n".join(lines)
+
+
+def render_recommendation_response(response: dict[str, Any]) -> str:
+    parsed = response["parsed_requirements"]
+    calculator = response["calculator"]
+    compare = response["compare"]
+    rag = response["rag"]
+    recommended = response.get("recommended_pricing")
+    recommended_compare = response.get("recommended_compare") or {}
+
+    lines = ["推荐与报价核算结果"]
+    lines.append("")
+    lines.append("客户需求摘要")
+    lines.extend(_requirement_summary(parsed, calculator.get("module_name")))
+
+    if not recommended:
+        lines.append("")
+        lines.append("当前未找到可报价方案，请补充客户场景、产品线或预算信息。")
+        return "\n".join(lines)
+
+    lines.append("")
+    lines.append("推荐方案")
+    lines.append(
+        f"{display_text(recommended.get('product_name'), display_text(recommended.get('product_id')))}"
+        f"（{recommended.get('product_id')}）"
+    )
+    if recommended_compare.get("spec_text"):
+        lines.append(f"- 规格：{display_text(recommended_compare.get('spec_text'))}")
+    lines.append(
+        f"- 计费：{display_text(recommended.get('billing_cycle'))}，数量 {recommended.get('quantity')}，"
+        f"单价 {_format_money(recommended.get('unit_price'))}/{display_text(recommended.get('unit'))}"
+    )
+    lines.append(f"- 应付合计：{_format_money(recommended.get('payable_total'))}（{_budget_line(recommended)}）")
+    lines.append(f"- 计价规则：{recommended.get('discount_reason')}")
+    if recommended_compare.get("advantages"):
+        lines.append("- 推荐依据：" + "；".join(display_text(value) for value in recommended_compare["advantages"]))
+    if recommended_compare.get("tradeoffs"):
+        lines.append("- 主要取舍：" + "；".join(display_text(value) for value in recommended_compare["tradeoffs"]))
+
+    lines.append("")
+    lines.append("候选方案对比")
+    for index, item in enumerate(calculator.get("pricing_results", []), start=1):
+        compare_item = _compare_item_by_id(compare, item.get("product_id")) or {}
+        spec = display_text(compare_item.get("spec_text"), "-")
+        lines.append(
+            f"{index}. {display_text(item.get('product_name'), display_text(item.get('product_id')))}"
+            f"（{item.get('product_id')}）：{spec}，应付 {_format_money(item.get('payable_total'))}，"
+            f"{_budget_line(item)}。"
+        )
+
+    lines.append("")
+    lines.append("边界说明")
+    price_source = _source_label(recommended.get("price_source"))
+    setup_source = _source_label(recommended.get("setup_fee_source"))
+    if price_source:
+        lines.append(f"- 套餐价来源：产品表 {price_source}")
+    if setup_source:
+        lines.append(f"- 初装/调试费来源：产品表 {setup_source}")
+    lines.append("- RAG 层当前未配置知识库，不补充产品数据和工具结果之外的技术优势或服务承诺。")
+
+    follow_up = compare.get("follow_up_questions") or parsed.get("follow_up_questions") or []
+    unsupported = rag.get("unsupported_claims") or []
+    if follow_up or unsupported:
+        lines.append("")
+        lines.append("需销售确认")
+        for question in follow_up:
+            lines.append(f"- {question}")
+        if unsupported:
+            lines.append("- SLA、开通周期、免费测试、巡检、赠品、IP 赠送、调试费减免、锁价等：产品数据未配置，需销售确认。")
+
+    return "\n".join(lines)
+
+
 @tool
 def generate_quote_proposal(query: str) -> str:
     """
@@ -225,6 +405,21 @@ def generate_quote_proposal(query: str) -> str:
         )
     response = build_quote_proposal_response(query)
     return render_quote_proposal_response(response)
+
+
+@tool
+def generate_quote_sheet(query: str) -> str:
+    """
+    Generator：按 data/raw/报价单模板.xlsx 的字段结构生成报价单模板数据。
+    输入必须是客户原始需求。本工具只生成销售可填写的报价单字段和报价明细，不生成方案书话术。
+    """
+    if _looks_like_derived_tool_output(query):
+        return (
+            "Generator 输入错误：请传入客户原始需求，不要传入候选方案摘要或其他工具输出。"
+            "例如传入“有个做游戏的客户，服务器在美国，上海办公室访问很慢，大概10个人用，想先试一个月，预算1万元以内”。"
+        )
+    response = build_quote_proposal_response(query)
+    return render_quote_sheet_response(response)
 
 
 @tool

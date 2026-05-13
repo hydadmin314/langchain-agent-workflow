@@ -1,6 +1,6 @@
 from tools.calc_tool import calculator
 from tools.compare_tool import compare_packages
-from tools.generator_tool import generate_quote_proposal
+from tools.generator_tool import generate_quote_proposal, generate_quote_sheet
 from tools.intl_route_tool import estimate_intl_route_optimization
 from tools.isp_tool import quote_isp_packages
 from tools.product_tool import query_products
@@ -14,6 +14,7 @@ ALL_TOOLS = [
     classify_sales_scene,
     compare_packages,
     generate_quote_proposal,
+    generate_quote_sheet,
     estimate_intl_route_optimization,
     quote_isp_packages,
     quote_sd_wan_packages,

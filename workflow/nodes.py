@@ -2,7 +2,12 @@ from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, Tool
 from langgraph.graph import END
 from langgraph.prebuilt import ToolNode
 from config.llm_config import get_llm
-from tools.generator_tool import build_quote_proposal_response, render_quote_proposal_response
+from tools.generator_tool import (
+    build_quote_proposal_response,
+    render_quote_proposal_response,
+    render_quote_sheet_response,
+    render_recommendation_response,
+)
 from tools.tool_list import ALL_TOOLS
 from workflow.state import AgentState
 
@@ -23,9 +28,10 @@ SYSTEM_PROMPT = (
     "技术参数、产品优势、销售话术依据、服务权益和交付承诺属于 RAG 层；报价或套餐推荐类回答在 Calculator 后、最终回答前必须调用 retrieve_sales_context。"
     "调用 retrieve_sales_context 时也必须使用客户原始需求。"
     "当 RAG 返回知识库未配置或没有依据时，不得补充任何额外技术优势或销售承诺，只能说明“产品数据未配置，需销售确认”。"
-    "Generator 是最终方案书/报价说明生成层；当用户请求套餐推荐、报价、方案书、报价说明或销售沟通输出时，优先直接调用 generate_quote_proposal。"
-    "generate_quote_proposal 会按 Intent Parser、Rule Engine、产品核算、Compare、Calculator、RAG、Generator 完整流程编排；不要手动串联工具后再自行重新组织未验证事实。"
-    "调用 generate_quote_proposal 时也必须使用客户原始需求。"
+    "Generator 是最终输出层；只有当用户明确要求生成报价单、方案书、报价说明、正式报价或最终输出时，才进入 Generator。"
+    "如果用户要报价单，必须使用 generate_quote_sheet 或按报价单模板字段输出；如果用户要方案书或报价说明，才使用 generate_quote_proposal。"
+    "generate_quote_sheet 和 generate_quote_proposal 都会按 Intent Parser、Rule Engine、产品核算、Compare、Calculator、RAG、Generator 完整流程编排；不要手动串联工具后再自行重新组织未验证事实。"
+    "调用 Generator 工具时也必须使用客户原始需求。"
     "拿到工具结果后，不要原样输出 JSON，要整理成客户可读、销售可用的自然语言结论。"
     "推荐套餐时，优先给出 2-4 个候选方案进行对比，再说明推荐哪一个、为什么推荐、其他方案的取舍。"
     "调用 Compare 或 Calculator 时，工具参数必须使用客户原始需求，不要传入其他工具输出、候选方案摘要、表格摘要或自己二次改写后的方案文本；"
@@ -40,6 +46,52 @@ def _latest_human_query(state: AgentState) -> str | None:
     return None
 
 
+def _is_generator_request(text: str | None) -> bool:
+    if not text:
+        return False
+    terms = (
+        "生成报价单",
+        "生成方案书",
+        "生成报价说明",
+        "正式报价",
+        "报价单",
+        "方案书",
+        "报价说明",
+        "最终输出",
+        "出一份报价",
+        "出报价",
+    )
+    return any(term in text for term in terms)
+
+
+def _is_quote_sheet_request(text: str | None) -> bool:
+    if not text:
+        return False
+    quote_sheet_terms = (
+        "报价单",
+        "正式报价",
+        "生成报价",
+        "出一份报价",
+        "出报价",
+    )
+    proposal_terms = (
+        "方案书",
+        "报价说明",
+    )
+    return any(term in text for term in quote_sheet_terms) and not any(term in text for term in proposal_terms)
+
+
+def _latest_business_query(state: AgentState) -> str | None:
+    for message in reversed(state["messages"]):
+        if not isinstance(message, HumanMessage):
+            continue
+        content = str(message.content)
+        if _is_generator_request(content):
+            continue
+        return content
+    return _latest_human_query(state)
+
+
 def _tool_names(state: AgentState) -> set[str]:
     return {
         message.name
@@ -51,14 +103,30 @@ def _tool_names(state: AgentState) -> set[str]:
 def agent_think_node(state: AgentState) -> AgentState:
     if state["messages"]:
         last_msg = state["messages"][-1]
-        if isinstance(last_msg, ToolMessage) and last_msg.name == "generate_quote_proposal":
+        if isinstance(last_msg, HumanMessage) and _is_generator_request(str(last_msg.content)):
+            query = _latest_business_query(state)
+            if query:
+                response = build_quote_proposal_response(query)
+                if _is_quote_sheet_request(str(last_msg.content)):
+                    content = render_quote_sheet_response(response)
+                else:
+                    content = render_quote_proposal_response(response)
+                return {"messages": [AIMessage(content=content)]}
+        if isinstance(last_msg, ToolMessage) and last_msg.name in {"generate_quote_proposal", "generate_quote_sheet"}:
             return {"messages": [AIMessage(content=last_msg.content)]}
         if isinstance(last_msg, ToolMessage) and last_msg.name == "retrieve_sales_context":
             names = _tool_names(state)
             query = _latest_human_query(state)
             if query and "calculator" in names:
                 response = build_quote_proposal_response(query)
-                return {"messages": [AIMessage(content=render_quote_proposal_response(response))]}
+                if _is_generator_request(query):
+                    if _is_quote_sheet_request(query):
+                        content = render_quote_sheet_response(response)
+                    else:
+                        content = render_quote_proposal_response(response)
+                else:
+                    content = render_recommendation_response(response)
+                return {"messages": [AIMessage(content=content)]}
     messages = [SystemMessage(content=SYSTEM_PROMPT), *state["messages"]]
     response = llm_with_tools.invoke(messages)
     return {"messages": [response]}
