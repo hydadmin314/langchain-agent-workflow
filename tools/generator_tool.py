@@ -82,14 +82,25 @@ def _tax_text() -> str:
     return "待财务确认"
 
 
+def _module_accepts_contract_mode(module_name: str | None) -> bool:
+    return display_text(module_name, "") == "SD-WAN"
+
+
+def _contract_modes_for_module(parsed: dict[str, Any], module_name: str | None) -> list[Any]:
+    if not _module_accepts_contract_mode(module_name):
+        return []
+    return parsed.get("contract_modes") or []
+
+
 def _requirement_summary(parsed: dict[str, Any], module_name: str | None) -> list[str]:
     specs = parsed.get("spec_requirements") or {}
     budget = parsed.get("budget") or {}
+    contract_modes = _contract_modes_for_module(parsed, module_name)
     parts = [
         f"- 场景：{_join(parsed.get('scenarios'))}",
         f"- 产品模块：{display_text(module_name, '-')}",
         f"- 计费周期：{_join(parsed.get('billing_cycles'))}",
-        f"- 签约方式：{_join(parsed.get('contract_modes'))}",
+        f"- 签约方式：{_join(contract_modes)}",
     ]
     if specs.get("user_count"):
         parts.append(f"- 使用人数：{specs['user_count']} 人")

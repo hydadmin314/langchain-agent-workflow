@@ -10,6 +10,7 @@ class GraphAgent(BaseAgent):
     def __init__(self):
         self.graph = self.build_agent()
         self.messages: list[BaseMessage] = []
+        self.active_requirement: dict | None = None
 
     def build_agent(self):
         workflow = StateGraph(AgentState)
@@ -27,12 +28,17 @@ class GraphAgent(BaseAgent):
 
     def reset(self) -> None:
         self.messages = []
+        self.active_requirement = None
         logger.info("GraphAgent 会话上下文已清空")
 
     def run(self, query: str) -> str:
         current_messages = [*self.messages, HumanMessage(content=query)]
-        res = self.graph.invoke({"messages": current_messages})
+        initial_state = {"messages": current_messages}
+        if self.active_requirement:
+            initial_state["active_requirement"] = self.active_requirement
+        res = self.graph.invoke(initial_state)
         self.messages = list(res["messages"])
+        self.active_requirement = res.get("active_requirement")
         answer = res["messages"][-1].content
         logger.info("GraphAgent 回答完成")
         return answer

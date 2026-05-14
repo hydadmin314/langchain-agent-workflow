@@ -1,4 +1,5 @@
 import re
+from typing import Any
 
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
 from langgraph.graph import END
@@ -89,7 +90,8 @@ def _is_quote_sheet_request(text: str | None) -> bool:
 
 
 def _latest_business_query(state: AgentState) -> str | None:
-    return _resolved_business_query(state) or _latest_human_query(state)
+    active_requirement = _updated_active_requirement(state)
+    return _active_requirement_query(active_requirement) or _latest_human_query(state)
 
 
 def _has_sales_modifier(text: str) -> bool:
@@ -124,6 +126,13 @@ def _has_standalone_scene(text: str) -> bool:
     )
 
 
+def _is_business_requirement_text(text: str) -> bool:
+    stripped = text.strip()
+    if not stripped or _is_generator_request(stripped):
+        return False
+    return _has_standalone_scene(stripped) or _has_sales_modifier(stripped)
+
+
 def _starts_new_requirement(text: str) -> bool:
     terms = (
         "另一个客户",
@@ -153,18 +162,55 @@ def _merge_business_query(previous_query: str, follow_up: str) -> str:
 
 
 def _resolved_business_query(state: AgentState) -> str | None:
-    resolved: str | None = None
-    for message in state["messages"]:
-        if not isinstance(message, HumanMessage):
-            continue
-        content = str(message.content).strip()
-        if not content or _is_generator_request(content):
-            continue
-        if _is_context_follow_up(content, resolved):
-            resolved = _merge_business_query(resolved or "", content)
-        else:
-            resolved = content
-    return resolved
+    active_requirement = _updated_active_requirement(state)
+    return _active_requirement_query(active_requirement)
+
+
+def _active_requirement_query(active_requirement: dict[str, Any] | None) -> str | None:
+    if not active_requirement:
+        return None
+    query = active_requirement.get("canonical_query")
+    return str(query) if query else None
+
+
+def _build_active_requirement(parts: list[str]) -> dict[str, Any]:
+    canonical_query = parts[0] if parts else ""
+    for part in parts[1:]:
+        canonical_query = _merge_business_query(canonical_query, part)
+    parsed = parse_requirement_payload(canonical_query) if canonical_query else {}
+    return {
+        "canonical_query": canonical_query,
+        "parts": parts,
+        "parsed": parsed,
+        "summary": {
+            "scenarios": parsed.get("scenarios", []),
+            "target_categories": parsed.get("target_categories", []),
+            "billing_cycles": parsed.get("billing_cycles", []),
+            "contract_modes": parsed.get("contract_modes", []),
+            "budget": parsed.get("budget"),
+            "spec_requirements": parsed.get("spec_requirements", {}),
+            "network_requirements": parsed.get("network_requirements", {}),
+        },
+    }
+
+
+def _updated_active_requirement(state: AgentState) -> dict[str, Any] | None:
+    existing = state.get("active_requirement")
+    parts = list((existing or {}).get("parts") or [])
+    last_msg = state["messages"][-1] if state.get("messages") else None
+    if not isinstance(last_msg, HumanMessage):
+        return existing
+
+    content = str(last_msg.content).strip()
+    if not _is_business_requirement_text(content):
+        return existing
+
+    previous_query = _active_requirement_query(existing)
+    if _is_context_follow_up(content, previous_query):
+        parts.append(content)
+    else:
+        parts = [content]
+    return _build_active_requirement(parts)
 
 
 def _tool_names(state: AgentState) -> set[str]:
@@ -176,28 +222,33 @@ def _tool_names(state: AgentState) -> set[str]:
 
 
 def agent_think_node(state: AgentState) -> AgentState:
+    active_requirement = _updated_active_requirement(state)
+    active_query = _active_requirement_query(active_requirement)
     if state["messages"]:
         last_msg = state["messages"][-1]
         if isinstance(last_msg, HumanMessage) and _is_generator_request(str(last_msg.content)):
-            query = _latest_business_query(state)
+            query = active_query or _latest_human_query(state)
             if query:
                 response = build_quote_proposal_response(query)
                 if _is_quote_sheet_request(str(last_msg.content)):
                     content = render_quote_sheet_response(response)
                 else:
                     content = render_quote_proposal_response(response)
-                return {"messages": [AIMessage(content=content)]}
+                return {"messages": [AIMessage(content=content)], "active_requirement": active_requirement}
         if isinstance(last_msg, HumanMessage):
             latest_query = str(last_msg.content)
-            resolved_query = _resolved_business_query(state)
+            resolved_query = active_query
             if resolved_query and resolved_query != latest_query:
                 response = build_quote_proposal_response(resolved_query)
-                return {"messages": [AIMessage(content=render_recommendation_response(response))]}
+                return {
+                    "messages": [AIMessage(content=render_recommendation_response(response))],
+                    "active_requirement": active_requirement,
+                }
         if isinstance(last_msg, ToolMessage) and last_msg.name in {"generate_quote_proposal", "generate_quote_sheet"}:
-            return {"messages": [AIMessage(content=last_msg.content)]}
+            return {"messages": [AIMessage(content=last_msg.content)], "active_requirement": active_requirement}
         if isinstance(last_msg, ToolMessage) and last_msg.name == "retrieve_sales_context":
             names = _tool_names(state)
-            query = _resolved_business_query(state) or _latest_human_query(state)
+            query = active_query or _latest_human_query(state)
             if query and "calculator" in names:
                 response = build_quote_proposal_response(query)
                 if _is_generator_request(query):
@@ -207,10 +258,10 @@ def agent_think_node(state: AgentState) -> AgentState:
                         content = render_quote_proposal_response(response)
                 else:
                     content = render_recommendation_response(response)
-                return {"messages": [AIMessage(content=content)]}
+                return {"messages": [AIMessage(content=content)], "active_requirement": active_requirement}
     messages = [SystemMessage(content=SYSTEM_PROMPT), *state["messages"]]
     response = llm_with_tools.invoke(messages)
-    return {"messages": [response]}
+    return {"messages": [response], "active_requirement": active_requirement}
 
 def route_tools(state: AgentState):
     messages = state["messages"]

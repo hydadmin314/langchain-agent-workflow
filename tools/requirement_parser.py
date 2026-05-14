@@ -164,30 +164,35 @@ def parse_budget(query: str) -> dict[str, Any] | None:
         r"控制在\s*(\d+(?:\.\d+)?)\s*(万|w|k|千|元)?",
     ]
 
+    latest_budget = None
+    latest_start = -1
     for pattern in patterns:
-        match = re.search(pattern, query_norm, re.IGNORECASE)
-        if not match:
-            continue
+        for match in re.finditer(pattern, query_norm, re.IGNORECASE):
+            amount = convert_amount_to_cny(match.group(1), match.group(2))
+            if amount is None or match.start() < latest_start:
+                continue
+            latest_start = match.start()
+            latest_budget = {
+                "upper_cny": amount,
+                "lower_cny": None,
+                "currency": "CNY",
+                "raw_text": match.group(0),
+            }
+    if latest_budget:
+        return latest_budget
+
+    above_matches = list(re.finditer(r"(\d+(?:\.\d+)?)\s*(万|w|k|千|元)?\s*(以上|起)", query_norm, re.IGNORECASE))
+    if above_matches:
+        match = above_matches[-1]
         amount = convert_amount_to_cny(match.group(1), match.group(2))
         if amount is None:
-            continue
+            return None
         return {
-            "upper_cny": amount,
-            "lower_cny": None,
+            "upper_cny": None,
+            "lower_cny": amount,
             "currency": "CNY",
             "raw_text": match.group(0),
         }
-
-    above_match = re.search(r"(\d+(?:\.\d+)?)\s*(万|w|k|千|元)?\s*(以上|起)", query_norm, re.IGNORECASE)
-    if above_match:
-        amount = convert_amount_to_cny(above_match.group(1), above_match.group(2))
-        if amount is not None:
-            return {
-                "upper_cny": None,
-                "lower_cny": amount,
-                "currency": "CNY",
-                "raw_text": above_match.group(0),
-            }
 
     return None
 
@@ -248,48 +253,36 @@ def extract_service_period(query_norm: str) -> dict[str, Any] | None:
     trial_requested = any(term in query_norm for term in ("先试", "试用", "体验", "试一个月")) or bool(
         re.search(r"先用\s*(?:1|一)\s*个?月", query_norm)
     )
+    matches = []
+    for match in re.finditer(r"(\d+)\s*个?月", query_norm):
+        matches.append((match.start(), int(match.group(1)), match.group(0)))
+    for match in re.finditer(r"(\d+)\s*年", query_norm):
+        matches.append((match.start(), int(match.group(1)) * 12, match.group(0)))
+    for term, months in (("一个月", 1), ("半年", 6), ("一年", 12)):
+        for match in re.finditer(term, query_norm):
+            matches.append((match.start(), months, term))
+    if matches:
+        _, months, raw_text = max(matches, key=lambda item: item[0])
+        return {"months": months, "trial_requested": trial_requested, "raw_text": raw_text}
 
-    explicit_month_match = re.search(r"(\d+)\s*个?月", query_norm)
-    if explicit_month_match:
-        months = int(explicit_month_match.group(1))
-        return {
-            "months": months,
-            "trial_requested": trial_requested,
-            "raw_text": explicit_month_match.group(0),
-        }
-
-    explicit_year_match = re.search(r"(\d+)\s*年", query_norm)
-    if explicit_year_match:
-        years = int(explicit_year_match.group(1))
-        return {
-            "months": years * 12,
-            "trial_requested": trial_requested,
-            "raw_text": explicit_year_match.group(0),
-        }
-
-    if "一个月" in query_norm:
-        return {"months": 1, "trial_requested": trial_requested, "raw_text": "一个月"}
-    if "半年" in query_norm:
-        return {"months": 6, "trial_requested": trial_requested, "raw_text": "半年"}
-    if "一年" in query_norm:
-        return {"months": 12, "trial_requested": trial_requested, "raw_text": "一年"}
     if trial_requested:
         return {"months": None, "trial_requested": True, "raw_text": None}
     return None
 
 
 def extract_billing_cycles(query_norm: str, service_period: dict[str, Any] | None = None) -> list[str]:
-    cycles = []
-    has_explicit_annual = any(
-        term in query_norm
-        for term in ("年付", "年价", "年费", "包年", "年度", "按年", "年结", "年框")
-    )
-    has_explicit_monthly = any(term in query_norm for term in ("月付", "月价", "月费", "包月"))
+    explicit_matches = []
+    for term in ("年付", "年价", "年费", "包年", "年度", "按年", "年结", "年框"):
+        for match in re.finditer(term, query_norm):
+            explicit_matches.append((match.start(), "年付"))
+    for term in ("月付", "月价", "月费", "包月"):
+        for match in re.finditer(term, query_norm):
+            explicit_matches.append((match.start(), "月付"))
 
-    if has_explicit_annual:
-        cycles.append("年付")
-    if has_explicit_monthly:
-        cycles.append("月付")
+    if explicit_matches:
+        return [max(explicit_matches, key=lambda item: item[0])[1]]
+
+    cycles = []
 
     if service_period and not cycles:
         months = service_period.get("months")
@@ -302,12 +295,15 @@ def extract_billing_cycles(query_norm: str, service_period: dict[str, Any] | Non
 
 
 def extract_contract_modes(query_norm: str) -> list[str]:
-    modes = []
-    if "ict签约" in query_norm or "ict" in query_norm:
-        modes.append("ICT签约")
-    if "直签" in query_norm:
-        modes.append("直签")
-    return modes
+    matches = []
+    for term in ("ict签约", "ict"):
+        for match in re.finditer(term, query_norm):
+            matches.append((match.start(), "ICT签约"))
+    for match in re.finditer("直签", query_norm):
+        matches.append((match.start(), "直签"))
+    if not matches:
+        return []
+    return [max(matches, key=lambda item: item[0])[1]]
 
 
 def extract_models(query: str) -> list[str]:
