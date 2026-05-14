@@ -1,11 +1,11 @@
-import json
+﻿import json
 import re
 from typing import Any
 
 from langchain.tools import tool
 
-from tools.product_tool import display_text, load_flat_products, normalize_text
-from tools.requirement_parser import parse_requirement_payload
+from tools.sales_tools.product_tool import display_text, load_flat_products, normalize_text
+from tools.sales_tools.requirement_parser import parse_requirement_payload
 
 
 ISP_CATEGORY = "ISP"
@@ -267,7 +267,7 @@ def _build_quote(
     needs_ip = network.get("requires_public_ip") or network.get("requires_fixed_ip")
     ip_requirement_fit = not needs_ip or has_ip_resource
     needs_dedicated_quality = bool(needs_ip or network.get("requires_dedicated_line") or line_preference in {"domestic_premium", "international_premium"})
-    comparable_bandwidth = min_bandwidth if needs_dedicated_quality else max_bandwidth
+    comparable_bandwidth = min_bandwidth if required_bandwidth is not None else max_bandwidth
     ranking_bandwidth = _ranking_bandwidth(down_mbps, up_mbps, required_bandwidth, needs_dedicated_quality)
     bandwidth_distance = _bandwidth_distance(ranking_bandwidth, required_bandwidth)
     meets_bandwidth = required_bandwidth is None or comparable_bandwidth >= required_bandwidth
@@ -345,8 +345,7 @@ def _build_advantages(
     max_bandwidth = max(value for value in (down_mbps, up_mbps) if value is not None)
     min_bandwidth = min(value for value in (down_mbps, up_mbps) if value is not None)
     kind = _line_kind(product)
-    needs_dedicated_quality = bool(needs_ip or line_preference in {"domestic_premium", "international_premium"})
-    comparable_bandwidth = min_bandwidth if needs_dedicated_quality else max_bandwidth
+    comparable_bandwidth = min_bandwidth if required_bandwidth is not None else max_bandwidth
     advantages = []
     if required_bandwidth is None:
         advantages.append("可作为 ISP 专线候选套餐")
@@ -377,8 +376,7 @@ def _build_tradeoffs(
     max_bandwidth = max(value for value in (down_mbps, up_mbps) if value is not None)
     min_bandwidth = min(value for value in (down_mbps, up_mbps) if value is not None)
     kind = _line_kind(product)
-    needs_dedicated_quality = bool(needs_ip or line_preference in {"domestic_premium", "international_premium"})
-    comparable_bandwidth = min_bandwidth if needs_dedicated_quality else max_bandwidth
+    comparable_bandwidth = min_bandwidth if required_bandwidth is not None else max_bandwidth
     tradeoffs = []
     if required_bandwidth is not None and comparable_bandwidth < required_bandwidth:
         tradeoffs.append(f"带宽低于需求 {required_bandwidth}M")
@@ -659,3 +657,4 @@ def quote_isp_packages_json(query: str) -> str:
     返回 ISP 专线核算模块的结构化 JSON，便于调试套餐筛选、费用和推荐分数。
     """
     return json.dumps(build_isp_quote_response(query), ensure_ascii=False, indent=2)
+

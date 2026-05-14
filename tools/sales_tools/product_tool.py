@@ -1,4 +1,4 @@
-import json
+﻿import json
 import re
 from pathlib import Path
 from typing import Any
@@ -475,3 +475,4 @@ def query_products(query: str, limit: int = 5) -> str:
         lines.append(f"{index}. {format_product(product)}")
 
     return "\n".join(lines)
+

@@ -1,10 +1,10 @@
-import json
+﻿import json
 from typing import Any
 
 from langchain.tools import tool
 
-from tools.product_tool import normalize_text
-from tools.requirement_parser import parse_requirement_payload
+from tools.sales_tools.product_tool import normalize_text
+from tools.sales_tools.requirement_parser import parse_requirement_payload
 
 
 NETWORK_MODULES = {
@@ -134,3 +134,4 @@ def classify_sales_scene(query: str) -> str:
     并返回命中原因、置信度和后续是否需要进入 calculator。
     """
     return json.dumps(classify_requirement(query), ensure_ascii=False, indent=2)
+

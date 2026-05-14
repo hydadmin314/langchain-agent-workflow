@@ -1,15 +1,15 @@
-import json
+﻿import json
 import re
 from typing import Any
 
 from langchain.tools import tool
 
-from tools.intl_route_tool import build_intl_route_response
-from tools.isp_tool import build_isp_quote_response
-from tools.product_tool import display_text
-from tools.requirement_parser import parse_requirement_payload
-from tools.rule_engine import classify_requirement_payload
-from tools.sd_wan_tool import build_sd_wan_quote_response
+from tools.sales_tools.intl_route_tool import build_intl_route_response
+from tools.sales_tools.isp_tool import build_isp_quote_response
+from tools.sales_tools.product_tool import display_text
+from tools.sales_tools.requirement_parser import parse_requirement_payload
+from tools.sales_tools.rule_engine import classify_requirement_payload
+from tools.sales_tools.sd_wan_tool import build_sd_wan_quote_response
 
 
 MAX_COMPARE_ITEMS = 4
@@ -338,3 +338,4 @@ def compare_packages_json(query: str) -> str:
     返回 Compare 层结构化 JSON，便于调试候选方案、pricing_input 和推荐选择。
     """
     return json.dumps(build_comparison_response(query), ensure_ascii=False, indent=2)
+

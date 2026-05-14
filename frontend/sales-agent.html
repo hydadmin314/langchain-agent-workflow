@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>润网销售 Agent</title>
+    <link rel="stylesheet" href="./css/sales-agent.css" />
+  </head>
+  <body>
+    <div class="mobile-shell">
+      <header class="app-header">
+        <div>
+          <p>润网智能销售系统</p>
+          <h1>销售 Agent</h1>
+        </div>
+        <div class="header-actions">
+          <span id="serviceStatus" class="service-status"><i></i>服务连接中</span>
+          <button id="resetBtn" class="ghost-button" type="button">清空</button>
+        </div>
+      </header>
+
+      <main id="chatStream" class="chat-stream" aria-live="polite">
+        <section class="message assistant">
+          <div class="avatar">A</div>
+          <div class="bubble">
+            <strong>你好，我是销售方案助手。</strong>
+            <p>粘贴客户需求后，我会调用后端 Agent 完成场景识别、候选方案对比、费用核算和报价输出。</p>
+          </div>
+        </section>
+      </main>
+
+      <footer class="composer">
+        <div class="quick-actions" aria-label="快捷操作">
+          <button type="button" data-quick="生成方案">生成方案</button>
+          <button type="button" data-quick="生成报价单">生成报价单</button>
+          <button type="button" data-quick="计算最终报价">计算报价</button>
+        </div>
+        <div class="input-row">
+          <textarea id="rawRequirement" rows="1" placeholder="粘贴客户需求，例如：10M宽带直签，月付"></textarea>
+          <button id="generateBtn" type="button">发送</button>
+        </div>
+      </footer>
+    </div>
+
+    <script src="./js/sales-agent.js"></script>
+  </body>
+</html>

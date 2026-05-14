@@ -5,13 +5,14 @@ from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, Tool
 from langgraph.graph import END
 from langgraph.prebuilt import ToolNode
 from config.llm_config import get_llm
-from tools.generator_tool import (
+from tools.sales_tools.generator_tool import (
+    apply_package_selection,
     build_quote_proposal_response,
     render_quote_proposal_response,
     render_quote_sheet_response,
     render_recommendation_response,
 )
-from tools.requirement_parser import parse_requirement_payload
+from tools.sales_tools.requirement_parser import parse_requirement_payload
 from tools.tool_list import ALL_TOOLS
 from workflow.state import AgentState
 
@@ -230,6 +231,7 @@ def agent_think_node(state: AgentState) -> AgentState:
             query = active_query or _latest_human_query(state)
             if query:
                 response = build_quote_proposal_response(query)
+                response = apply_package_selection(response, str(last_msg.content))
                 if _is_quote_sheet_request(str(last_msg.content)):
                     content = render_quote_sheet_response(response)
                 else:
@@ -238,7 +240,7 @@ def agent_think_node(state: AgentState) -> AgentState:
         if isinstance(last_msg, HumanMessage):
             latest_query = str(last_msg.content)
             resolved_query = active_query
-            if resolved_query and resolved_query != latest_query:
+            if resolved_query and _is_business_requirement_text(latest_query):
                 response = build_quote_proposal_response(resolved_query)
                 return {
                     "messages": [AIMessage(content=render_recommendation_response(response))],

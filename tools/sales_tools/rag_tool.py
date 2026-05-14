@@ -1,10 +1,10 @@
-import json
+﻿import json
 from typing import Any
 
 from langchain.tools import tool
 
-from tools.requirement_parser import parse_requirement_payload
-from tools.rule_engine import classify_requirement_payload
+from tools.sales_tools.requirement_parser import parse_requirement_payload
+from tools.sales_tools.rule_engine import classify_requirement_payload
 
 
 UNSUPPORTED_CLAIMS = [
@@ -88,3 +88,4 @@ def retrieve_sales_context_json(query: str) -> str:
     """
     response = build_rag_context_response(query)
     return json.dumps(response, ensure_ascii=False, indent=2)
+

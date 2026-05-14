@@ -1,16 +1,16 @@
-import json
+﻿import json
 import re
 from datetime import date
 from typing import Any
 
 from langchain.tools import tool
 
-from tools.calc_tool import build_calculator_response
-from tools.compare_tool import build_comparison_response
-from tools.product_tool import display_text
-from tools.rag_tool import build_rag_context_response
-from tools.requirement_parser import parse_requirement_payload
-from tools.rule_engine import classify_requirement_payload
+from tools.sales_tools.calc_tool import build_calculator_response
+from tools.sales_tools.compare_tool import build_comparison_response
+from tools.sales_tools.product_tool import display_text
+from tools.sales_tools.rag_tool import build_rag_context_response
+from tools.sales_tools.requirement_parser import parse_requirement_payload
+from tools.sales_tools.rule_engine import classify_requirement_payload
 
 
 DERIVED_QUERY_MARKERS = (
@@ -120,6 +120,104 @@ def _compare_item_by_id(compare_response: dict[str, Any], product_id: str | None
     )
 
 
+def _alternative_pricing_results(calculator: dict[str, Any], recommended: dict[str, Any] | None) -> list[dict[str, Any]]:
+    recommended_id = recommended.get("product_id") if recommended else None
+    recommended_cycle = recommended.get("billing_cycle") if recommended else None
+    alternatives = []
+    for item in calculator.get("pricing_results", []):
+        if item.get("product_id") == recommended_id and item.get("billing_cycle") == recommended_cycle:
+            continue
+        alternatives.append(item)
+    return alternatives
+
+
+def _parse_rank_token(value: str | None) -> int | None:
+    if not value:
+        return None
+    token = value.strip()
+    if token.isdigit():
+        return int(token)
+    digits = {
+        "一": 1,
+        "二": 2,
+        "两": 2,
+        "三": 3,
+        "四": 4,
+        "五": 5,
+        "六": 6,
+        "七": 7,
+        "八": 8,
+        "九": 9,
+        "十": 10,
+    }
+    if token in digits:
+        return digits[token]
+    if len(token) == 2 and token[0] == "十" and token[1] in digits:
+        return 10 + digits[token[1]]
+    if len(token) == 2 and token[1] == "十" and token[0] in digits:
+        return digits[token[0]] * 10
+    if len(token) == 3 and token[1] == "十" and token[0] in digits and token[2] in digits:
+        return digits[token[0]] * 10 + digits[token[2]]
+    return None
+
+
+def parse_package_selection(text: str | None) -> dict[str, Any] | None:
+    if not text:
+        return None
+    patterns = (
+        r"(?:选择|选|用|按|就用)\s*(?:第)?\s*([一二两三四五六七八九十\d]+)\s*(?:个|项|套)?\s*(?:套餐|方案)",
+        r"(?:选择|选|用|按|就用)\s*(?:套餐|方案)\s*([一二两三四五六七八九十\d]+)",
+        r"第\s*([一二两三四五六七八九十\d]+)\s*(?:个|项|套)?\s*(?:套餐|方案)",
+        r"(?:套餐|方案)\s*([一二两三四五六七八九十\d]+)",
+    )
+    for pattern in patterns:
+        match = re.search(pattern, text)
+        if not match:
+            continue
+        rank = _parse_rank_token(match.group(1))
+        if not rank:
+            continue
+        scope = "alternative" if any(term in text for term in ("候选", "备选")) else "overall"
+        return {"rank": rank, "scope": scope, "raw_text": match.group(0)}
+    return None
+
+
+def _ranked_pricing_results(response: dict[str, Any], scope: str = "overall") -> list[dict[str, Any]]:
+    recommended = response.get("recommended_pricing")
+    alternatives = _alternative_pricing_results(response.get("calculator", {}), recommended)
+    if scope == "alternative":
+        return alternatives
+    return ([recommended] if recommended else []) + alternatives
+
+
+def apply_package_selection(response: dict[str, Any], selection_text: str | None) -> dict[str, Any]:
+    selection = parse_package_selection(selection_text)
+    if not selection:
+        return response
+    ranked = _ranked_pricing_results(response, selection["scope"])
+    index = selection["rank"] - 1
+    if index < 0 or index >= len(ranked):
+        selected_response = dict(response)
+        selected_response["selection_error"] = (
+            f"未找到{selection['raw_text']}对应的候选套餐；当前可选数量为 {len(ranked)}。"
+        )
+        return selected_response
+
+    selected = ranked[index]
+    selected_response = dict(response)
+    selected_response["recommended_pricing"] = selected
+    selected_response["recommended_compare"] = _compare_item_by_id(response.get("compare", {}), selected.get("product_id")) or {}
+    selected_response["selected_package"] = {
+        "rank": selection["rank"],
+        "scope": selection["scope"],
+        "raw_text": selection["raw_text"],
+        "product_id": selected.get("product_id"),
+        "billing_cycle": selected.get("billing_cycle"),
+    }
+    selected_response["message"] = f"已按用户选择的{selection['raw_text']}生成。"
+    return selected_response
+
+
 def build_quote_proposal_response(query: str) -> dict[str, Any]:
     parsed = parse_requirement_payload(query)
     rule_result = classify_requirement_payload(parsed)
@@ -160,6 +258,11 @@ def render_quote_proposal_response(response: dict[str, Any]) -> str:
     lines.append("一、客户需求摘要")
     lines.extend(_requirement_summary(parsed, calculator.get("module_name")))
 
+    if response.get("selection_error"):
+        lines.append("")
+        lines.append(response["selection_error"])
+        return "\n".join(lines)
+
     if not recommended:
         lines.append("")
         lines.append("当前未生成可报价方案，请补充客户场景、产品线或预算信息后重试。")
@@ -168,7 +271,7 @@ def render_quote_proposal_response(response: dict[str, Any]) -> str:
     lines.append("")
     lines.append("二、推荐结论")
     lines.append(
-        f"推荐方案：{display_text(recommended.get('product_name'), display_text(recommended.get('product_id')))}"
+        f"1. 推荐方案：{display_text(recommended.get('product_name'), display_text(recommended.get('product_id')))}"
         f"（{recommended.get('product_id')}）"
     )
     if recommended_compare.get("spec_text"):
@@ -188,8 +291,11 @@ def render_quote_proposal_response(response: dict[str, Any]) -> str:
         lines.append("- 主要取舍：" + "；".join(display_text(value) for value in recommended_compare["tradeoffs"]))
 
     lines.append("")
-    lines.append("三、候选方案报价对比")
-    for index, item in enumerate(calculator.get("pricing_results", []), start=1):
+    lines.append("三、候补方案报价对比")
+    alternatives = _alternative_pricing_results(calculator, recommended)
+    if not alternatives:
+        lines.append("暂无其他候选方案。")
+    for index, item in enumerate(alternatives, start=2):
         compare_item = _compare_item_by_id(compare, item.get("product_id")) or {}
         spec = display_text(compare_item.get("spec_text"), "-")
         lines.append(
@@ -278,6 +384,11 @@ def render_quote_sheet_response(response: dict[str, Any]) -> str:
     lines.append("- 客户地址：待填写")
     lines.append("- 币种：中国，人民币")
 
+    if response.get("selection_error"):
+        lines.append("")
+        lines.append(response["selection_error"])
+        return "\n".join(lines)
+
     if not recommended:
         lines.append("")
         lines.append("当前未找到可报价明细，请补充客户场景、产品线或预算信息后重试。")
@@ -344,6 +455,11 @@ def render_recommendation_response(response: dict[str, Any]) -> str:
     lines.append("客户需求摘要")
     lines.extend(_requirement_summary(parsed, calculator.get("module_name")))
 
+    if response.get("selection_error"):
+        lines.append("")
+        lines.append(response["selection_error"])
+        return "\n".join(lines)
+
     if not recommended:
         lines.append("")
         lines.append("当前未找到可报价方案，请补充客户场景、产品线或预算信息。")
@@ -352,7 +468,7 @@ def render_recommendation_response(response: dict[str, Any]) -> str:
     lines.append("")
     lines.append("推荐方案")
     lines.append(
-        f"{display_text(recommended.get('product_name'), display_text(recommended.get('product_id')))}"
+        f"1. {display_text(recommended.get('product_name'), display_text(recommended.get('product_id')))}"
         f"（{recommended.get('product_id')}）"
     )
     if recommended_compare.get("spec_text"):
@@ -369,8 +485,11 @@ def render_recommendation_response(response: dict[str, Any]) -> str:
         lines.append("- 主要取舍：" + "；".join(display_text(value) for value in recommended_compare["tradeoffs"]))
 
     lines.append("")
-    lines.append("候选方案对比")
-    for index, item in enumerate(calculator.get("pricing_results", []), start=1):
+    lines.append("候补方案对比")
+    alternatives = _alternative_pricing_results(calculator, recommended)
+    if not alternatives:
+        lines.append("暂无其他候选方案。")
+    for index, item in enumerate(alternatives, start=2):
         compare_item = _compare_item_by_id(compare, item.get("product_id")) or {}
         spec = display_text(compare_item.get("spec_text"), "-")
         lines.append(
@@ -440,3 +559,4 @@ def generate_quote_proposal_json(query: str) -> str:
     """
     response = build_quote_proposal_response(query)
     return json.dumps(response, ensure_ascii=False, indent=2)
+

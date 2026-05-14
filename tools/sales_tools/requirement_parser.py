@@ -1,10 +1,10 @@
-import json
+﻿import json
 import re
 from typing import Any
 
 from langchain.tools import tool
 
-from tools.product_tool import get_category_alias_map, load_flat_products, normalize_text
+from tools.sales_tools.product_tool import get_category_alias_map, load_flat_products, normalize_text
 
 
 FEATURE_TERMS = [
@@ -711,3 +711,4 @@ def parse_requirements(query: str) -> str:
     """
     parsed = parse_requirement_payload(query)
     return json.dumps(parsed, ensure_ascii=False, indent=2)
+

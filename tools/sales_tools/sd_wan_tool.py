@@ -1,11 +1,11 @@
-import json
+﻿import json
 import re
 from typing import Any
 
 from langchain.tools import tool
 
-from tools.product_tool import display_text, load_flat_products, normalize_text
-from tools.requirement_parser import parse_requirement_payload
+from tools.sales_tools.product_tool import display_text, load_flat_products, normalize_text
+from tools.sales_tools.requirement_parser import parse_requirement_payload
 
 
 SD_WAN_CATEGORY = "SD-WAN"
@@ -493,3 +493,4 @@ def quote_sd_wan_packages_json(query: str) -> str:
     返回 SD-WAN 核算模块的结构化 JSON，便于调试套餐、折扣和推荐分数。
     """
     return json.dumps(build_sd_wan_quote_response(query), ensure_ascii=False, indent=2)
+
