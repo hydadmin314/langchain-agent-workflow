@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>润网销售 Agent</title>
-    <link rel="stylesheet" href="./css/sales-agent.css" />
+    <link rel="stylesheet" href="./css/sales-agent.css?v=20260515-chat-color-v11" />
   </head>
   <body>
     <div class="mobile-shell">
@@ -31,9 +31,12 @@
 
       <footer class="composer">
         <div class="quick-actions" aria-label="快捷操作">
-          <button type="button" data-quick="生成方案">生成方案</button>
-          <button type="button" data-quick="生成报价单">生成报价单</button>
-          <button type="button" data-quick="计算最终报价">计算报价</button>
+          <button type="button" data-case-product="sd_wan">SD-WAN</button>
+          <button type="button" data-case-product="intl_route_optimization">国际路由优化</button>
+          <button type="button" data-case-product="isp_private_line">ISP专线</button>
+          <button type="button" data-action-command="generate_proposal">生成方案</button>
+          <button type="button" data-action-command="generate_quote_sheet">生成报价单</button>
+          <button type="button" data-action-command="calculate_quote">计算报价</button>
         </div>
         <div class="input-row">
           <textarea id="rawRequirement" rows="1" placeholder="粘贴客户需求，例如：10M宽带直签，月付"></textarea>
@@ -42,6 +45,6 @@
       </footer>
     </div>
 
-    <script src="./js/sales-agent.js"></script>
+    <script src="./js/sales-agent.js?v=20260515-chat-color-v11"></script>
   </body>
 </html>

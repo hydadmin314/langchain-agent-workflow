@@ -86,18 +86,51 @@ def _module_accepts_contract_mode(module_name: str | None) -> bool:
     return display_text(module_name, "") == "SD-WAN"
 
 
+MODULE_SCENARIO_LABELS = {
+    "SD-WAN": "组网互联",
+    "国际路由优化": "国际访问优化",
+    "ISP 专线": "互联网接入",
+    "ISP": "互联网接入",
+}
+
+
+def _scenario_summary(
+    parsed: dict[str, Any],
+    module_name: str | None,
+    rule_result: dict[str, Any] | None = None,
+) -> str:
+    module = display_text(module_name, "")
+    if module in MODULE_SCENARIO_LABELS:
+        return MODULE_SCENARIO_LABELS[module]
+
+    primary_module = display_text((rule_result or {}).get("primary_module"), "")
+    module_by_key = {
+        "sd_wan": "组网互联",
+        "intl_route_optimization": "国际访问优化",
+        "isp_private_line": "互联网接入",
+    }
+    if primary_module in module_by_key:
+        return module_by_key[primary_module]
+
+    return _join(parsed.get("scenarios"))
+
+
 def _contract_modes_for_module(parsed: dict[str, Any], module_name: str | None) -> list[Any]:
     if not _module_accepts_contract_mode(module_name):
         return []
     return parsed.get("contract_modes") or []
 
 
-def _requirement_summary(parsed: dict[str, Any], module_name: str | None) -> list[str]:
+def _requirement_summary(
+    parsed: dict[str, Any],
+    module_name: str | None,
+    rule_result: dict[str, Any] | None = None,
+) -> list[str]:
     specs = parsed.get("spec_requirements") or {}
     budget = parsed.get("budget") or {}
     contract_modes = _contract_modes_for_module(parsed, module_name)
     parts = [
-        f"- 场景：{_join(parsed.get('scenarios'))}",
+        f"- 场景：{_scenario_summary(parsed, module_name, rule_result)}",
         f"- 产品模块：{display_text(module_name, '-')}",
         f"- 计费周期：{_join(parsed.get('billing_cycles'))}",
         f"- 签约方式：{_join(contract_modes)}",
@@ -165,6 +198,9 @@ def parse_package_selection(text: str | None) -> dict[str, Any] | None:
     if not text:
         return None
     patterns = (
+        r"(?:选择|选|用|按|就用)\s*(?:候选|候补|备选)?\s*(?:里面|里|中的|中)?\s*(?:第)?\s*([一二两三四五六七八九十\d]+)\s*(?:个|项|套)?\s*(?:套餐|方案)",
+        r"(?:选择|选|用|按|就用)\s*(?:候选|候补|备选)?\s*(?:里面|里|中的|中)?\s*(?:套餐|方案)\s*([一二两三四五六七八九十\d]+)",
+        r"(?:选择|选|用|按|就用)?\s*(?:第)?\s*([一二两三四五六七八九十\d]+)\s*个\s*(?:候选|候补|备选)",
         r"(?:选择|选|用|按|就用)\s*(?:第)?\s*([一二两三四五六七八九十\d]+)\s*(?:个|项|套)?\s*(?:套餐|方案)",
         r"(?:选择|选|用|按|就用)\s*(?:套餐|方案)\s*([一二两三四五六七八九十\d]+)",
         r"第\s*([一二两三四五六七八九十\d]+)\s*(?:个|项|套)?\s*(?:套餐|方案)",
@@ -177,7 +213,14 @@ def parse_package_selection(text: str | None) -> dict[str, Any] | None:
         rank = _parse_rank_token(match.group(1))
         if not rank:
             continue
-        scope = "alternative" if any(term in text for term in ("候选", "备选")) else "overall"
+        scope = (
+            "alternative"
+            if re.search(
+                r"(?:第)?\s*[一二两三四五六七八九十\d]+\s*个\s*(?:候选|候补|备选)|(?:候选|候补|备选)(?:里|里面|中的|中)\s*第\s*[一二两三四五六七八九十\d]+\s*个",
+                text,
+            )
+            else "overall"
+        )
         return {"rank": rank, "scope": scope, "raw_text": match.group(0)}
     return None
 
@@ -247,6 +290,7 @@ def build_quote_proposal_response(query: str) -> dict[str, Any]:
 
 def render_quote_proposal_response(response: dict[str, Any]) -> str:
     parsed = response["parsed_requirements"]
+    rule_result = response.get("rule_engine") or {}
     calculator = response["calculator"]
     compare = response["compare"]
     rag = response["rag"]
@@ -256,7 +300,7 @@ def render_quote_proposal_response(response: dict[str, Any]) -> str:
     lines = ["方案书 / 报价说明", response["message"]]
     lines.append("")
     lines.append("一、客户需求摘要")
-    lines.extend(_requirement_summary(parsed, calculator.get("module_name")))
+    lines.extend(_requirement_summary(parsed, calculator.get("module_name"), rule_result))
 
     if response.get("selection_error"):
         lines.append("")
@@ -444,6 +488,7 @@ def render_quote_sheet_response(response: dict[str, Any]) -> str:
 
 def render_recommendation_response(response: dict[str, Any]) -> str:
     parsed = response["parsed_requirements"]
+    rule_result = response.get("rule_engine") or {}
     calculator = response["calculator"]
     compare = response["compare"]
     rag = response["rag"]
@@ -453,7 +498,7 @@ def render_recommendation_response(response: dict[str, Any]) -> str:
     lines = ["推荐与报价核算结果"]
     lines.append("")
     lines.append("客户需求摘要")
-    lines.extend(_requirement_summary(parsed, calculator.get("module_name")))
+    lines.extend(_requirement_summary(parsed, calculator.get("module_name"), rule_result))
 
     if response.get("selection_error"):
         lines.append("")

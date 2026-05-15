@@ -161,6 +161,11 @@ textarea {
   border-bottom-right-radius: 4px;
 }
 
+.message.user .bubble p,
+.message.user .bubble strong {
+  color: #fff;
+}
+
 .message.assistant .bubble {
   border-bottom-left-radius: 4px;
 }
@@ -489,6 +494,31 @@ textarea:focus {
   border-radius: 10px;
   background: var(--soft-gray);
   padding: 10px;
+}
+
+.selected-package {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 12px;
+  border: 1px solid #bfdbfe;
+  border-radius: 10px;
+  background: #eff6ff;
+  color: #1e40af;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+
+.selected-package span {
+  color: #475569;
+}
+
+.selected-package strong,
+.selected-package em {
+  overflow-wrap: anywhere;
+  font-style: normal;
 }
 
 .active-requirement summary {

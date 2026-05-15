@@ -26,6 +26,39 @@ NETWORK_MODULES = {
 }
 
 
+FORCED_MODULE_HINTS = {
+    "sd_wan": (
+        "强制产品模块:sd-wan",
+        "强制产品模块：sd-wan",
+        "强制产品线:sd-wan",
+        "强制产品线：sd-wan",
+    ),
+    "intl_route_optimization": (
+        "强制产品模块:国际路由优化",
+        "强制产品模块：国际路由优化",
+        "强制产品线:国际路由优化",
+        "强制产品线：国际路由优化",
+    ),
+    "isp_private_line": (
+        "强制产品模块:isp",
+        "强制产品模块：isp",
+        "强制产品模块:isp专线",
+        "强制产品模块：isp专线",
+        "强制产品线:isp",
+        "强制产品线：isp",
+        "强制产品线:isp专线",
+        "强制产品线：isp专线",
+    ),
+}
+
+
+def _forced_module_key(query_norm: str) -> str | None:
+    for module_key, hints in FORCED_MODULE_HINTS.items():
+        if any(hint in query_norm for hint in hints):
+            return module_key
+    return None
+
+
 def _add_score(
     bucket: dict[str, dict[str, Any]],
     module_key: str,
@@ -70,6 +103,20 @@ def classify_requirement_payload(parsed: dict[str, Any]) -> dict[str, Any]:
         }
         for key, config in NETWORK_MODULES.items()
     }
+
+    forced_module = _forced_module_key(query_norm)
+    if forced_module:
+        module = buckets[forced_module]
+        module["score"] = 999
+        module["confidence"] = "high"
+        module["reasons"].append("用户通过产品快捷入口指定产品线")
+        return {
+            "primary_scene": module["scene"],
+            "primary_module": module["module_key"],
+            "routed_modules": [module],
+            "module_categories": [module["category"]],
+            "forced_module": module["module_key"],
+        }
 
     if "SD-WAN" in categories or "组网互联" in scenarios:
         _add_score(buckets, "sd_wan", 6, "命中 SD-WAN / 组网类诉求")
