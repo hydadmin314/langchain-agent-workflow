@@ -157,6 +157,7 @@ class Release:
     status: str
     facts: list[ExtractedFact]
     evidences: list[Evidence]
+    structured_data: dict[str, Any] = field(default_factory=dict)
     validation_issues: list[ValidationIssue] = field(default_factory=list)
     created_at: str = field(default_factory=utc_now)
     updated_at: str = field(default_factory=utc_now)

@@ -66,7 +66,10 @@ def main() -> None:
             }
         )
     else:
-        print_step("3. Draft Fact Samples")
+        print_step("3. Structured Data For Review")
+        print_json(structured_data_sample(release, args.sample_size))
+
+        print_step("4. Atomic Fact Samples")
         print_json(fact_samples(release, args.sample_size))
 
     print_step("5. Runtime Files")
@@ -117,6 +120,7 @@ def release_summary(release: Release) -> dict[str, Any]:
         "fact_count": len(release.facts),
         "fact_source_counts": fact_source_counts(release),
         "evidence_count": len(release.evidences),
+        "structured_data_sections": list(release.structured_data.keys()),
         "validation_issues": [to_dict(issue) for issue in release.validation_issues],
     }
 
@@ -126,6 +130,35 @@ def fact_samples(release: Release, sample_size: int) -> dict[str, list[dict[str,
     return {
         domain: [to_dict(fact) for fact in release.facts if fact.domain == domain][:sample_size]
         for domain in domains
+    }
+
+
+def structured_data_sample(release: Release, sample_size: int) -> dict[str, Any]:
+    data = release.structured_data
+    form = data.get("form", {})
+    facts_by_domain = data.get("facts_by_domain", {})
+    return {
+        "schema_version": data.get("schema_version"),
+        "document": data.get("document"),
+        "summary": data.get("summary"),
+        "business_objects": {
+            domain: items[:sample_size]
+            for domain, items in data.get("business_objects", {}).items()
+        },
+        "charges": data.get("charges", [])[:sample_size],
+        "rules": data.get("rules", [])[:sample_size],
+        "form": {
+            "fields": form.get("fields", [])[:sample_size],
+            "checkbox_count": len(form.get("checkboxes", [])),
+            "blank_field_count": len(form.get("blank_fields", [])),
+        },
+        "compliance": data.get("compliance", [])[:sample_size],
+        "required_documents": data.get("required_documents", [])[:sample_size],
+        "facts_by_domain_counts": {
+            domain: len(items)
+            for domain, items in facts_by_domain.items()
+        },
+        "review_notes": data.get("review_notes"),
     }
 
 

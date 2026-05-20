@@ -12,6 +12,7 @@ from agent.product_doc_agent.llm_extractors import LLMStructuredExtractor
 from agent.product_doc_agent.models import DocumentStatus, Release, ReleaseStatus, ValidationIssue, utc_now
 from agent.product_doc_agent.normalization import StructureNormalizer
 from agent.product_doc_agent.storage import JsonStore
+from agent.product_doc_agent.structured_data import BusinessStructuredDataBuilder
 from agent.product_doc_agent.validation import AISelfReviewer, ConflictDetector, SchemaValidator
 
 
@@ -32,6 +33,7 @@ class ProductDocumentPipeline:
         self.validator = SchemaValidator()
         self.conflict_detector = ConflictDetector()
         self.ai_self_reviewer = AISelfReviewer(self.llm_client if self.enable_llm else None)
+        self.structured_data_builder = BusinessStructuredDataBuilder()
 
     def run_to_draft(self, source_path: str | Path) -> Release:
         raw_doc = self.store.register_document(source_path)
@@ -55,6 +57,7 @@ class ProductDocumentPipeline:
             except Exception as exc:
                 extraction_issues.append(ValidationIssue("extractor_failed", f"{extractor.__class__.__name__} failed: {exc}", "warning"))
         facts = self.data_normalizer.normalize(self.merger.merge(fact_groups))
+        structured_data = self.structured_data_builder.build(facts, raw_doc, document_type)
         release = Release(
             release_id=release_id,
             doc_id=raw_doc.doc_id,
@@ -67,6 +70,7 @@ class ProductDocumentPipeline:
             status=ReleaseStatus.DRAFT.value,
             facts=facts,
             evidences=evidence_index.all(),
+            structured_data=structured_data,
         )
         release.validation_issues = self.validator.validate(release) + self.conflict_detector.detect(release) + self.ai_self_reviewer.review(release) + extraction_issues
         release.updated_at = utc_now()
