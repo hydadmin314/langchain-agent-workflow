@@ -42,7 +42,7 @@ class PlanExtractor(DomainExtractor):
         facts = [
             make_fact(release_id, self.domain, "base_plan_option", checkbox.label, [evidence.evidence_for_checkbox(checkbox.id).evidence_id])
             for checkbox in normalized.checkboxes
-            if any(token in checkbox.label for token in ["元/月", "元/年", "元/2年"])
+            if "拨号" in checkbox.label and any(token in checkbox.label for token in ["元/月", "元/年", "元/2年"])
         ]
         for paragraph in normalized.paragraphs:
             if "协议期" in paragraph.text and ("一年" in paragraph.text or "二年" in paragraph.text):
@@ -105,8 +105,52 @@ class FormFieldExtractor(DomainExtractor):
                 facts.append(make_fact(release_id, self.domain, "field", {"label": text.lstrip("*").strip(), "required": text.startswith("*")}, [evidence.evidence_for_paragraph(paragraph.id).evidence_id]))
         for blank in normalized.blank_fields:
             facts.append(make_fact(release_id, self.domain, "blank_field", {"label": blank.label, "placeholder": blank.placeholder}, [evidence.evidence_for_blank(blank.id).evidence_id]))
+        facts.extend(self._checkbox_group_facts(release_id, normalized, evidence))
         for checkbox in normalized.checkboxes:
             facts.append(make_fact(release_id, self.domain, "checkbox", {"label": checkbox.label, "checked": checkbox.checked}, [evidence.evidence_for_checkbox(checkbox.id).evidence_id]))
+        return facts
+
+    def _checkbox_group_facts(self, release_id: str, normalized: NormalizedDocument, evidence: EvidenceIndex) -> list[ExtractedFact]:
+        facts: list[ExtractedFact] = []
+        checkboxes_by_row: dict[tuple[str, int], list[Any]] = {}
+        for checkbox in normalized.checkboxes:
+            if checkbox.table_id is None or checkbox.row is None:
+                continue
+            checkboxes_by_row.setdefault((checkbox.table_id, checkbox.row), []).append(checkbox)
+
+        for table in normalized.tables:
+            for row_index, row in enumerate(table.rows):
+                row_checkboxes = checkboxes_by_row.get((table.id, row_index), [])
+                if len(row_checkboxes) < 2:
+                    continue
+                first_checkbox_col = min(checkbox.col or 0 for checkbox in row_checkboxes)
+                label = nearest_left_label(row, first_checkbox_col)
+                if not label:
+                    continue
+                options = [
+                    checkbox_option_value(checkbox, row[checkbox.col or 0])
+                    for checkbox in sorted(row_checkboxes, key=lambda item: (item.col or 0, item.id))
+                ]
+                for option, checkbox in zip(options, sorted(row_checkboxes, key=lambda item: (item.col or 0, item.id))):
+                    option["evidence_id"] = evidence.evidence_for_checkbox(checkbox.id).evidence_id
+                    option["checkbox_id"] = checkbox.id
+                evidence_ids = [evidence.evidence_for_table_row(table.id, row_index).evidence_id]
+                evidence_ids.extend(option["evidence_id"] for option in options)
+                facts.append(
+                    make_fact(
+                        release_id,
+                        self.domain,
+                        "checkbox_group",
+                        {
+                            "label": label,
+                            "required": left_label_is_required(row, first_checkbox_col),
+                            "options": options,
+                            "table_id": table.id,
+                            "row": row_index,
+                        },
+                        evidence_ids,
+                    )
+                )
         return facts
 
 
@@ -148,6 +192,105 @@ class ExtractionMerger:
 
 def make_fact(release_id: str, domain: str, field: str, value: Any, evidence_ids: list[str], confidence: float = 1.0, source: str = "rule") -> ExtractedFact:
     return ExtractedFact(f"fact_{uuid.uuid4().hex[:12]}", release_id, domain, field, value, evidence_ids, confidence, source)
+
+
+def nearest_left_label(row: list[str], first_checkbox_col: int) -> str:
+    for cell in reversed(row[:first_checkbox_col]):
+        label = clean_field_label(cell)
+        if label:
+            return label
+    return ""
+
+
+def clean_field_label(value: str) -> str:
+    text = re.sub(r"\s+", "", value or "").strip()
+    text = re.sub(r"^[*＊]+", "", text)
+    return text.strip(" :：")
+
+
+def left_label_is_required(row: list[str], first_checkbox_col: int) -> bool:
+    return any((cell or "").strip().startswith(("*", "＊")) for cell in row[:first_checkbox_col])
+
+
+def checkbox_option_value(checkbox: Any, cell_text: str) -> dict[str, Any]:
+    raw_label = checkbox.label
+    value = {
+        "label": clean_option_label(raw_label),
+        "raw_label": raw_label,
+        "checked": checkbox.checked,
+    }
+    context = checkbox_context(cell_text, raw_label)
+    if context:
+        value["context"] = context
+    input_fields = input_fields_from_option(raw_label)
+    if input_fields:
+        value["input_fields"] = input_fields
+    return value
+
+
+def checkbox_context(cell_text: str, option_label: str) -> str:
+    normalized_option = normalize_compact(option_label)
+    for line in cell_text.splitlines():
+        if normalized_option not in normalize_compact(line):
+            continue
+        prefix = re.split(r"[□☐■☑☒]", line, maxsplit=1)[0]
+        prefix = clean_field_label(prefix)
+        if prefix:
+            return prefix
+    return ""
+
+
+def input_fields_from_option(label: str) -> list[dict[str, str]]:
+    fields = []
+    for match in re.finditer(r"(_{2,}|\[\s*\])", label):
+        before = label[: match.start()]
+        after = label[match.end() :]
+        field_label = infer_input_label(before)
+        fields.append(
+            {
+                "label": field_label,
+                "placeholder": match.group(1),
+                "suffix": infer_input_suffix(after),
+            }
+        )
+    return fields
+
+
+def infer_input_label(text: str) -> str:
+    text = re.sub(r"[□☐■☑☒]", "", text)
+    text = text.rstrip(" ：:")
+    for delimiter in ["：", ":", "（", "(", "，", ",", " "]:
+        if delimiter in text:
+            text = text.rsplit(delimiter, 1)[-1]
+    return clean_field_label(text)
+
+
+def infer_input_suffix(text: str) -> str:
+    suffix = re.split(r"[，,。；;\s）)]", text.strip(), maxsplit=1)[0]
+    return suffix[:8]
+
+
+def clean_option_label(label: str) -> str:
+    cleaned = label
+    for match in reversed(list(re.finditer(r"(_{2,}|\[\s*\])", cleaned))):
+        before = cleaned[: match.start()]
+        start = max(before.rfind(delimiter) for delimiter in ["，", ",", "（", "(", " "])
+        if start < 0:
+            start = before.rfind("：")
+        if start < 0:
+            start = before.rfind(":")
+        if start < 0:
+            start = match.start()
+        end = match.end()
+        while end < len(cleaned) and cleaned[end] not in "，,；;。 ":
+            end += 1
+        cleaned = cleaned[:start] + cleaned[end:]
+    cleaned = re.sub(r"\s+", " ", cleaned).strip()
+    return cleaned.strip(" ：:，,（）()")
+
+
+def normalize_compact(value: str) -> str:
+    return re.sub(r"\s+", "", value or "")
 
 
 DEFAULT_EXTRACTORS: list[DomainExtractor] = [ProductExtractor(), PlanExtractor(), OptionExtractor(), FeeExtractor(), RuleExtractor(), FormFieldExtractor(), ComplianceExtractor(), RequiredDocumentExtractor()]

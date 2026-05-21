@@ -19,6 +19,9 @@ class EvidenceIndex:
     def evidence_for_blank(self, blank_id: str) -> Evidence:
         return self.evidences[self.by_ref[blank_id]]
 
+    def evidence_for_table_row(self, table_id: str, row: int) -> Evidence:
+        return self.evidences[self.by_ref[f"{table_id}:r{row}"]]
+
     def all(self) -> list[Evidence]:
         return list(self.evidences.values())
 

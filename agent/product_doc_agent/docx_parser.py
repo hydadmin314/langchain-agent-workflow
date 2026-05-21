@@ -8,7 +8,7 @@ from pathlib import Path
 from agent.product_doc_agent.models import BlankField, Checkbox, Paragraph, ParsedDocument, Table
 
 WORD_NS = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
-CHECKBOX_RE = re.compile(r"([□☐■☑√])\s*([^□☐■☑√\n\r]+)")
+CHECKBOX_RE = re.compile(r"([□☐■☑☒])\s*([^□☐■☑☒\n\r]+)")
 BLANK_RE = re.compile(r"(?P<label>[\u4e00-\u9fffA-Za-z0-9（）() /-]{1,24})[:：]?\s*(?P<blank>_{2,}|\[\s*\])")
 
 
@@ -98,7 +98,7 @@ def find_checkboxes(text: str) -> list[tuple[str, bool]]:
         mark = match.group(1)
         label = re.split(r"\s{2,}", match.group(2).strip())[0].strip()
         if label:
-            results.append((label, mark in {"■", "☑", "√"}))
+            results.append((label, mark in {"■", "☑", "☒"}))
     return results
 
 

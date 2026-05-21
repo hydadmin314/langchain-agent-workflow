@@ -141,6 +141,7 @@ def structured_data_sample(release: Release, sample_size: int) -> dict[str, Any]
         "schema_version": data.get("schema_version"),
         "document": data.get("document"),
         "summary": data.get("summary"),
+        "product_info": data.get("product_info"),
         "business_objects": {
             domain: items[:sample_size]
             for domain, items in data.get("business_objects", {}).items()
@@ -149,6 +150,8 @@ def structured_data_sample(release: Release, sample_size: int) -> dict[str, Any]
         "rules": data.get("rules", [])[:sample_size],
         "form": {
             "fields": form.get("fields", [])[:sample_size],
+            "checkbox_groups": form.get("checkbox_groups", [])[:sample_size],
+            "checkbox_group_count": len(form.get("checkbox_groups", [])),
             "checkbox_count": len(form.get("checkboxes", [])),
             "blank_field_count": len(form.get("blank_fields", [])),
         },
