@@ -27,10 +27,10 @@ class BusinessStructuredDataBuilder:
             "summary": self._summary(facts, raw_doc),
             "product_info": self._product_info(facts, raw_doc, document_type),
             "business_objects": self._business_objects(fact_items),
-            "charges": self._charges(facts),
-            "rules": self._domain_items(fact_items, "rule"),
-            "form": self._form(facts),
-            "compliance": self._domain_items(fact_items, "compliance"),
+            "fee_info": self._fee_info(facts),
+            "rule_book": self._rule_book(fact_items),
+            "form_schema": self._form_schema(facts),
+            "compliance_info": self._compliance_info(fact_items),
             "required_documents": self._domain_items(fact_items, "required_document"),
             "facts_by_domain": facts_by_domain,
             "facts_by_field": facts_by_field,
@@ -92,6 +92,22 @@ class BusinessStructuredDataBuilder:
         }
         return merge_domain_to_record(facts, domain="product", defaults=defaults)
 
+    def _fee_info(self, facts: list[ExtractedFact]) -> dict[str, Any]:
+        charges = self._charges(facts)
+        categories = {
+            "base_plan_prices": [],
+            "voice_cloud_phone_fees": [],
+            "mobile_overage_fees": [],
+            "speed_upgrade_packages": [],
+            "one_time_fees": [],
+            "penalty_rules": [],
+            "device_compensation": [],
+            "other_fees": [],
+        }
+        for charge in charges:
+            categories[fee_category(charge)].append(charge)
+        return grouped_review_object("fee", categories)
+
     def _charges(self, facts: list[ExtractedFact]) -> list[dict[str, Any]]:
         items = []
         for fact in facts:
@@ -147,6 +163,72 @@ class BusinessStructuredDataBuilder:
                 form["other"].append(item)
         return {name: dedupe_review_items(items) for name, items in form.items()}
 
+    def _form_schema(self, facts: list[ExtractedFact]) -> dict[str, Any]:
+        form = self._form(facts)
+        selection_labels = {
+            normalize_label(item.get("value", {}).get("label", ""))
+            for item in form["checkbox_groups"]
+            if isinstance(item.get("value"), dict)
+        }
+        text_fields = [
+            item
+            for item in form["fields"]
+            if normalize_label(item.get("value", {}).get("label", "")) not in selection_labels
+        ]
+        categories = {
+            "customer_fields": [],
+            "contact_fields": [],
+            "billing_fields": [],
+            "authorization_fields": [],
+            "selection_fields": form["checkbox_groups"],
+            "blank_fields": form["blank_fields"],
+            "other_fields": [],
+        }
+        for field in text_fields:
+            categories[form_field_category(field)].append(field)
+        if form["checkboxes"]:
+            categories["other_fields"].extend(form["checkboxes"])
+        if form["other"]:
+            categories["other_fields"].extend(form["other"])
+        return grouped_review_object("form", categories)
+
+    def _rule_book(self, fact_items: list[dict[str, Any]]) -> dict[str, Any]:
+        rules = self._domain_items(fact_items, "rule")
+        categories = {
+            "form_instructions": [],
+            "package_rules": [],
+            "eligibility_rules": [],
+            "lifecycle_rules": [],
+            "option_rules": [],
+            "billing_rules": [],
+            "termination_rules": [],
+            "compliance_related": [],
+            "authorization_rules": [],
+            "other_rules": [],
+        }
+        for rule in rules:
+            categories[rule_category(rule)].append(rule)
+        return grouped_review_object("rule", categories)
+
+    def _compliance_info(self, fact_items: list[dict[str, Any]]) -> dict[str, Any]:
+        clauses = self._domain_items(fact_items, "compliance")
+        categories = {
+            "real_name_requirements": [],
+            "network_security_commitment": [],
+            "personal_information_protection": [],
+            "voice_service_compliance": [],
+            "internet_access_compliance": [],
+            "filing_and_license_requirements": [],
+            "incident_response": [],
+            "liability_and_termination": [],
+            "security_contact": [],
+            "service_agreement_acknowledgement": [],
+            "other_compliance": [],
+        }
+        for clause in clauses:
+            categories[compliance_category(clause)].append(clause)
+        return grouped_review_object("compliance", categories)
+
     def _domain_items(self, fact_items: list[dict[str, Any]], domain: str) -> list[dict[str, Any]]:
         return dedupe_review_items([item for item in fact_items if item["domain"] == domain])
 
@@ -175,6 +257,111 @@ def merge_domain_to_record(
         "field_count": len(fields),
         "candidate_count": sum(len(value.get("candidates", [])) for value in fields.values()),
     }
+
+
+def grouped_review_object(name: str, categories: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
+    normalized = {key: dedupe_review_items(items) for key, items in categories.items()}
+    non_empty = {key: items for key, items in normalized.items() if items}
+    all_items = [item for items in non_empty.values() for item in items]
+    return {
+        "object": name,
+        "categories": non_empty,
+        "category_counts": {key: len(items) for key, items in non_empty.items()},
+        "item_count": len(all_items),
+        "evidence_ids": merge_unique([], [evidence_id for item in all_items for evidence_id in item.get("evidence_ids", [])]),
+        "fact_ids": merge_unique([], [fact_id for item in all_items for fact_id in item.get("fact_ids", [])]),
+    }
+
+
+def fee_category(charge: dict[str, Any]) -> str:
+    text = charge_text(charge)
+    charge_type = str(charge.get("charge_type", ""))
+    if "上行升速" in text:
+        return "speed_upgrade_packages"
+    if "一次性" in text or charge_type == "one_time_fee":
+        return "one_time_fees"
+    if "违约金" in text or charge_type == "penalty_fee":
+        return "penalty_rules"
+    if "Navigator" in text or "网关" in text or "设备" in text:
+        return "device_compensation"
+    if "拨号" in text or "基础套餐" in text:
+        return "base_plan_prices"
+    if any(token in text for token in ["固话", "商云通", "国内通话2500", "45元/月/线"]):
+        return "voice_cloud_phone_fees"
+    if any(token in text for token in ["移动", "主卡", "副卡", "国内短/彩信", "国内流量", "0.15元", "0.1元/条", "3元/GB", "断网"]):
+        return "mobile_overage_fees"
+    return "other_fees"
+
+
+def form_field_category(field: dict[str, Any]) -> str:
+    value = field.get("value", {})
+    label = value.get("label", "") if isinstance(value, dict) else string_value(value)
+    compact = normalize_label(label)
+    if any(token in compact for token in ["经办人", "身份证", "联系电话", "EMAIL", "E-MAIL", "传真"]):
+        return "contact_fields"
+    if any(token in compact for token in ["账单", "付款", "邮编"]):
+        return "billing_fields"
+    if any(token in compact for token in ["委托", "授权", "员工"]):
+        return "authorization_fields"
+    if any(token in compact for token in ["企业", "统一社会信用代码", "安装地址"]):
+        return "customer_fields"
+    return "other_fields"
+
+
+def rule_category(rule: dict[str, Any]) -> str:
+    text = review_text(rule)
+    if any(token in text for token in ["填写", "登记表", "打“√”", "带*项"]):
+        return "form_instructions"
+    if any(token in text for token in ["实名", "网络安全", "信息安全", "个人信息", "法律", "法规", "备案", "不得将电路", "不得通过宽带"]):
+        return "compliance_related"
+    if any(token in text for token in ["委托", "经办人", "代为办理"]):
+        return "authorization_rules"
+    if any(token in text for token in ["违约金", "退出", "提前终止", "终止", "注销", "拆机", "停机"]):
+        return "termination_rules"
+    if any(token in text for token in ["欠费", "不得参加", "不能选择", "限一线", "仅限"]):
+        return "eligibility_rules"
+    if any(token in text for token in ["协议期", "生效", "首月", "次月", "期满"]):
+        return "lifecycle_rules"
+    if any(token in text for token in ["固话", "商云通", "移动业务", "副卡", "上行升速", "可选"]):
+        return "option_rules"
+    if any(token in text for token in ["资费", "费用", "收费", "月基本费", "套餐费"]):
+        return "billing_rules"
+    if any(token in text for token in ["套餐", "宽带", "业务"]):
+        return "package_rules"
+    return "other_rules"
+
+
+def compliance_category(clause: dict[str, Any]) -> str:
+    text = review_text(clause)
+    if any(token in text for token in ["实名", "真实身份"]):
+        return "real_name_requirements"
+    if any(token in text for token in ["服务协议", "营销活动规则", "请认真阅读"]):
+        return "service_agreement_acknowledgement"
+    if any(token in text for token in ["个人信息", "数据"]):
+        return "personal_information_protection"
+    if any(token in text for token in ["语音", "外呼", "号码", "录音"]):
+        return "voice_service_compliance"
+    if any(token in text for token in ["互联网", "备案", "许可证", "80", "8080", "443", "网站"]):
+        return "internet_access_compliance"
+    if any(token in text for token in ["资质", "营业执照", "证明文件", "许可证"]):
+        return "filing_and_license_requirements"
+    if any(token in text for token in ["事故", "24小时", "应急", "报告"]):
+        return "incident_response"
+    if any(token in text for token in ["责任", "赔偿", "暂停", "解除", "终止", "投诉", "举报", "违反"]):
+        return "liability_and_termination"
+    if any(token in text for token in ["信息安全责任人", "承诺单位", "盖章"]):
+        return "security_contact"
+    if any(token in text for token in ["网络安全", "承诺", "法律", "法规", "不得"]):
+        return "network_security_commitment"
+    return "other_compliance"
+
+
+def review_text(item: dict[str, Any]) -> str:
+    return str(item.get("raw_text") or item.get("title") or item.get("value") or "")
+
+
+def charge_text(charge: dict[str, Any]) -> str:
+    return str(charge.get("raw_text") or charge.get("title") or "")
 
 
 def fact_to_field_candidate(fact: ExtractedFact) -> dict[str, Any]:

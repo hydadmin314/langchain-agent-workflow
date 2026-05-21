@@ -135,7 +135,7 @@ def fact_samples(release: Release, sample_size: int) -> dict[str, list[dict[str,
 
 def structured_data_sample(release: Release, sample_size: int) -> dict[str, Any]:
     data = release.structured_data
-    form = data.get("form", {})
+    form_schema = data.get("form_schema", {})
     facts_by_domain = data.get("facts_by_domain", {})
     return {
         "schema_version": data.get("schema_version"),
@@ -146,22 +146,29 @@ def structured_data_sample(release: Release, sample_size: int) -> dict[str, Any]
             domain: items[:sample_size]
             for domain, items in data.get("business_objects", {}).items()
         },
-        "charges": data.get("charges", [])[:sample_size],
-        "rules": data.get("rules", [])[:sample_size],
-        "form": {
-            "fields": form.get("fields", [])[:sample_size],
-            "checkbox_groups": form.get("checkbox_groups", [])[:sample_size],
-            "checkbox_group_count": len(form.get("checkbox_groups", [])),
-            "checkbox_count": len(form.get("checkboxes", [])),
-            "blank_field_count": len(form.get("blank_fields", [])),
-        },
-        "compliance": data.get("compliance", [])[:sample_size],
+        "fee_info": compact_grouped_object(data.get("fee_info", {}), sample_size),
+        "rule_book": compact_grouped_object(data.get("rule_book", {}), sample_size),
+        "form_schema": compact_grouped_object(form_schema, sample_size),
+        "compliance_info": compact_grouped_object(data.get("compliance_info", {}), sample_size),
         "required_documents": data.get("required_documents", [])[:sample_size],
         "facts_by_domain_counts": {
             domain: len(items)
             for domain, items in facts_by_domain.items()
         },
         "review_notes": data.get("review_notes"),
+    }
+
+
+def compact_grouped_object(payload: dict[str, Any], sample_size: int) -> dict[str, Any]:
+    categories = payload.get("categories", {})
+    return {
+        "object": payload.get("object"),
+        "item_count": payload.get("item_count"),
+        "category_counts": payload.get("category_counts"),
+        "category_samples": {
+            name: items[:sample_size]
+            for name, items in categories.items()
+        },
     }
 
 
