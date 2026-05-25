@@ -9,17 +9,6 @@ ROOT = Path(__file__).resolve().parents[2]
 OUTPUT_DIR = ROOT / "data" / "product_doc_agent" / "output"
 SOURCE_FILE = OUTPUT_DIR / "all_documents.json"
 ENRICHED_FILE = OUTPUT_DIR / "all_documents_enriched.json"
-TEXT_LIMITS = {
-    "description": 700,
-    "raw": 500,
-    "source_evidence": 300,
-}
-
-
-def shorten(value, limit: int = 500):
-    if not isinstance(value, str):
-        return value
-    return value if len(value) <= limit else value[:limit] + "..."
 
 
 def strip_code_fence(text: str) -> str:
@@ -43,18 +32,6 @@ def parse_json_response(text: str) -> dict:
         raise
 
 
-def compact_item(item: dict, fields: list[str]) -> dict:
-    compacted = {}
-    for field in fields:
-        value = item.get(field)
-        if value in ("", None, [], {}):
-            continue
-        if isinstance(value, list):
-            value = value[:6]
-        compacted[field] = shorten(value, TEXT_LIMITS.get(field, 500))
-    return compacted
-
-
 def build_llm_payload(doc: dict) -> dict:
     return {
         "document_id": doc.get("id"),
@@ -65,31 +42,22 @@ def build_llm_payload(doc: dict) -> dict:
         "effective_from": doc.get("effective_from"),
         "product_name": doc.get("product_name"),
         "rule_summary": doc.get("summary"),
-        "base_packages": [
-            compact_item(item, ["name", "speed", "amount", "currency", "billing_period", "pricing_type", "raw"])
-            for item in doc.get("base_packages", [])
-        ],
-        "included_items": [
-            compact_item(item, ["category", "name", "description", "options"])
-            for item in doc.get("included_items", [])
-        ],
-        "optional_services": [
-            compact_item(item, ["category", "name", "description", "options"])
-            for item in doc.get("optional_services", [])
-        ],
-        "fees": [
-            compact_item(item, ["category", "name", "description", "options"])
-            for item in doc.get("fees", [])
-        ],
+        "customer_application_fields": doc.get("customer_application_fields", []),
+        "filled_customer_values": doc.get("filled_customer_values", []),
+        "base_packages": doc.get("base_packages", []),
+        "included_items": doc.get("included_items", []),
+        "optional_services": doc.get("optional_services", []),
+        "fees": doc.get("fees", []),
         "sla": doc.get("sla", {}),
-        "required_fields": doc.get("customer_application_fields", []),
-        "marketing_rules": [shorten(rule, 500) for rule in doc.get("marketing_rules", [])[:5]],
-        "rule_warnings": doc.get("quality", {}).get("warnings", []),
+        "supporting_forms": doc.get("supporting_forms", []),
+        "marketing_rules": doc.get("marketing_rules", []),
+        "raw_business_rows": doc.get("raw_business_rows", []),
+        "quality": doc.get("quality", {}),
     }
 
 
 def enrichment_prompt(payload: dict) -> str:
-    return f"""你是电信产品文档审核助手。下面是本地规则从 Word 表格中抽取出的事实数据。
+    return f"""你是运营商产品文档审核助手。下面是本地规则从 Word 表格中抽取出的事实数据，文档可能来自电信、联通、移动或其它服务商。
 
 请严格基于这些事实做归一化、解释、补充校验和自检。不要编造本地事实中不存在的价格、速率、服务或条款。
 
@@ -97,7 +65,7 @@ def enrichment_prompt(payload: dict) -> str:
 {{
   "normalized_product": {{
     "product_name": "...",
-    "document_type": "telecom_product_application_form",
+    "document_type": "carrier_product_application_form",
     "issuer": "...",
     "effective_from": "...",
     "version": "..."

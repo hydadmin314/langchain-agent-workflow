@@ -10,6 +10,84 @@ ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "data" / "raw"
 OUTPUT_DIR = ROOT / "data" / "product_doc_agent" / "output"
 
+DOCUMENT_TITLE_KEYWORDS = (
+    "申请登记表",
+    "登记表",
+    "业务申请表",
+    "业务受理单",
+    "服务协议",
+    "产品说明",
+    "营销活动",
+    "套餐",
+)
+APPLICATION_SECTION_KEYWORDS = (
+    "客户信息",
+    "用户信息",
+    "企业信息",
+    "办理信息",
+    "申请信息",
+    "受理信息",
+    "基础套餐申请信息",
+    "业务申请信息",
+)
+BUSINESS_SECTION_KEYWORDS = (
+    "基础套餐",
+    "套餐信息",
+    "业务信息",
+    "业务申请信息",
+    "申请信息",
+    "产品信息",
+    "资费",
+    "费用",
+    "权益",
+    "增值",
+)
+APPLICATION_FIELD_KEYWORDS = (
+    "客户",
+    "企业",
+    "单位",
+    "联系人",
+    "联系电话",
+    "手机",
+    "地址",
+    "证件",
+    "身份证",
+    "代码",
+    "邮编",
+    "行业",
+    "规模",
+    "经办人",
+    "邮箱",
+    "E-MAIL",
+    "Email",
+    "传真",
+)
+APPLICATION_VALUE_WORDS = (
+    "同公司地址",
+    "其它",
+    "其他",
+    "托收",
+    "托 收",
+    "现金",
+    "现 金",
+)
+PROVIDER_PATTERNS = (
+    r"中国电信[^，。；\s]*",
+    r"中国联通[^，。；\s]*",
+    r"中国联合网络通信[^，。；\s]*",
+    r"中国移动[^，。；\s]*",
+    r"[^，。；\s]*(?:电信|联通|移动|通信|通讯|信息|网络)[^，。；\s]*(?:公司|分公司|营业厅)?",
+)
+FEE_KEYWORDS = ("费用", "资费", "收费", "价格", "金额", "一次性", "新装", "调试费", "安装费", "手续费", "月租费")
+OPTIONAL_KEYWORDS = ("可选", "增值", "权益", "赠送", "免费", "免收", "配套", "附加", "升级包", "加装")
+BASE_PACKAGE_KEYWORDS = ("基础套餐", "主套餐", "套餐", "产品资费", "标准资费")
+BASE_PACKAGE_ROW_KEYWORDS = ("基础套餐", "主套餐", "产品资费", "标准资费")
+INCLUDED_ITEM_KEYWORDS = ("套餐内", "包含内容", "含内容", "包含服务", "内含", "随套餐")
+AGREEMENT_RULE_KEYWORDS = ("营销规则", "客户特别关注", "协议", "违约", "限制", "退订", "注销", "拆机", "售后", "服务条款")
+SUPPORTING_FORM_KEYWORDS = ("报备表", "备案", "承诺书", "责任人", "附录", "附件", "信息安全")
+SPEED_PATTERN = r"\d+(?:\.\d+)?\s*(?:M|G|Mbps|Gbps|兆)(?:\s*/\s*\d+(?:\.\d+)?\s*(?:M|G|Mbps|Gbps|兆))?"
+PRICE_PATTERN = r"\d+(?:\.\d+)?\s*元\s*/\s*(?:月|年|2年|半年|季度)(?:\s*/\s*线)?"
+
 
 def clean(text):
     return re.sub(r"\s+", " ", (text or "").replace("\u3000", " ")).strip()
@@ -50,18 +128,65 @@ def first_match(pattern, text, default=""):
     return match.group(1).strip() if match else default
 
 
+def first_non_empty(values):
+    return next((value for value in values if clean(value)), "")
+
+
+def looks_like_issuer(text):
+    return bool(text and any(re.search(pattern, text) for pattern in PROVIDER_PATTERNS))
+
+
+def extract_issuer(paras):
+    for para in paras[:8]:
+        if looks_like_issuer(para):
+            return para
+    return ""
+
+
+def extract_title(path, paras):
+    candidates = [para for para in paras if any(keyword in para for keyword in DOCUMENT_TITLE_KEYWORDS)]
+    candidates.extend(para for para in paras if para and not looks_like_issuer(para))
+    return first_non_empty(candidates) or path.stem
+
+
+def strip_provider_name(text, issuer=""):
+    cleaned = text
+    if issuer:
+        cleaned = cleaned.replace(issuer, "")
+    for pattern in PROVIDER_PATTERNS:
+        cleaned = re.sub(pattern, "", cleaned)
+    return clean(cleaned)
+
+
+def extract_effective_from(path, title):
+    text = f"{path.name} {title}"
+    return (
+        first_match(r"【(.+?)起】", text)
+        or first_match(r"(\d{4}[./-]\d{1,2}[./-]\d{1,2})\s*起", text)
+        or first_match(r"(\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日)\s*起", text)
+        or first_match(r"(\d{4}[./-]\d{1,2}[./-]\d{1,2})", text)
+    )
+
+
+def extract_version(title):
+    return (
+        first_match(r"[（(]([^（）()]*\d{4}[^（）()]*)[）)]", title)
+        or first_match(r"(?:版本|版次|编号)[:：]?\s*([A-Za-z0-9_.\-/]+)", title)
+    )
+
+
 def extract_meta(path, paras):
     path = Path(path).resolve()
     try:
         source_path = str(path.relative_to(ROOT))
     except ValueError:
         source_path = str(path)
-    title = next((p for p in paras if "登记表" in p), paras[0] if paras else path.stem)
-    issuer = paras[0] if paras else ""
-    version = first_match(r"[（(]([^（）()]*\d{4}[^（）()]*)[）)]", title)
-    effective_from = first_match(r"【(.+?)起】", path.name)
-    product_name = re.split(r"申请登记表|登记表", title)[0]
-    product_name = product_name.replace("中国电信股份有限公司上海分公司", "").strip()
+    title = extract_title(path, paras)
+    issuer = extract_issuer(paras)
+    version = extract_version(title)
+    effective_from = extract_effective_from(path, title)
+    product_name = re.split(r"申请登记表|登记表|业务申请表|业务受理单|服务协议|产品说明", title)[0]
+    product_name = strip_provider_name(product_name, issuer)
     return {
         "filename": path.name,
         "source_path": source_path,
@@ -73,31 +198,92 @@ def extract_meta(path, paras):
     }
 
 
-def extract_required_fields(rows):
+def normalize_field_label(text):
+    label = clean(text).replace("*", "").replace(" ", "")
+    label = re.sub(r"[:：]+$", "", label)
+    return label
+
+
+def is_application_value_cell(text):
+    normalized = clean(text).replace(" ", "")
+    if not normalized:
+        return False
+    return normalized in {value.replace(" ", "") for value in APPLICATION_VALUE_WORDS}
+
+
+def is_application_field_cell(row, index):
+    cell = clean(row[index]) if index < len(row) else ""
+    label = normalize_field_label(cell)
+    if not label or len(label) > 24:
+        return False
+    if cell.startswith("□") or "银行账号" in label or is_application_value_cell(cell):
+        return False
+    if "*" in cell:
+        return True
+    previous = clean(row[index - 1]) if index > 0 else ""
+    next_cell = clean(row[index + 1]) if index + 1 < len(row) else ""
+    has_field_keyword = any(keyword in label for keyword in APPLICATION_FIELD_KEYWORDS)
+    if not has_field_keyword:
+        return False
+    return index == 0 or previous == "" or next_cell == ""
+
+
+def split_plain_options(text):
+    normalized = clean(text)
+    if not normalized or normalized.startswith("□"):
+        return []
+    option_words = []
+    for word in APPLICATION_VALUE_WORDS:
+        pattern = re.escape(word)
+        if re.search(pattern, normalized):
+            option_words.append(clean(word))
+    return dedupe(option_words)
+
+
+def extract_application_fields(rows):
     fields = []
-    for row in rows:
-        if row and "基础套餐申请信息" in row[0]:
+    for row_index, row in enumerate(rows):
+        if row and any(keyword in " ".join(row) for keyword in BUSINESS_SECTION_KEYWORDS):
             break
-        for cell in row:
-            if not cell or cell.startswith("□"):
+        field_indexes = [
+            index
+            for index, _ in enumerate(row)
+            if is_application_field_cell(row, index)
+        ]
+        for position, index in enumerate(field_indexes):
+            cell = row[index]
+            label = normalize_field_label(cell)
+            if not label:
                 continue
-            parts = re.split(r"\s{2,}|[：:]", cell)
-            for part in parts:
-                label = clean(part).replace(" ", "")
-                if not label or len(label) > 24:
-                    continue
-                if label.startswith("□") or "银行账号" in label:
-                    continue
-                if "*" in label or label in {"企业代码", "联系人职务", "经办人职务", "传真", "E-MAIL"}:
-                    fields.append({
-                        "label": label.replace("*", ""),
-                        "required": "*" in label,
-                        "value": "",
-                    })
+            next_index = field_indexes[position + 1] if position + 1 < len(field_indexes) else len(row)
+            value_cells = [clean(value) for value in row[index + 1:next_index] if clean(value)]
+            options = []
+            for value in value_cells:
+                options.extend(checkbox_options(value))
+                options.extend(split_plain_options(value))
+            plain_values = [
+                value
+                for value in value_cells
+                if not value.startswith("□") and not checkbox_options(value) and not split_plain_options(value)
+            ]
+            fields.append({
+                "label": label,
+                "required": "*" in cell,
+                "value": " ".join(plain_values),
+                "options": dedupe(options),
+                "source_evidence": " | ".join(row),
+                "row_index": row_index,
+            })
     return dedupe(fields)
 
 
+def extract_required_fields(rows):
+    return extract_application_fields(rows)
+
+
 def checkbox_options(text):
+    if "□" not in (text or ""):
+        return []
     options = []
     for part in re.split(r"□", text):
         part = clean(part)
@@ -111,15 +297,61 @@ def checkbox_options(text):
 
 def parse_base_packages(text):
     packages = []
-    pattern = re.compile(r"(\d+M/\d+M)[（(](\d+)元/(月|年|2年)(?:/线)?[）)]")
-    for speed, amount, period in pattern.findall(text):
+    speed_pattern = f"({SPEED_PATTERN})"
+    price_pattern = r"(\d+(?:\.\d+)?)\s*元\s*/\s*(月|年|2年|半年|季度)(?:\s*/\s*线)?"
+    for speed, amount, period in re.findall(speed_pattern + r".{0,30}?" + price_pattern, text, flags=re.IGNORECASE):
+        numeric_amount = float(amount)
         packages.append({
-            "speed": speed,
-            "amount": int(amount),
+            "speed": clean(speed),
+            "amount": int(numeric_amount) if numeric_amount.is_integer() else numeric_amount,
             "currency": "CNY",
             "billing_period": period,
-            "raw": f"{speed}（{amount}元/{period}）",
+            "raw": f"{clean(speed)} {amount}元/{period}",
         })
+    return dedupe(packages)
+
+
+def parse_package_prices_for_speed(text, speed, package_name=""):
+    packages = []
+    if not speed:
+        return packages
+    start = text.find(speed)
+    segment = text[start:] if start >= 0 else text
+    next_speed = re.search(SPEED_PATTERN, segment[len(speed):], flags=re.IGNORECASE)
+    if next_speed:
+        segment = segment[: len(speed) + next_speed.start()]
+    for amount, period in re.findall(r"(\d+(?:\.\d+)?)\s*元\s*/\s*(月|年|2年|半年|季度)(?:\s*/\s*线)?", segment):
+        numeric_amount = float(amount)
+        packages.append({
+            "name": package_name,
+            "speed": clean(speed),
+            "amount": int(numeric_amount) if numeric_amount.is_integer() else numeric_amount,
+            "currency": "CNY",
+            "billing_period": period,
+            "raw": f"{clean(speed)} {amount}元/{period}",
+        })
+    return packages
+
+
+def parse_base_package_rows(rows):
+    packages = []
+    for item in rows:
+        text = clean(" ".join(str(item.get(key, "")) for key in ("name", "description")))
+        paired_packages = parse_base_packages(text)
+        if paired_packages:
+            for package in paired_packages:
+                package.setdefault("name", item.get("name", ""))
+            packages.extend(paired_packages)
+            continue
+        speeds = [clean(match.group(0)) for match in re.finditer(SPEED_PATTERN, text, flags=re.IGNORECASE)]
+        if speeds:
+            row_packages = []
+            for speed in dedupe(speeds):
+                row_packages.extend(parse_package_prices_for_speed(text, speed, item.get("name", "")))
+            if row_packages:
+                packages.extend(row_packages)
+                continue
+        packages.extend(parse_base_packages(text))
     return dedupe(packages)
 
 
@@ -128,7 +360,7 @@ def parse_variable_package_rows(business_rows):
     for item in business_rows:
         name = item["name"] or item["category"]
         description = item["description"]
-        if name not in {"小微上线", "小微在线"}:
+        if not is_customer_input_package_row(item):
             continue
         speed_range = first_match(r"[（(]([^（）()]*M[^（）()]*)[）)]", description)
         packages.append({
@@ -162,21 +394,45 @@ def parse_uplink_packages(text):
     return packages
 
 
+def is_section_header(row):
+    joined = " ".join(row)
+    if any(keyword in joined for keyword in APPLICATION_SECTION_KEYWORDS + BUSINESS_SECTION_KEYWORDS):
+        return True
+    return len(row) <= 2 and bool(joined) and len(joined) <= 30
+
+
+def has_business_payload(row):
+    joined = " ".join(row)
+    return (
+        len(row) >= 3
+        or "□" in joined
+        or re.search(r"\d+(?:\.\d+)?\s*元", joined)
+        or any(keyword in joined for keyword in FEE_KEYWORDS + OPTIONAL_KEYWORDS + INCLUDED_ITEM_KEYWORDS)
+    )
+
+
 def classify_business_rows(rows):
     application_rows = []
-    in_business = False
+    in_business = not any(any(keyword in " ".join(row) for keyword in BUSINESS_SECTION_KEYWORDS) for row in rows)
     for index, row in enumerate(rows):
         joined = " ".join(row)
-        if "基础套餐申请信息" in joined or "业务申请信息" in joined or "申请信息" in joined:
+        if any(keyword in joined for keyword in BUSINESS_SECTION_KEYWORDS):
             in_business = True
-            continue
+            if not has_business_payload(row):
+                continue
         if not in_business or not row:
+            continue
+        if any(keyword in joined for keyword in APPLICATION_SECTION_KEYWORDS) and not any(keyword in joined for keyword in BUSINESS_SECTION_KEYWORDS):
             continue
         category = clean(row[0])
         name = clean(row[1]) if len(row) > 2 else category
         description = clean(" ".join(row[2:] if len(row) > 2 else row[1:]))
         if not description and len(row) == 2:
             description = clean(row[1])
+        if not description and len(row) == 1:
+            description = category
+        if is_section_header(row) and (len(row) == 1 or (len(row) <= 2 and not has_business_payload(row))):
+            continue
         if category == "填表说明":
             category = "说明"
         application_rows.append({
@@ -229,23 +485,160 @@ def extract_supporting_forms(tables):
             forms.append({"table_index": idx, "name": "域名备案信息表", "columns": rows[0]})
         elif "APP下载URL" in title:
             forms.append({"table_index": idx, "name": "APP应用备案信息表", "columns": rows[0]})
+        elif any(keyword in title for keyword in SUPPORTING_FORM_KEYWORDS):
+            forms.append({
+                "table_index": idx,
+                "name": title,
+                "required_fields": extract_required_fields(rows),
+                "columns": rows[0],
+            })
     return forms
 
 
 def extract_marketing_rules(paras):
     start = 0
     for index, para in enumerate(paras):
-        if "营销规则" in para or "客户特别关注" in para:
+        if any(keyword in para for keyword in AGREEMENT_RULE_KEYWORDS):
             start = index + 1
             break
     rules = []
     for para in paras[start:]:
-        if len(rules) >= 10:
-            break
-        if "登记表" in para or len(para) < 12:
+        if any(keyword in para for keyword in DOCUMENT_TITLE_KEYWORDS) or len(para) < 12:
             continue
         rules.append(para)
     return rules
+
+
+def flatten_table_rows(tables):
+    rows = []
+    for table in tables:
+        rows.extend(get_rows(table))
+    return rows
+
+
+def row_matches(item, keywords):
+    text = " ".join(str(item.get(key, "")) for key in ("category", "name", "description"))
+    return any(keyword in text for keyword in keywords)
+
+
+def row_header_matches(item, keywords):
+    text = " ".join(str(item.get(key, "")) for key in ("category", "name"))
+    return any(keyword in text for keyword in keywords)
+
+
+def row_text(item):
+    return clean(" ".join(str(item.get(key, "")) for key in ("category", "name", "description")))
+
+
+def has_price(text):
+    return bool(re.search(PRICE_PATTERN, text))
+
+
+def has_placeholder_price(text):
+    return bool(re.search(r"(月租费|费用|资费|收费)\s*[：:]\s*[_＿]{2,}", text))
+
+
+def is_base_package_row(item):
+    header = clean(" ".join(str(item.get(key, "")) for key in ("category", "name")))
+    text = row_text(item)
+    if row_header_matches(item, INCLUDED_ITEM_KEYWORDS) or row_header_matches(item, OPTIONAL_KEYWORDS):
+        return False
+    if any(keyword in header for keyword in BASE_PACKAGE_ROW_KEYWORDS) and (has_price(text) or has_placeholder_price(text)):
+        return True
+    if has_placeholder_price(text) and re.search(SPEED_PATTERN, text, flags=re.IGNORECASE):
+        return True
+    return False
+
+
+def is_customer_input_package_row(item):
+    text = row_text(item)
+    if row_header_matches(item, OPTIONAL_KEYWORDS) or row_header_matches(item, INCLUDED_ITEM_KEYWORDS):
+        return False
+    return has_placeholder_price(text) and re.search(SPEED_PATTERN, text, flags=re.IGNORECASE)
+
+
+def is_optional_service_row(item):
+    if is_base_package_row(item):
+        return False
+    header_matches = row_header_matches(item, OPTIONAL_KEYWORDS)
+    text = row_text(item)
+    if header_matches:
+        return True
+    if row_header_matches(item, INCLUDED_ITEM_KEYWORDS):
+        return False
+    return any(keyword in text for keyword in ("上行升速包", "IP地址升级", "付费升级", "可升级", "增值服务", "月基本费0元", "申请线数", "配套业务"))
+
+
+def is_fee_rule_row(item):
+    if is_base_package_row(item):
+        return False
+    text = row_text(item)
+    header = clean(" ".join(str(item.get(key, "")) for key in ("category", "name")))
+    if row_header_matches(item, INCLUDED_ITEM_KEYWORDS):
+        return False
+    if any(keyword in header for keyword in ("一次性", "新装优惠", "安装", "调测", "调试", "手续费", "费用", "期限", "协议期")):
+        return True
+    if any(keyword in text for keyword in ("一次性费用", "安装调测费", "手续费", "协议期", "违约金", "按天折算", "未注明的资费")):
+        return True
+    return False
+
+
+def is_blank_business_row(item):
+    return not clean(row_text(item)).strip("| ")
+
+
+def is_supporting_form_business_row(item):
+    return any(keyword in row_text(item) for keyword in SUPPORTING_FORM_KEYWORDS)
+
+
+def service_attribute_type(item):
+    text = row_text(item)
+    header = clean(" ".join(str(item.get(key, "")) for key in ("category", "name")))
+    if "接口" in header or "接口" in text:
+        return "interface_standard"
+    if "套餐类型" in header:
+        return "package_type"
+    if "SLA" in text or "服务等级" in text:
+        return "sla_service"
+    if "专享" in header or "专享" in text:
+        return "exclusive_service"
+    if "可选产品" in header or "入云" in text:
+        return "optional_product"
+    return "business_attribute"
+
+
+def is_service_attribute_row(item):
+    if is_blank_business_row(item) or is_supporting_form_business_row(item):
+        return False
+    if item.get("category") == "说明":
+        return False
+    if is_base_package_row(item) or row_matches(item, INCLUDED_ITEM_KEYWORDS):
+        return False
+    if is_optional_service_row(item) or is_fee_rule_row(item):
+        return False
+    text = row_text(item)
+    return bool(text and (item.get("description") or checkbox_options(text)))
+
+
+def normalize_service_attribute(item):
+    description = item.get("description", "")
+    return {
+        "attribute_type": service_attribute_type(item),
+        "name": item.get("name") or item.get("category") or "",
+        "category": item.get("category", ""),
+        "value": description,
+        "options": checkbox_options(description),
+        "source_evidence": row_text(item),
+        "row_index": item.get("row_index"),
+    }
+
+
+def extract_service_attributes(main_rows):
+    attributes = []
+    for item in classify_business_rows(main_rows):
+        if is_service_attribute_row(item):
+            attributes.append(normalize_service_attribute(item))
+    return dedupe(attributes)
 
 
 def build_document(path):
@@ -253,25 +646,28 @@ def build_document(path):
     paras = paragraphs(doc)
     tables = doc.tables
     main_rows = get_rows(tables[0]) if tables else []
-    business_rows = classify_business_rows(main_rows)
+    all_rows = flatten_table_rows(tables)
+    business_rows = classify_business_rows(all_rows or main_rows)
     all_business_text = " ".join(item["description"] for item in business_rows)
 
     included_items = [
         item for item in business_rows
-        if item["category"] in {"套餐内 包含内容", "基础套餐"} or "基础套餐" in item["category"]
+        if row_matches(item, INCLUDED_ITEM_KEYWORDS)
     ]
     optional_services = [
         item for item in business_rows
-        if "可选" in item["category"] or "移动业务" in item["category"] or "商云通" in item["category"]
-        or "固话" in item["category"] or "上行升速包" in item["category"] or "配套业务" in item["category"]
-        or "云享" in item["description"]
+        if is_optional_service_row(item)
     ]
     fees = [
         item for item in business_rows
-        if "费用" in item["description"] or "一次性" in item["category"] or "新装优惠" in item["category"]
+        if is_fee_rule_row(item)
     ]
 
-    base_packages = parse_base_packages(all_business_text)
+    base_package_rows = [item for item in business_rows if is_base_package_row(item)]
+    base_packages = parse_base_package_rows(base_package_rows)
+    if not base_packages:
+        base_package_text = " ".join(item["description"] for item in base_package_rows)
+        base_packages = parse_base_packages(base_package_text or all_business_text)
     base_packages.extend(parse_variable_package_rows(business_rows))
     uplink_packages = parse_uplink_packages(all_business_text)
     if uplink_packages and not any(item["name"] == "上行升速包" for item in optional_services):
@@ -291,12 +687,13 @@ def build_document(path):
         warnings.append("未解析到明确的基础套餐价格项，建议人工复核原表格。")
 
     extracted = {
-        "document_type": "telecom_product_application_form",
+        "document_type": "carrier_product_application_form",
         **meta,
         "customer_application_fields": extract_required_fields(main_rows),
         "filled_customer_values": [],
         "base_packages": base_packages,
         "included_items": dedupe(included_items),
+        "service_attributes": extract_service_attributes(main_rows),
         "optional_services": dedupe(optional_services),
         "fees": dedupe(fees),
         "sla": extract_sla(tables, business_rows),
@@ -321,10 +718,18 @@ def build_document(path):
     return extracted
 
 
+def iter_docx_files(data_dir=DATA_DIR):
+    return [
+        path
+        for path in sorted(data_dir.glob("*.docx"))
+        if not path.name.startswith("~$")
+    ]
+
+
 def main():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     documents = []
-    for index, path in enumerate(sorted(DATA_DIR.glob("*.docx")), 1):
+    for index, path in enumerate(iter_docx_files(), 1):
         document = build_document(path)
         document["id"] = f"doc-{index}"
         documents.append(document)

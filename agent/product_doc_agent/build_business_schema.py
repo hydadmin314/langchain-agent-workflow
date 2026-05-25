@@ -1,5 +1,6 @@
 import json
 import argparse
+import re
 from datetime import datetime
 from pathlib import Path
 
@@ -10,6 +11,17 @@ DATA_DIR = ROOT / "data" / "raw"
 ENRICHED_FILE = OUTPUT_DIR / "all_documents_enriched.json"
 LOCAL_FILE = OUTPUT_DIR / "all_documents.json"
 SCHEMA_BUNDLE_FILE = OUTPUT_DIR / "all_documents_business_schema.json"
+SCHEMA_TOP_LEVEL_KEYS = (
+    "document_info",
+    "parties_and_application",
+    "base_package",
+    "optional_packages",
+    "fee_and_term_rules",
+    "agreement_rules",
+    "supplemental_rules",
+    "extraction_meta",
+)
+SCHEMA_VERSION = "business_schema_v1"
 
 
 def parse_args():
@@ -48,11 +60,11 @@ def parse_args():
 
 
 def build_local_source(write_intermediate: bool) -> tuple[dict, str]:
-    from agent.product_doc_agent.extract_docs import build_document
+    from agent.product_doc_agent.extract_docs import build_document, iter_docx_files
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     documents = []
-    for index, path in enumerate(sorted(DATA_DIR.glob("*.docx")), 1):
+    for index, path in enumerate(iter_docx_files(DATA_DIR), 1):
         document = build_document(path)
         document["id"] = f"doc-{index}"
         documents.append(document)
@@ -137,6 +149,94 @@ def compact_text(text, limit=900):
     return text if len(text) <= limit else text[:limit] + "..."
 
 
+def empty_business_schema() -> dict:
+    return {
+        "document_info": {
+            "document_type": "",
+            "title": "",
+            "product_name": "",
+            "issuer": "",
+            "version": "",
+            "effective_from": "",
+            "filename": "",
+            "source_path": "",
+            "summary": "",
+        },
+        "parties_and_application": {
+            "service_provider": {"name": ""},
+            "customer": {"filled_values": [], "is_blank_form": True},
+            "application_fields": {"required": [], "optional": []},
+            "application_notes": [],
+        },
+        "base_package": {
+            "packages": [],
+            "included_items": [],
+            "service_attributes": [],
+            "sla": {"eligibility": "", "plans": [], "compensation_rules": []},
+        },
+        "optional_packages": [],
+        "fee_and_term_rules": [],
+        "agreement_rules": [],
+        "supplemental_rules": [],
+        "extraction_meta": {
+            "schema_version": SCHEMA_VERSION,
+            "generated_at": "",
+            "source_file": "",
+            "method": "",
+            "local_rule_quality": {},
+            "llm_confidence": None,
+            "llm_self_check": {},
+            "validation_issue_count": 0,
+            "validation_issues": [],
+            "raw_document_id": "",
+            "schema_warnings": [],
+        },
+    }
+
+
+def merge_defaults(defaults, value):
+    if isinstance(defaults, dict):
+        source = value if isinstance(value, dict) else {}
+        merged = {}
+        for key, default_value in defaults.items():
+            merged[key] = merge_defaults(default_value, source.get(key))
+        for key, extra_value in source.items():
+            if key not in merged:
+                merged[key] = extra_value
+        return merged
+    if isinstance(defaults, list):
+        return value if isinstance(value, list) else []
+    if value is None:
+        return defaults
+    return value
+
+
+def ensure_business_schema(schema: dict) -> dict:
+    normalized = merge_defaults(empty_business_schema(), schema)
+    warnings = []
+    for key in SCHEMA_TOP_LEVEL_KEYS:
+        if key not in schema:
+            warnings.append(f"missing_top_level_key:{key}")
+
+    list_fields = ("optional_packages", "fee_and_term_rules", "agreement_rules", "supplemental_rules")
+    for key in list_fields:
+        if not isinstance(normalized.get(key), list):
+            normalized[key] = []
+            warnings.append(f"coerced_to_list:{key}")
+
+    dict_fields = ("document_info", "parties_and_application", "base_package", "extraction_meta")
+    for key in dict_fields:
+        if not isinstance(normalized.get(key), dict):
+            normalized[key] = empty_business_schema()[key]
+            warnings.append(f"coerced_to_dict:{key}")
+
+    meta = normalized.setdefault("extraction_meta", {})
+    meta["schema_version"] = SCHEMA_VERSION
+    meta.setdefault("schema_warnings", [])
+    meta["schema_warnings"] = list(dict.fromkeys([*meta["schema_warnings"], *warnings]))
+    return normalized
+
+
 def package_price_status(item):
     if item.get("pricing_type") == "customer_input":
         return "customer_input"
@@ -145,7 +245,35 @@ def package_price_status(item):
     return "fixed"
 
 
+def amount_values(text: str) -> list[float]:
+    values = []
+    for match in re.finditer(r"(?<!\d)(\d+(?:\.\d+)?)\s*元", text):
+        try:
+            values.append(float(match.group(1)))
+        except ValueError:
+            continue
+    return values
+
+
+def has_free_signal(text: str) -> bool:
+    if any(term in text for term in ("免费", "免收", "免UIM卡", "赠送")):
+        return True
+    return any(value == 0 for value in amount_values(text))
+
+
+def has_paid_signal(text: str) -> bool:
+    return any(value > 0 for value in amount_values(text)) or any(term in text for term in ("收费", "费用增加", "付费", "月租费"))
+
+
+def extract_fee_summary(text: str) -> str:
+    pieces = []
+    for match in re.finditer(r"[^。；;，,□]{0,20}\d+(?:\.\d+)?\s*元(?:\s*/\s*[^。；;，,□\s]+)?", text):
+        pieces.append(match.group(0).strip())
+    return "；".join(dict.fromkeys(piece for piece in pieces if piece))[:300]
+
+
 def normalize_package(item):
+    item = item or {}
     price = item.get("price", item.get("amount"))
     return {
         "package_name": item.get("package_name") or item.get("name") or item.get("speed", ""),
@@ -160,16 +288,17 @@ def normalize_package(item):
 
 def classify_optional_package(service):
     text = " ".join(str(service.get(k, "")) for k in ("service_name", "name", "fee_summary", "description"))
-    if "0元" in text or "免费" in text or "免收" in text:
-        return "free_optional_package"
-    if "元/" in text or "费用" in text or "收费" in text:
+    if has_paid_signal(text):
         return "paid_optional_package"
+    if has_free_signal(text):
+        return "free_optional_package"
     if "权益" in text:
         return "benefit_package"
     return "optional_package"
 
 
 def normalize_optional_from_llm(service):
+    service = service or {}
     return {
         "package_type": classify_optional_package(service),
         "name": service.get("service_name", ""),
@@ -180,17 +309,20 @@ def normalize_optional_from_llm(service):
 
 
 def normalize_optional_from_local(item):
+    item = item or {}
+    description = compact_text(item.get("description", ""))
     return {
         "package_type": classify_optional_package(item),
         "name": item.get("name", item.get("category", "")),
-        "fee_summary": "",
-        "description": compact_text(item.get("description", "")),
+        "fee_summary": extract_fee_summary(item.get("description", "")),
+        "description": description,
         "source_evidence": item.get("description", ""),
         "options": item.get("options", []),
     }
 
 
 def fee_rule_from_item(item):
+    item = item or {}
     return {
         "rule_type": "fee_rule",
         "name": item.get("name", item.get("category", "")),
@@ -230,9 +362,10 @@ def infer_agreement_rule_type(text):
 
 
 def build_document_info(doc, enriched):
+    enriched = enriched or {}
     normalized = enriched.get("normalized_product", {})
     return {
-        "document_type": normalized.get("document_type") or doc.get("document_type"),
+        "document_type": normalized.get("document_type") or doc.get("document_type") or "",
         "title": doc.get("title", ""),
         "product_name": normalized.get("product_name") or doc.get("product_name", ""),
         "issuer": normalized.get("issuer") or doc.get("issuer", ""),
@@ -266,6 +399,7 @@ def build_parties_and_application(doc):
 
 
 def build_base_package(doc, enriched):
+    enriched = enriched or {}
     normalized_packages = enriched.get("normalized_packages") or doc.get("base_packages", [])
     return {
         "packages": [normalize_package(item) for item in normalized_packages],
@@ -278,17 +412,31 @@ def build_base_package(doc, enriched):
             }
             for item in doc.get("included_items", [])
         ],
+        "service_attributes": [
+            {
+                "attribute_type": item.get("attribute_type", "business_attribute"),
+                "name": item.get("name", ""),
+                "category": item.get("category", ""),
+                "value": compact_text(item.get("value", "")),
+                "options": item.get("options", []),
+                "source_evidence": item.get("source_evidence", ""),
+                "row_index": item.get("row_index"),
+            }
+            for item in doc.get("service_attributes", [])
+        ],
         "sla": doc.get("sla", {}),
     }
 
 
 def build_optional_packages(doc, enriched):
+    enriched = enriched or {}
     if enriched.get("optional_services_summary"):
         return [normalize_optional_from_llm(item) for item in enriched["optional_services_summary"]]
     return [normalize_optional_from_local(item) for item in doc.get("optional_services", [])]
 
 
 def build_fee_and_term_rules(doc, enriched):
+    enriched = enriched or {}
     rules = [fee_rule_from_item(item) for item in doc.get("fees", [])]
     for issue in enriched.get("validation_issues", []):
         field = issue.get("field", "")
@@ -304,6 +452,7 @@ def build_fee_and_term_rules(doc, enriched):
 
 
 def build_agreement_rules(doc, enriched):
+    enriched = enriched or {}
     rules = [agreement_rule(rule, index) for index, rule in enumerate(doc.get("marketing_rules", []), 1)]
     for issue in enriched.get("validation_issues", []):
         field = issue.get("field", "")
@@ -341,8 +490,10 @@ def build_supplemental_rules(doc):
 
 
 def build_extraction_meta(doc, enriched, source_file):
+    enriched = enriched or {}
     self_check = enriched.get("self_check", {})
     return {
+        "schema_version": SCHEMA_VERSION,
         "generated_at": datetime.now().isoformat(timespec="seconds"),
         "source_file": source_file,
         "method": "local_rule_extraction_then_llm_business_schema",
@@ -352,12 +503,13 @@ def build_extraction_meta(doc, enriched, source_file):
         "validation_issue_count": len(enriched.get("validation_issues", [])),
         "validation_issues": enriched.get("validation_issues", []),
         "raw_document_id": doc.get("id", ""),
+        "schema_warnings": [],
     }
 
 
 def transform_document(doc, source_file):
     enriched = doc.get("llm_enrichment", {})
-    return {
+    schema = {
         "document_info": build_document_info(doc, enriched),
         "parties_and_application": build_parties_and_application(doc),
         "base_package": build_base_package(doc, enriched),
@@ -367,6 +519,7 @@ def transform_document(doc, source_file):
         "supplemental_rules": build_supplemental_rules(doc),
         "extraction_meta": build_extraction_meta(doc, enriched, source_file),
     }
+    return ensure_business_schema(schema)
 
 
 def main():
