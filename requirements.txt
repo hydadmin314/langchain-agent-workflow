@@ -45,6 +45,8 @@ pydantic==2.13.3
 pydantic-settings==2.14.0
 pydantic_core==2.46.3
 python-dotenv==1.2.2
+python-docx==1.2.0
+PyMuPDF==1.26.6
 PyYAML==6.0.3
 regex==2026.4.4
 requests==2.33.1
