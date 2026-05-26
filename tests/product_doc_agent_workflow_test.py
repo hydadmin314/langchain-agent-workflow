@@ -15,7 +15,7 @@ from agent.product_doc_agent import ProductDocAgentWorkflow
 
 
 def main() -> None:
-    workflow = ProductDocAgentWorkflow(max_context_chars=12000, enable_self_check=False)
+    workflow = ProductDocAgentWorkflow(max_context_chars=12000, enable_self_check=True)
     try:
         result = workflow.run(r"data/raw/1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx")
     except Exception as exc:

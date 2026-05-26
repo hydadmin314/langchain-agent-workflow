@@ -10,6 +10,7 @@ from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.messages import HumanMessage
 
 from config.llm_config import get_llm
+from agent.product_doc_agent.schema_normalizer import normalize_to_module_schema
 from agent.product_doc_agent.validator import validate_against_schema
 from prompts.product_doc_agent_prompts import build_module_prompt, build_module_repair_prompt, build_self_check_prompt
 from schema.schema import get_module_json_schema
@@ -56,6 +57,7 @@ class ProductDocumentLLMExtractor:
             logger.info(f"开始抽取模块: {module_name}, prompt_chars={len(prompt)}")
             try:
                 result = self._invoke_json(prompt, expected_module=module_name)
+                result = normalize_to_module_schema(module_name, result)
                 results[module_name] = self._repair_if_needed(module_name, result)
             except LLMExtractionError as exc:
                 if not continue_on_error:
