@@ -1,0 +1,776 @@
+{
+  "document_info": {
+    "document_id": "doc_ce2d0f6364bf",
+    "document_type": "申请登记表",
+    "title": "智云上海专线基础版套餐申请登记表（2026/A）",
+    "product_name": "100M智云上海专线基础版688套餐",
+    "product_family": "智云上海专线",
+    "carrier": "",
+    "region": "上海",
+    "version": "2026/A",
+    "effective_from": "",
+    "effective_to": "",
+    "document_status": "",
+    "filename": "1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+    "source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+    "source_file_type": "docx"
+  },
+  "parties_and_application": {
+    "service_provider": {
+      "name": "中国电信股份有限公司上海分公司",
+      "source_evidence": "中国电信股份有限公司上海分公司",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 0
+      },
+      "confidence": 1.0
+    },
+    "customer": {
+      "name": "",
+      "filled_values": [],
+      "is_blank_form": true
+    },
+    "application_fields": {
+      "required": [
+        {
+          "field_name": "经办人有效身份证件",
+          "description": "",
+          "options": [],
+          "filling_instructions": "",
+          "processing_instructions": "",
+          "source_evidence": "经办人有效身份证件",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-526\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+            "paragraph_index": 19
+          },
+          "confidence": 1.0
+        },
+        {
+          "field_name": "单位证明经办人身份的介绍信",
+          "description": "",
+          "options": [],
+          "filling_instructions": "",
+          "processing_instructions": "",
+          "source_evidence": "单位证明经办人身份的介绍信",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-526\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+            "paragraph_index": 19
+          },
+          "confidence": 1.0
+        },
+        {
+          "field_name": "营业执照的复印件（三证合一）",
+          "description": "",
+          "options": [],
+          "filling_instructions": "",
+          "processing_instructions": "",
+          "source_evidence": "营业执照的复印件（三证合一）",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-526\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+            "paragraph_index": 19
+          },
+          "confidence": 1.0
+        },
+        {
+          "field_name": "法定代表人/负责人身份证的复印件",
+          "description": "",
+          "options": [],
+          "filling_instructions": "",
+          "processing_instructions": "",
+          "source_evidence": "法定代表人/负责人身份证的复印件",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-526\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+            "paragraph_index": 19
+          },
+          "confidence": 1.0
+        },
+        {
+          "field_name": "《上海市新入网电话用户法律责任告知书》及信息安全承诺书",
+          "description": "",
+          "options": [],
+          "filling_instructions": "",
+          "processing_instructions": "",
+          "source_evidence": "《上海市新入网电话用户法律责任告知书》及信息安全承诺书",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-526\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+            "paragraph_index": 19
+          },
+          "confidence": 1.0
+        }
+      ],
+      "optional": []
+    },
+    "application_notes": []
+  },
+  "base_package": {
+    "packages": [
+      {
+        "name": "拨号 100M/500M",
+        "price": 688,
+        "billing_cycle": "月付",
+        "agreement_term": 12,
+        "source_evidence": "拨号 100M/500M（688元/月/线）",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+          "table_index": 0,
+          "row_index": 10
+        },
+        "confidence": 0.95
+      },
+      {
+        "name": "拨号 100M/500M",
+        "price": 6880,
+        "billing_cycle": "年付",
+        "agreement_term": 12,
+        "source_evidence": "拨号 100M/500M（6880元/年/线）",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+          "table_index": 0,
+          "row_index": 10
+        },
+        "confidence": 0.95
+      },
+      {
+        "name": "拨号 100M/500M",
+        "price": 11880,
+        "billing_cycle": "2年付",
+        "agreement_term": 24,
+        "source_evidence": "拨号 100M/500M（11880元/2年/线）",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+          "table_index": 0,
+          "row_index": 10
+        },
+        "confidence": 0.95
+      }
+    ],
+    "included_items": [
+      {
+        "item_name": "企业拨号宽带业务",
+        "description": "支持最多50台上网终端同时上网，共享基础套餐带宽",
+        "source_evidence": "使用本套餐下的企业拨号宽带业务，可支持最多50台上网终端同时上网，共享基础套餐带宽。",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+          "paragraph_index": 40
+        },
+        "confidence": 0.95
+      }
+    ],
+    "service_attributes": [
+      {
+        "attribute_name": "协议期",
+        "value": "一年或两年",
+        "source_evidence": "月付及1年付套餐协议期为一年，2年付套餐协议期为二年，均自客户所选择的基础套餐内宽带产品完工之次月1日起算，首月资费均按月付套餐资费按天折算。",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+          "paragraph_index": 7
+        },
+        "confidence": 0.95
+      },
+      {
+        "attribute_name": "是否带语音",
+        "value": "否",
+        "source_evidence": "不带语音",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+          "paragraph_index": 0
+        },
+        "confidence": 0.95
+      },
+      {
+        "attribute_name": "上下行速率",
+        "value": "100M/500M",
+        "source_evidence": "拨号 100M/500M",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+          "table_index": 0,
+          "row_index": 10
+        },
+        "confidence": 0.95
+      }
+    ],
+    "sla": {}
+  },
+  "optional_packages": [
+    {
+      "name": "商云通",
+      "description": "基于中国电信上海公司通讯网络和公共服务平台提供的服务，包括本地及国内长途通话业务，可选开通国际及港澳台长途业务。客户需具备符合要求的商云通设备，并遵守相关使用规定。",
+      "price": null,
+      "duration_months": 12,
+      "source_evidence": "商云通；a) 中国电信上海公司基于其通讯网络和公共服务平台，并按照国家相关法律法规、服务规范提供服务。客户保证遵守国家有关法律、法规，不得利用中国电信上海公司提供的服务从事违法行为、违规外呼行为、外呼骚扰行为、诈骗行为、呼叫频次异常行为和其他有损中国电信上海公司利益、第三方利益或社会公共利益的行为。客户号码一旦出现上述情形，或被投诉、被举报查证属实的，中国电信上海公司有权终止对客户提供服务并收回相应号码及其他管控手段，由此产生的损失由客户承担。客户未经中国电信上海公司同意不得转让商云通业务使用权，否则，客户将承担其行为所引发的一切责任。e) 客户申请开通的商云通号码默认开通本地及国内长途通话业务，可至业务管理平台https://uc.114sh.cn/bacAgent/login对号码权限进行更改。客户申请开通的商云通号码默认关闭国际及港澳台长途业务，如需申请，请在登记表中勾选开通国际、港澳台长途。需要注意的是，开通国际及港澳台长途业务即默认开通国内长途业务。国际及港澳台长途开通后，客户需至业务管理平台https://uc.114sh.cn/bacAgent/login，对部分拨打的国家或地区进行勾选，勾选后正常通话。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": [
+          17,
+          18,
+          22
+        ]
+      },
+      "confidence": 0.9
+    },
+    {
+      "name": "移动业务",
+      "description": "参加移动业务的设备需开通5G上网功能和VoLTE功能，限一部手机加入主卡套餐。包含国内上网流量费用达到600元时自动暂停无线上网功能，次月1日自动恢复。",
+      "price": null,
+      "duration_months": null,
+      "source_evidence": "移动业务（a）参加移动业务的设备需开通5G上网功能和VoLTE功能，限一部手机加入主卡套餐。（c）本套餐按600元倍数循环断网。主卡、副卡手机当月累积套外国内上网流量费用达到600元（不包括订购的收费流量包费用），系统将自动为客户暂停无线上网功能。断网后手机基于上网类的增值业务都将无法使用。手机上网功能在次月1日自动恢复，并依据上述规则执行。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": [
+          31,
+          32,
+          34
+        ]
+      },
+      "confidence": 0.9
+    }
+  ],
+  "fee_and_term_rules": [
+    {
+      "type": "月费",
+      "description": "100M/500M宽带月付费用为688元/月/线。",
+      "amount": 688,
+      "unit": "元/月/线",
+      "duration": null,
+      "source_evidence": "□ 拨号 100M/500M（688元/月/线）",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "table_index": 0,
+        "row_index": 10
+      },
+      "confidence": 0.9
+    },
+    {
+      "type": "年费",
+      "description": "100M/500M宽带年付费用为6880元/年/线。",
+      "amount": 6880,
+      "unit": "元/年/线",
+      "duration": 12,
+      "source_evidence": "□ 拨号 100M/500M（6880元/年/线）",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "table_index": 0,
+        "row_index": 10
+      },
+      "confidence": 0.9
+    },
+    {
+      "type": "两年费",
+      "description": "100M/500M宽带两年付费用为11880元/2年/线。",
+      "amount": 11880,
+      "unit": "元/2年/线",
+      "duration": 24,
+      "source_evidence": "□ 拨号 100M/500M（11880元/2年/线）",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "table_index": 0,
+        "row_index": 10
+      },
+      "confidence": 0.9
+    },
+    {
+      "type": "一次性费用",
+      "description": "宽带一次性费用为310元/线/次，包含手续费10元/线/次和安装调测费300元/线/次。",
+      "amount": 310,
+      "unit": "元/线/次",
+      "duration": null,
+      "source_evidence": "一次性费用：宽带一次性费用为310元/线/次（含手续费10元/线/次，安装调测费300元/线/次）",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "table_index": 0,
+        "row_index": 15
+      },
+      "confidence": 0.9
+    },
+    {
+      "type": "协议期",
+      "description": "月付及1年付套餐协议期为一年，2年付套餐协议期为二年，均自客户所选择的基础套餐内宽带产品完工之次月1日起算。",
+      "amount": null,
+      "unit": null,
+      "duration": 12,
+      "source_evidence": "月付及1年付套餐协议期为一年，2年付套餐协议期为二年，均自客户所选择的基础套餐内宽带产品完工之次月1日起算",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 7
+      },
+      "confidence": 0.9
+    },
+    {
+      "type": "违约金",
+      "description": "剩余协议期6个月（含）以下的，收取1个月套餐月基本费的违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）*2个月套餐月基本费。",
+      "amount": null,
+      "unit": null,
+      "duration": null,
+      "source_evidence": "剩余协议期6个月（含）以下的，收取1个月套餐月基本费的违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）*2个月套餐月基本费",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 38
+      },
+      "confidence": 0.9
+    },
+    {
+      "type": "一次性费用",
+      "description": "首月申请首月办理拆机的一次性费用标准资费为310元/线/次，已收取的不予退还。",
+      "amount": 310,
+      "unit": "元/线/次",
+      "duration": null,
+      "source_evidence": "一次性费用：一次性费用标准资费为310元/线/次，已收取的，不予退还。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 39
+      },
+      "confidence": 0.9
+    }
+  ],
+  "agreement_rules": [
+    {
+      "description": "月付及1年付套餐协议期为一年，2年付套餐协议期为二年，均自客户所选择的基础套餐内宽带产品完工之次月1日起算，首月资费均按月付套餐资费按天折算。",
+      "source_evidence": "月付及1年付套餐协议期为一年，2年付套餐协议期为二年，均自客户所选择的基础套餐内宽带产品完工之次月1日起算，首月资费均按月付套餐资费按天折算。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 7
+      },
+      "confidence": 0.9
+    },
+    {
+      "description": "如客户原商务专线套餐规则为立即生效的，原套餐到期后转为次月生效新套餐（年付），变更当月：老套餐到期后至新套餐生效前的实际使用天数按原套餐费用计，故变更当月账单收取原套餐按天使用费用和次月生效的新套餐年付费用。",
+      "source_evidence": "如客户原商务专线套餐规则为立即生效的，原套餐到期后转为次月生效新套餐（年付），变更当月：老套餐到期后至新套餐生效前的实际使用天数按原套餐费用计，故变更当月账单收取原套餐按天使用费用和次月生效的新套餐年付费用。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 8
+      },
+      "confidence": 0.9
+    },
+    {
+      "description": "本规则协议期满后，为保障客户通信的连续性，在客户未办理业务注销（拆机）手续前，且客户未欠费的情况下，中国电信上海公司不得擅自终止向用户提供通信服务，双方按以下约定办理：",
+      "source_evidence": "本规则协议期满后，为保障客户通信的连续性，在客户未办理业务注销（拆机）手续前，且客户未欠费的情况下，中国电信上海公司不得擅自终止向用户提供通信服务，双方按以下约定办理：",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 9
+      },
+      "confidence": 0.9
+    },
+    {
+      "description": "若中国电信上海公司不能向用户提供原资费套餐，有义务提前一个月通知客户，重新签订新的规则。",
+      "source_evidence": "若中国电信上海公司不能向用户提供原资费套餐，有义务提前一个月通知客户，重新签订新的规则。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 12
+      },
+      "confidence": 0.9
+    },
+    {
+      "description": "本营销规则期满后，客户不再使用中国电信上海公司宽带业务的，可以办理相关产品注销手续（若有中国电信领航者Navigator定制网关的，需归还该设备并保证设备的完好可用，不能归还的，客户需向中国电信上海公司支付“中国电信领航者Navigator定制网关”：1000元/台）。",
+      "source_evidence": "本营销规则期满后，客户不再使用中国电信上海公司宽带业务的，可以办理相关产品注销手续（若有中国电信领航者Navigator定制网关的，需归还该设备并保证设备的完好可用，不能归还的，客户需向中国电信上海公司支付“中国电信领航者Navigator定制网关”：1000元/台）。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 13
+      },
+      "confidence": 0.9
+    },
+    {
+      "description": "参加基础套餐的客户可选择其他可选产品，若客户退出基础套餐，则可选产品也随之失效。所有可选包的协议期为1年/2年，次月生效，首月按天收取月基本费。",
+      "source_evidence": "参加基础套餐的客户可选择其他可选产品，若客户退出基础套餐，则可选产品也随之失效。所有可选包的协议期为1年/2年，次月生效，首月按天收取月基本费。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 15
+      },
+      "confidence": 0.9
+    },
+    {
+      "description": "欠费2个月以上的客户不得参加本次优惠活动；已参加中国电信上海公司宽带业务优惠活动且仍在营销规则约束期内的客户除非退出原活动，否则不得参加本次优惠活动、享受套餐优惠；已参加中国电信上海公司可选包中相关产品营销活动的且仍在营销规则约束期内的客户，不能选择与该产品有关的可选优惠。",
+      "source_evidence": "欠费2个月以上的客户不得参加本次优惠活动；已参加中国电信上海公司宽带业务优惠活动且仍在营销规则约束期内的客户除非退出原活动，否则不得参加本次优惠活动、享受套餐优惠；已参加中国电信上海公司可选包中相关产品营销活动的且仍在营销规则约束期内的客户，不能选择与该产品有关的可选优惠。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 16
+      },
+      "confidence": 0.9
+    },
+    {
+      "description": "中国电信上海公司基于其通讯网络和公共服务平台，并按照国家相关法律法规、服务规范提供服务。客户保证遵守国家有关法律、法规，不得利用中国电信上海公司提供的服务从事违法行为、违规外呼行为、外呼骚扰行为、诈骗行为、呼叫频次异常行为和其他有损中国电信上海公司利益、第三方利益或社会公共利益的行为。客户号码一旦出现上述情形，或被投诉、被举报查证属实的，中国电信上海公司有权终止对客户提供服务并收回相应号码及其他管控手段，由此产生的损失由客户承担。客户未经中国电信上海公司同意不得转让商云通业务使用权，否则，客户将承担其行为所引发的一切责任。",
+      "source_evidence": "a) 中国电信上海公司基于其通讯网络和公共服务平台，并按照国家相关法律法规、服务规范提供服务。客户保证遵守国家有关法律、法规，不得利用中国电信上海公司提供的服务从事违法行为、违规外呼行为、外呼骚扰行为、诈骗行为、呼叫频次异常行为和其他有损中国电信上海公司利益、第三方利益或社会公共利益的行为。客户号码一旦出现上述情形，或被投诉、被举报查证属实的，中国电信上海公司有权终止对客户提供服务并收回相应号码及其他管控手段，由此产生的损失由客户承担。客户未经中国电信上海公司同意不得转让商云通业务使用权，否则，客户将承担其行为所引发的一切责任。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 18
+      },
+      "confidence": 0.9
+    },
+    {
+      "description": "客户必须填写真实的经办人手机号码，该手机号码用于接收业务开通后发送的商云通管理平台账号名和密码，更换经办人手机需及时通知中国电信上海公司。客户使用账号以及密码登陆商云通业务管理平台https://uc.114sh.cn/bacAgent/login进行管理平台上所有操作设置，包括号码管理、功能设置、欢迎词等，所有设置均需客户自行操作。客户应保管好自己的账号密码，由于账号密码泄露导致造成的损失由客户承担。客户使用商云通业务管理平台进行必要设置或订购增值业务时，系统根据服务需要会保留客户自行设置的话机信息、设备号码、分机短号及客户姓名等信息，增值业务会根据服务需要保留客户增值类信息，如录音信息等供客户查询、调取、下载，客户使用业务期间根据客户订购的存储空间的容量在相应时间内默认授权系统采集和保留上述信息，业务终止时信息清除。",
+      "source_evidence": "d) 客户必须填写真实的经办人手机号码，该手机号码用于接收业务开通后发送的商云通管理平台账号名和密码，更换经办人手机需及时通知中国电信上海公司。客户使用账号以及密码登陆商云通业务管理平台https://uc.114sh.cn/bacAgent/login进行管理平台上所有操作设置，包括号码管理、功能设置、欢迎词等，所有设置均需客户自行操作。客户应保管好自己的账号密码，由于账号密码泄露导致造成的损失由客户承担。客户使用商云通业务管理平台进行必要设置或订购增值业务时，系统根据服务需要会保留客户自行设置的话机信息、设备号码、分机短号及客户姓名等信息，增值业务会根据服务需要保留客户增值类信息，如录音信息等供客户查询、调取、下载，客户使用业务期间根据客户订购的存储空间的容量在相应时间内默认授权系统采集和保留上述信息，业务终止时信息清除。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 21
+      },
+      "confidence": 0.9
+    },
+    {
+      "description": "客户原有中国电信上海公司固定电话号码迁转至商云通平台后不支持回退至该号码原有电话属性，即迁转至商云通平台的行为不可逆。客户如不再使用商云通业务，原使用商云通业务的号码仅支持拆机。",
+      "source_evidence": "h) 客户原有中国电信上海公司固定电话号码迁转至商云通平台后不支持回退至该号码原有电话属性，即迁转至商云通平台的行为不可逆。客户如不再使用商云通业务，原使用商云通业务的号码仅支持拆机。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 25
+      },
+      "confidence": 0.9
+    },
+    {
+      "description": "商云通需连接互联网宽带使用，该宽带必须保证每个加载商云通号码的终端都必须为有上海地区 IP 地址（在上海地区申请宽带可能存在IP 地址其实不属于上海的情况，请客户注意），且至少有不少于 100Kbits/s 上下行的带宽且网络丢包率<1%、网络抖动<=60ms 和时延<60ms。若客户使用的宽带不满足前述要求，则造成的话音质量问题由客户自行承担和修复。商云通业务资费不包括宽带业务使用费。因客户欠费等非中国电信上海公司原因造成宽带停机导致商云通业务无法正常使用的，中国电信上海公司不因此而减免任何费用。若连接的互联网宽带非中国电信上海公司提供，则使用时由于宽带问题导致的话音质量不畅由客户自行联系宽带运营商进行排查，中国电信上海公司不承担责任且不因此而减免任何费用。",
+      "source_evidence": "i) 商云通需连接互联网宽带使用，该宽带必须保证每个加载商云通号码的终端都必须为有上海地区 IP 地址（在上海地区申请宽带可能存在IP 地址其实不属于上海的情况，请客户注意），且至少有不少于 100Kbits/s 上下行的带宽且网络丢包率<1%、网络抖动<=60ms 和时延<60ms。若客户使用的宽带不满足前述要求，则造成的话音质量问题由客户自行承担和修复。商云通业务资费不包括宽带业务使用费。因客户欠费等非中国电信上海公司原因造成宽带停机导致商云通业务无法正常使用的，中国电信上海公司不因此而减免任何费用。若连接的互联网宽带非中国电信上海公司提供，则使用时由于宽带问题导致的话音质量不畅由客户自行联系宽带运营商进行排查，中国电信上海公司不承担责任且不因此而减免任何费用。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 26
+      },
+      "confidence": 0.9
+    },
+    {
+      "description": "中国电信上海公司有权视行业管理规定和运营情况变更或解除本服务协议，中国电信上海公司将提前30日告知客户，变更或解除本服务协议。",
+      "source_evidence": "k) 中国电信上海公司有权视行业管理规定和运营情况变更或解除本服务协议，中国电信上海公司将提前30日告知客户，变更或解除本服务协议。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 28
+      },
+      "confidence": 0.9
+    },
+    {
+      "description": "协议期内,因客户原因退出增值业务或导致增值业务提前终止的,客户应结清之前已使用的费用及违约金,并根据所选增值业务支付提前退出违约金：剩余协议期6个月（含）以下的，收取1个月增值业务基本资费作为违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）*2个月增值业务基本资费作为违约金，其中业务月基本费：45元/月/线。",
+      "source_evidence": "m) 商云通：协议期内,因客户原因退出增值业务或导致增值业务提前终止的,客户应结清之前已使用的费用及违约金,并根据所选增值业务支付提前退出违约金：剩余协议期6个月（含）以下的，收取1个月增值业务基本资费作为违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）*2个月增值业务基本资费作为违约金，其中业务月基本费：45元/月/线",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 30
+      },
+      "confidence": 0.9
+    },
+    {
+      "description": "如客户办理宽带业务注销（拆机）、过户、停机保号、变更宽带属性等业务的，视为客户主动退出本营销活动。",
+      "source_evidence": "如客户办理宽带业务注销（拆机）、过户、停机保号、变更宽带属性等业务的，视为客户主动退出本营销活动。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 36
+      },
+      "confidence": 0.9
+    },
+    {
+      "description": "本规则有效期内,因客户原因退出本活动或导致本活动提前终止的,客户应结清之前已使用的费用及违约金，违约金计算规则：剩余协议期6个月（含）以下的，收取1个月套餐月基本费的违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）*2个月套餐月基本费；领用过相关设备的，客户须归还设备并保证设备的完好可用，或者向中国电信上海公司全额支付已领用的设备费用（“中国电信领航者Navigator定制网关”：1000元/台）。",
+      "source_evidence": "本规则有效期内,因客户原因退出本活动或导致本活动提前终止的,客户应结清之前已使用的费用及违约金，违约金计算规则：剩余协议期6个月（含）以下的，收取1个月套餐月基本费的违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）*2个月套餐月基本费；领用过相关设备的，客户须归还设备并保证设备的完好可用，或者向中国电信上海公司全额支付已领用的设备费用（“中国电信领航者Navigator定制网关”：1000元/台）。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 38
+      },
+      "confidence": 0.9
+    }
+  ],
+  "application_materials": [
+    {
+      "material_name": "经办人有效身份证件",
+      "description": "",
+      "is_required": true,
+      "source_evidence": "客户用户应包括经办人有效身份证件",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 19
+      },
+      "confidence": 0.9
+    },
+    {
+      "material_name": "单位证明经办人身份的介绍信",
+      "description": "",
+      "is_required": true,
+      "source_evidence": "单位证明经办人身份的介绍信",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 19
+      },
+      "confidence": 0.9
+    },
+    {
+      "material_name": "营业执照的复印件（三证合一）",
+      "description": "",
+      "is_required": true,
+      "source_evidence": "营业执照的复印件（三证合一）",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 19
+      },
+      "confidence": 0.9
+    },
+    {
+      "material_name": "法定代表人/负责人身份证的复印件",
+      "description": "",
+      "is_required": true,
+      "source_evidence": "法定代表人/负责人身份证的复印件",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 19
+      },
+      "confidence": 0.9
+    },
+    {
+      "material_name": "《上海市新入网电话用户法律责任告知书》",
+      "description": "",
+      "is_required": true,
+      "source_evidence": "《上海市新入网电话用户法律责任告知书》",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 19
+      },
+      "confidence": 0.9
+    },
+    {
+      "material_name": "信息安全承诺书",
+      "description": "",
+      "is_required": true,
+      "source_evidence": "信息安全承诺书",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 19
+      },
+      "confidence": 0.9
+    },
+    {
+      "material_name": "授权委托书",
+      "description": "",
+      "is_required": true,
+      "source_evidence": "授权委托书",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 156
+      },
+      "confidence": 0.9
+    }
+  ],
+  "eligibility_and_constraints": [
+    {
+      "type": "准入条件",
+      "description": "仅限一线宽带加入本套餐。若客户装有两线及以上宽带，应分别申请加入套餐。",
+      "source_evidence": "仅限一线宽带加入本套餐。若客户装有两线及以上宽带，应分别申请加入套餐。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 14
+      },
+      "confidence": 0.95
+    },
+    {
+      "type": "排除条件",
+      "description": "欠费2个月以上的客户不得参加本次优惠活动；已参加中国电信上海公司宽带业务优惠活动且仍在营销规则约束期内的客户除非退出原活动，否则不得参加本次优惠活动、享受套餐优惠；已参加中国电信上海公司可选包中相关产品营销活动的且仍在营销规则约束期内的客户，不能选择与该产品有关的可选优惠。",
+      "source_evidence": "欠费2个月以上的客户不得参加本次优惠活动；已参加中国电信上海公司宽带业务优惠活动且仍在营销规则约束期内的客户除非退出原活动，否则不得参加本次优惠活动、享受套餐优惠；已参加中国电信上海公司可选包中相关产品营销活动的且仍在营销规则约束期内的客户，不能选择与该产品有关的可选优惠。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 16
+      },
+      "confidence": 0.95
+    },
+    {
+      "type": "合规要求",
+      "description": "客户保证遵守国家有关法律、法规，不得利用中国电信上海公司提供的服务从事违法行为、违规外呼行为、外呼骚扰行为、诈骗行为、呼叫频次异常行为和其他有损中国电信上海公司利益、第三方利益或社会公共利益的行为。",
+      "source_evidence": "客户保证遵守国家有关法律、法规，不得利用中国电信上海公司提供的服务从事违法行为、违规外呼行为、外呼骚扰行为、诈骗行为、呼叫频次异常行为和其他有损中国电信上海公司利益、第三方利益或社会公共利益的行为。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 18
+      },
+      "confidence": 0.95
+    },
+    {
+      "type": "额外要求",
+      "description": "客户申请所勾选的业务时，需出示和提供相应业务所必须涉及的相关资质文件原件供中国电信上海公司审核，并提交复印件（加盖客户公章）供中国电信上海公司留存。",
+      "source_evidence": "客户申请所勾选的业务时，需出示和提供相应业务所必须涉及的相关资质文件原件供中国电信上海公司审核，并提交复印件（加盖客户公章）供中国电信上海公司留存。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 19
+      },
+      "confidence": 0.95
+    },
+    {
+      "type": "额外要求",
+      "description": "客户必须填写真实的经办人手机号码，该手机号码用于接收业务开通后发送的商云通管理平台账号名和密码，更换经办人手机需及时通知中国电信上海公司。",
+      "source_evidence": "客户必须填写真实的经办人手机号码，该手机号码用于接收业务开通后发送的商云通管理平台账号名和密码，更换经办人手机需及时通知中国电信上海公司。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 21
+      },
+      "confidence": 0.95
+    },
+    {
+      "type": "IP 数量触发规则",
+      "description": "商云通需连接互联网宽带使用，该宽带必须保证每个加载商云通号码的终端都必须为有上海地区 IP 地址（在上海地区申请宽带可能存在IP 地址其实不属于上海的情况，请客户注意），且至少有不少于 100Kbits/s 上下行的带宽且网络丢包率<1%、网络抖动<=60ms 和时延<60ms。",
+      "source_evidence": "商云通需连接互联网宽带使用，该宽带必须保证每个加载商云通号码的终端都必须为有上海地区 IP 地址（在上海地区申请宽带可能存在IP 地址其实不属于上海的情况，请客户注意），且至少有不少于 100Kbits/s 上下行的带宽且网络丢包率<1%、网络抖动<=60ms 和时延<60ms。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 26
+      },
+      "confidence": 0.95
+    },
+    {
+      "type": "排除条件",
+      "description": "规则有效期内，客户应按照国家法律、法规的规定及本规则约定使用电路，在使用业务过程中不得从事损害我方及他人合法权益的活动，不得将电路用于电信业务的经营性活动（无论是否盈利），未经乙方书面同意，不得将电路以任何方式提供给第三方使用，也不得用于本规则约定用途以外的其他用途。",
+      "source_evidence": "规则有效期内，客户应按照国家法律、法规的规定及本规则约定使用电路，在使用业务过程中不得从事损害我方及他人合法权益的活动，不得将电路用于电信业务的经营性活动（无论是否盈利），未经乙方书面同意，不得将电路以任何方式提供给第三方使用，也不得用于本规则约定用途以外的其他用途。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 41
+      },
+      "confidence": 0.95
+    },
+    {
+      "type": "排除条件",
+      "description": "电信公司受理用户的互联网接入业务时，基于网络和信息安全风险防范要求，一律默认关闭互联网IP地址的80及8080、443端口。客户不得通过宽带拨号业务提供互联网信息服务。",
+      "source_evidence": "电信公司受理用户的互联网接入业务时，基于网络和信息安全风险防范要求，一律默认关闭互联网IP地址的80及8080、443端口。客户不得通过宽带拨号业务提供互联网信息服务。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 42
+      },
+      "confidence": 0.95
+    },
+    {
+      "type": "排除条件",
+      "description": "客户所申请的宽带业务以及智能组网（商企版）无线路由服务仅限本企业内部自用，客户不得私自利用中国电信上海公司所提供的业务服务经营长话业务或进行长途国际话音转接，也不得以任何方式提供给第三方使用，一经发现违规行为，中国电信上海公司有权立即终止提供所有服务，本规则终止。",
+      "source_evidence": "客户所申请的宽带业务以及智能组网（商企版）无线路由服务仅限本企业内部自用，客户不得私自利用中国电信上海公司所提供的业务服务经营长话业务或进行长途国际话音转接，也不得以任何方式提供给第三方使用，一经发现违规行为，中国电信上海公司有权立即终止提供所有服务，本规则终止。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 43
+      },
+      "confidence": 0.95
+    },
+    {
+      "type": "合规要求",
+      "description": "本单位承诺按照相关规定、政府主管部门要求以及合同/协议（“合同”）约定规范使用业务，不得超出合同约定的范围和用途使用业务，不将业务用于连接境内外的数据中心或业务平台开展电信业务经营活动，具备所从事业务的全部合法必要的资质条件。",
+      "source_evidence": "本单位承诺按照相关规定、政府主管部门要求以及合同/协议（“合同”）约定规范使用业务，不得超出合同约定的范围和用途使用业务，不将业务用于连接境内外的数据中心或业务平台开展电信业务经营活动，具备所从事业务的全部合法必要的资质条件。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 56
+      },
+      "confidence": 0.95
+    },
+    {
+      "type": "合规要求",
+      "description": "本单位承诺按照用户真实身份信息制度（“实名制”）的要求提供身份信息、使用业务，并保证所提供信息、资料的真实、完整、准确、有效。",
+      "source_evidence": "本单位承诺按照用户真实身份信息制度（“实名制”）的要求提供身份信息、使用业务，并保证所提供信息、资料的真实、完整、准确、有效。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 57
+      },
+      "confidence": 0.95
+    }
+  ],
+  "supplemental_rules": [
+    {
+      "source_evidence": "网络及信息安全承诺书",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 51
+      },
+      "confidence": 0.95,
+      "description": "客户需签署《网络及信息安全承诺书》，承诺遵守相关法律法规和网络安全规定。",
+      "document_type": "承诺书"
+    },
+    {
+      "source_evidence": "本单位郑重承诺遵守本承诺书，如有违反本承诺书有关条款的行为，本单位承担由此带来的一切责任。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 54
+      },
+      "confidence": 0.95,
+      "description": "客户单位承诺遵守承诺书的所有条款，并承担违反承诺书的法律责任。",
+      "document_type": "承诺书"
+    },
+    {
+      "source_evidence": "一、本单位承诺遵守《中华人民共和国网络安全法》《中华人民共和国数据安全法》《中华人民共和国个人信息保护法》《全国人民代表大会常务委员会关于加强网络信息保护的决定》《中华人民共和国电信条例》《中华人民共和国计算机信息系统安全保护条例》《计算机信息网络国际联网安全保护管理办法》《互联网信息服务管理办法》《非经营性互联网信息服务备案管理办法》《移动互联网应用程序信息服务管理规定》《网络信息内容生态治理规定》《电信和互联网用户个人信息保护规定》《公共互联网网络安全突发事件应急预案》《关键信息基础设施安全保护条例》和《网络安全审查办法》及有关法律、法规、规章和政策文件规定（“相关规定”）。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 55
+      },
+      "confidence": 0.95,
+      "description": "客户单位承诺遵守一系列网络安全、数据安全和个人信息保护相关的法律法规。",
+      "document_type": "承诺书"
+    },
+    {
+      "source_evidence": "九、本单位承诺严格按照相关规定做好本单位网络安全、数据安全和个人信息保护管理工作，健全各项网络安全、数据安全和个人信息保护管理制度和操作规程，落实各项安全保护技术措施，实施个人信息和数据安全分级分类管理、依法落实个人信息保护影响评估和数据安全影响评估安全风险评估、报告、信息共享、监测预警机制，定期对从业人员进行安全教育和培训，依法设置网络安全、数据安全和个人信息保护责任人和管理机构，按政府主管部门要求设立信息安全责任人和信息安全审查员，当信息安全责任人发生变更时及时通知贵公司。否则，导致的一切后果由本单位承担，贵公司有权立即终止合同。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 63
+      },
+      "confidence": 0.95,
+      "description": "客户单位承诺严格遵守网络安全、数据安全和个人信息保护的相关规定，并设立相应的管理和监督机制。如违反承诺，中国电信有权终止合同。",
+      "document_type": "承诺书"
+    },
+    {
+      "source_evidence": "十二、本单位承诺不通过网络从事危害中华人民共和国安全、泄露中华人民共和国国家秘密等活动，不从事任何危害网络安全、数据安全的活动，不从事侵犯他人合法权益的活动，包括但不限于：",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 83
+      },
+      "confidence": 0.95,
+      "description": "客户单位承诺不通过网络从事危害国家安全、泄露国家秘密、危害网络安全、数据安全或侵犯他人合法权益的活动。",
+      "document_type": "承诺书"
+    },
+    {
+      "source_evidence": "（四）规范使用业务，进行外呼业务的号码为贵公司或通信主管部门分配的号码，严格按照通信主管部门关于号码传送及信令传送的相关要求传送号码，传送真实号码，不擅自更改、传送、显示非合同约定的号码、虚假号码、违规号码、无使用权号码，不隐藏、转让、变更、转租、转售、伪造、变造或者变相隐藏、转让、变更、转租、转售、伪造、变造号码。本单位承诺按要求提供所申请号码的使用用途、开放范围，不违规经营、不变更合同约定的使用用途，不开展无特定主被叫的话务批发业务，不私自转接国际来话，不通过技术手段为非法VoIP、改号电话、网络电话（PC软件/APP等）提供语音落地，不采取自动语音群呼方式进行外呼。未经外呼对象的同意或请求、或者外呼对象明确表示拒绝的，不得向其固定电话、移动电话拨打任何形式的营销电话或发送任何形式的营销信息。如违反上述承诺，贵公司有权在不通知本单位的情况下立即单方终止合同，所造成的一切后果由本单位承担。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 96
+      },
+      "confidence": 0.95,
+      "description": "客户单位承诺规范使用外呼业务，不从事违法违规行为，如违反承诺，中国电信有权终止合同。",
+      "document_type": "承诺书"
+    },
+    {
+      "source_evidence": "（一）具备从事互联网服务的全部合法必要的资质条件，已履行相关规定要求的手续或已取得有关资质证明文件。在签署合同前，本单位向贵公司提供主体资格文件、资质证明文件的原件供贵公司审核，复印件（加盖公章）供贵公司留存，并保证所提供资料的真实、完整、准确、有效。在合同有效期/服务期内，如本单位提交的主体资格、资质证明文件所记载内容出现变更，本单位在完成变更后尽快向贵公司提供最新的文件。前述主体资格文件、资质证明文件包括但不限于营业执照、增值电信业务经营许可证、广告经营许可证、非经营性互联网信息服务备案证明以及贵公司要求提交的其他文件。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 120
+      },
+      "confidence": 0.95,
+      "description": "客户单位承诺具备从事互联网服务所需的全部合法资质，并提供相关证明文件供中国电信审核。",
+      "document_type": "承诺书"
+    },
+    {
+      "source_evidence": "十六、本单位承诺在业务使用过程中发生重大安全事故或发生或者可能发生个人信息等数据泄露、篡改、丢失时，立即采取应急措施，保留有关原始记录，在24小时内向有关部门报告并书面通知贵公司。如发生重大安全事故或其他影响网络安全、数据安全和个人信息保护的突发事件，贵公司有权采取包括但不限于停止业务等紧急措施，以保证网络安全、数据安全和保护个人信息。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 127
+      },
+      "confidence": 0.95,
+      "description": "客户单位承诺在发生重大安全事故或数据泄露时立即采取应急措施，并在24小时内报告相关部门并书面通知中国电信。",
+      "document_type": "承诺书"
+    },
+    {
+      "source_evidence": "十九、本单位的信息安全责任人如下：",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 130
+      },
+      "confidence": 0.95,
+      "description": "客户单位需要指定信息安全责任人，并在文档中列出相关信息。",
+      "document_type": "承诺书"
+    },
+    {
+      "source_evidence": "二十、本单位承诺与最终用户参照签订此类《网络及信息安全承诺书》，并督促最终用户履行相应责任。否则，本单位承担连带责任。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 132
+      },
+      "confidence": 0.95,
+      "description": "客户单位承诺与最终用户签订类似的《网络及信息安全承诺书》，并督促最终用户履行相应责任，否则承担连带责任。",
+      "document_type": "承诺书"
+    },
+    {
+      "source_evidence": "二十一、本承诺书经本单位签署后，与合同同时生效。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+        "paragraph_index": 133
+      },
+      "confidence": 0.95,
+      "description": "《网络及信息安全承诺书》经客户单位签署后，与合同同时生效。",
+      "document_type": "承诺书"
+    }
+  ],
+  "extraction_meta": {
+    "generated_at": "2026-05-26T15:38:33",
+    "source_file": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+    "source_file_hash": "a0edd55d0eca51aa7a86a0d332bed7eb3f0fadd31a4d310b30a2f9ab933f060a",
+    "method": "llm_schema_module_extraction",
+    "llm_self_check": {},
+    "validation_issues": [],
+    "validation_issue_count": 0,
+    "schema_warnings": [],
+    "review_status": "draft"
+  }
+}
