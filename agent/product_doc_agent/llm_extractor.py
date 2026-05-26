@@ -10,7 +10,9 @@ from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.messages import HumanMessage
 
 from config.llm_config import get_llm
-from prompts.product_doc_agent_prompts import build_module_prompt, build_self_check_prompt
+from agent.product_doc_agent.validator import validate_against_schema
+from prompts.product_doc_agent_prompts import build_module_prompt, build_module_repair_prompt, build_self_check_prompt
+from schema.schema import get_module_json_schema
 from utils.logger import logger
 
 
@@ -53,16 +55,41 @@ class ProductDocumentLLMExtractor:
             prompt = build_module_prompt(module_name, context[: self.max_context_chars])
             logger.info(f"开始抽取模块: {module_name}, prompt_chars={len(prompt)}")
             try:
-                results[module_name] = self._invoke_json(prompt, expected_module=module_name)
+                result = self._invoke_json(prompt, expected_module=module_name)
+                results[module_name] = self._repair_if_needed(module_name, result)
             except LLMExtractionError as exc:
                 if not continue_on_error:
                     raise
                 logger.warning(str(exc))
-                results[module_name] = empty_module_output(module_name)
+                fallback = getattr(exc, "fallback_result", None)
+                results[module_name] = fallback if fallback is not None else empty_module_output(module_name)
                 module_errors.append({"module": module_name, "error": str(exc)})
         if module_errors:
             results["__module_errors__"] = module_errors
         return results
+
+    def _repair_if_needed(self, module_name: str, result: Any) -> Any:
+        issues = validate_module_output(module_name, result)
+        if not issues:
+            return result
+
+        issue_text = format_validation_issues(issues)
+        logger.warning(f"{module_name}: 模块输出不符合 schema，尝试修复，issue_count={len(issues)}")
+        repair_prompt = build_module_repair_prompt(
+            module_name,
+            json.dumps(result, ensure_ascii=False, indent=2),
+            issue_text,
+        )
+        repaired = self._invoke_json(repair_prompt, expected_module=f"{module_name}.repair")
+        remaining_issues = validate_module_output(module_name, repaired)
+        if remaining_issues:
+            error = LLMExtractionError(
+                f"{module_name}: repaired output still violates schema; "
+                f"issue_count={len(remaining_issues)}; first_issue={format_validation_issues(remaining_issues[:1])}"
+            )
+            error.fallback_result = result
+            raise error
+        return repaired
 
     def self_check(self, product_document: dict[str, Any]) -> dict[str, Any]:
         prompt = build_self_check_prompt(json.dumps(product_document, ensure_ascii=False, indent=2))
@@ -120,3 +147,26 @@ def empty_module_output(module_name: str) -> Any:
     if module_name in {"document_info", "parties_and_application", "base_package"}:
         return {}
     return []
+
+
+def validate_module_output(module_name: str, result: Any) -> list[dict[str, Any]]:
+    schema = get_module_json_schema(module_name)
+    return validate_against_schema(result, schema)
+
+
+def format_validation_issues(issues: list[dict[str, Any]], *, limit: int = 40) -> str:
+    lines: list[str] = []
+    for issue in issues[:limit]:
+        parts = [
+            str(issue.get("severity", "")),
+            str(issue.get("path", "")),
+            str(issue.get("message", "")),
+        ]
+        if "expected" in issue:
+            parts.append(f"expected={issue['expected']}")
+        if "actual" in issue:
+            parts.append(f"actual={issue['actual']}")
+        lines.append(" | ".join(part for part in parts if part))
+    if len(issues) > limit:
+        lines.append(f"... {len(issues) - limit} more issues")
+    return "\n".join(lines)

@@ -76,6 +76,7 @@ class ProductDocAgentWorkflow:
             product_document["extraction_meta"]["schema_warnings"].append("部分模块抽取失败，已跳过 LLM 自检。")
 
         program_issues = self.validator.validate(product_document)
+        program_issues.extend(self.validator.validate_source_coverage(product_document, loaded_document.blocks))
         for module_error in module_errors:
             program_issues.append(
                 {
@@ -126,18 +127,21 @@ MODULE_CONTEXT_RULES: dict[str, dict[str, Any]] = {
     },
     "parties_and_application": {
         "keywords": ("企业全称", "统一社会信用代码", "企业代码", "企业规模", "经办人", "联系人", "付款方式", "客户", "填写", "服务商", "热线"),
-        "head_blocks": 35,
-        "max_chars": 12000,
+        "head_blocks": 14,
+        "stop_markers": ("填表说明", "套餐营销规则", "客户特别关注"),
+        "max_chars": 4200,
     },
     "base_package": {
-        "keywords": ("基础套餐", "套餐内", "速率", "上行", "下行", "费用", "IP地址", "IPv4", "IPv6", "SLA", "协议期"),
-        "head_blocks": 20,
-        "max_chars": 14000,
+        "keywords": ("基础套餐", "套餐类型", "企业规模", "计算机数量", "速率", "上行", "下行", "不带语音", "带语音"),
+        "head_blocks": 16,
+        "stop_markers": ("填表说明", "套餐营销规则", "客户特别关注"),
+        "max_chars": 5200,
     },
     "optional_packages": {
         "keywords": ("可选", "增值", "权益", "配套", "上行升速", "移动业务", "固话", "商云通", "云享", "安全大脑", "企业云盘"),
-        "head_blocks": 12,
-        "max_chars": 14000,
+        "head_blocks": 16,
+        "stop_markers": ("填表说明", "套餐营销规则", "客户特别关注"),
+        "max_chars": 6200,
     },
     "fee_and_term_rules": {
         "keywords": ("元", "费用", "资费", "月费", "月租", "年付", "一次性", "押金", "安装调测费", "手续费", "协议期", "违约金", "折扣"),
@@ -181,8 +185,11 @@ def select_blocks_for_module(blocks: list[DocumentBlock], rule: dict[str, Any]) 
     selected: list[DocumentBlock] = []
     head_blocks = int(rule.get("head_blocks", 0))
     keywords = tuple(str(keyword).lower() for keyword in rule.get("keywords", ()))
+    stop_markers = tuple(str(marker).lower() for marker in rule.get("stop_markers", ()))
     for index, block in enumerate(blocks):
         text = block.text.lower()
+        if stop_markers and any(marker in text for marker in stop_markers):
+            break
         if index < head_blocks or any(keyword in text for keyword in keywords):
             selected.append(block)
     return dedupe_blocks(selected)

@@ -11,6 +11,8 @@ from xml.etree import ElementTree as ET
 
 import fitz
 from docx import Document
+from docx.table import Table
+from docx.text.paragraph import Paragraph
 
 
 SUPPORTED_FILE_TYPES = {"txt", "docx", "xlsx", "pdf"}
@@ -123,41 +125,51 @@ class DocumentLoader:
     def _load_docx(self, path: Path) -> list[DocumentBlock]:
         document = Document(str(path))
         blocks: list[DocumentBlock] = []
+        paragraph_index = 0
+        table_index = 0
 
-        for index, paragraph in enumerate(document.paragraphs):
-            text = clean(paragraph.text)
-            if not text:
-                continue
-            blocks.append(
-                DocumentBlock(
-                    block_id=f"p_{index:04d}",
-                    block_type="paragraph",
-                    text=text,
-                    source_location={"path": str(path), "paragraph_index": index},
-                    metadata={},
-                )
-            )
-
-        for table_index, table in enumerate(document.tables):
-            for row_index, row in enumerate(table.rows):
-                cells = [clean(cell.text) for cell in row.cells]
-                cells = collapse_repeated_cells(cells)
-                if not any(cells):
+        for body_index, element in enumerate(iter_document_blocks(document)):
+            if isinstance(element, Paragraph):
+                text = clean(element.text)
+                if not text:
+                    paragraph_index += 1
                     continue
-                text = " | ".join(cells)
                 blocks.append(
                     DocumentBlock(
-                        block_id=f"t_{table_index:03d}_r_{row_index:04d}",
-                        block_type="table_row",
+                        block_id=f"p_{paragraph_index:04d}",
+                        block_type="paragraph",
                         text=text,
                         source_location={
                             "path": str(path),
-                            "table_index": table_index,
-                            "row_index": row_index,
+                            "paragraph_index": paragraph_index,
+                            "body_index": body_index,
                         },
-                        metadata={"cells": cells},
+                        metadata={},
                     )
                 )
+                paragraph_index += 1
+            elif isinstance(element, Table):
+                for row_index, row in enumerate(element.rows):
+                    cells = [clean(cell.text) for cell in row.cells]
+                    cells = collapse_repeated_cells(cells)
+                    if not any(cells):
+                        continue
+                    text = " | ".join(cells)
+                    blocks.append(
+                        DocumentBlock(
+                            block_id=f"t_{table_index:03d}_r_{row_index:04d}",
+                            block_type="table_row",
+                            text=text,
+                            source_location={
+                                "path": str(path),
+                                "table_index": table_index,
+                                "row_index": row_index,
+                                "body_index": body_index,
+                            },
+                            metadata={"cells": cells},
+                        )
+                    )
+                table_index += 1
         return blocks
 
     def _load_xlsx(self, path: Path) -> list[DocumentBlock]:
@@ -228,7 +240,18 @@ def decode_text(raw: bytes) -> str:
 
 
 def clean(value: Any) -> str:
-    return re.sub(r"\s+", " ", str(value or "").replace("\u3000", " ")).strip()
+    text = re.sub(r"\s+", " ", str(value or "").replace("\u3000", " ")).strip()
+    return normalize_spaced_chinese_label(text)
+
+
+def normalize_spaced_chinese_label(text: str) -> str:
+    """Repair labels such as '*企 业 规 模' without joining normal phrases."""
+    if len(text) > 30:
+        return text
+    cjk_space_count = len(re.findall(r"[\u4e00-\u9fff]\s+(?=[\u4e00-\u9fff])", text))
+    if cjk_space_count < 2:
+        return text
+    return re.sub(r"(?<=[\u4e00-\u9fff])\s+(?=[\u4e00-\u9fff])", "", text)
 
 
 def collapse_repeated_cells(cells: list[str]) -> list[str]:
@@ -240,6 +263,20 @@ def collapse_repeated_cells(cells: list[str]) -> list[str]:
         result.append(cell)
         previous = cell
     return result
+
+
+def iter_document_blocks(document: Document) -> list[Paragraph | Table]:
+    """Yield top-level paragraphs and tables in the order they appear in a docx body."""
+    body = document.element.body
+    blocks: list[Paragraph | Table] = []
+    paragraph_map = {paragraph._p: paragraph for paragraph in document.paragraphs}
+    table_map = {table._tbl: table for table in document.tables}
+    for child in body.iterchildren():
+        if child in paragraph_map:
+            blocks.append(paragraph_map[child])
+        elif child in table_map:
+            blocks.append(table_map[child])
+    return blocks
 
 
 def read_shared_strings(zf: zipfile.ZipFile) -> list[str]:

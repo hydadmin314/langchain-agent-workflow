@@ -7,7 +7,7 @@ from pathlib import Path
 # The real workflow calls the configured LLM several times. Keep these defaults
 # friendly for large docx inputs; explicit .env values still win.
 os.environ.setdefault("LLM_TIMEOUT", "180")
-os.environ.setdefault("LLM_MAX_RETRIES", "2")
+os.environ.setdefault("LLM_MAX_RETRIES", "0")
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 

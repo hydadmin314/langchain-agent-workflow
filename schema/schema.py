@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 from datetime import datetime
+import json
 from typing import Any
 
 
@@ -557,19 +558,83 @@ def get_product_document_json_schema() -> dict[str, Any]:
     return deepcopy(PRODUCT_DOCUMENT_JSON_SCHEMA)
 
 
+def get_module_json_schema(module_name: str) -> dict[str, Any]:
+    """Return the JSON Schema fragment expected from one LLM extraction module."""
+    properties = PRODUCT_DOCUMENT_JSON_SCHEMA["properties"]
+    if module_name not in properties:
+        raise KeyError(f"Unknown product document module: {module_name}")
+    return deepcopy(properties[module_name])
+
+
+def get_module_output_template(module_name: str) -> Any:
+    """Return an empty JSON template for the exact module-level LLM output."""
+    if module_name not in PRODUCT_DOCUMENT_JSON_SCHEMA["properties"]:
+        raise KeyError(f"Unknown product document module: {module_name}")
+    schema = PRODUCT_DOCUMENT_JSON_SCHEMA["properties"][module_name]
+    return _example_from_schema(schema)
+
+
+def module_output_contract(module_name: str) -> str:
+    """Prompt-ready contract for one module, including exact field names."""
+    template = get_module_output_template(module_name)
+    return "\n".join(
+        [
+            "本模块必须严格使用下面 JSON 模板中的字段名和层级。",
+            "禁止新增模板以外的字段名；禁止把字段改成同义词，例如 name 不能替代 package_name，billing_cycle 不能替代 billing_period。",
+            "对象中模板出现的字段都必须保留；没有抽到值也要按空值规则填充。",
+            "confidence 字段必须是 0 到 1 之间的数字，不能填 null；低置信度也要填 0.3、0.5 等数字。",
+            "数组字段如果没有内容填 []；如果有多条业务事实，数组中输出多个同结构对象。",
+            "本模块输出模板：",
+            json.dumps(template, ensure_ascii=False, separators=(",", ":")),
+        ]
+    )
+
+
 def schema_prompt_contract() -> str:
     """Short contract text that can be inserted into an LLM extraction prompt."""
     return (
         "你必须只输出一个 JSON 对象，结构必须符合 product_document_extraction schema。"
         "顶层只能包含 document_info、parties_and_application、base_package、optional_packages、fee_and_term_rules、"
         "agreement_rules、application_materials、eligibility_and_constraints、supplemental_rules、extraction_meta。"
-        "无法确定的字符串字段填空字符串，无法确定的数字填 null，无法确定的布尔值填 null。"
+        "无法确定的字符串字段填空字符串，无法确定的普通数字填 null，无法确定的布尔值填 null；"
+        "但 confidence 字段永远不能填 null，必须填 0 到 1 的数字。"
         "数组字段没有内容时填 []，对象字段没有内容时填 {}。"
         "所有数组字段都允许并且应当承载多条记录：例如有三四个权益包时，必须在 optional_packages 中输出三四个对象；"
         "有多条费用、协议、材料、准入限制或补充规则时，也必须逐条放入对应列表，不能合并成一条长文本。"
         "凡是从原文抽出的关键业务字段，都必须填写 source_evidence、source_location 和 confidence。"
         "不要把可选包权益误填为基础套餐字段；保留原文证据，避免猜测。"
     )
+
+
+def _example_from_schema(schema: dict[str, Any]) -> Any:
+    schema_type = schema.get("type")
+    if isinstance(schema_type, list):
+        non_null_types = [item for item in schema_type if item != "null"]
+        if not non_null_types:
+            return None
+        if "boolean" in non_null_types:
+            return None
+        if "number" in non_null_types or "integer" in non_null_types:
+            return None
+        schema_type = non_null_types[0]
+
+    if schema_type == "object":
+        properties = schema.get("properties", {})
+        return {key: _example_from_schema(value) for key, value in properties.items()}
+    if schema_type == "array":
+        item_schema = schema.get("items", {})
+        if isinstance(item_schema, dict) and item_schema.get("type") == "object":
+            return [_example_from_schema(item_schema)]
+        return []
+    if schema_type == "string":
+        return ""
+    if schema_type == "number":
+        return 0.0
+    if schema_type == "integer":
+        return 0
+    if schema_type == "boolean":
+        return False
+    return None
 
 
 def validate_product_document(data: dict[str, Any]) -> list[dict[str, str]]:
