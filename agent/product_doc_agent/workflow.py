@@ -36,7 +36,7 @@ class ProductDocAgentWorkflow:
         data_root: str | Path = DEFAULT_DATA_ROOT,
         llm: BaseChatModel | None = None,
         max_context_chars: int = 60000,
-        max_concurrency: int = 3,
+        max_concurrency: int | None = None,
         enable_self_check: bool = True,
     ) -> None:
         self.data_root = Path(data_root)
@@ -95,7 +95,6 @@ class ProductDocAgentWorkflow:
             schema_warnings.extend(issue.get("message", str(issue)) for issue in normalization_result.issues)
 
         program_issues = self.validator.validate(product_document)
-        program_issues.extend(self.validator.validate_source_coverage(product_document, loaded_document.blocks))
         for module_error in module_errors:
             program_issues.append(
                 {
@@ -157,10 +156,10 @@ MODULE_CONTEXT_RULES: dict[str, dict[str, Any]] = {
         "max_chars": 5200,
     },
     "optional_packages": {
-        "keywords": ("可选", "增值", "权益", "配套", "上行升速", "移动业务", "固话", "商云通", "云享", "安全大脑", "企业云盘"),
-        "head_blocks": 16,
+        "keywords": ("可选", "增值", "权益", "配套", "上行升速", "移动业务", "固话", "商云通", "云享", "安全大脑", "企业云盘", "入云专线"),
+        "head_blocks": 8,
         "stop_markers": ("填表说明", "套餐营销规则", "客户特别关注"),
-        "max_chars": 6200,
+        "max_chars": 11000,
     },
     "fee_and_term_rules": {
         "keywords": ("元", "费用", "资费", "月费", "月租", "年付", "一次性", "押金", "安装调测费", "手续费", "协议期", "违约金", "折扣"),

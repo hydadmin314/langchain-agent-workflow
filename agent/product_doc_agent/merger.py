@@ -36,8 +36,8 @@ class ProductDocumentMerger:
         result = deepcopy(product_document)
         meta = result.setdefault("extraction_meta", {})
         meta["llm_self_check"] = self_check.get("llm_self_check", {})
-        meta["validation_issues"] = ensure_list(self_check.get("validation_issues", []))
-        meta["schema_warnings"] = ensure_list(self_check.get("schema_warnings", []))
+        meta["validation_issues"] = normalize_validation_issues(self_check.get("validation_issues", []))
+        meta["schema_warnings"] = normalize_schema_warnings(self_check.get("schema_warnings", []))
         meta["validation_issue_count"] = len(meta["validation_issues"])
         return result
 
@@ -71,3 +71,33 @@ def ensure_list(value: Any) -> list[Any]:
     if isinstance(value, list):
         return value
     return [value]
+
+
+def normalize_validation_issues(value: Any) -> list[dict[str, Any]]:
+    issues: list[dict[str, Any]] = []
+    for index, item in enumerate(ensure_list(value)):
+        if isinstance(item, dict):
+            issues.append(item)
+            continue
+        if item is None:
+            continue
+        issues.append(
+            {
+                "severity": "warning",
+                "path": f"llm_self_check.validation_issues[{index}]",
+                "message": str(item),
+            }
+        )
+    return issues
+
+
+def normalize_schema_warnings(value: Any) -> list[str]:
+    warnings: list[str] = []
+    for item in ensure_list(value):
+        if item is None:
+            continue
+        if isinstance(item, str):
+            warnings.append(item)
+        else:
+            warnings.append(str(item))
+    return warnings

@@ -226,13 +226,46 @@ class ProductDocumentNormalizer:
 
     def normalize_product_document(self, product_document: dict[str, Any]) -> ProductDocumentNormalizationResult:
         issues: list[dict[str, Any]] = []
+        self._normalize_extraction_meta(product_document)
         issues.extend(self._fill_document_status(product_document))
         issues.extend(self._remove_duplicate_application_attributes(product_document))
         issues.extend(self._remove_duplicate_application_constraints(product_document))
+        issues.extend(self._remove_duplicate_service_attributes(product_document))
+        issues.extend(self._remove_optional_items_from_included_items(product_document))
         issues.extend(self._split_composite_optional_packages(product_document))
+        issues.extend(self._normalize_currency_values(product_document))
+        issues.extend(self._normalize_optional_package_price_items(product_document))
         issues.extend(self._normalize_contract_period(product_document))
         self._fill_source_location_paths(product_document)
         return ProductDocumentNormalizationResult(product_document=product_document, issues=issues)
+
+    def _normalize_extraction_meta(self, product_document: dict[str, Any]) -> None:
+        meta = product_document.get("extraction_meta")
+        if not isinstance(meta, dict):
+            return
+
+        normalized_issues: list[dict[str, Any]] = []
+        for index, item in enumerate(meta.get("validation_issues", [])):
+            if isinstance(item, dict):
+                normalized_issues.append(item)
+                continue
+            if item is None:
+                continue
+            normalized_issues.append(
+                {
+                    "severity": "warning",
+                    "path": f"llm_self_check.validation_issues[{index}]",
+                    "message": str(item),
+                }
+            )
+        meta["validation_issues"] = normalized_issues
+        meta["validation_issue_count"] = len(normalized_issues)
+
+        normalized_warnings: list[str] = []
+        for item in meta.get("schema_warnings", []):
+            if item is not None:
+                normalized_warnings.append(str(item))
+        meta["schema_warnings"] = normalized_warnings
 
     def _fill_document_status(self, product_document: dict[str, Any]) -> list[dict[str, Any]]:
         document_info = product_document.get("document_info", {})
@@ -292,6 +325,135 @@ class ProductDocumentNormalizer:
             kept.append(item)
 
         base_package["service_attributes"] = kept
+        return issues
+
+    def _remove_duplicate_service_attributes(self, product_document: dict[str, Any]) -> list[dict[str, Any]]:
+        base_package = product_document.get("base_package", {})
+        service_attributes = base_package.get("service_attributes", []) if isinstance(base_package, dict) else []
+        if not isinstance(service_attributes, list):
+            return []
+
+        seen: set[tuple[str, str]] = set()
+        kept: list[Any] = []
+        issues: list[dict[str, Any]] = []
+        for index, item in enumerate(service_attributes):
+            if not isinstance(item, dict):
+                kept.append(item)
+                continue
+            name = canonical_name(first_non_empty(item, ("attribute_name", "label", "name", "field_key")))
+            evidence = compact_text(str(item.get("source_evidence", "")))
+            key = (name, evidence)
+            if name and key in seen:
+                issues.append(
+                    {
+                        "severity": "warning",
+                        "path": f"base_package.service_attributes[{index}]",
+                        "message": f"removed duplicated base package service attribute: {name}",
+                    }
+                )
+                continue
+            seen.add(key)
+            kept.append(item)
+
+        base_package["service_attributes"] = kept
+        return issues
+
+    def _remove_optional_items_from_included_items(self, product_document: dict[str, Any]) -> list[dict[str, Any]]:
+        base_package = product_document.get("base_package", {})
+        included_items = base_package.get("included_items", []) if isinstance(base_package, dict) else []
+        if not isinstance(included_items, list):
+            return []
+
+        optional_text = collect_optional_package_text(product_document)
+        kept: list[Any] = []
+        issues: list[dict[str, Any]] = []
+        for index, item in enumerate(included_items):
+            if not isinstance(item, dict):
+                kept.append(item)
+                continue
+            text = compact_text(" ".join(str(value) for value in item.values()))
+            if looks_like_paid_optional_item(text) and overlaps_optional_text(text, optional_text):
+                issues.append(
+                    {
+                        "severity": "warning",
+                        "path": f"base_package.included_items[{index}]",
+                        "message": "removed paid optional item from base package included items",
+                    }
+                )
+                continue
+            kept.append(item)
+
+        base_package["included_items"] = kept
+        return issues
+
+    def _normalize_optional_package_price_items(self, product_document: dict[str, Any]) -> list[dict[str, Any]]:
+        optional_packages = product_document.get("optional_packages", [])
+        if not isinstance(optional_packages, list):
+            return []
+
+        issues: list[dict[str, Any]] = []
+        for package_index, item in enumerate(optional_packages):
+            if not isinstance(item, dict):
+                continue
+
+            price_items = item.get("price_items")
+            if not isinstance(price_items, list):
+                price_items = []
+
+            source_text = optional_package_price_source_text(item)
+            parsed_prices = extract_price_items(source_text, default_name=str(item.get("name", "")))
+            if parsed_prices and (not price_items or all(is_empty_price_item(price_item) for price_item in price_items if isinstance(price_item, dict))):
+                item["price_items"] = parsed_prices
+                issues.append(
+                    {
+                        "severity": "warning",
+                        "path": f"optional_packages[{package_index}].price_items",
+                        "message": "filled optional package price_items from source evidence",
+                    }
+                )
+                continue
+
+            changed = False
+            parsed_index = 0
+            for price_item in price_items:
+                if not isinstance(price_item, dict):
+                    continue
+                if price_item.get("price") is not None:
+                    continue
+                evidence = str(price_item.get("source_evidence", ""))
+                parsed = extract_price_items(evidence, default_name=str(price_item.get("item_name") or item.get("name", "")))
+                if not parsed and parsed_index < len(parsed_prices):
+                    parsed = [parsed_prices[parsed_index]]
+                    parsed_index += 1
+                if not parsed:
+                    continue
+                fill_price_item(price_item, parsed[0])
+                changed = True
+
+            if changed:
+                issues.append(
+                    {
+                        "severity": "warning",
+                        "path": f"optional_packages[{package_index}].price_items",
+                        "message": "normalized optional package price item amounts from source evidence",
+                    }
+                )
+        return issues
+
+    def _normalize_currency_values(self, product_document: dict[str, Any]) -> list[dict[str, Any]]:
+        issues: list[dict[str, Any]] = []
+        for path, item in iter_dicts(product_document):
+            currency = item.get("currency")
+            normalized_currency = normalize_currency(currency)
+            if normalized_currency != currency:
+                item["currency"] = normalized_currency
+                issues.append(
+                    {
+                        "severity": "warning",
+                        "path": f"{path}.currency",
+                        "message": f"normalized currency value to {normalized_currency}",
+                    }
+                )
         return issues
 
     def _remove_duplicate_application_constraints(self, product_document: dict[str, Any]) -> list[dict[str, Any]]:
@@ -442,6 +604,124 @@ def split_optional_package_if_composite(item: Any) -> list[dict[str, Any]] | Non
         clone["source_evidence"] = " | ".join([part, *matches])
         split_items.append(clone)
     return split_items
+
+
+def collect_optional_package_text(product_document: dict[str, Any]) -> str:
+    values: list[str] = []
+    for item in product_document.get("optional_packages", []):
+        if isinstance(item, dict):
+            values.append(compact_text(" ".join(str(value) for value in item.values())))
+    return "\n".join(values)
+
+
+def looks_like_paid_optional_item(text: str) -> bool:
+    return bool(re.search(r"可付费|付费申请|费用增加|升级|增值|可选", text))
+
+
+def overlaps_optional_text(text: str, optional_text: str) -> bool:
+    if not text or not optional_text:
+        return False
+    for token in re.findall(r"[\u4e00-\u9fffA-Za-z0-9]{4,}", text):
+        if token in optional_text:
+            return True
+    return False
+
+
+def optional_package_price_source_text(item: dict[str, Any]) -> str:
+    parts: list[str] = []
+    for key in ("name", "description", "fee_summary", "source_evidence"):
+        value = item.get(key)
+        if value:
+            parts.append(str(value))
+    for option in item.get("options", []):
+        parts.append(str(option))
+    for price_item in item.get("price_items", []):
+        if isinstance(price_item, dict):
+            parts.extend(str(price_item.get(key, "")) for key in ("item_name", "source_evidence"))
+        else:
+            parts.append(str(price_item))
+    return "\n".join(part for part in parts if part)
+
+
+PRICE_PATTERN = re.compile(
+    r"(?P<amount>\d+(?:\.\d+)?)\s*元\s*(?:/|／)?\s*(?P<period>2年|两年|年|月|线|号|次|分钟|条|GB|MB)?",
+    flags=re.IGNORECASE,
+)
+
+
+def extract_price_items(text: str, *, default_name: str) -> list[dict[str, Any]]:
+    results: list[dict[str, Any]] = []
+    seen: set[tuple[float, str, str]] = set()
+    for match in PRICE_PATTERN.finditer(text or ""):
+        amount = float(match.group("amount"))
+        period = normalize_billing_period(match.group("period") or "")
+        evidence = surrounding_text(text, match.start(), match.end())
+        key = (amount, period, compact_text(evidence))
+        if key in seen:
+            continue
+        seen.add(key)
+        results.append(
+            {
+                "item_name": infer_price_item_name(evidence, default_name),
+                "price": amount,
+                "currency": "CNY",
+                "billing_period": period,
+                "source_evidence": evidence,
+                "confidence": 0.85,
+            }
+        )
+    return results
+
+
+def normalize_billing_period(value: str) -> str:
+    if value in {"两年"}:
+        return "2年"
+    return value
+
+
+def surrounding_text(text: str, start: int, end: int, *, window: int = 36) -> str:
+    return re.sub(r"\s+", " ", text[max(0, start - window) : min(len(text), end + window)]).strip()
+
+
+def infer_price_item_name(evidence: str, default_name: str) -> str:
+    prefix = re.split(r"\d+(?:\.\d+)?\s*元", evidence, maxsplit=1)[0]
+    prefix = re.sub(r"[：:，,。；;\s]*$", "", prefix).strip(" □【】()（）")
+    return prefix[-40:] if prefix else default_name
+
+
+def is_empty_price_item(value: Any) -> bool:
+    return not isinstance(value, dict) or value.get("price") is None
+
+
+def fill_price_item(target: dict[str, Any], source: dict[str, Any]) -> None:
+    target["price"] = source.get("price")
+    target.setdefault("currency", source.get("currency", "CNY"))
+    if not target.get("currency"):
+        target["currency"] = source.get("currency", "CNY")
+    if not target.get("billing_period"):
+        target["billing_period"] = source.get("billing_period", "")
+    if not target.get("item_name"):
+        target["item_name"] = source.get("item_name", "")
+    if not target.get("source_evidence"):
+        target["source_evidence"] = source.get("source_evidence", "")
+    if not target.get("confidence"):
+        target["confidence"] = source.get("confidence", 0.85)
+
+
+def iter_dicts(value: Any, path: str = "$"):
+    if isinstance(value, dict):
+        yield path, value
+        for key, child in value.items():
+            yield from iter_dicts(child, f"{path}.{key}")
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            yield from iter_dicts(child, f"{path}[{index}]")
+
+
+def normalize_currency(value: Any) -> Any:
+    if value in {"元", "人民币", "RMB", "CNY", "¥"}:
+        return "CNY"
+    return value
 
 
 def option_match_key(value: str) -> str:

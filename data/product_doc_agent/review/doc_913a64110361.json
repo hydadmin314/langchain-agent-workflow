@@ -1,0 +1,2847 @@
+{
+  "document_info": {
+    "document_id": "doc_913a64110361",
+    "document_type": "申请登记表",
+    "title": "互联网专线之“智能专线”融合套餐营销活动申请登记表（2022/C）",
+    "product_name": "智能专线融合套餐",
+    "product_family": "互联网专线",
+    "carrier": "中国电信",
+    "region": "上海",
+    "version": "2022/C",
+    "effective_from": "2022-11-18",
+    "effective_to": "",
+    "document_status": "active",
+    "filename": "1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+    "source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+    "source_file_type": "docx"
+  },
+  "parties_and_application": {
+    "service_provider": {
+      "name": "中国电信股份有限公司上海分公司",
+      "carrier": "中国电信",
+      "region": "上海",
+      "contact_channels": []
+    },
+    "customer": {
+      "name": "",
+      "filled_values": [
+        {}
+      ],
+      "is_blank_form": true
+    },
+    "application_fields": {
+      "required": [
+        {
+          "label": "企业全称",
+          "field_key": "enterprise_full_name",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*企业全称 | ",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 0,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "企业所属行业",
+          "field_key": "industry",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "企业代码 |  | *企业所属行业 | ",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 1,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "企业规模",
+          "field_key": "scale",
+          "required": true,
+          "value": null,
+          "options": [
+            "10人以下",
+            "10-30人",
+            "31-80人",
+            "81-200人",
+            "200人以上"
+          ],
+          "value_type": "select",
+          "source_evidence": "*企业规模 | □10人以下 □10-30人 □31-80人 □81-200人 □200人以上",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 2,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "计算机数量",
+          "field_key": "computer_count",
+          "required": true,
+          "value": null,
+          "options": [
+            "5台及以下",
+            "6-15台",
+            "16-40台",
+            "41-100台",
+            "100台以上"
+          ],
+          "value_type": "select",
+          "source_evidence": "*计算机数量 | □5台及以下 □6-15台 □16-40台 □41-100台 □100台以上",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 3,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "安装地址",
+          "field_key": "install_address",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*安装地址 |  | *邮 编 | ",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 4,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "邮编",
+          "field_key": "postcode_install",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*安装地址 |  | *邮 编 | ",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 4,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "联系人",
+          "field_key": "contact_person",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*联系人 |  | 身份证号码 |  | *联系电话 | ",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 5,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "联系电话",
+          "field_key": "phone",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*联系人 |  | 身份证号码 |  | *联系电话 | ",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 5,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "资料邮寄地址",
+          "field_key": "mailing_address",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*资料邮寄地址 | 同公司地址 | 其它 | *邮 编 | ",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 7,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "邮编",
+          "field_key": "postcode_mailing",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*资料邮寄地址 | 同公司地址 | 其它 | *邮 编 | ",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 7,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "付款方式",
+          "field_key": "payment_method",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*付款方式 | 托收银行账号： 现金",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 8,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "代理商名称",
+          "field_key": "agent_name",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*代理商名称 | ",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 9,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "代理商业务人员姓名",
+          "field_key": "agent_contact_name",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*代理商业务人员姓名 |  | *代理商业务人员联系方式 | ",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 10,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "代理商业务人员联系方式",
+          "field_key": "agent_contact_phone",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*代理商业务人员姓名 |  | *代理商业务人员联系方式 | ",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 10,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        }
+      ],
+      "optional": [
+        {
+          "label": "企业代码",
+          "field_key": "enterprise_code",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "企业代码 |  | *企业所属行业 | ",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 1,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "身份证号码",
+          "field_key": "id_number",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*联系人 |  | 身份证号码 |  | *联系电话 | ",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 5,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "联系人职务",
+          "field_key": "contact_position",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "联系人职务 |  | E-MAIL |  | 传 真 | ",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 6,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "E-MAIL",
+          "field_key": "email",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "联系人职务 |  | E-MAIL |  | 传 真 | ",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 6,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "传真",
+          "field_key": "fax",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "联系人职务 |  | E-MAIL |  | 传 真 | ",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 6,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "其它",
+          "field_key": "other",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*资料邮寄地址 | 同公司地址 | 其它 | *邮 编 | ",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 7,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        }
+      ]
+    },
+    "application_notes": []
+  },
+  "base_package": {
+    "packages": [
+      {
+        "package_name": "智能专线上网专线",
+        "package_code": "",
+        "speed": "50M/50M",
+        "upstream_speed": "50",
+        "downstream_speed": "50",
+        "bandwidth_unit": "Mbps",
+        "has_voice": null,
+        "price": 23880.0,
+        "currency": "CNY",
+        "billing_period": "年",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [
+          "企业自用"
+        ],
+        "source_evidence": "□ 50M/50M（23880元/年）",
+        "source_location": {
+          "page": null,
+          "paragraph_index": null,
+          "table_index": 0,
+          "row_index": 12,
+          "column_index": null,
+          "sheet_name": "",
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+        },
+        "confidence": 0.9
+      },
+      {
+        "package_name": "智能专线上网专线",
+        "package_code": "",
+        "speed": "100M/100M",
+        "upstream_speed": "100",
+        "downstream_speed": "100",
+        "bandwidth_unit": "Mbps",
+        "has_voice": null,
+        "price": 28880.0,
+        "currency": "CNY",
+        "billing_period": "年",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [
+          "企业自用"
+        ],
+        "source_evidence": "□ 100M/100M（28880元/年）",
+        "source_location": {
+          "page": null,
+          "paragraph_index": null,
+          "table_index": 0,
+          "row_index": 12,
+          "column_index": null,
+          "sheet_name": "",
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+        },
+        "confidence": 0.9
+      },
+      {
+        "package_name": "智能专线上网专线",
+        "package_code": "",
+        "speed": "200M/200M",
+        "upstream_speed": "200",
+        "downstream_speed": "200",
+        "bandwidth_unit": "Mbps",
+        "has_voice": null,
+        "price": 48880.0,
+        "currency": "CNY",
+        "billing_period": "年",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [
+          "企业自用"
+        ],
+        "source_evidence": "□ 200M/200M（48880元/年）",
+        "source_location": {
+          "page": null,
+          "paragraph_index": null,
+          "table_index": 0,
+          "row_index": 12,
+          "column_index": null,
+          "sheet_name": "",
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+        },
+        "confidence": 0.9
+      },
+      {
+        "package_name": "智能专线上网专线",
+        "package_code": "",
+        "speed": "300M/300M",
+        "upstream_speed": "300",
+        "downstream_speed": "300",
+        "bandwidth_unit": "Mbps",
+        "has_voice": null,
+        "price": 78880.0,
+        "currency": "CNY",
+        "billing_period": "年",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [
+          "企业自用"
+        ],
+        "source_evidence": "□ 300M/300M（78880元/年）",
+        "source_location": {
+          "page": null,
+          "paragraph_index": null,
+          "table_index": 0,
+          "row_index": 12,
+          "column_index": null,
+          "sheet_name": "",
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+        },
+        "confidence": 0.9
+      },
+      {
+        "package_name": "智能专线上网专线",
+        "package_code": "",
+        "speed": "500M/500M",
+        "upstream_speed": "500",
+        "downstream_speed": "500",
+        "bandwidth_unit": "Mbps",
+        "has_voice": null,
+        "price": 128880.0,
+        "currency": "CNY",
+        "billing_period": "年",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [
+          "企业自用"
+        ],
+        "source_evidence": "□ 500M/500M（128880元/年）",
+        "source_location": {
+          "page": null,
+          "paragraph_index": null,
+          "table_index": 0,
+          "row_index": 12,
+          "column_index": null,
+          "sheet_name": "",
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+        },
+        "confidence": 0.9
+      }
+    ],
+    "included_items": [
+      {
+        "item_name": "IP地址服务",
+        "description": "本套餐共提供5个固定IPv4地址及“/64”IPv6地址，即客户IPv6的地址可用数量为2的64次方个。",
+        "quantity": null,
+        "unit": "",
+        "source_evidence": "1、IP地址服务：本套餐共提供5个固定IPv4地址及“/64”IPv6地址，即客户IPv6的地址可用数量为2的64次方个。",
+        "source_location": {
+          "page": null,
+          "paragraph_index": null,
+          "table_index": 0,
+          "row_index": 13,
+          "column_index": null,
+          "sheet_name": "",
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+        },
+        "confidence": 0.95
+      }
+    ],
+    "service_attributes": [
+      {
+        "attribute_name": "套餐类型",
+        "attribute_value": "智能专线上网专线",
+        "source_evidence": "基础套餐 | 智能专线上网专线",
+        "source_location": {
+          "page": null,
+          "paragraph_index": null,
+          "table_index": 0,
+          "row_index": 12,
+          "column_index": null,
+          "sheet_name": "",
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+        },
+        "confidence": 0.95
+      },
+      {
+        "attribute_name": "IP地址类型",
+        "attribute_value": "IPv4/ IPv6双栈",
+        "source_evidence": "IP地址：IPv4/ IPv6双栈",
+        "source_location": {
+          "page": null,
+          "paragraph_index": null,
+          "table_index": 0,
+          "row_index": 12,
+          "column_index": null,
+          "sheet_name": "",
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+        },
+        "confidence": 0.95
+      }
+    ],
+    "sla": {}
+  },
+  "optional_packages": [
+    {
+      "package_type": "optional_service",
+      "name": "天翼企业云盘",
+      "category": "可选增值服务",
+      "description": "天翼企业云盘黄金版，0元/月，含1TB云存储容量，20个用户",
+      "fee_summary": "0元/月",
+      "price_items": [
+        {
+          "price": 0,
+          "currency": "CNY",
+          "billing_period": "month",
+          "description": "天翼企业云盘黄金版",
+          "source_evidence": "天翼企业云盘黄金版 0元/月：含1TB云存储容量，20个用户",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 19,
+            "column_index": null,
+            "sheet_name": ""
+          },
+          "confidence": 0.9
+        }
+      ],
+      "options": [
+        "天翼企业云盘黄金版"
+      ],
+      "required_with": [],
+      "incompatible_with": [],
+      "applicable_conditions": [],
+      "source_evidence": "可选增值服务 | 天翼企业云盘 | □ 天翼企业云盘黄金版 0元/月：含1TB云存储容量，20个用户 * 天翼企业云盘管理员手机号码： * 天翼企业云盘管理员邮箱： @ 填写用户信息时，管理员手机号码必须填有效可用的手机号且该手机号为登录云盘产品的账号，一个手机号码只能订购一次。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 19,
+        "column_index": null,
+        "sheet_name": ""
+      },
+      "confidence": 0.9
+    },
+    {
+      "package_type": "optional_service",
+      "name": "员工宽带国际精品网地址",
+      "category": "员工居家办公",
+      "description": "企业付费，提供企业员工居家办公使用办公类业务的网络保障,满足在居家办公场景中访问企业专线的对外服务、办公应用的网络质量需求。关联的员工家庭宽带设备号请在附录填写。员工宽带国际精品网地址提供经国际出口方向访问速率优化的拨号地址。",
+      "fee_summary": "100元/月/线",
+      "price_items": [
+        {
+          "price": 100,
+          "currency": "CNY",
+          "billing_period": "month",
+          "description": "员工宽带国际精品网地址，100元/月/线",
+          "source_evidence": "员工宽带国际精品网地址，100元/月/线订购数量：（≤50）",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 20,
+            "column_index": null,
+            "sheet_name": ""
+          },
+          "confidence": 0.9
+        }
+      ],
+      "options": [
+        "员工宽带国际精品网地址，100元/月/线订购数量：（≤50）"
+      ],
+      "required_with": [],
+      "incompatible_with": [],
+      "applicable_conditions": [],
+      "source_evidence": "可选增值服务 | 员工居家办公 | 企业付费，提供企业员工居家办公使用办公类业务的网络保障,满足在居家办公场景中访问企业专线的对外服务、办公应用的网络质量需求。关联的员工家庭宽带设备号请在附录填写。 □ 员工宽带国际精品网地址，100元/月/线订购数量：（≤50） □ 员工宽带上行提速，0元/月/线 订购数量：（≤50） 说明： 员工宽带国际精品网地址提供经国际出口方向访问速率优化的拨号地址。 员工家庭宽带在用套餐，如基础下行速率低于200M，或已参加中国电信上海公司其他宽带提速活动的，不能参加本居家办公-员工宽带上行提速活动。 宽带上行提速规则为：宽带下行速率为500M或1000M的，上行速率提升至200M；下行速率为200M或300M的，上行速率提升至100M。若宽带用户当月上、下行合计流量超过1TB字节，宽带速率将降至下行300M/上行30M，次月1日恢复套餐宽带下行速率，上行速率恢复至居家办公带宽上行提速速率。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 20,
+        "column_index": null,
+        "sheet_name": ""
+      },
+      "confidence": 0.9
+    },
+    {
+      "package_type": "optional_service",
+      "name": "员工宽带上行提速",
+      "category": "员工居家办公",
+      "description": "宽带上行提速规则为：宽带下行速率为500M或1000M的，上行速率提升至200M；下行速率为200M或300M的，上行速率提升至100M。若宽带用户当月上、下行合计流量超过1TB字节，宽带速率将降至下行300M/上行30M，次月1日恢复套餐宽带下行速率，上行速率恢复至居家办公带宽上行提速速率。",
+      "fee_summary": "0元/月/线",
+      "price_items": [
+        {
+          "price": 0,
+          "currency": "CNY",
+          "billing_period": "month",
+          "description": "员工宽带上行提速，0元/月/线",
+          "source_evidence": "员工宽带上行提速，0元/月/线 订购数量：（≤50）",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 20,
+            "column_index": null,
+            "sheet_name": ""
+          },
+          "confidence": 0.9
+        }
+      ],
+      "options": [
+        "员工宽带上行提速，0元/月/线 订购数量：（≤50）"
+      ],
+      "required_with": [],
+      "incompatible_with": [],
+      "applicable_conditions": [
+        "员工家庭宽带在用套餐，如基础下行速率低于200M，或已参加中国电信上海公司其他宽带提速活动的，不能参加本居家办公-员工宽带上行提速活动。"
+      ],
+      "source_evidence": "可选增值服务 | 员工居家办公 | 企业付费，提供企业员工居家办公使用办公类业务的网络保障,满足在居家办公场景中访问企业专线的对外服务、办公应用的网络质量需求。关联的员工家庭宽带设备号请在附录填写。 □ 员工宽带国际精品网地址，100元/月/线订购数量：（≤50） □ 员工宽带上行提速，0元/月/线 订购数量：（≤50） 说明： 员工宽带国际精品网地址提供经国际出口方向访问速率优化的拨号地址。 员工家庭宽带在用套餐，如基础下行速率低于200M，或已参加中国电信上海公司其他宽带提速活动的，不能参加本居家办公-员工宽带上行提速活动。 宽带上行提速规则为：宽带下行速率为500M或1000M的，上行速率提升至200M；下行速率为200M或300M的，上行速率提升至100M。若宽带用户当月上、下行合计流量超过1TB字节，宽带速率将降至下行300M/上行30M，次月1日恢复套餐宽带下行速率，上行速率恢复至居家办公带宽上行提速速率。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 20,
+        "column_index": null,
+        "sheet_name": ""
+      },
+      "confidence": 0.9
+    },
+    {
+      "package_type": "optional_service",
+      "name": "天翼安全大脑",
+      "category": "可选增值服务",
+      "description": "天翼安全大脑提供上网行为管理、多线接入、可视化流量管理；防火墙、病毒防护、IPS、SSLVPN、网安联动阻断、失陷主机定位等服务。",
+      "fee_summary": "600元/月/线或1200元/月/线",
+      "price_items": [
+        {
+          "price": 600,
+          "currency": "CNY",
+          "billing_period": "month",
+          "description": "天翼安全大脑（专线版300M），600元/月/线，下行速率为300M及以下带宽适用",
+          "source_evidence": "天翼安全大脑（专线版300M），600元/月/线，下行速率为300M及以下带宽适用",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 21,
+            "column_index": null,
+            "sheet_name": ""
+          },
+          "confidence": 0.9
+        },
+        {
+          "price": 1200,
+          "currency": "CNY",
+          "billing_period": "month",
+          "description": "天翼安全大脑（专线版500M），1200元/月/线，下行速率为500M及以下带宽适用",
+          "source_evidence": "天翼安全大脑（专线版500M），1200元/月/线，下行速率为500M及以下带宽适用",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 21,
+            "column_index": null,
+            "sheet_name": ""
+          },
+          "confidence": 0.9
+        }
+      ],
+      "options": [
+        "防护版",
+        "审计版",
+        "网桥模式",
+        "路由模式",
+        "旁路模式"
+      ],
+      "required_with": [],
+      "incompatible_with": [],
+      "applicable_conditions": [],
+      "source_evidence": "可选增值服务 | 天翼安全大脑 | 天翼安全大脑提供上网行为管理、多线接入、可视化流量管理；防火墙、病毒防护、IPS、SSLVPN、网安联动阻断、失陷主机定位等服务。 天翼安全大脑（专线版300M），600元/月/线，下行速率为300M及以下带宽适用 天翼安全大脑（专线版500M），1200元/月/线，下行速率为500M及以下带宽适用 网关版本类型：□防护版 □审计版 防护版提供下一代防火墙、入侵防护、防病毒等功能；审计版提供应用流量控制、上网日志夙愿、业务故障定位等功能。 网关安装模式：□网桥模式 □路由模式 □旁路模式",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 21,
+        "column_index": null,
+        "sheet_name": ""
+      },
+      "confidence": 0.9
+    },
+    {
+      "package_type": "optional_service",
+      "name": "天翼安全大脑-安全专家增值服务",
+      "category": "可选增值服务",
+      "description": "为客户提供安全网关设备5*8小时的安全咨询、设备巡检、故障响应、病毒查杀及现场安全维护服务等服务。说明：订购本项服务的，须同时订购“天翼安全大脑（专线版300M）”或“天翼安全大脑（专线版500M）”其中一项。",
+      "fee_summary": "300元/月/线",
+      "price_items": [
+        {
+          "price": 300,
+          "currency": "CNY",
+          "billing_period": "month",
+          "description": "天翼安全大脑-安全专家增值服务，300元/月/线",
+          "source_evidence": "天翼安全大脑-安全专家增值服务，300元/月/线",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 22,
+            "column_index": null,
+            "sheet_name": ""
+          },
+          "confidence": 0.9
+        }
+      ],
+      "options": [],
+      "required_with": [
+        "天翼安全大脑（专线版300M）或天翼安全大脑（专线版500M）"
+      ],
+      "incompatible_with": [],
+      "applicable_conditions": [
+        "订购本项服务的，须同时订购“天翼安全大脑（专线版300M）”或“天翼安全大脑（专线版500M）”其中一项。"
+      ],
+      "source_evidence": "可选增值服务 | 天翼安全大脑 | 天翼安全大脑-安全专家增值服务，300元/月/线 为客户提供安全网关设备5*8小时的安全咨询、设备巡检、故障响应、病毒查杀及现场安全维护服务等服务。 说明：订购本项服务的，须同时订购“天翼安全大脑（专线版300M）”或“天翼安全大脑（专线版500M）”其中一项。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 22,
+        "column_index": null,
+        "sheet_name": ""
+      },
+      "confidence": 0.9
+    },
+    {
+      "package_type": "optional_service",
+      "name": "智能专线入云专线",
+      "category": "可选产品申请信息",
+      "description": "速率（上行/下行）及费用：50M/50M（350元/月）或4200元/年；100M/100M（560元/月）或6720元/月",
+      "fee_summary": "350元/月或4200元/年，560元/月或6720元/月",
+      "price_items": [
+        {
+          "price": 350,
+          "currency": "CNY",
+          "billing_period": "month",
+          "description": "50M/50M（350元/月）",
+          "source_evidence": "50M/50M（350元/月）",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 28,
+            "column_index": null,
+            "sheet_name": ""
+          },
+          "confidence": 0.9
+        },
+        {
+          "price": 4200,
+          "currency": "CNY",
+          "billing_period": "year",
+          "description": "50M/50M （4200元/年）",
+          "source_evidence": "50M/50M （4200元/年）",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 28,
+            "column_index": null,
+            "sheet_name": ""
+          },
+          "confidence": 0.9
+        },
+        {
+          "price": 560,
+          "currency": "CNY",
+          "billing_period": "month",
+          "description": "100M/100M（560元/月）",
+          "source_evidence": "100M/100M（560元/月）",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 28,
+            "column_index": null,
+            "sheet_name": ""
+          },
+          "confidence": 0.9
+        },
+        {
+          "price": 6720,
+          "currency": "CNY",
+          "billing_period": "month",
+          "description": "100M/100M（6720元/月）",
+          "source_evidence": "100M/100M（6720元/月）",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 28,
+            "column_index": null,
+            "sheet_name": ""
+          },
+          "confidence": 0.9
+        }
+      ],
+      "options": [
+        "50M/50M（350元/月）",
+        "50M/50M （4200元/年）",
+        "100M/100M（560元/月）",
+        "100M/100M（6720元/月）"
+      ],
+      "required_with": [],
+      "incompatible_with": [],
+      "applicable_conditions": [],
+      "source_evidence": "智能专线入云专线 | 速率（上行/下行）及费用： □ 50M/50M（350元/月） □ 50M/50M （4200元/年） □ 100M/100M（560元/月） □ 100M/100M（6720元/月） *CTYUN账号_ * 用户IP地址 * 互联IP地址 * VPC-ID编号 * VPC-IP地址",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 28,
+        "column_index": null,
+        "sheet_name": ""
+      },
+      "confidence": 0.9
+    }
+  ],
+  "fee_and_term_rules": [
+    {
+      "rule_type": "fee",
+      "name": "基础套餐年费-50M",
+      "description": "智能专线上网专线50M/50M速率年费",
+      "amount": 23880.0,
+      "currency": "CNY",
+      "billing_period": "yearly",
+      "contract_period": "1年",
+      "conditions": [],
+      "applies_to": [
+        "智能专线上网专线50M/50M"
+      ],
+      "source_evidence": "50M/50M（23880元/年）",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 12,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "基础套餐年费-100M",
+      "description": "智能专线上网专线100M/100M速率年费",
+      "amount": 28880.0,
+      "currency": "CNY",
+      "billing_period": "yearly",
+      "contract_period": "1年",
+      "conditions": [],
+      "applies_to": [
+        "智能专线上网专线100M/100M"
+      ],
+      "source_evidence": "100M/100M（28880元/年）",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 12,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "基础套餐年费-200M",
+      "description": "智能专线上网专线200M/200M速率年费",
+      "amount": 48880.0,
+      "currency": "CNY",
+      "billing_period": "yearly",
+      "contract_period": "1年",
+      "conditions": [],
+      "applies_to": [
+        "智能专线上网专线200M/200M"
+      ],
+      "source_evidence": "200M/200M（48880元/年）",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 12,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "基础套餐年费-300M",
+      "description": "智能专线上网专线300M/300M速率年费",
+      "amount": 78880.0,
+      "currency": "CNY",
+      "billing_period": "yearly",
+      "contract_period": "1年",
+      "conditions": [],
+      "applies_to": [
+        "智能专线上网专线300M/300M"
+      ],
+      "source_evidence": "300M/300M（78880元/年）",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 12,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "基础套餐年费-500M",
+      "description": "智能专线上网专线500M/500M速率年费",
+      "amount": 128880.0,
+      "currency": "CNY",
+      "billing_period": "yearly",
+      "contract_period": "1年",
+      "conditions": [],
+      "applies_to": [
+        "智能专线上网专线500M/500M"
+      ],
+      "source_evidence": "500M/500M（128880元/年）",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 12,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "IPv4地址升级月费",
+      "description": "付费升级到13个固定公网IPv4地址，费用增加300元/月",
+      "amount": 300.0,
+      "currency": "CNY",
+      "billing_period": "monthly",
+      "contract_period": "",
+      "conditions": [],
+      "applies_to": [
+        "智能专线上网专线"
+      ],
+      "source_evidence": "可升级到13个固定公网IPv4地址，费用增加300元/月",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 13,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "国际精品网IPv4地址升级-5个",
+      "description": "5个固定公网IPv4地址升级为国际方向优化的国际精品网IPv4地址，费用增加1200元/月",
+      "amount": 1200.0,
+      "currency": "CNY",
+      "billing_period": "monthly",
+      "contract_period": "",
+      "conditions": [],
+      "applies_to": [
+        "智能专线上网专线"
+      ],
+      "source_evidence": "5个固定公网IPv4地址，升级为国际方向优化的国际精品网IPv4地址，费用增加1200元/月",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 14,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "国际精品网IPv4地址升级-13个",
+      "description": "13个固定公网IPv4地址升级为国际方向优化的国际精品网IPv4地址，费用增加2000元/月",
+      "amount": 2000.0,
+      "currency": "CNY",
+      "billing_period": "monthly",
+      "contract_period": "",
+      "conditions": [],
+      "applies_to": [
+        "智能专线上网专线"
+      ],
+      "source_evidence": "13个固定公网IPv4地址，升级为国际方向优化的国际精品网IPv4地址，费用增加2000元/月",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 14,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "员工宽带国际精品网地址月费",
+      "description": "可选增值服务-员工宽带国际精品网地址，100元/月/线",
+      "amount": 100.0,
+      "currency": "CNY",
+      "billing_period": "monthly",
+      "contract_period": "",
+      "conditions": [],
+      "applies_to": [
+        "企业员工家庭宽带"
+      ],
+      "source_evidence": "员工宽带国际精品网地址，100元/月/线订购数量：（≤50）",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 20,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "员工宽带上行提速月费",
+      "description": "可选增值服务-员工宽带上行提速，0元/月/线",
+      "amount": 0.0,
+      "currency": "CNY",
+      "billing_period": "monthly",
+      "contract_period": "",
+      "conditions": [],
+      "applies_to": [
+        "企业员工家庭宽带"
+      ],
+      "source_evidence": "员工宽带上行提速，0元/月/线 订购数量：（≤50）",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 20,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "天翼安全大脑（专线版300M）月费",
+      "description": "可选增值服务-天翼安全大脑（专线版300M），600元/月/线",
+      "amount": 600.0,
+      "currency": "CNY",
+      "billing_period": "monthly",
+      "contract_period": "",
+      "conditions": [],
+      "applies_to": [
+        "下行速率为300M及以下带宽"
+      ],
+      "source_evidence": "天翼安全大脑（专线版300M），600元/月/线，下行速率为300M及以下带宽适用",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 21,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "天翼安全大脑（专线版500M）月费",
+      "description": "可选增值服务-天翼安全大脑（专线版500M），1200元/月/线",
+      "amount": 1200.0,
+      "currency": "CNY",
+      "billing_period": "monthly",
+      "contract_period": "",
+      "conditions": [],
+      "applies_to": [
+        "下行速率为500M及以下带宽"
+      ],
+      "source_evidence": "天翼安全大脑（专线版500M），1200元/月/线，下行速率为500M及以下带宽适用",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 21,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "天翼安全大脑-安全专家增值服务月费",
+      "description": "可选增值服务-天翼安全大脑-安全专家增值服务，300元/月/线",
+      "amount": 300.0,
+      "currency": "CNY",
+      "billing_period": "monthly",
+      "contract_period": "",
+      "conditions": [
+        "须同时订购天翼安全大脑（专线版300M）或天翼安全大脑（专线版500M）"
+      ],
+      "applies_to": [
+        "安全网关设备"
+      ],
+      "source_evidence": "天翼安全大脑-安全专家增值服务，300元/月/线",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 22,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "installation_fee",
+      "name": "一次性安装调测费",
+      "description": "免收一次性安装调测费用",
+      "amount": 0.0,
+      "currency": "CNY",
+      "billing_period": "one-time",
+      "contract_period": "",
+      "conditions": [],
+      "applies_to": [
+        "智能专线上网专线"
+      ],
+      "source_evidence": "免收一次性安装调测费用",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 23,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "智能专线入云专线-50M月费",
+      "description": "智能专线入云专线50M/50M速率月费",
+      "amount": 350.0,
+      "currency": "CNY",
+      "billing_period": "monthly",
+      "contract_period": "",
+      "conditions": [],
+      "applies_to": [
+        "智能专线入云专线50M/50M"
+      ],
+      "source_evidence": "50M/50M（350元/月）",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 28,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "智能专线入云专线-50M年费",
+      "description": "智能专线入云专线50M/50M速率年费",
+      "amount": 4200.0,
+      "currency": "CNY",
+      "billing_period": "yearly",
+      "contract_period": "",
+      "conditions": [],
+      "applies_to": [
+        "智能专线入云专线50M/50M"
+      ],
+      "source_evidence": "50M/50M （4200元/年）",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 28,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "智能专线入云专线-100M月费",
+      "description": "智能专线入云专线100M/100M速率月费",
+      "amount": 560.0,
+      "currency": "CNY",
+      "billing_period": "monthly",
+      "contract_period": "",
+      "conditions": [],
+      "applies_to": [
+        "智能专线入云专线100M/100M"
+      ],
+      "source_evidence": "100M/100M（560元/月）",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 28,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "智能专线入云专线-100M年费",
+      "description": "智能专线入云专线100M/100M速率年费",
+      "amount": 6720.0,
+      "currency": "CNY",
+      "billing_period": "yearly",
+      "contract_period": "",
+      "conditions": [],
+      "applies_to": [
+        "智能专线入云专线100M/100M"
+      ],
+      "source_evidence": "100M/100M（6720元/月）",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 28,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "term",
+      "name": "基础套餐协议期",
+      "description": "本规则协议期为一年，自客户所选择的基础套餐内宽带产品完工之次月1日起算",
+      "amount": null,
+      "currency": "",
+      "billing_period": "",
+      "contract_period": "1年",
+      "conditions": [],
+      "applies_to": [
+        "基础套餐"
+      ],
+      "source_evidence": "本规则协议期为一年，自客户所选择的基础套餐内宽带产品完工之次月1日起算",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 5,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "首月资费按天折算-50M",
+      "description": "基础套餐首月资费按天折算标准：50M/50M首月折算资费标准2388元/月",
+      "amount": 2388.0,
+      "currency": "CNY",
+      "billing_period": "monthly",
+      "contract_period": "",
+      "conditions": [
+        "首月"
+      ],
+      "applies_to": [
+        "智能专线上网专线50M/50M"
+      ],
+      "source_evidence": "50M/50M首月折算资费标准 2388元/月",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 5,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "首月资费按天折算-100M",
+      "description": "基础套餐首月资费按天折算标准：100M/100M首月折算资费标准3388元/月",
+      "amount": 3388.0,
+      "currency": "CNY",
+      "billing_period": "monthly",
+      "contract_period": "",
+      "conditions": [
+        "首月"
+      ],
+      "applies_to": [
+        "智能专线上网专线100M/100M"
+      ],
+      "source_evidence": "100M/100M首月折算资费标准3388元/月",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 5,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "首月资费按天折算-200M",
+      "description": "基础套餐首月资费按天折算标准：200M/200M首月折算资费标准4888元/月",
+      "amount": 4888.0,
+      "currency": "CNY",
+      "billing_period": "monthly",
+      "contract_period": "",
+      "conditions": [
+        "首月"
+      ],
+      "applies_to": [
+        "智能专线上网专线200M/200M"
+      ],
+      "source_evidence": "200M/200M首月折算资费标准4888元/月",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 5,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "首月资费按天折算-300M",
+      "description": "基础套餐首月资费按天折算标准：300M/300M首月折算资费标准7888元/月",
+      "amount": 7888.0,
+      "currency": "CNY",
+      "billing_period": "monthly",
+      "contract_period": "",
+      "conditions": [
+        "首月"
+      ],
+      "applies_to": [
+        "智能专线上网专线300M/300M"
+      ],
+      "source_evidence": "300M/300M首月折算资费标准7888元/月",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 5,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "首月资费按天折算-500M",
+      "description": "基础套餐首月资费按天折算标准：500M/500M首月折算资费标准12888元/月",
+      "amount": 12888.0,
+      "currency": "CNY",
+      "billing_period": "monthly",
+      "contract_period": "",
+      "conditions": [
+        "首月"
+      ],
+      "applies_to": [
+        "智能专线上网专线500M/500M"
+      ],
+      "source_evidence": "500M/500M首月折算资费标准12888元/月",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 5,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "term",
+      "name": "自动续约规则",
+      "description": "本规则到期前30日内，若客户不作资费套餐的变更，则本营销规则自动延展12个月（1年），延展次数不限",
+      "amount": null,
+      "currency": "",
+      "billing_period": "",
+      "contract_period": "自动延展1年",
+      "conditions": [
+        "到期前30日内未变更资费套餐"
+      ],
+      "applies_to": [
+        "基础套餐"
+      ],
+      "source_evidence": "本规则到期前30日内，若客户不作资费套餐的变更，则本营销规则自动延展12个月（1年），延展次数不限",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 8,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "penalty",
+      "name": "终端设备违约金",
+      "description": "营销规则期满后客户不续约需办理注销，若有天翼领航定制终端设备，不能归还的需支付设备费用1000元/台",
+      "amount": 1000.0,
+      "currency": "CNY",
+      "billing_period": "one-time",
+      "contract_period": "",
+      "conditions": [
+        "营销规则期满后不续约，且不能归还天翼领航定制终端设备"
+      ],
+      "applies_to": [
+        "天翼领航定制终端设备（A8-C定制终端）"
+      ],
+      "source_evidence": "若有天翼领航定制终端设备的，需归还该设备并保证设备的完好可用，不能归还的，客户需向中国电信上海公司支付A8-C定制终端费用：1000元/台",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 10,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "fee",
+      "name": "可选产品按天折算规则",
+      "description": "可选产品开通后立即生效，生效当月按天折算收取可选产品资费；变更和退订立即生效，生效当月按天折算收取可选产品资费",
+      "amount": null,
+      "currency": "",
+      "billing_period": "monthly",
+      "contract_period": "",
+      "conditions": [
+        "可选产品开通、变更、退订当月"
+      ],
+      "applies_to": [
+        "所有可选增值服务"
+      ],
+      "source_evidence": "可选产品开通后立即生效，生效当月按天折算收取可选产品资费；变更和退订立即生效，生效当月按天折算收取可选产品资费",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 15,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    }
+  ],
+  "agreement_rules": [
+    {
+      "rule_type": "contract_term",
+      "title": "协议期与资费",
+      "description": "本规则协议期为一年，自客户所选择的基础套餐内宽带产品完工之次月1日起算，本套餐为年付方式，用户的付费周期从宽带产品完工之次月开始，首月资费按下述标准按天折算：50M/50M首月折算资费标准 2388元/月，100M/100M首月折算资费标准3388元/月；200M/200M首月折算资费标准4888元/月，300M/300M首月折算资费标准7888元/月，500M/500M首月折算资费标准12888元/月）",
+      "severity": "info",
+      "applies_to": [
+        "base_package"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "基础套餐宽带产品完工"
+      ],
+      "consequence": "协议期一年，年付，首月按天折算",
+      "source_evidence": "本规则协议期为一年，自客户所选择的基础套餐内宽带产品完工之次月1日起算，本套餐为年付方式，用户的付费周期从宽带产品完工之次月开始，首月资费按下述标准按天折算：50M/50M首月折算资费标准 2388元/月，100M/100M首月折算资费标准3388元/月；200M/200M首月折算资费标准4888元/月，300M/300M首月折算资费标准7888元/月，500M/500M首月折算资费标准12888元/月）",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 5,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "service_continuation",
+      "title": "规则期满后服务延续",
+      "description": "本规则期满后，为保障客户通信的连续性，在客户未办理业务注销（拆机）手续前，中国电信上海公司不得擅自终止向客户提供通信服务。中国电信上海公司应继续为客户提供通信服务，双方按以下约定办理",
+      "severity": "info",
+      "applies_to": [
+        "customer"
+      ],
+      "obligation_party": "中国电信上海公司",
+      "conditions": [
+        "规则期满",
+        "客户未办理注销手续"
+      ],
+      "consequence": "不得擅自终止，继续提供服务",
+      "source_evidence": "本规则期满后，为保障客户通信的连续性，在客户未办理业务注销（拆机）手续前，中国电信上海公司不得擅自终止向客户提供通信服务。中国电信上海公司应继续为客户提供通信服务，双方按以下约定办理",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 6,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "change_notice",
+      "title": "资费套餐变更通知",
+      "description": "若中国电信上海公司不能向客户提供原资费套餐，有义务提前一个月通知客户，重新签订新的规则。",
+      "severity": "warning",
+      "applies_to": [
+        "customer"
+      ],
+      "obligation_party": "中国电信上海公司",
+      "conditions": [
+        "不能提供原资费套餐"
+      ],
+      "consequence": "提前一个月通知客户，重新签订规则",
+      "source_evidence": "若中国电信上海公司不能向客户提供原资费套餐，有义务提前一个月通知客户，重新签订新的规则。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 9,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "termination",
+      "title": "期满不续约注销与设备归还",
+      "description": "营销规则期满后，客户不续约的，可以办理相关产品注销手续（若有天翼领航定制终端设备的，需归还该设备并保证设备的完好可用，不能归还的，客户需向中国电信上海公司支付A8-C定制终端费用：1000元/台）。",
+      "severity": "info",
+      "applies_to": [
+        "customer"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "营销规则期满",
+        "客户不续约"
+      ],
+      "consequence": "可以办理注销手续；若有定制终端设备需归还或支付1000元/台",
+      "source_evidence": "营销规则期满后，客户不续约的，可以办理相关产品注销手续（若有天翼领航定制终端设备的，需归还该设备并保证设备的完好可用，不能归还的，客户需向中国电信上海公司支付A8-C定制终端费用：1000元/台）。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 10,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "usage_restriction",
+      "title": "员工居家办公宽带上行提速限制与降速",
+      "description": "员工家庭宽带在用套餐，如基础下行速率低于200M，或已参加中国电信上海公司其他宽带提速活动的，不能参加本居家办公-员工宽带上行提速活动。宽带上行提速规则为：宽带下行速率为500M或1000M的，上行速率提升至200M；下行速率为200M或300M的，上行速率提升至100M。若宽带用户当月上、下行合计流量超过1TB字节，宽带速率将降至下行300M/上行30M，次月1日恢复套餐宽带下行速率，上行速率恢复至居家办公带宽上行提速速率。",
+      "severity": "warning",
+      "applies_to": [
+        "employee_remote_office"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "下行速率低于200M或已参加其他提速活动"
+      ],
+      "consequence": "不能参加本活动；参加后若流量超1TB则降速",
+      "source_evidence": "员工家庭宽带在用套餐，如基础下行速率低于200M，或已参加中国电信上海公司其他宽带提速活动的，不能参加本居家办公-员工宽带上行提速活动。宽带上行提速规则为：宽带下行速率为500M或1000M的，上行速率提升至200M；下行速率为200M或300M的，上行速率提升至100M。若宽带用户当月上、下行合计流量超过1TB字节，宽带速率将降至下行300M/上行30M，次月1日恢复套餐宽带下行速率，上行速率恢复至居家办公带宽上行提速速率。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 20,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "warranty",
+      "title": "本地代维服务保修期",
+      "description": "承诺保修期：1个月。保修期自施工完成之日起计算，保修期内所发现的属于施工质量的问题，进行修理、修改、重建、校正和修复。",
+      "severity": "info",
+      "applies_to": [
+        "200M/200M",
+        "300M/300M",
+        "500M/500M"
+      ],
+      "obligation_party": "中国电信上海公司",
+      "conditions": [
+        "施工完成"
+      ],
+      "consequence": "保修期内免费维修",
+      "source_evidence": "承诺保修期：1个月。保修期自施工完成之日起计算，保修期内所发现的属于施工质量的问题，进行修理、修改、重建、校正和修复。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 24,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "rule_type": "sla",
+      "title": "SLA服务等级-1A",
+      "description": "提供线路局端保障，保障网络使用率99.9%，维修时限8小时。",
+      "severity": "info",
+      "applies_to": [
+        "200M/200M",
+        "300M/300M",
+        "500M/500M"
+      ],
+      "obligation_party": "中国电信上海公司",
+      "conditions": [],
+      "consequence": "保障网络使用率99.9%，维修时限8小时",
+      "source_evidence": "提供线路局端保障，保障网络使用率99.9%，维修时限8小时。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 25,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "registration_restriction",
+      "title": "天翼企业云盘注册限制",
+      "description": "管理员手机号码必须填有效可用的手机号且该手机号为登录云盘产品的账号，一个手机号码只能订购一次。",
+      "severity": "info",
+      "applies_to": [
+        "tianyi_cloud_disk"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "订购天翼企业云盘"
+      ],
+      "consequence": "手机号码唯一且有效",
+      "source_evidence": "管理员手机号码必须填有效可用的手机号且该手机号为登录云盘产品的账号，一个手机号码只能订购一次。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 19,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "obligation",
+      "title": "联系人变更告知义务",
+      "description": "联系人为经企业授权，在业务优惠期间，有权办理相关业务申请/变更手续的企业内部员工，如联系人发生变更，请及时告知中国电信股份有限公司上海分公司的客户经理。",
+      "severity": "info",
+      "applies_to": [
+        "customer"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "联系人发生变更"
+      ],
+      "consequence": "及时告知客户经理",
+      "source_evidence": "如联系人发生变更，请及时告知中国电信股份有限公司上海分公司的客户经理。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 29,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "rule_type": "obligation",
+      "title": "实名制要求",
+      "description": "中国电信上海公司业务办理实行实名制登记制度。请您确认本登记单上客户信息正确、真实有效。信息如有变更,请及时办理变更手续。今后办理业务变更或注销手续时,需凭办理实名制登记的证件办理。",
+      "severity": "info",
+      "applies_to": [
+        "customer"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "办理业务"
+      ],
+      "consequence": "需实名登记，信息变更需及时办理",
+      "source_evidence": "中国电信上海公司业务办理实行实名制登记制度。请您确认本登记单上客户信息正确、真实有效。信息如有变更,请及时办理变更手续。今后办理业务变更或注销手续时,需凭办理实名制登记的证件办理。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 29,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "obligation",
+      "title": "阅读并同意协议",
+      "description": "请认真阅读《中国电信股份有限公司上海分公司业务服务协议》、《中国电信股份有限公司上海分公司互联网专线之“智能专线”融合套餐营销活动规则（2022/C）》。",
+      "severity": "info",
+      "applies_to": [
+        "customer"
+      ],
+      "obligation_party": "客户",
+      "conditions": [],
+      "consequence": "需阅读并同意",
+      "source_evidence": "请认真阅读《中国电信股份有限公司上海分公司业务服务协议》、《中国电信股份有限公司上海分公司互联网专线之“智能专线”融合套餐营销活动规则（2022/C）》。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 29,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "technical_restriction",
+      "title": "MTU限制",
+      "description": "智能专线产品MTU（最大传输单元）暂时只支持1450字节，如有更大访问需求，请咨询中国电信股份有限公司上海分公司政企客户热线：10000*9。",
+      "severity": "info",
+      "applies_to": [
+        "customer"
+      ],
+      "obligation_party": "中国电信上海公司",
+      "conditions": [],
+      "consequence": "MTU只支持1450字节",
+      "source_evidence": "智能专线产品MTU（最大传输单元）暂时只支持1450字节，如有更大访问需求，请咨询中国电信股份有限公司上海分公司政企客户热线：10000*9。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 29,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    }
+  ],
+  "application_materials": [
+    {
+      "material_name": "中国电信股份有限公司上海分公司互联网专线之“智能专线”融合套餐营销活动申请登记表（2022/C）",
+      "material_type": "申请表",
+      "required": true,
+      "applies_to": [],
+      "condition": "",
+      "copies": "",
+      "format": "原件",
+      "seal_required": true,
+      "seal_type": "单位公章",
+      "signature_required": true,
+      "signature_party": "经办人",
+      "date_required": true,
+      "template_required": true,
+      "template_document": "中国电信股份有限公司上海分公司互联网专线之“智能专线”融合套餐营销活动申请登记表（2022/C）",
+      "notes": "本登记表由客户填写、签字并加盖单位公章，作为确认业务需求及签署规则的证明。",
+      "source_evidence": "《中国电信股份有限公司上海分公司互联网专线之“智能专线”融合套餐营销活动申请登记表（2022/C）》（“《申请登记表》”）为本规则的组成部分，以客户签署的《申请登记表》作为客户确认业务需求、签署本规则及上述各协议的证明。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 44,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "material_name": "IP地址报备表",
+      "material_type": "报备表",
+      "required": true,
+      "applies_to": [],
+      "condition": "",
+      "copies": "",
+      "format": "原件",
+      "seal_required": true,
+      "seal_type": "单位公章",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": true,
+      "template_required": true,
+      "template_document": "XXWL/F/JL/G/0/SF-228-2017",
+      "notes": "本登记表的组成部分，需准确填写并盖章。",
+      "source_evidence": "《IP地址报备表》、《网络及信息安全承诺书》和《域名和APP应用备案承诺书》为本登记表的组成部分，请认真、准确填写并盖章。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 29,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "material_name": "网络及信息安全承诺书",
+      "material_type": "承诺书",
+      "required": true,
+      "applies_to": [],
+      "condition": "",
+      "copies": "",
+      "format": "原件",
+      "seal_required": true,
+      "seal_type": "单位公章",
+      "signature_required": true,
+      "signature_party": "授权代表",
+      "date_required": true,
+      "template_required": true,
+      "template_document": "",
+      "notes": "本登记表的组成部分，需签署、盖章并填写日期。",
+      "source_evidence": "《IP地址报备表》、《网络及信息安全承诺书》和《域名和APP应用备案承诺书》为本登记表的组成部分，请认真、准确填写并盖章。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 29,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "material_name": "域名和APP应用备案承诺书",
+      "material_type": "承诺书",
+      "required": true,
+      "applies_to": [],
+      "condition": "",
+      "copies": "",
+      "format": "原件",
+      "seal_required": true,
+      "seal_type": "单位公章",
+      "signature_required": true,
+      "signature_party": "授权代表",
+      "date_required": true,
+      "template_required": true,
+      "template_document": "",
+      "notes": "本登记表的组成部分，需签署、盖章并填写日期。",
+      "source_evidence": "《IP地址报备表》、《网络及信息安全承诺书》和《域名和APP应用备案承诺书》为本登记表的组成部分，请认真、准确填写并盖章。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 29,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "material_name": "营业执照复印件",
+      "material_type": "营业执照",
+      "required": true,
+      "applies_to": [],
+      "condition": "",
+      "copies": "",
+      "format": "复印件",
+      "seal_required": true,
+      "seal_type": "单位公章",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "主体资格文件之一，需提供原件供审核，复印件加盖公章供留存。",
+      "source_evidence": "在签署合同前，本单位向贵公司提供主体资格文件、资质证明文件的原件供贵公司审核，复印件（加盖公章）供贵公司留存，并保证所提供资料的真实、完整、准确、有效。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 107,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "material_name": "增值电信业务经营许可证复印件",
+      "material_type": "经营许可证",
+      "required": false,
+      "applies_to": [],
+      "condition": "如适用，需提供",
+      "copies": "",
+      "format": "复印件",
+      "seal_required": false,
+      "seal_type": "",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "资质证明文件之一，包括但不限于营业执照、增值电信业务经营许可证、广告经营许可证、非经营性互联网信息服务备案证明等。",
+      "source_evidence": "主体资格文件、资质证明文件包括但不限于营业执照、增值电信业务经营许可证、广告经营许可证、非经营性互联网信息服务备案证明以及贵公司要求提交的其他文件。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 107,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "material_name": "广告经营许可证复印件",
+      "material_type": "经营许可证",
+      "required": false,
+      "applies_to": [],
+      "condition": "如适用，需提供",
+      "copies": "",
+      "format": "复印件",
+      "seal_required": false,
+      "seal_type": "",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "资质证明文件之一。",
+      "source_evidence": "主体资格文件、资质证明文件包括但不限于营业执照、增值电信业务经营许可证、广告经营许可证、非经营性互联网信息服务备案证明以及贵公司要求提交的其他文件。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 107,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "material_name": "非经营性互联网信息服务备案证明复印件",
+      "material_type": "备案证明",
+      "required": false,
+      "applies_to": [],
+      "condition": "如适用，需提供",
+      "copies": "",
+      "format": "复印件",
+      "seal_required": false,
+      "seal_type": "",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "资质证明文件之一。",
+      "source_evidence": "主体资格文件、资质证明文件包括但不限于营业执照、增值电信业务经营许可证、广告经营许可证、非经营性互联网信息服务备案证明以及贵公司要求提交的其他文件。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 107,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "material_name": "网络信息安全责任人证件复印件",
+      "material_type": "证件复印件",
+      "required": true,
+      "applies_to": [],
+      "condition": "",
+      "copies": "",
+      "format": "复印件",
+      "seal_required": false,
+      "seal_type": "",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "须附责任人证件复印件，所有项目均为必填项。证件类型包括身份证、护照、军官证、台胞证等。",
+      "source_evidence": "网络信息安全责任人信息（须附责任人证件复印件，所有项目均为必填项）",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 2,
+        "row_index": 0,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "material_name": "域名备案信息清单及专项批准/备案文件复印件",
+      "material_type": "备案文件",
+      "required": false,
+      "applies_to": [],
+      "condition": "如今后需要新增或变更绑定域名时提供",
+      "copies": "",
+      "format": "复印件",
+      "seal_required": false,
+      "seal_type": "",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "在绑定域名前需向贵单位提供域名备案信息清单及所涉专项批准/备案文件的复印件。",
+      "source_evidence": "同时，保证在绑定域名前按以上格式向贵单位提供域名备案信息清单及所涉专项批准/备案文件的复印件。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 133,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.7
+    }
+  ],
+  "eligibility_and_constraints": [
+    {
+      "constraint_type": "exclusion",
+      "name": "ISP、IDC、CDN客户不适用本套餐",
+      "description": "ISP、IDC、CDN经营的客户不适用本套餐，需另行签订协议",
+      "condition": "客户属于ISP、IDC、CDN经营者",
+      "result": "不能参加本套餐，需另行签订协议",
+      "blocks_recommendation": true,
+      "applies_to": [
+        "customer_type"
+      ],
+      "rule_source": "",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "□企业自用 □ISP、IDC、CDN经营的客户不适用本套餐，需另行签订协议",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 12,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "constraint_type": "exclusion",
+      "name": "员工宽带速率低于200M或已参加其他提速活动不能参加员工宽带上行提速",
+      "description": "员工家庭宽带在用套餐，如基础下行速率低于200M，或已参加中国电信上海公司其他宽带提速活动的，不能参加本居家办公-员工宽带上行提速活动。",
+      "condition": "员工家庭宽带基础下行速率低于200M 或 已参加其他宽带提速活动",
+      "result": "不能参加本居家办公-员工宽带上行提速活动",
+      "blocks_recommendation": true,
+      "applies_to": [],
+      "rule_source": "",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "员工家庭宽带在用套餐，如基础下行速率低于200M，或已参加中国电信上海公司其他宽带提速活动的，不能参加本居家办公-员工宽带上行提速活动。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 20,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "constraint_type": "restriction",
+      "name": "仅限一线宽带加入主套餐",
+      "description": "仅限一线宽带加入主套餐。若客户装有两线宽带，应分别申请加入套餐。",
+      "condition": "客户安装了一线或多线宽带",
+      "result": "只能一线加入主套餐，多线需分别申请",
+      "blocks_recommendation": false,
+      "applies_to": [],
+      "rule_source": "",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "仅限一线宽带加入主套餐。若客户装有两线宽带，应分别申请加入套餐。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 12,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "constraint_type": "exclusion",
+      "name": "欠费2个月以上客户不得参加优惠活动",
+      "description": "欠费2个月以上的客户不得参加本次优惠活动",
+      "condition": "客户欠费2个月以上",
+      "result": "不得参加本次优惠活动",
+      "blocks_recommendation": true,
+      "applies_to": [],
+      "rule_source": "",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "欠费2个月以上的客户不得参加本次优惠活动",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 16,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "constraint_type": "exclusion",
+      "name": "已参加其他宽带优惠且仍在约束期不得参加",
+      "description": "已参加中国电信上海公司宽带业务优惠活动的且仍在营销规则约束期内的客户除非退出原活动，否则不得参加本次优惠活动、享受套餐优惠",
+      "condition": "客户已参加其他宽带优惠活动且仍在约束期内",
+      "result": "不得参加本次优惠活动，除非退出原活动",
+      "blocks_recommendation": true,
+      "applies_to": [],
+      "rule_source": "",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "已参加中国电信上海公司宽带业务优惠活动的且仍在营销规则约束期内的客户除非退出原活动，否则不得参加本次优惠活动、享受套餐优惠",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 16,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "constraint_type": "exclusion",
+      "name": "已参加可选包相关活动且仍在约束期不能选择相关可选优惠",
+      "description": "已参加中国电信上海公司可选包中相关产品营销活动的且仍在营销规则约束期内的客户，不能选择与该产品有关的可选优惠。",
+      "condition": "客户已参加可选包相关产品营销活动且仍在约束期内",
+      "result": "不能选择与该产品有关的可选优惠",
+      "blocks_recommendation": true,
+      "applies_to": [],
+      "rule_source": "",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "已参加中国电信上海公司可选包中相关产品营销活动的且仍在营销规则约束期内的客户，不能选择与该产品有关的可选优惠。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 16,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "constraint_type": "prerequisite",
+      "name": "必须选择基础套餐",
+      "description": "参加本套餐的客户必须选择基础套餐，在此基础上客户方可选择可选包或可选产品，若客户退出基础套餐，则可选包或可选产品也随之失效。",
+      "condition": "客户要参加本套餐",
+      "result": "必须先选择基础套餐，否则可选包/可选产品不可用",
+      "blocks_recommendation": false,
+      "applies_to": [],
+      "rule_source": "",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "参加本套餐的客户必须选择基础套餐，在此基础上客户方可选择可选包或可选产品，若客户退出基础套餐，则可选包或可选产品也随之失效。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 11,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    }
+  ],
+  "supplemental_rules": [
+    {
+      "source_type": "appendix",
+      "name": "IP地址报备表",
+      "description": "IP地址报备表 XXWL/F/JL/G/0/SF-228-2017，用于报备IP地址及相关信息，是登记表的组成部分。",
+      "fields": [
+        {
+          "label": "证件类型",
+          "field_key": "",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*证件类型及证件号 | *证件类型 |  | *证件号 |",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 1,
+            "row_index": 5,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "证件号",
+          "field_key": "",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*证件类型及证件号 | *证件类型 |  | *证件号 |",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 1,
+            "row_index": 5,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "域名",
+          "field_key": "",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "域名: |  | 备案号或许可证号: |",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 1,
+            "row_index": 22,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "备案号或许可证号",
+          "field_key": "",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "域名: |  | 备案号或许可证号: |",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 1,
+            "row_index": 22,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "网站备案类型",
+          "field_key": "",
+          "required": false,
+          "value": null,
+          "options": [
+            "无",
+            "经营性网站（ICP经营许可证号）",
+            "非经营性网站（备案登记号）",
+            "SP（备案登记号）",
+            "BBS（BBS备案号）",
+            "其他"
+          ],
+          "value_type": "select",
+          "source_evidence": "网站备案类型： | □无 □经营性网站（ICP经营许可证号） □非经营性网站（备案登记号） □SP（备案登记号） □BBS（BBS备案号）□其他",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 1,
+            "row_index": 23,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "网络信息安全责任人姓名",
+          "field_key": "",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*网络信息安全责任人姓名： |  | *网络信息安全责任人姓名(英文): |  | *网络信息安全责任人固定电话: |",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 1,
+            "row_index": 30,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "网络信息安全责任人姓名(英文)",
+          "field_key": "",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*网络信息安全责任人姓名： |  | *网络信息安全责任人姓名(英文): |  | *网络信息安全责任人固定电话: |",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 1,
+            "row_index": 30,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "网络信息安全责任人固定电话",
+          "field_key": "",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*网络信息安全责任人姓名： |  | *网络信息安全责任人姓名(英文): |  | *网络信息安全责任人固定电话: |",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 1,
+            "row_index": 30,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "网络信息安全责任人传真",
+          "field_key": "",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*网络信息安全责任人传真: |  | *网络信息安全责任人Email: | *网络信息安全责任人移动电话:",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 1,
+            "row_index": 31,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "网络信息安全责任人Email",
+          "field_key": "",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*网络信息安全责任人传真: |  | *网络信息安全责任人Email: | *网络信息安全责任人移动电话:",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 1,
+            "row_index": 31,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "网络信息安全责任人移动电话",
+          "field_key": "",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*网络信息安全责任人传真: |  | *网络信息安全责任人Email: | *网络信息安全责任人移动电话:",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 1,
+            "row_index": 31,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "网络信息安全责任人证件类型",
+          "field_key": "",
+          "required": true,
+          "value": null,
+          "options": [
+            "身份证",
+            "护照",
+            "军官证",
+            "台胞证"
+          ],
+          "value_type": "select",
+          "source_evidence": "*网络信息安全责任人证件类型：□身份证 □护照 □军官证 □台胞证 | *网络信息安全责任人证件号码：",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 1,
+            "row_index": 32,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "label": "网络信息安全责任人证件号码",
+          "field_key": "",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*网络信息安全责任人证件类型：□身份证 □护照 □军官证 □台胞证 | *网络信息安全责任人证件号码：",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 1,
+            "row_index": 32,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        }
+      ],
+      "required_fields": [
+        "证件类型",
+        "证件号",
+        "网络信息安全责任人姓名",
+        "网络信息安全责任人姓名(英文)",
+        "网络信息安全责任人固定电话",
+        "网络信息安全责任人传真",
+        "网络信息安全责任人Email",
+        "网络信息安全责任人移动电话",
+        "网络信息安全责任人证件类型",
+        "网络信息安全责任人证件号码"
+      ],
+      "columns": [],
+      "rules": [],
+      "source_evidence": "IP地址报备表 XXWL/F/JL/G/0/SF-228-2017",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 1,
+        "row_index": 0,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "source_type": "appendix",
+      "name": "网络及信息安全承诺书",
+      "description": "本承诺书是营销活动申请登记表的组成部分，承诺遵守网络安全相关法律法规。",
+      "fields": [],
+      "required_fields": [],
+      "columns": [],
+      "rules": [
+        {
+          "description": "本单位郑重承诺遵守本承诺书，如有违反本承诺书有关条款的行为，本单位承担由此带来的一切民事、行政和刑事责任。",
+          "source_evidence": "本单位郑重承诺遵守本承诺书，如有违反本承诺书有关条款的行为，本单位承担由此带来的一切民事、行政和刑事责任。",
+          "source_location": {
+            "page": null,
+            "paragraph_index": 52,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "description": "一、本单位承诺遵守《中华人民共和国网络安全法》《中华人民共和国数据安全法》《中华人民共和国个人信息保护法》《全国人民代表大会常务委员会关于加强网络信息保护的决定》《中华人民共和国电信条例》《中华人民共和国计算机信息系统安全保护条例》《计算机信息网络国际联网安全保护管理办法》《互联网信息服务管理办法》《非经营性互联网信息服务备案管理办法》《移动互联网应用程序信息服务管理规定》《电信和互联网用户个人信息保护规定》和《公共互联网网络安全突发事件应急预案》及有关法律、法规、规章和政策文件规定（“相关规定”）。",
+          "source_evidence": "一、本单位承诺遵守《中华人民共和国网络安全法》《中华人民共和国数据安全法》《中华人民共和国个人信息保护法》《全国人民代表大会常务委员会关于加强网络信息保护的决定》《中华人民共和国电信条例》《中华人民共和国计算机信息系统安全保护条例》《计算机信息网络国际联网安全保护管理办法》《互联网信息服务管理办法》《非经营性互联网信息服务备案管理办法》《移动互联网应用程序信息服务管理规定》《电信和互联网用户个人信息保护规定》和《公共互联网网络安全突发事件应急预案》及有关法律、法规、规章和政策文件规定（“相关规定”）。",
+          "source_location": {
+            "page": null,
+            "paragraph_index": 53,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "description": "八、本单位承诺严格按照国家相关法律法规做好本单位网络安全、数据安全和个人信息保护管理工作，健全各项网络安全、数据安全和个人信息保护管理制度和操作规程，落实各项安全保护技术措施，实施个人信息和数据安全分级分类管理、依法落实个人信息保护影响评估和数据安全影响评估安全风险评估、报告、信息共享、监测预警机制，定期对从业人员进行安全教育和培训，依法设置网络安全、数据安全和个人信息保护责任人和管理机构，按政府主管部门要求设立信息安全责任人和信息安全审查员，当安全责任人发生变更时及时通知贵公司。否则，导致的一切后果由本单位承担，贵公司有权立即终止合同。",
+          "source_evidence": "八、本单位承诺严格按照国家相关法律法规做好本单位网络安全、数据安全和个人信息保护管理工作，健全各项网络安全、数据安全和个人信息保护管理制度和操作规程，落实各项安全保护技术措施，实施个人信息和数据安全分级分类管理、依法落实个人信息保护影响评估和数据安全影响评估安全风险评估、报告、信息共享、监测预警机制，定期对从业人员进行安全教育和培训，依法设置网络安全、数据安全和个人信息保护责任人和管理机构，按政府主管部门要求设立信息安全责任人和信息安全审查员，当安全责任人发生变更时及时通知贵公司。否则，导致的一切后果由本单位承担，贵公司有权立即终止合同。",
+          "source_location": {
+            "page": null,
+            "paragraph_index": 60,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "description": "2、决不允许公开发表同中央的决定相违背的言论；",
+          "source_evidence": "2、决不允许公开发表同中央的决定相违背的言论；",
+          "source_location": {
+            "page": null,
+            "paragraph_index": 75,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "description": "十一、本单位承诺不从事任何危害网络安全、数据安全和侵害个人信息合法权益的活动，包括但不限于：",
+          "source_evidence": "十一、本单位承诺不从事任何危害网络安全、数据安全和侵害个人信息合法权益的活动，包括但不限于：",
+          "source_location": {
+            "page": null,
+            "paragraph_index": 80,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        },
+        {
+          "description": "8、其他危害网络安全的。",
+          "source_evidence": "8、其他危害网络安全的。",
+          "source_location": {
+            "page": null,
+            "paragraph_index": 88,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+          },
+          "confidence": 1.0
+        }
+      ],
+      "source_evidence": "网络及信息安全承诺书",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 51,
+        "table_index": null,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "source_type": "appendix",
+      "name": "域名和APP应用备案承诺书",
+      "description": "本承诺书是营销活动申请登记表的组成部分，需客户签署。",
+      "fields": [],
+      "required_fields": [],
+      "columns": [],
+      "rules": [],
+      "source_evidence": "《IP地址报备表》、《网络及信息安全承诺书》和《域名和APP应用备案承诺书》为本登记表的组成部分",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 29,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx"
+      },
+      "confidence": 0.9
+    }
+  ],
+  "extraction_meta": {
+    "generated_at": "2026-05-27T14:06:11",
+    "source_file": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+    "source_file_hash": "cd602440cf904492acc524b2178ec5a6cecf649a34c84c78e3dc0be15185135e",
+    "method": "llm_schema_module_extraction",
+    "llm_self_check": {
+      "check_details": "经过检查，发现一处金额归属错误：fee_and_term_rules中'智能专线入云专线-100M年费'的billing_period为'yearly'，但source_evidence为'100M/100M（6720元/月）'，原文标注为月费，应改为monthly。其他检查项均通过。"
+    },
+    "validation_issues": [
+      {
+        "severity": "warning",
+        "path": "llm_self_check.validation_issues[0]",
+        "message": "fee_and_term_rules中'智能专线入云专线-100M年费'的billing_period应为'monthly'而非'yearly'，source_evidence写的是'6720元/月'，应改为月费。"
+      },
+      {
+        "severity": "warning",
+        "path": "eligibility_and_constraints[0]",
+        "message": "item may contain multiple facts; split into multiple objects if they are separate business records"
+      }
+    ],
+    "validation_issue_count": 2,
+    "schema_warnings": [],
+    "review_status": "draft"
+  }
+}

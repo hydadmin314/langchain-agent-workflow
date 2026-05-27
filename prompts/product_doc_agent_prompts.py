@@ -74,6 +74,7 @@ base_package.packages、included_items、service_attributes 都是列表，原�
 必须抽取“基础套餐申请信息”下面的基础套餐档位；同一行里出现月付、年付、2年付等多个资费时，必须拆成多个 packages 对象。
 “套餐类型”“接口标准”“是否带语音”等产品或服务属性不要丢失，应进入 service_attributes。
 “企业规模”“计算机数量”“经办人”“联系电话”“邮编”“付款方式”等客户填写字段只进入 parties_and_application.application_fields，不要重复放入 base_package.service_attributes。
+included_items 只放基础套餐默认包含且不额外收费的内容；凡是出现“可付费申请、费用增加、另行付费、可选、增值服务”的项目，不要放入 included_items，应进入 optional_packages 或 fee_and_term_rules。
 contract_period 只能填写“一年、二年、24个月、至某日期”等真实协议期限；“线、次、月、年、元/月/线”是计量/计费单位，严禁填入 contract_period。
 """,
     "optional_packages": """
@@ -84,7 +85,10 @@ contract_period 只能填写“一年、二年、24个月、至某日期”等�
 如果同一行里有多个可勾选业务，例如“固话/商云通”“固话（含翼名片）/商云通”等，必须拆成多个 optional_packages 对象，不能合并成一个 name。
 判断拆分边界时，以“一个可销售/可勾选/可订购的权益或业务”为一个对象；同一个对象内部只保留该业务自己的 options 和 price_items。
 申请表中基础套餐下面、填表说明之前的固话/商云通、移动业务、上行升速包等都是高优先级可选包，必须逐项抽取。
+如果表格行形如“可选增值服务 | 天翼安全大脑”“可选增值服务 | 移动业务 1元/月/号”“可选增值服务 | 商云通”，第一列是分类，第二列才是可选包名称；这些行都必须进入 optional_packages。
+如果表格行形如“可选产品申请信息”后紧跟“智能专线入云专线”等产品行，这些后续产品行也必须进入 optional_packages。
 同一可选包下有多个价格档位或勾选项时，保留到 price_items 和 options，不要合并成一句描述。
+只要原文出现“数字+元/月、数字+元/年、数字+元/2年、数字+元/线/次”等价格，必须写入 price_items.price、currency、billing_period 和 source_evidence，不要只写在 description。
 注意：optional_packages.options 的 schema 是 array[string]，只能输出字符串；如果原文选项有说明，把说明合并进同一个字符串，例如 "固话：申请线数，每线含翼名片"。
 """,
     "fee_and_term_rules": """

@@ -52,11 +52,11 @@ class ProductDocumentLLMExtractor:
         llm: BaseChatModel | None = None,
         *,
         max_context_chars: int = 60000,
-        max_concurrency: int = 3,
+        max_concurrency: int | None = None,
     ) -> None:
         self.llm = llm or get_llm(temperature=0)
         self.max_context_chars = max_context_chars
-        self.max_concurrency = max(1, max_concurrency)
+        self.max_concurrency = max(1, max_concurrency or len(EXTRACTION_MODULES))
 
     def extract_modules(
         self,
@@ -228,6 +228,13 @@ class ProductDocumentLLMExtractor:
 
     async def _ainvoke_json(self, prompt: str, *, expected_module: str) -> Any:
         started_at = time.perf_counter()
+        logger.info(
+            "LLM request: "
+            f"module={expected_module}, "
+            f"model={getattr(self.llm, 'model_name', None) or getattr(self.llm, 'model', None)}, "
+            f"base_url={getattr(self.llm, 'openai_api_base', None)}, "
+            f"prompt_chars={len(prompt)}"
+        )
         try:
             response = await self.llm.ainvoke([HumanMessage(content=prompt)])
         except AttributeError:
