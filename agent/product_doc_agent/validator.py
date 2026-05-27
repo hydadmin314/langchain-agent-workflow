@@ -29,6 +29,8 @@ class ProductDocumentValidator:
         issues = validate_against_schema(product_document, PRODUCT_DOCUMENT_JSON_SCHEMA)
         issues.extend(self._validate_evidence(product_document))
         issues.extend(self._validate_possible_un_split_lists(product_document))
+        issues.extend(self._validate_semantic_values(product_document))
+        issues.extend(self._validate_cross_module_duplicates(product_document))
         return issues
 
     def attach_issues(self, product_document: dict[str, Any], issues: list[dict[str, Any]]) -> dict[str, Any]:
@@ -61,6 +63,9 @@ class ProductDocumentValidator:
                     continue
                 if not item.get("source_evidence"):
                     issues.append({"severity": "warning", "path": f"{key}[{index}].source_evidence", "message": "missing source evidence"})
+                location = item.get("source_location")
+                if item.get("source_evidence") and isinstance(location, dict) and not location.get("path"):
+                    issues.append({"severity": "warning", "path": f"{key}[{index}].source_location.path", "message": "missing source file path"})
                 if "confidence" not in item:
                     issues.append({"severity": "warning", "path": f"{key}[{index}].confidence", "message": "missing confidence"})
 
@@ -69,6 +74,9 @@ class ProductDocumentValidator:
                 continue
             if not item.get("source_evidence"):
                 issues.append({"severity": "warning", "path": f"base_package.packages[{index}].source_evidence", "message": "missing source evidence"})
+            location = item.get("source_location")
+            if item.get("source_evidence") and isinstance(location, dict) and not location.get("path"):
+                issues.append({"severity": "warning", "path": f"base_package.packages[{index}].source_location.path", "message": "missing source file path"})
         return issues
 
     def _validate_possible_un_split_lists(self, product_document: dict[str, Any]) -> list[dict[str, Any]]:
@@ -76,6 +84,8 @@ class ProductDocumentValidator:
         for key in EVIDENCE_LIST_KEYS:
             for index, item in enumerate(product_document.get(key, [])):
                 if not isinstance(item, dict):
+                    continue
+                if key == "optional_packages" and not looks_like_composite_optional_package(item):
                     continue
                 text = " ".join(str(item.get(field, "")) for field in ("description", "source_evidence"))
                 if looks_like_multiple_items(text):
@@ -88,14 +98,68 @@ class ProductDocumentValidator:
                     )
         return issues
 
+    def _validate_semantic_values(self, product_document: dict[str, Any]) -> list[dict[str, Any]]:
+        issues: list[dict[str, Any]] = []
+        document_status = product_document.get("document_info", {}).get("document_status", "")
+        if not document_status:
+            issues.append(
+                {
+                    "severity": "warning",
+                    "path": "document_info.document_status",
+                    "message": "document_status is empty; infer active/inactive before review or publishing",
+                }
+            )
+
+        for index, item in enumerate(product_document.get("base_package", {}).get("packages", [])):
+            if not isinstance(item, dict):
+                continue
+            contract_period = str(item.get("contract_period", "")).strip()
+            if contract_period and looks_like_billing_unit(contract_period):
+                issues.append(
+                    {
+                        "severity": "error",
+                        "path": f"base_package.packages[{index}].contract_period",
+                        "message": "contract_period looks like a billing/unit value, not a real agreement term",
+                        "actual": contract_period,
+                    }
+                )
+        return issues
+
+    def _validate_cross_module_duplicates(self, product_document: dict[str, Any]) -> list[dict[str, Any]]:
+        application_names, application_evidence = collect_application_field_signatures(product_document)
+        issues: list[dict[str, Any]] = []
+        for index, item in enumerate(product_document.get("base_package", {}).get("service_attributes", [])):
+            if not isinstance(item, dict):
+                continue
+            name = canonical_name(str(item.get("attribute_name") or item.get("label") or item.get("name") or ""))
+            evidence = normalize_compact_text(str(item.get("source_evidence", "")))
+            if evidence and evidence in application_evidence:
+                issues.append(
+                    {
+                        "severity": "warning",
+                        "path": f"base_package.service_attributes[{index}]",
+                        "message": "service attribute duplicates an application field source_evidence",
+                    }
+                )
+            elif name and name in application_names and is_customer_application_name(name):
+                issues.append(
+                    {
+                        "severity": "warning",
+                        "path": f"base_package.service_attributes[{index}]",
+                        "message": f"customer application field should not be duplicated in base package attributes: {name}",
+                    }
+                )
+        return issues
+
     def _validate_application_field_coverage(self, product_document: dict[str, Any], blocks: list[Any]) -> list[dict[str, Any]]:
         source_labels = collect_required_application_labels(blocks)
         if not source_labels:
             return []
         extracted_text = extracted_application_field_text(product_document)
+        extracted_compact_text = normalize_compact_text(extracted_text)
         issues: list[dict[str, Any]] = []
         for label in source_labels:
-            if label and label not in extracted_text:
+            if label and normalize_compact_text(label) not in extracted_compact_text:
                 issues.append(
                     {
                         "severity": "warning",
@@ -262,6 +326,28 @@ def extracted_application_field_text(product_document: dict[str, Any]) -> str:
     return "\n".join(values)
 
 
+def collect_application_field_signatures(product_document: dict[str, Any]) -> tuple[set[str], set[str]]:
+    fields = product_document.get("parties_and_application", {}).get("application_fields", {})
+    names: set[str] = set()
+    evidence_values: set[str] = set()
+    if not isinstance(fields, dict):
+        return names, evidence_values
+    for key in ("required", "optional"):
+        for item in fields.get(key, []):
+            if not isinstance(item, dict):
+                continue
+            label = canonical_name(str(item.get("label", "")))
+            field_key = canonical_name(str(item.get("field_key", "")))
+            evidence = normalize_compact_text(str(item.get("source_evidence", "")))
+            if label:
+                names.add(label)
+            if field_key:
+                names.add(field_key)
+            if evidence:
+                evidence_values.add(evidence)
+    return names, evidence_values
+
+
 def collect_optional_package_row_names(blocks: list[Any]) -> list[str]:
     names: list[str] = []
     in_package_section = False
@@ -335,3 +421,44 @@ def looks_like_multiple_items(text: str) -> bool:
     if not compact:
         return False
     return any(re.search(pattern, compact) for pattern in MULTI_ITEM_PATTERNS)
+
+
+def looks_like_composite_optional_package(item: dict[str, Any]) -> bool:
+    name = str(item.get("name", ""))
+    if "/" in name or "／" in name:
+        return True
+    source = str(item.get("source_evidence", ""))
+    return bool(re.search(r"固话.*[/／].*商云通|商云通.*[/／].*固话", source))
+
+
+def looks_like_billing_unit(value: str) -> bool:
+    compact = normalize_compact_text(value)
+    invalid_values = {"线", "次", "月", "年", "元", "元/月", "元/年", "月/线", "年/线", "元/月/线", "元/年/线"}
+    if compact in invalid_values:
+        return True
+    return bool(re.fullmatch(r"[./\\-]*(线|次|月|年)", compact))
+
+
+def is_customer_application_name(value: str) -> bool:
+    names = {
+        "企业规模",
+        "计算机数量",
+        "经办人",
+        "联系电话",
+        "身份证号码",
+        "邮编",
+        "付款方式",
+        "账单地址",
+        "安装地址",
+        "企业全称",
+        "统一社会信用代码",
+    }
+    return value in names
+
+
+def canonical_name(value: str) -> str:
+    return normalize_compact_text(value).replace("*", "").replace("□", "")
+
+
+def normalize_compact_text(value: str) -> str:
+    return re.sub(r"\s+", "", value or "")

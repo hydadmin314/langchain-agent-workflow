@@ -72,13 +72,17 @@ application_fields.required 和 application_fields.optional 都是列表，所�
 重点识别：基础套餐档位、速率、上下行、价格、计费周期、协议期、是否带语音、套餐内包含服务、基础业务属性、SLA。
 base_package.packages、included_items、service_attributes 都是列表，原文有多项就输出多项。
 必须抽取“基础套餐申请信息”下面的基础套餐档位；同一行里出现月付、年付、2年付等多个资费时，必须拆成多个 packages 对象。
-“套餐类型”“接口标准”“企业规模”“计算机数量”“是否带语音”等基础属性不要丢失；其中属于申请字段的同时也可在 parties_and_application.application_fields 中保留。
+“套餐类型”“接口标准”“是否带语音”等产品或服务属性不要丢失，应进入 service_attributes。
+“企业规模”“计算机数量”“经办人”“联系电话”“邮编”“付款方式”等客户填写字段只进入 parties_and_application.application_fields，不要重复放入 base_package.service_attributes。
+contract_period 只能填写“一年、二年、24个月、至某日期”等真实协议期限；“线、次、月、年、元/月/线”是计量/计费单位，严禁填入 contract_period。
 """,
     "optional_packages": """
 你只抽取 optional_packages。
 输出必须是 optional_packages 数组，不要包外层字段。
 重点识别：免费可选包、收费增值包、权益包、配套业务、上行升速包、移动业务、固话/商云通等。
 每个权益包或可选包必须单独一个对象。
+如果同一行里有多个可勾选业务，例如“固话/商云通”“固话（含翼名片）/商云通”等，必须拆成多个 optional_packages 对象，不能合并成一个 name。
+判断拆分边界时，以“一个可销售/可勾选/可订购的权益或业务”为一个对象；同一个对象内部只保留该业务自己的 options 和 price_items。
 申请表中基础套餐下面、填表说明之前的固话/商云通、移动业务、上行升速包等都是高优先级可选包，必须逐项抽取。
 同一可选包下有多个价格档位或勾选项时，保留到 price_items 和 options，不要合并成一句描述。
 注意：optional_packages.options 的 schema 是 array[string]，只能输出字符串；如果原文选项有说明，把说明合并进同一个字符串，例如 "固话：申请线数，每线含翼名片"。
@@ -143,6 +147,32 @@ def build_module_prompt(module_name: str, document_blocks: str) -> str:
     return "\n\n".join(
         [
             COMMON_EXTRACTION_RULES,
+            module_output_contract(module_name),
+            MODULE_PROMPTS[module_name],
+            DOCUMENT_CONTEXT_TEMPLATE.format(document_blocks=document_blocks),
+        ]
+    )
+
+
+COMPACT_EXTRACTION_RULES = """
+你是业务产品文档结构化抽取器。现在是超时后的紧凑重试，只抽当前模块。
+要求：
+1. 只输出合法 JSON，不解释。
+2. 字段名必须严格使用 schema，不得自创字段。
+3. 只依据输入文档块，不编造。
+4. 每个 array 字段都是多记录容器；多条业务事实必须拆成多个对象。
+5. 每条对象尽量保留 source_evidence、source_location、confidence。
+6. 客户填写字段不要重复放到基础套餐属性中。
+7. contract_period 只能是真实协议期限，不能是“线、次、月、年、元/月/线”等单位。
+"""
+
+
+def build_compact_module_prompt(module_name: str, document_blocks: str) -> str:
+    if module_name not in MODULE_PROMPTS:
+        raise KeyError(f"Unknown extraction module: {module_name}")
+    return "\n\n".join(
+        [
+            COMPACT_EXTRACTION_RULES,
             module_output_contract(module_name),
             MODULE_PROMPTS[module_name],
             DOCUMENT_CONTEXT_TEMPLATE.format(document_blocks=document_blocks),

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import hashlib
 import re
 import zipfile
@@ -72,6 +73,10 @@ class LoadedDocument:
 
 class DocumentLoader:
     """Load business documents into location-aware text blocks for LLM extraction."""
+
+    async def load_async(self, file_path: str | Path) -> LoadedDocument:
+        """Load a document without blocking the async workflow event loop."""
+        return await asyncio.to_thread(self.load, file_path)
 
     def load(self, file_path: str | Path) -> LoadedDocument:
         path = Path(file_path).resolve()

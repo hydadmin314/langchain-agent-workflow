@@ -9,8 +9,9 @@ from typing import Any
 from langchain_core.language_models.chat_models import BaseChatModel
 
 from agent.product_doc_agent.document_loader import DocumentBlock, DocumentLoader, LoadedDocument
-from agent.product_doc_agent.llm_extractor import EXTRACTION_MODULES, ProductDocumentLLMExtractor
+from agent.product_doc_agent.llm_extractor import EXTRACTION_MODULES, ProductDocumentLLMExtractor, run_async_from_sync
 from agent.product_doc_agent.merger import ProductDocumentMerger
+from agent.product_doc_agent.schema_normalizer import ProductDocumentNormalizer
 from agent.product_doc_agent.validator import ProductDocumentValidator
 from utils.logger import logger
 
@@ -35,20 +36,29 @@ class ProductDocAgentWorkflow:
         data_root: str | Path = DEFAULT_DATA_ROOT,
         llm: BaseChatModel | None = None,
         max_context_chars: int = 60000,
+        max_concurrency: int = 3,
         enable_self_check: bool = True,
     ) -> None:
         self.data_root = Path(data_root)
         self.review_dir = self.data_root / "review"
         self.published_dir = self.data_root / "published"
         self.loader = DocumentLoader()
-        self.extractor = ProductDocumentLLMExtractor(llm=llm, max_context_chars=max_context_chars)
+        self.extractor = ProductDocumentLLMExtractor(
+            llm=llm,
+            max_context_chars=max_context_chars,
+            max_concurrency=max_concurrency,
+        )
         self.merger = ProductDocumentMerger()
+        self.normalizer = ProductDocumentNormalizer()
         self.validator = ProductDocumentValidator()
         self.enable_self_check = enable_self_check
 
     def run(self, file_path: str | Path) -> WorkflowResult:
-        loaded_document = self.loader.load(file_path)
-        product_document = self.extract_loaded_document(loaded_document)
+        return run_async_from_sync(self.run_async(file_path))
+
+    async def run_async(self, file_path: str | Path) -> WorkflowResult:
+        loaded_document = await self.loader.load_async(file_path)
+        product_document = await self.extract_loaded_document_async(loaded_document)
         review_path = self.write_review_json(product_document, loaded_document.document_id)
         validation_issue_count = product_document.get("extraction_meta", {}).get("validation_issue_count", 0)
         logger.info(f"产品文档抽取完成，document_id={loaded_document.document_id}, review_path={review_path}")
@@ -60,8 +70,11 @@ class ProductDocAgentWorkflow:
         )
 
     def extract_loaded_document(self, loaded_document: LoadedDocument) -> dict[str, Any]:
+        return run_async_from_sync(self.extract_loaded_document_async(loaded_document))
+
+    async def extract_loaded_document_async(self, loaded_document: LoadedDocument) -> dict[str, Any]:
         module_contexts = build_module_contexts(loaded_document, max_chars=self.extractor.max_context_chars)
-        module_outputs = self.extractor.extract_modules(
+        module_outputs = await self.extractor.extract_modules_async(
             module_contexts,
             modules=EXTRACTION_MODULES,
             continue_on_error=True,
@@ -70,10 +83,16 @@ class ProductDocAgentWorkflow:
 
         module_errors = module_outputs.get("__module_errors__", [])
         if self.enable_self_check and not module_errors:
-            self_check = self.extractor.self_check(product_document)
+            self_check = await self.extractor.self_check_async(product_document)
             product_document = self.merger.apply_self_check(product_document, self_check)
         elif module_errors:
             product_document["extraction_meta"]["schema_warnings"].append("部分模块抽取失败，已跳过 LLM 自检。")
+
+        normalization_result = self.normalizer.normalize_product_document(product_document)
+        product_document = normalization_result.product_document
+        if normalization_result.issues:
+            schema_warnings = product_document["extraction_meta"].setdefault("schema_warnings", [])
+            schema_warnings.extend(issue.get("message", str(issue)) for issue in normalization_result.issues)
 
         program_issues = self.validator.validate(product_document)
         program_issues.extend(self.validator.validate_source_coverage(product_document, loaded_document.blocks))
