@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import asyncio
+import hashlib
 import json
 import re
 import time
 from collections.abc import Awaitable, Sequence
+from pathlib import Path
 from typing import Any
 
 from langchain_core.language_models.chat_models import BaseChatModel
@@ -36,6 +38,7 @@ EXTRACTION_MODULES = [
 ]
 
 COMPACT_FIRST_MODULES = {"parties_and_application"}
+LLM_CACHE_VERSION = "product_doc_agent_llm_cache_v1"
 
 
 class LLMExtractionError(RuntimeError):
@@ -53,10 +56,13 @@ class ProductDocumentLLMExtractor:
         *,
         max_context_chars: int = 60000,
         max_concurrency: int | None = None,
+        cache_dir: str | Path | None = None,
+        enable_cache: bool = True,
     ) -> None:
         self.llm = llm or get_llm(temperature=0)
         self.max_context_chars = max_context_chars
         self.max_concurrency = max(1, max_concurrency or len(EXTRACTION_MODULES))
+        self.cache = LLMResponseCache(cache_dir) if enable_cache and cache_dir is not None else None
 
     def extract_modules(
         self,
@@ -214,6 +220,10 @@ class ProductDocumentLLMExtractor:
         return result
 
     def _invoke_json(self, prompt: str, *, expected_module: str) -> Any:
+        cached = self._load_cached_response(prompt, expected_module=expected_module)
+        if cached is not None:
+            return cached
+
         started_at = time.perf_counter()
         try:
             response = self.llm.invoke([HumanMessage(content=prompt)])
@@ -224,9 +234,15 @@ class ProductDocumentLLMExtractor:
                 f"prompt_chars={len(prompt)}; original_error={exc.__class__.__name__}: {exc}",
                 retryable=True,
             ) from exc
-        return parse_json_response(response, expected_module=expected_module)
+        result = parse_json_response(response, expected_module=expected_module)
+        self._save_cached_response(prompt, expected_module=expected_module, result=result)
+        return result
 
     async def _ainvoke_json(self, prompt: str, *, expected_module: str) -> Any:
+        cached = self._load_cached_response(prompt, expected_module=expected_module)
+        if cached is not None:
+            return cached
+
         started_at = time.perf_counter()
         logger.info(
             "LLM request: "
@@ -246,7 +262,81 @@ class ProductDocumentLLMExtractor:
                 f"prompt_chars={len(prompt)}; original_error={exc.__class__.__name__}: {exc}",
                 retryable=True,
             ) from exc
-        return parse_json_response(response, expected_module=expected_module)
+        result = parse_json_response(response, expected_module=expected_module)
+        self._save_cached_response(prompt, expected_module=expected_module, result=result)
+        return result
+
+    def _load_cached_response(self, prompt: str, *, expected_module: str) -> Any | None:
+        if self.cache is None:
+            return None
+        cache_key = self._cache_key(prompt, expected_module=expected_module)
+        cached = self.cache.load(cache_key)
+        if cached is None:
+            return None
+        logger.info(f"LLM cache hit: module={expected_module}, cache_key={cache_key[:12]}")
+        return cached
+
+    def _save_cached_response(self, prompt: str, *, expected_module: str, result: Any) -> None:
+        if self.cache is None:
+            return
+        cache_key = self._cache_key(prompt, expected_module=expected_module)
+        self.cache.save(cache_key, result)
+
+    def _cache_key(self, prompt: str, *, expected_module: str) -> str:
+        payload = {
+            "version": LLM_CACHE_VERSION,
+            "module": expected_module,
+            "model": getattr(self.llm, "model_name", None) or getattr(self.llm, "model", None),
+            "base_url": str(getattr(self.llm, "openai_api_base", "")),
+            "prompt_sha256": hashlib.sha256(prompt.encode("utf-8")).hexdigest(),
+        }
+        raw = json.dumps(payload, ensure_ascii=False, sort_keys=True)
+        return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+
+
+class LLMResponseCache:
+    """Small JSON file cache for successful LLM responses."""
+
+    def __init__(self, cache_dir: str | Path) -> None:
+        self.cache_dir = Path(cache_dir)
+        self.cache_dir.mkdir(parents=True, exist_ok=True)
+
+    def load(self, cache_key: str) -> Any | None:
+        path = self._path_for_key(cache_key)
+        if not path.exists():
+            return None
+        try:
+            with path.open("r", encoding="utf-8") as file:
+                payload = json.load(file)
+        except (OSError, json.JSONDecodeError):
+            return None
+        if payload.get("cache_version") != LLM_CACHE_VERSION:
+            return None
+        return payload.get("result")
+
+    def save(self, cache_key: str, result: Any) -> None:
+        path = self._path_for_key(cache_key)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        payload = {
+            "cache_version": LLM_CACHE_VERSION,
+            "cache_key": cache_key,
+            "result": result,
+        }
+        tmp_path = path.with_suffix(".tmp")
+        try:
+            with tmp_path.open("w", encoding="utf-8") as file:
+                json.dump(payload, file, ensure_ascii=False)
+            tmp_path.replace(path)
+        except OSError as exc:
+            logger.warning(f"LLM cache save failed: {path}, error={exc}")
+            if tmp_path.exists():
+                try:
+                    tmp_path.unlink()
+                except OSError:
+                    pass
+
+    def _path_for_key(self, cache_key: str) -> Path:
+        return self.cache_dir / cache_key[:2] / f"{cache_key}.json"
 
 
 def parse_json_response(response: Any, *, expected_module: str) -> Any:
