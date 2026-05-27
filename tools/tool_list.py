@@ -1,7 +1,5 @@
-from tools.calc_tool import calculator
-from tools.search_tool import search_internet
+from tools.sales_tools.tool_list import ALL_TOOLS as SALES_TOOLS
 
 ALL_TOOLS = [
-    calculator,
-    search_internet
+    *SALES_TOOLS,
 ]
