@@ -35,6 +35,8 @@ EXTRACTION_MODULES = [
     "supplemental_rules",
 ]
 
+COMPACT_FIRST_MODULES = {"parties_and_application"}
+
 
 class LLMExtractionError(RuntimeError):
     def __init__(self, message: str, *, retryable: bool = False) -> None:
@@ -50,7 +52,7 @@ class ProductDocumentLLMExtractor:
         llm: BaseChatModel | None = None,
         *,
         max_context_chars: int = 60000,
-        max_concurrency: int = 5,
+        max_concurrency: int = 3,
     ) -> None:
         self.llm = llm or get_llm(temperature=0)
         self.max_context_chars = max_context_chars
@@ -111,7 +113,7 @@ class ProductDocumentLLMExtractor:
         continue_on_error: bool,
     ) -> tuple[str, Any, dict[str, str] | None]:
         context = document_context.get(module_name, "") if isinstance(document_context, dict) else document_context
-        prompt = build_module_prompt(module_name, context[: self.max_context_chars])
+        prompt = build_primary_module_prompt(module_name, context, max_context_chars=self.max_context_chars)
         logger.info(f"start module extraction: {module_name}, prompt_chars={len(prompt)}")
 
         try:
@@ -262,6 +264,13 @@ def run_async_from_sync(coro: Awaitable[Any]) -> Any:
         return asyncio.run(coro)
     coro.close()
     raise RuntimeError("An event loop is already running. Use the corresponding async workflow method.")
+
+
+def build_primary_module_prompt(module_name: str, context: str, *, max_context_chars: int) -> str:
+    if module_name in COMPACT_FIRST_MODULES:
+        compact_context = compact_context_for_retry(module_name, context, max_chars=min(max_context_chars, 6500))
+        return build_compact_module_prompt(module_name, compact_context)
+    return build_module_prompt(module_name, context[:max_context_chars])
 
 
 RETRY_CONTEXT_KEYWORDS: dict[str, tuple[str, ...]] = {
