@@ -15,6 +15,10 @@ from langchain_core.messages import HumanMessage
 from agent.product_doc_agent.schema_normalizer import normalize_to_module_schema
 from agent.product_doc_agent.validator import validate_against_schema
 from config.llm_config import get_llm
+from config.settings import (
+    PRODUCT_DOC_AGENT_RATE_LIMIT_MAX_ATTEMPTS,
+    PRODUCT_DOC_AGENT_RATE_LIMIT_RETRY_SECONDS,
+)
 from prompts.product_doc_agent_prompts import (
     build_compact_module_prompt,
     build_module_prompt,
@@ -42,9 +46,10 @@ LLM_CACHE_VERSION = "product_doc_agent_llm_cache_v1"
 
 
 class LLMExtractionError(RuntimeError):
-    def __init__(self, message: str, *, retryable: bool = False) -> None:
+    def __init__(self, message: str, *, retryable: bool = False, rate_limited: bool = False) -> None:
         super().__init__(message)
         self.retryable = retryable
+        self.rate_limited = rate_limited
 
 
 class ProductDocumentLLMExtractor:
@@ -62,6 +67,8 @@ class ProductDocumentLLMExtractor:
         self.llm = llm or get_llm(temperature=0)
         self.max_context_chars = max_context_chars
         self.max_concurrency = max(1, max_concurrency or len(EXTRACTION_MODULES))
+        self.rate_limit_max_attempts = max(1, PRODUCT_DOC_AGENT_RATE_LIMIT_MAX_ATTEMPTS)
+        self.rate_limit_retry_seconds = max(0.0, PRODUCT_DOC_AGENT_RATE_LIMIT_RETRY_SECONDS)
         self.cache = LLMResponseCache(cache_dir) if enable_cache and cache_dir is not None else None
 
     def extract_modules(
@@ -194,6 +201,9 @@ class ProductDocumentLLMExtractor:
     ) -> Any | None:
         if not error.retryable:
             return None
+        if error.rate_limited:
+            logger.warning(f"{module_name}: skip compact retry because the provider returned a rate limit error")
+            return None
 
         compact_context = compact_context_for_retry(module_name, context)
         compact_prompt = build_compact_module_prompt(module_name, compact_context)
@@ -224,16 +234,7 @@ class ProductDocumentLLMExtractor:
         if cached is not None:
             return cached
 
-        started_at = time.perf_counter()
-        try:
-            response = self.llm.invoke([HumanMessage(content=prompt)])
-        except Exception as exc:
-            elapsed = time.perf_counter() - started_at
-            raise LLMExtractionError(
-                f"{expected_module}: LLM request failed after {elapsed:.1f}s; "
-                f"prompt_chars={len(prompt)}; original_error={exc.__class__.__name__}: {exc}",
-                retryable=True,
-            ) from exc
+        response = self._invoke_with_rate_limit_retry(prompt, expected_module=expected_module)
         result = parse_json_response(response, expected_module=expected_module)
         self._save_cached_response(prompt, expected_module=expected_module, result=result)
         return result
@@ -243,7 +244,6 @@ class ProductDocumentLLMExtractor:
         if cached is not None:
             return cached
 
-        started_at = time.perf_counter()
         logger.info(
             "LLM request: "
             f"module={expected_module}, "
@@ -252,19 +252,62 @@ class ProductDocumentLLMExtractor:
             f"prompt_chars={len(prompt)}"
         )
         try:
-            response = await self.llm.ainvoke([HumanMessage(content=prompt)])
+            response = await self._ainvoke_with_rate_limit_retry(prompt, expected_module=expected_module)
         except AttributeError:
             return await asyncio.to_thread(self._invoke_json, prompt, expected_module=expected_module)
-        except Exception as exc:
-            elapsed = time.perf_counter() - started_at
-            raise LLMExtractionError(
-                f"{expected_module}: LLM request failed after {elapsed:.1f}s; "
-                f"prompt_chars={len(prompt)}; original_error={exc.__class__.__name__}: {exc}",
-                retryable=True,
-            ) from exc
         result = parse_json_response(response, expected_module=expected_module)
         self._save_cached_response(prompt, expected_module=expected_module, result=result)
         return result
+
+    def _invoke_with_rate_limit_retry(self, prompt: str, *, expected_module: str) -> Any:
+        started_at = time.perf_counter()
+        for attempt in range(1, self.rate_limit_max_attempts + 1):
+            try:
+                return self.llm.invoke([HumanMessage(content=prompt)])
+            except Exception as exc:
+                rate_limited = is_rate_limit_error(exc)
+                if rate_limited and attempt < self.rate_limit_max_attempts:
+                    logger.warning(
+                        f"{expected_module}: rate limited by LLM provider; "
+                        f"retrying in {self.rate_limit_retry_seconds:.1f}s "
+                        f"({attempt}/{self.rate_limit_max_attempts})"
+                    )
+                    time.sleep(self.rate_limit_retry_seconds)
+                    continue
+                raise build_llm_request_error(
+                    expected_module,
+                    prompt,
+                    started_at,
+                    exc,
+                    retryable=not rate_limited,
+                    rate_limited=rate_limited,
+                ) from exc
+
+    async def _ainvoke_with_rate_limit_retry(self, prompt: str, *, expected_module: str) -> Any:
+        started_at = time.perf_counter()
+        for attempt in range(1, self.rate_limit_max_attempts + 1):
+            try:
+                return await self.llm.ainvoke([HumanMessage(content=prompt)])
+            except AttributeError:
+                raise
+            except Exception as exc:
+                rate_limited = is_rate_limit_error(exc)
+                if rate_limited and attempt < self.rate_limit_max_attempts:
+                    logger.warning(
+                        f"{expected_module}: rate limited by LLM provider; "
+                        f"retrying in {self.rate_limit_retry_seconds:.1f}s "
+                        f"({attempt}/{self.rate_limit_max_attempts})"
+                    )
+                    await asyncio.sleep(self.rate_limit_retry_seconds)
+                    continue
+                raise build_llm_request_error(
+                    expected_module,
+                    prompt,
+                    started_at,
+                    exc,
+                    retryable=not rate_limited,
+                    rate_limited=rate_limited,
+                ) from exc
 
     def _load_cached_response(self, prompt: str, *, expected_module: str) -> Any | None:
         if self.cache is None:
@@ -451,6 +494,35 @@ def extract_json_from_text(text: str) -> Any | None:
             except json.JSONDecodeError:
                 continue
     return None
+
+
+def is_rate_limit_error(error: Exception) -> bool:
+    """Return True for provider-side request-rate throttling errors."""
+    error_name = error.__class__.__name__.lower()
+    error_text = str(error).lower()
+    return any(
+        marker in error_name or marker in error_text
+        for marker in ("ratelimit", "rate limit", "429", "limit_requests", "too many requests")
+    )
+
+
+def build_llm_request_error(
+    expected_module: str,
+    prompt: str,
+    started_at: float,
+    original_error: Exception,
+    *,
+    retryable: bool,
+    rate_limited: bool,
+) -> LLMExtractionError:
+    elapsed = time.perf_counter() - started_at
+    return LLMExtractionError(
+        f"{expected_module}: LLM request failed after {elapsed:.1f}s; "
+        f"prompt_chars={len(prompt)}; "
+        f"original_error={original_error.__class__.__name__}: {original_error}",
+        retryable=retryable,
+        rate_limited=rate_limited,
+    )
 
 
 def empty_module_output(module_name: str) -> Any:

@@ -45,7 +45,8 @@ COMMON_EXTRACTION_RULES = f"""
 
 
 DOCUMENT_CONTEXT_TEMPLATE = """
-文档块如下。每个块都有 block_id、block_type、source_location 和 text。
+文档内容如下，格式为 Markdown。每个段落或表格行前都有 HTML 注释形式的 source 元数据，
+其中包含 block_id、block_type 和 source_location。抽取 source_location 时必须使用这些 source 元数据。
 
 {document_blocks}
 """

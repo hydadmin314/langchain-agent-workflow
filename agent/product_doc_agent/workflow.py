@@ -10,6 +10,7 @@ from langchain_core.language_models.chat_models import BaseChatModel
 
 from agent.product_doc_agent.document_loader import DocumentBlock, DocumentLoader, LoadedDocument
 from agent.product_doc_agent.llm_extractor import EXTRACTION_MODULES, ProductDocumentLLMExtractor, run_async_from_sync
+from agent.product_doc_agent.markdown_renderer import MarkdownRenderer
 from agent.product_doc_agent.merger import ProductDocumentMerger
 from agent.product_doc_agent.schema_normalizer import ProductDocumentNormalizer
 from agent.product_doc_agent.validator import ProductDocumentValidator
@@ -229,28 +230,4 @@ def dedupe_blocks(blocks: list[DocumentBlock]) -> list[DocumentBlock]:
 
 
 def render_blocks(blocks: list[DocumentBlock], *, max_chars: int) -> str:
-    parts: list[str] = []
-    total = 0
-    for block in blocks:
-        item = {
-            "block_id": block.block_id,
-            "block_type": block.block_type,
-            "source_location": block.source_location,
-            "text": block.text,
-        }
-        rendered = repr(item)
-        if total + len(rendered) > max_chars:
-            parts.append(
-                repr(
-                    {
-                        "block_id": "context_truncated",
-                        "block_type": "warning",
-                        "source_location": {},
-                        "text": "模块相关上下文较长，后续块已截断。",
-                    }
-                )
-            )
-            break
-        parts.append(rendered)
-        total += len(rendered)
-    return "\n".join(parts)
+    return MarkdownRenderer().render_blocks(blocks, max_chars=max_chars)
