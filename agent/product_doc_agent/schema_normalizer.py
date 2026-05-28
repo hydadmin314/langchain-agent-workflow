@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import re
 from dataclasses import dataclass
 from datetime import date, datetime
@@ -228,15 +229,16 @@ class ProductDocumentNormalizer:
         issues: list[dict[str, Any]] = []
         self._normalize_extraction_meta(product_document)
         issues.extend(self._fill_document_status(product_document))
+        self._fill_source_location_paths(product_document)
         issues.extend(self._remove_duplicate_application_attributes(product_document))
         issues.extend(self._remove_duplicate_application_constraints(product_document))
+        issues.extend(self._remove_same_document_supplemental_rules(product_document))
         issues.extend(self._remove_duplicate_service_attributes(product_document))
         issues.extend(self._remove_optional_items_from_included_items(product_document))
         issues.extend(self._split_composite_optional_packages(product_document))
         issues.extend(self._normalize_currency_values(product_document))
         issues.extend(self._normalize_optional_package_price_items(product_document))
         issues.extend(self._normalize_contract_period(product_document))
-        self._fill_source_location_paths(product_document)
         return ProductDocumentNormalizationResult(product_document=product_document, issues=issues)
 
     def _normalize_extraction_meta(self, product_document: dict[str, Any]) -> None:
@@ -489,6 +491,45 @@ class ProductDocumentNormalizer:
             kept.append(item)
 
         product_document["eligibility_and_constraints"] = kept
+        return issues
+
+    def _remove_same_document_supplemental_rules(self, product_document: dict[str, Any]) -> list[dict[str, Any]]:
+        """Keep supplemental_rules only for rules sourced from other files.
+
+        supplemental_rules is reserved for cross-file enrichment, such as an
+        external price table or discount policy. If an extracted supplemental
+        rule cites the same source_path as the current main document, it is an
+        embedded section of the current document and should be handled by the
+        normal rule/material modules instead.
+        """
+        supplemental_rules = product_document.get("supplemental_rules", [])
+        if not isinstance(supplemental_rules, list):
+            return []
+
+        main_source_path = normalized_path(product_document.get("document_info", {}).get("source_path", ""))
+        if not main_source_path:
+            return []
+
+        kept: list[Any] = []
+        issues: list[dict[str, Any]] = []
+        for index, item in enumerate(supplemental_rules):
+            if not isinstance(item, dict):
+                kept.append(item)
+                continue
+
+            rule_source_path = normalized_path(extract_source_location_path(item))
+            if rule_source_path and rule_source_path == main_source_path:
+                issues.append(
+                    {
+                        "severity": "warning",
+                        "path": f"supplemental_rules[{index}]",
+                        "message": "removed same-document supplemental rule; supplemental_rules only keeps rules from other source files",
+                    }
+                )
+                continue
+            kept.append(item)
+
+        product_document["supplemental_rules"] = kept
         return issues
 
     def _split_composite_optional_packages(self, product_document: dict[str, Any]) -> list[dict[str, Any]]:
@@ -787,6 +828,30 @@ def fill_source_path(value: Any, source_path: str) -> None:
     elif isinstance(value, list):
         for child in value:
             fill_source_path(child, source_path)
+
+
+def extract_source_location_path(value: Any) -> str:
+    if isinstance(value, dict):
+        location = value.get("source_location")
+        if isinstance(location, dict) and location.get("path"):
+            return str(location.get("path", ""))
+        for child in value.values():
+            path = extract_source_location_path(child)
+            if path:
+                return path
+    elif isinstance(value, list):
+        for child in value:
+            path = extract_source_location_path(child)
+            if path:
+                return path
+    return ""
+
+
+def normalized_path(value: Any) -> str:
+    text = str(value or "").strip()
+    if not text:
+        return ""
+    return os.path.normcase(os.path.normpath(text))
 
 
 def parse_date(value: str) -> date | None:

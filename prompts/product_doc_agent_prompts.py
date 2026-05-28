@@ -118,7 +118,7 @@ contract_period 只能填写“一年、二年、24个月、至某日期”等�
 重点识别：准入条件、排除条件、额外要求、推荐阻断、合规要求、客户类型限制、IP 数量触发规则、停用/不可推荐规则。
 每条条件或限制必须单独一个对象。
 """,
-    "supplemental_rules": """
+"supplemental_rules": """
 你只抽取 supplemental_rules。
 输出必须是 supplemental_rules 数组，不要包外层字段。
 重点识别：附件、附录、承诺书、备案表、SLA附页、IP地址报备表、网络安全责任人信息等补充材料中的字段、列、规则。
@@ -136,6 +136,12 @@ SELF_CHECK_PROMPT = """
 4. 是否缺少 source_evidence、source_location 或 confidence。
 5. 是否存在金额、期限、适用条件归属错误。
 6. 是否有字段类型不符合 schema。
+
+自检边界：
+1. 只报告“当前 JSON 已经存在”的确定问题，不要基于常识、推断或业务经验提出补抽建议。
+2. 不要要求补充原文没有明确列出的 included_items；例如不能因为套餐有带宽，就建议凭推断新增“互联网接入”等包含项。
+3. schema_warnings 只输出简短字符串，不要输出对象、字典或嵌套 JSON。
+4. validation_issues 每条必须包含 severity、path、message 三个字段；不要使用 type、field_path、issue 等自创字段。
 
 只输出一个对象：
 {

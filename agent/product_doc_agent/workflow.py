@@ -39,19 +39,15 @@ class ProductDocAgentWorkflow:
         max_context_chars: int = 60000,
         max_concurrency: int | None = None,
         enable_self_check: bool = True,
-        enable_llm_cache: bool = True,
     ) -> None:
         self.data_root = Path(data_root)
         self.review_dir = self.data_root / "review"
         self.published_dir = self.data_root / "published"
-        self.cache_dir = self.data_root / "cache" / "llm"
         self.loader = DocumentLoader()
         self.extractor = ProductDocumentLLMExtractor(
             llm=llm,
             max_context_chars=max_context_chars,
             max_concurrency=max_concurrency,
-            cache_dir=self.cache_dir,
-            enable_cache=enable_llm_cache,
         )
         self.merger = ProductDocumentMerger()
         self.normalizer = ProductDocumentNormalizer()
