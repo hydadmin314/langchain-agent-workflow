@@ -4,6 +4,7 @@ import json
 import shutil
 from dataclasses import dataclass
 from pathlib import Path
+import re
 from typing import Any
 
 from langchain_core.language_models.chat_models import BaseChatModel
@@ -43,6 +44,7 @@ class ProductDocAgentWorkflow:
         self.data_root = Path(data_root)
         self.review_dir = self.data_root / "review"
         self.published_dir = self.data_root / "published"
+        self.debug_dir = self.data_root / "debug"
         self.loader = DocumentLoader()
         self.extractor = ProductDocumentLLMExtractor(
             llm=llm,
@@ -75,6 +77,7 @@ class ProductDocAgentWorkflow:
 
     async def extract_loaded_document_async(self, loaded_document: LoadedDocument) -> dict[str, Any]:
         module_contexts = build_module_contexts(loaded_document, max_chars=self.extractor.max_context_chars)
+        self.write_debug_markdown(loaded_document, module_contexts)
         module_outputs = await self.extractor.extract_modules_async(
             module_contexts,
             modules=EXTRACTION_MODULES,
@@ -83,17 +86,21 @@ class ProductDocAgentWorkflow:
         product_document = self.merger.merge(module_outputs, document_metadata=loaded_document_metadata(loaded_document))
 
         module_errors = module_outputs.get("__module_errors__", [])
-        if self.enable_self_check and not module_errors:
-            self_check = await self.extractor.self_check_async(product_document)
-            product_document = self.merger.apply_self_check(product_document, self_check)
-        elif module_errors:
+        if module_errors:
             product_document["extraction_meta"]["schema_warnings"].append("部分模块抽取失败，已跳过 LLM 自检。")
 
         normalization_result = self.normalizer.normalize_product_document(product_document)
         product_document = normalization_result.product_document
-        if normalization_result.issues:
+        exposed_normalization_issues = [
+            issue for issue in normalization_result.issues if issue.get("expose_to_review") is True
+        ]
+        if exposed_normalization_issues:
             schema_warnings = product_document["extraction_meta"].setdefault("schema_warnings", [])
-            schema_warnings.extend(issue.get("message", str(issue)) for issue in normalization_result.issues)
+            schema_warnings.extend(issue.get("message", str(issue)) for issue in exposed_normalization_issues)
+
+        if self.enable_self_check and not module_errors:
+            self_check = await self.extractor.self_check_async(product_document)
+            product_document = self.merger.apply_self_check(product_document, self_check)
 
         program_issues = self.validator.validate(product_document)
         for module_error in module_errors:
@@ -116,6 +123,18 @@ class ProductDocAgentWorkflow:
         path = self.review_dir / f"{document_id}.json"
         path.write_text(json.dumps(product_document, ensure_ascii=False, indent=2), encoding="utf-8")
         return path
+
+    def write_debug_markdown(self, loaded_document: LoadedDocument, module_contexts: dict[str, str]) -> None:
+        """Persist Markdown debug files so reviewers can inspect the LLM input."""
+        self.debug_dir.mkdir(parents=True, exist_ok=True)
+
+        full_markdown = MarkdownRenderer().render_document(loaded_document, max_chars=None)
+        full_path = self.debug_dir / f"{loaded_document.document_id}_llm_markdown.md"
+        full_path.write_text(full_markdown, encoding="utf-8")
+
+        module_path = self.debug_dir / f"{loaded_document.document_id}_module_contexts.md"
+        module_path.write_text(render_module_contexts_debug(module_contexts), encoding="utf-8")
+        logger.info(f"LLM markdown debug files written: {full_path}, {module_path}")
 
     def publish(self, document_id: str) -> Path:
         review_path = self.review_dir / f"{document_id}.json"
@@ -227,3 +246,239 @@ def dedupe_blocks(blocks: list[DocumentBlock]) -> list[DocumentBlock]:
 
 def render_blocks(blocks: list[DocumentBlock], *, max_chars: int) -> str:
     return MarkdownRenderer().render_blocks(blocks, max_chars=max_chars)
+
+
+def render_module_contexts_debug(module_contexts: dict[str, str]) -> str:
+    sections: list[str] = [
+        "# Product Document Module Contexts",
+        "",
+        "<!-- Each section below is one module prompt context built from the full LLM Markdown by document order and table structure. -->",
+    ]
+    for module_name, context in module_contexts.items():
+        sections.extend(["", f"## {module_name}", "", context or "<!-- empty module context -->"])
+    return "\n".join(sections)
+
+
+@dataclass(frozen=True)
+class StructuralSlices:
+    document_info: list[DocumentBlock]
+    application_fields: list[DocumentBlock]
+    base_package: list[DocumentBlock]
+    base_package_rule_blocks: list[DocumentBlock]
+    optional_packages: list[DocumentBlock]
+    fee_rule_blocks: list[DocumentBlock]
+    agreement_rule_blocks: list[DocumentBlock]
+    material_rule_blocks: list[DocumentBlock]
+    constraint_rule_blocks: list[DocumentBlock]
+
+
+def build_module_contexts(loaded_document: LoadedDocument, *, max_chars: int) -> dict[str, str]:
+    """Build module contexts from the full Markdown source using structural slices."""
+    slices = build_structural_slices(loaded_document)
+    return {
+        "document_info": render_context(loaded_document, slices.document_info, max_chars=min(max_chars, 7000)),
+        "parties_and_application": render_context(
+            loaded_document,
+            slices.application_fields,
+            max_chars=min(max_chars, 7000),
+        ),
+        "base_package": render_context(
+            loaded_document,
+            [*slices.document_info, *slices.base_package, *slices.base_package_rule_blocks],
+            max_chars=min(max_chars, 10000),
+        ),
+        "optional_packages": render_context(loaded_document, slices.optional_packages, max_chars=min(max_chars, 9000)),
+        "fee_and_term_rules": render_context(
+            loaded_document,
+            [*slices.base_package, *slices.optional_packages, *slices.fee_rule_blocks],
+            max_chars=min(max_chars, 12000),
+        ),
+        "agreement_rules": render_context(
+            loaded_document,
+            slices.agreement_rule_blocks,
+            max_chars=min(max_chars, 12000),
+        ),
+        "application_materials": render_context(
+            loaded_document,
+            slices.material_rule_blocks,
+            max_chars=min(max_chars, 9000),
+        ),
+        "eligibility_and_constraints": render_context(
+            loaded_document,
+            slices.constraint_rule_blocks,
+            max_chars=min(max_chars, 9000),
+        ),
+        "supplemental_rules": render_context(loaded_document, [], max_chars=min(max_chars, 4000)),
+    }
+
+
+def build_structural_slices(loaded_document: LoadedDocument) -> StructuralSlices:
+    blocks = loaded_document.blocks
+    document_info = select_document_info_blocks(blocks)
+    application_fields = dedupe_blocks([*document_info, *select_application_field_blocks(blocks)])
+    package_rows = select_package_table_blocks(blocks)
+    base_package = [block for block in package_rows if is_base_package_block(block)]
+    optional_packages = [block for block in package_rows if is_optional_package_block(block)]
+    rule_source_blocks = [block for block in blocks if block.block_type != "table_row" or is_note_block(block)]
+
+    return StructuralSlices(
+        document_info=dedupe_blocks(document_info),
+        application_fields=application_fields,
+        base_package=dedupe_blocks(base_package or package_rows),
+        base_package_rule_blocks=dedupe_blocks(select_rule_blocks(rule_source_blocks, BASE_PACKAGE_RULE_TERMS)),
+        optional_packages=dedupe_blocks(optional_packages),
+        fee_rule_blocks=dedupe_blocks(select_rule_blocks(rule_source_blocks, FEE_RULE_TERMS)),
+        agreement_rule_blocks=dedupe_blocks(select_rule_blocks(rule_source_blocks, AGREEMENT_RULE_TERMS)),
+        material_rule_blocks=dedupe_blocks(select_rule_blocks(rule_source_blocks, MATERIAL_RULE_TERMS)),
+        constraint_rule_blocks=dedupe_blocks(select_rule_blocks(rule_source_blocks, CONSTRAINT_RULE_TERMS)),
+    )
+
+
+def select_document_info_blocks(blocks: list[DocumentBlock]) -> list[DocumentBlock]:
+    return [block for block in blocks[:8] if block.block_type == "paragraph"]
+
+
+def select_application_field_blocks(blocks: list[DocumentBlock]) -> list[DocumentBlock]:
+    first_package_index = first_index(blocks, is_package_start_block)
+    if first_package_index is None:
+        first_package_index = first_index(blocks, is_note_block) or len(blocks)
+    return [
+        block
+        for block in blocks[:first_package_index]
+        if block.block_type == "table_row" and not is_package_related_text(block.text)
+    ]
+
+
+def select_package_table_blocks(blocks: list[DocumentBlock]) -> list[DocumentBlock]:
+    start = first_index(blocks, is_package_start_block)
+    if start is None:
+        return []
+    relative_end = first_index(blocks[start:], is_note_block)
+    end = start + relative_end if relative_end is not None else len(blocks)
+    return [block for block in blocks[start:end] if block.block_type == "table_row"]
+
+
+def select_rule_blocks(blocks: list[DocumentBlock], terms: tuple[str, ...]) -> list[DocumentBlock]:
+    selected: list[DocumentBlock] = []
+    for block in blocks:
+        for candidate in iter_rule_candidate_blocks(block):
+            if contains_any(candidate.text, terms):
+                selected.append(candidate)
+    return selected
+
+
+def iter_rule_candidate_blocks(block: DocumentBlock) -> list[DocumentBlock]:
+    """Split mixed long rule cells into smaller clauses for module routing.
+
+    Some Word forms put many unrelated clauses into one table cell such as
+    "填表说明". Sending that whole cell to every module that matches one keyword
+    creates duplicated context and encourages duplicated extraction. The split is
+    generic: preserve normal blocks as-is, but break very long text into
+    sentence/list-level derived blocks that keep the original source location.
+    """
+    text = str(block.text or "").strip()
+    if len(text) < 500:
+        return [block]
+
+    parts = split_rule_text(text)
+    if len(parts) <= 1:
+        return [block]
+
+    result: list[DocumentBlock] = []
+    for index, part in enumerate(parts):
+        source_location = dict(block.source_location)
+        source_location["detail_index"] = index
+        metadata = dict(block.metadata)
+        metadata["parent_block_id"] = block.block_id
+        metadata["derived_from_long_block"] = True
+        result.append(
+            DocumentBlock(
+                block_id=f"{block.block_id}_part_{index:03d}",
+                block_type="paragraph",
+                text=part,
+                source_location=source_location,
+                metadata=metadata,
+            )
+        )
+    return result
+
+
+def split_rule_text(text: str) -> list[str]:
+    normalized = re.sub(r"\s+", " ", text or "").strip()
+    if not normalized:
+        return []
+
+    list_marker_pattern = re.compile(
+        r"(?=(?:^|\s)(?:\d{1,2}|[一二三四五六七八九十]{1,3}|[a-zA-Z])[、.．)）])"
+    )
+    marked_parts = clean_context_parts(list_marker_pattern.split(normalized))
+    if len(marked_parts) > 1:
+        return marked_parts
+    return clean_context_parts(re.split(r"(?<=[。；;])\s*", normalized))
+
+
+def clean_context_parts(parts: list[str]) -> list[str]:
+    return [part.strip() for part in parts if part and part.strip()]
+
+
+def first_index(blocks: list[DocumentBlock], predicate: Any) -> int | None:
+    for index, block in enumerate(blocks):
+        if predicate(block):
+            return index
+    return None
+
+
+def is_package_start_block(block: DocumentBlock) -> bool:
+    return contains_any(block.text, PACKAGE_START_TERMS)
+
+
+def is_note_block(block: DocumentBlock) -> bool:
+    return contains_any(block.text, NOTE_TERMS)
+
+
+def is_base_package_block(block: DocumentBlock) -> bool:
+    return contains_any(block.text, BASE_PACKAGE_TERMS) and not contains_any(block.text, OPTIONAL_PACKAGE_TERMS)
+
+
+def is_optional_package_block(block: DocumentBlock) -> bool:
+    return contains_any(block.text, OPTIONAL_PACKAGE_TERMS)
+
+
+def is_package_related_text(text: str) -> bool:
+    return contains_any(text, (*PACKAGE_START_TERMS, *BASE_PACKAGE_TERMS, *OPTIONAL_PACKAGE_TERMS))
+
+
+def contains_any(text: str, terms: tuple[str, ...]) -> bool:
+    normalized = normalize_context_text(text)
+    return any(term in normalized for term in terms)
+
+
+def render_context(loaded_document: LoadedDocument, blocks: list[DocumentBlock], *, max_chars: int) -> str:
+    header = "\n".join(render_context_header(loaded_document))
+    body_budget = max(0, max_chars - len(header) - 2)
+    body = MarkdownRenderer().render_blocks(blocks, max_chars=body_budget)
+    return f"{header}\n\n{body}".strip()
+
+
+def render_context_header(loaded_document: LoadedDocument) -> list[str]:
+    metadata = loaded_document_metadata(loaded_document)
+    return [
+        "# Product Document Context",
+        "",
+        "<!-- document_metadata: " + json.dumps(metadata, ensure_ascii=False, separators=(",", ":")) + " -->",
+    ]
+
+
+def normalize_context_text(text: str) -> str:
+    return "".join(str(text or "").split()).lower()
+
+
+PACKAGE_START_TERMS = ("\u57fa\u7840\u5957\u9910\u7533\u8bf7\u4fe1\u606f", "\u5957\u9910\u7533\u8bf7\u4fe1\u606f", "\u4ea7\u54c1\u7533\u8bf7\u4fe1\u606f", "\u4e1a\u52a1\u7533\u8bf7\u4fe1\u606f")
+NOTE_TERMS = ("\u586b\u8868\u8bf4\u660e", "\u586b\u5199\u8bf4\u660e", "\u529e\u7406\u8bf4\u660e", "\u6ce8\u610f\u4e8b\u9879")
+BASE_PACKAGE_TERMS = ("\u57fa\u7840\u5957\u9910", "\u5957\u9910\u7c7b\u578b", "\u901f\u7387", "\u5e26\u5bbd", "\u4e0d\u5e26\u8bed\u97f3", "\u5e26\u8bed\u97f3")
+BASE_PACKAGE_RULE_TERMS = ("\u57fa\u7840\u5957\u9910", "\u5957\u9910", "\u534f\u8bae\u671f", "\u751f\u6548", "\u5bbd\u5e26", "\u901f\u7387", "\u540c\u540d\u540c\u5740")
+OPTIONAL_PACKAGE_TERMS = ("\u53ef\u9009", "\u6743\u76ca", "\u589e\u503c", "\u56fa\u8bdd", "\u5546\u4e91\u901a", "\u79fb\u52a8\u4e1a\u52a1", "\u4e0a\u884c\u5347\u901f", "\u5347\u901f\u5305", "\u8ba2\u8d2d")
+FEE_RULE_TERMS = ("\u8d39\u7528", "\u8d44\u8d39", "\u6708\u8d39", "\u6708\u57fa\u672c\u8d39", "\u6708\u4ed8", "\u5e74\u4ed8", "\u4e00\u6b21\u6027", "\u62bc\u91d1", "\u5b89\u88c5", "\u8c03\u6d4b", "\u624b\u7eed\u8d39", "\u534f\u8bae\u671f", "\u8fdd\u7ea6\u91d1", "\u6298\u6263", "\u5143")
+AGREEMENT_RULE_TERMS = ("\u534f\u8bae", "\u5408\u540c", "\u8fdd\u7ea6", "\u9000\u8ba2", "\u6ce8\u9500", "\u62c6\u673a", "\u8d54\u507f", "\u552e\u540e", "\u4fdd\u4fee", "\u5b9e\u540d", "\u627f\u8bfa", "\u7ec8\u6b62", "\u53d8\u66f4")
+MATERIAL_RULE_TERMS = ("\u8425\u4e1a\u6267\u7167", "\u8eab\u4efd\u8bc1", "\u6388\u6743", "\u59d4\u6258\u4e66", "\u62c5\u4fdd", "\u7533\u8bf7\u8868", "\u627f\u8bfa\u4e66", "\u544a\u77e5\u4e66", "\u590d\u5370\u4ef6", "\u76d6\u7ae0", "\u7b7e\u5b57", "\u6750\u6599", "\u8bc1\u4ef6")
+CONSTRAINT_RULE_TERMS = ("\u4ec5\u9650", "\u4e0d\u9002\u7528", "\u4e0d\u80fd", "\u4e0d\u5f97", "\u4e0d\u53ef", "\u5fc5\u987b", "\u6761\u4ef6", "\u8981\u6c42", "\u9650\u5236", "\u6b20\u8d39", "\u505c\u7528", "\u505c\u6b62", "\u540c\u540d", "\u540c\u5740", "\u5408\u5e76\u5f00\u8d26")

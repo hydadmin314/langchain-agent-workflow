@@ -1,0 +1,1874 @@
+{
+  "document_info": {
+    "document_id": "doc_ce2d0f6364bf",
+    "document_type": "application_form",
+    "title": "智云上海专线基础版套餐申请登记表",
+    "product_name": "智云上海专线基础版",
+    "product_family": "智云专线",
+    "carrier": "中国电信股份有限公司上海分公司",
+    "region": "上海",
+    "version": "2026/A",
+    "effective_from": "2026-01-15",
+    "effective_to": "",
+    "document_status": "active",
+    "filename": "1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+    "source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+    "source_file_type": "docx"
+  },
+  "parties_and_application": {
+    "service_provider": {
+      "name": "中国电信股份有限公司上海分公司",
+      "carrier": "",
+      "region": "上海",
+      "contact_channels": []
+    },
+    "customer": {
+      "name": "",
+      "filled_values": [],
+      "is_blank_form": true
+    },
+    "application_fields": {
+      "required": [
+        {
+          "label": "企业全称",
+          "field_key": "enterprise_name",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "<td>企业全称</td><td></td>",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 0,
+            "column_index": 0,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "统一社会信用代码",
+          "field_key": "credit_code",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "<td>统一社会信用代码</td><td></td>",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 1,
+            "column_index": 0,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "企业所属行业",
+          "field_key": "industry",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "<td>企业所属行业</td><td></td>",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 1,
+            "column_index": 2,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.8
+        },
+        {
+          "label": "企业规模",
+          "field_key": "enterprise_scale",
+          "required": true,
+          "value": null,
+          "options": [
+            "10人以下",
+            "10-30人",
+            "31-80人",
+            "81-200人",
+            "200人以上"
+          ],
+          "value_type": "choice",
+          "source_evidence": "<td>企业规模</td><td>□10人以下 □10-30人 □31-80人 □81-200人 □200人以上</td>",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 2,
+            "column_index": 0,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.85
+        },
+        {
+          "label": "计算机数量",
+          "field_key": "computer_quantity",
+          "required": true,
+          "value": null,
+          "options": [
+            "5台及以下",
+            "6-15台",
+            "16-40台",
+            "41-100台",
+            "100台以上"
+          ],
+          "value_type": "choice",
+          "source_evidence": "<td>计算机数量</td><td>□5台及以下 □6-15台 □16-40台 □41-100台 □100台以上</td>",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 3,
+            "column_index": 0,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.85
+        },
+        {
+          "label": "安装地址",
+          "field_key": "installation_address",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "<td>安装地址</td><td></td>",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 4,
+            "column_index": 0,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "邮编（安装地址）",
+          "field_key": "installation_postal_code",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "<td>邮编</td><td></td>",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 4,
+            "column_index": 2,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "经办人",
+          "field_key": "agent_name",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "<td>经办人</td><td></td>",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 5,
+            "column_index": 0,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "身份证号码",
+          "field_key": "id_number",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "<td>身份证号码</td><td></td>",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 5,
+            "column_index": 2,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "联系电话",
+          "field_key": "contact_phone",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "<td>联系电话</td><td></td>",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 5,
+            "column_index": 4,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "账单地址",
+          "field_key": "billing_address",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "<td>账单地址</td><td>同公司地址 其它</td>",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 7,
+            "column_index": 0,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "付款方式",
+          "field_key": "payment_method",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "<td>付款方式</td><td>托收银行账号： 现金</td>",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 8,
+            "column_index": 0,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.85
+        }
+      ],
+      "optional": [
+        {
+          "label": "经办人职务",
+          "field_key": "agent_position",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "<td>经办人职务</td><td></td>",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 6,
+            "column_index": 0,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.7
+        },
+        {
+          "label": "E-MAIL",
+          "field_key": "email",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "<td>E-MAIL</td><td></td>",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 6,
+            "column_index": 2,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.7
+        },
+        {
+          "label": "传真",
+          "field_key": "fax",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "<td>传真</td><td></td>",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 6,
+            "column_index": 4,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.7
+        },
+        {
+          "label": "邮编（账单地址）",
+          "field_key": "billing_postal_code",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "<td>邮编</td><td></td>",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 7,
+            "column_index": 2,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.7
+        }
+      ]
+    },
+    "application_notes": []
+  },
+  "base_package": {
+    "packages": [
+      {
+        "package_name": "拨号 100M/500M（688元/月/线）",
+        "package_code": "拨号100M/500M（688元/月/线）_100M/500M_月_688",
+        "speed": "100M/500M",
+        "upstream_speed": "",
+        "downstream_speed": "100M/500M",
+        "bandwidth_unit": "Mbps",
+        "has_voice": false,
+        "price": 688.0,
+        "currency": "CNY",
+        "billing_period": "月",
+        "contract_period": "一年",
+        "quantity_limit": "",
+        "applicable_conditions": [
+          "基础套餐申请信息（请在以下需要的项目内打“√”",
+          "基础套餐必择其一）"
+        ],
+        "source_evidence": "拨号 100M/500M（688元/月/线）",
+        "source_location": {
+          "paragraph_index": 10,
+          "body_index": 2,
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+        },
+        "confidence": 0.95
+      },
+      {
+        "package_name": "拨号 100M/500M（6880元/年/线）",
+        "package_code": "拨号100M/500M（6880元/年/线）_100M/500M_年_6880",
+        "speed": "100M/500M",
+        "upstream_speed": "",
+        "downstream_speed": "100M/500M",
+        "bandwidth_unit": "Mbps",
+        "has_voice": false,
+        "price": 6880.0,
+        "currency": "CNY",
+        "billing_period": "年",
+        "contract_period": "一年",
+        "quantity_limit": "",
+        "applicable_conditions": [
+          "基础套餐申请信息（请在以下需要的项目内打“√”",
+          "基础套餐必择其一）"
+        ],
+        "source_evidence": "拨号 100M/500M（6880元/年/线）",
+        "source_location": {
+          "paragraph_index": 10,
+          "body_index": 2,
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+        },
+        "confidence": 0.95
+      },
+      {
+        "package_name": "拨号 100M/500M（11880元/2年/线）",
+        "package_code": "拨号100M/500M（11880元/2年/线）_100M/500M_2年_11880",
+        "speed": "100M/500M",
+        "upstream_speed": "",
+        "downstream_speed": "100M/500M",
+        "bandwidth_unit": "Mbps",
+        "has_voice": false,
+        "price": 11880.0,
+        "currency": "CNY",
+        "billing_period": "2年",
+        "contract_period": "2年",
+        "quantity_limit": "",
+        "applicable_conditions": [
+          "基础套餐申请信息（请在以下需要的项目内打“√”",
+          "基础套餐必择其一）"
+        ],
+        "source_evidence": "拨号 100M/500M（11880元/2年/线）",
+        "source_location": {
+          "paragraph_index": 10,
+          "body_index": 2,
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+        },
+        "confidence": 0.95
+      }
+    ],
+    "included_items": [
+      {
+        "item_name": "宽带一次性费用",
+        "description": "包含手续费10元/线/次，安装调测费300元/线/次。",
+        "quantity": 1,
+        "unit": "次",
+        "source_evidence": "一次性费用：宽带一次性费用为310元/线/次（含手续费10元/线/次，安装调测费300元/线/次）",
+        "source_location": {
+          "paragraph_index": 15,
+          "body_index": 2,
+          "detail_index": 4,
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+        },
+        "confidence": 0.9
+      }
+    ],
+    "service_attributes": [
+      {
+        "attribute_name": "套餐类型",
+        "attribute_value": "纯新装宽带 / 在用宽带",
+        "source_evidence": "套餐类型 □ 纯新装宽带 □ 在用宽带（号码________________）",
+        "source_location": {
+          "paragraph_index": 11,
+          "body_index": 2,
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+        },
+        "confidence": 0.9
+      },
+      {
+        "attribute_name": "接口标准",
+        "attribute_value": "智云上海专线",
+        "source_evidence": "智云上海专线基础版套餐",
+        "source_location": {
+          "paragraph_index": 1,
+          "body_index": 1,
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+        },
+        "confidence": 0.9
+      }
+    ],
+    "sla": {}
+  },
+  "optional_packages": [
+    {
+      "package_type": "optional_service",
+      "name": "固话(含翼名片)",
+      "category": "通信服务",
+      "description": "申请线数，每线固话均含翼名片（来电文本），每月可发送100条来电文本信息，（100条文本信息发送完毕后自动关停，次月重新开始计次）。",
+      "fee_summary": "月基本费0元",
+      "price_items": [
+        {
+          "price": 0.0,
+          "currency": "CNY",
+          "billing_period": "月",
+          "source_evidence": "申请线数：_____线：固话(含翼名片)/商云通 月基本费0元 （仅限5线）",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 12,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.95
+        }
+      ],
+      "options": [
+        "申请线数：_____线"
+      ],
+      "required_with": [],
+      "incompatible_with": [],
+      "applicable_conditions": [
+        "仅限5线"
+      ],
+      "source_evidence": "固话(含翼名片)/商云通 月基本费0元 （仅限5线）",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 12,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "package_type": "optional_service",
+      "name": "商云通",
+      "category": "通信服务",
+      "description": "国内通话2500分钟/月；国内通话超出后资费0.1元/分钟。",
+      "fee_summary": "月基本费0元",
+      "price_items": [
+        {
+          "price": 0.0,
+          "currency": "CNY",
+          "billing_period": "月",
+          "source_evidence": "申请线数：_____线：固话(含翼名片)/商云通 月基本费0元 （仅限5线）",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 12,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.95
+        }
+      ],
+      "options": [
+        "申请线数：_____线"
+      ],
+      "required_with": [],
+      "incompatible_with": [],
+      "applicable_conditions": [
+        "仅限5线"
+      ],
+      "source_evidence": "固话(含翼名片)/商云通 月基本费0元 （仅限5线）",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 12,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "package_type": "optional_service",
+      "name": "移动业务主卡",
+      "category": "通信服务",
+      "description": "订购主卡，申请主卡线数，每线含国内流量120GB/月、国内通话1000分钟/月。超出后资费：国内通话0.15元/分钟；国内短/彩信0.1元/条；国内流量3元/GB。",
+      "fee_summary": "月基本费0元",
+      "price_items": [
+        {
+          "price": 0.0,
+          "currency": "CNY",
+          "billing_period": "月",
+          "source_evidence": "申请主卡线数：______线（最多限5线）：移动业务 月基本费0元 （仅限5线）",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 13,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.95
+        }
+      ],
+      "options": [
+        "申请主卡线数：______线（最多限5线）"
+      ],
+      "required_with": [],
+      "incompatible_with": [],
+      "applicable_conditions": [
+        "最多限5线"
+      ],
+      "source_evidence": "移动业务 月基本费0元 （仅限5线）",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 13,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "package_type": "optional_service",
+      "name": "移动业务副卡",
+      "category": "通信服务",
+      "description": "是否订购副卡，每张主卡最多可订购2线。",
+      "fee_summary": "月基本费0元",
+      "price_items": [
+        {
+          "price": 0.0,
+          "currency": "CNY",
+          "billing_period": "月",
+          "source_evidence": "数量：_________：移动业务 月基本费0元 （仅限5线）",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 13,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        }
+      ],
+      "options": [
+        "数量：_________"
+      ],
+      "required_with": [
+        "移动业务主卡"
+      ],
+      "incompatible_with": [],
+      "applicable_conditions": [
+        "每张主卡最多可订购2线"
+      ],
+      "source_evidence": "移动业务 月基本费0元 （仅限5线）",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 13,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "package_type": "optional_service",
+      "name": "上行升速200M",
+      "category": "网络服务",
+      "description": "上行带宽提升至200M。",
+      "fee_summary": "100元/月 或 1200元/年",
+      "price_items": [
+        {
+          "price": 100.0,
+          "currency": "CNY",
+          "billing_period": "月",
+          "source_evidence": "上行升速200M：□ 100元/月",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 14,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "price": 1200.0,
+          "currency": "CNY",
+          "billing_period": "年",
+          "source_evidence": "上行升速200M：□ 1200元/年",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 14,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.95
+        }
+      ],
+      "options": [
+        "100元/月",
+        "1200元/年"
+      ],
+      "required_with": [],
+      "incompatible_with": [],
+      "applicable_conditions": [],
+      "source_evidence": "上行升速200M：□ 100元/月 □ 1200元/年",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 14,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "package_type": "optional_service",
+      "name": "上行升速300M",
+      "category": "网络服务",
+      "description": "上行带宽提升至300M。",
+      "fee_summary": "150元/月 或 1800元/年",
+      "price_items": [
+        {
+          "price": 150.0,
+          "currency": "CNY",
+          "billing_period": "月",
+          "source_evidence": "上行升速300M：□ 150元/月",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 14,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "price": 1800.0,
+          "currency": "CNY",
+          "billing_period": "年",
+          "source_evidence": "上行升速300M：□ 1800元/年",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 14,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.95
+        }
+      ],
+      "options": [
+        "150元/月",
+        "1800元/年"
+      ],
+      "required_with": [],
+      "incompatible_with": [],
+      "applicable_conditions": [],
+      "source_evidence": "上行升速300M：□ 150元/月 □ 1800元/年",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 14,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "package_type": "optional_service",
+      "name": "上行升速500M",
+      "category": "网络服务",
+      "description": "上行带宽提升至500M。",
+      "fee_summary": "200元/月 或 2400元/年",
+      "price_items": [
+        {
+          "price": 200.0,
+          "currency": "CNY",
+          "billing_period": "月",
+          "source_evidence": "上行升速500M：□ 200元/月",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 14,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "price": 2400.0,
+          "currency": "CNY",
+          "billing_period": "年",
+          "source_evidence": "上行升速500M：□ 2400元/年",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 14,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.95
+        }
+      ],
+      "options": [
+        "200元/月",
+        "2400元/年"
+      ],
+      "required_with": [],
+      "incompatible_with": [],
+      "applicable_conditions": [],
+      "source_evidence": "上行升速500M：□ 200元/月 □ 2400元/年",
+      "source_location": {
+        "page": null,
+        "paragraph_index": null,
+        "table_index": 0,
+        "row_index": 14,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.95
+    }
+  ],
+  "fee_and_term_rules": [
+    {
+      "rule_type": "monthly_fee",
+      "name": "基础套餐月费",
+      "description": "拨号 100M/500M（688元/月/线）",
+      "amount": 688.0,
+      "currency": "CNY",
+      "billing_period": "月",
+      "contract_period": "",
+      "conditions": [
+        "选择基础套餐中的拨号 100M/500M"
+      ],
+      "applies_to": [
+        "基础套餐"
+      ],
+      "source_evidence": "拨号 100M/500M（688元/月/线）",
+      "source_location": {
+        "table_index": 0,
+        "row_index": 10,
+        "body_index": 2,
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "annual_fee",
+      "name": "基础套餐年费",
+      "description": "拨号 100M/500M（6880元/年/线）",
+      "amount": 6880.0,
+      "currency": "CNY",
+      "billing_period": "年",
+      "contract_period": "",
+      "conditions": [
+        "选择基础套餐中的拨号 100M/500M"
+      ],
+      "applies_to": [
+        "基础套餐"
+      ],
+      "source_evidence": "拨号 100M/500M（6880元/年/线）",
+      "source_location": {
+        "table_index": 0,
+        "row_index": 10,
+        "body_index": 2,
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "biennial_fee",
+      "name": "基础套餐两年费",
+      "description": "拨号 100M/500M（11880元/2年/线）",
+      "amount": 11880.0,
+      "currency": "CNY",
+      "billing_period": "2年",
+      "contract_period": "",
+      "conditions": [
+        "选择基础套餐中的拨号 100M/500M"
+      ],
+      "applies_to": [
+        "基础套餐"
+      ],
+      "source_evidence": "拨号 100M/500M（11880元/2年/线）",
+      "source_location": {
+        "table_index": 0,
+        "row_index": 10,
+        "body_index": 2,
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "one_time_fee",
+      "name": "宽带一次性费用",
+      "description": "310元/线/次（含手续费10元/线/次，安装调测费300元/线/次）",
+      "amount": 310.0,
+      "currency": "CNY",
+      "billing_period": "一次性",
+      "contract_period": "",
+      "conditions": [
+        "纯新装宽带"
+      ],
+      "applies_to": [
+        "基础套餐"
+      ],
+      "source_evidence": "310元/线/次（含手续费10元/线/次，安装调测费300元/线/次）",
+      "source_location": {
+        "table_index": 0,
+        "row_index": 15,
+        "body_index": 2,
+        "detail_index": 5,
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "rule_type": "one_time_fee",
+      "name": "商云通老号码携带一次性费用",
+      "description": "300元/线/次（含直线改商云通手续费100元/线/次，安装调测费200元/线/次）",
+      "amount": 300.0,
+      "currency": "CNY",
+      "billing_period": "一次性",
+      "contract_period": "",
+      "conditions": [
+        "在用固话/商云通参加本活动"
+      ],
+      "applies_to": [
+        "基础套餐"
+      ],
+      "source_evidence": "300元/线/次（含直线改商云通手续费100元/线/次，安装调测费200元/线/次）",
+      "source_location": {
+        "table_index": 0,
+        "row_index": 15,
+        "body_index": 2,
+        "detail_index": 7,
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "rule_type": "contract_period",
+      "name": "基础套餐协议期",
+      "description": "月付及1年付套餐协议期为一年，2年付套餐协议期为二年。",
+      "amount": null,
+      "currency": "",
+      "billing_period": "",
+      "contract_period": "1年或2年",
+      "conditions": [
+        "选择基础套餐中的拨号 100M/500M"
+      ],
+      "applies_to": [
+        "基础套餐"
+      ],
+      "source_evidence": "月付及1年付套餐协议期为一年，2年付套餐协议期为二年",
+      "source_location": {
+        "paragraph_index": 7,
+        "body_index": 8,
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "违约金",
+      "name": "基础套餐提前终止违约金",
+      "description": "剩余协议期6个月（含）以下的，收取1个月套餐月基本费的违约金；剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）*2个月套餐月基本费。",
+      "amount": null,
+      "currency": "",
+      "billing_period": "",
+      "contract_period": "",
+      "conditions": [
+        "客户因自身原因退出基础套餐",
+        "协议期内"
+      ],
+      "applies_to": [
+        "基础套餐"
+      ],
+      "source_evidence": "剩余协议期6个月（含）以下的，收取1个月套餐月基本费的违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）*2个月套餐月基本费",
+      "source_location": {
+        "paragraph_index": 38,
+        "body_index": 39,
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "rule_type": "上行升速包月费",
+      "name": "上行升速200M",
+      "description": "100元/月",
+      "amount": 100.0,
+      "currency": "CNY",
+      "billing_period": "月",
+      "contract_period": "",
+      "conditions": [
+        "订购上行升速200M"
+      ],
+      "applies_to": [
+        "可选包"
+      ],
+      "source_evidence": "上行升速200M：□ 100元/月",
+      "source_location": {
+        "table_index": 0,
+        "row_index": 14,
+        "body_index": 2,
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "rule_type": "上行升速包年费",
+      "name": "上行升速200M",
+      "description": "1200元/年",
+      "amount": 1200.0,
+      "currency": "CNY",
+      "billing_period": "年",
+      "contract_period": "",
+      "conditions": [
+        "订购上行升速200M"
+      ],
+      "applies_to": [
+        "可选包"
+      ],
+      "source_evidence": "上行升速200M：□ 1200元/年",
+      "source_location": {
+        "table_index": 0,
+        "row_index": 14,
+        "body_index": 2,
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "rule_type": "上行升速包月费",
+      "name": "上行升速300M",
+      "description": "150元/月",
+      "amount": 150.0,
+      "currency": "CNY",
+      "billing_period": "月",
+      "contract_period": "",
+      "conditions": [
+        "订购上行升速300M"
+      ],
+      "applies_to": [
+        "可选包"
+      ],
+      "source_evidence": "上行升速300M：□ 150元/月",
+      "source_location": {
+        "table_index": 0,
+        "row_index": 14,
+        "body_index": 2,
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "rule_type": "上行升速包年费",
+      "name": "上行升速300M",
+      "description": "1800元/年",
+      "amount": 1800.0,
+      "currency": "CNY",
+      "billing_period": "年",
+      "contract_period": "",
+      "conditions": [
+        "订购上行升速300M"
+      ],
+      "applies_to": [
+        "可选包"
+      ],
+      "source_evidence": "上行升速300M：□ 1800元/年",
+      "source_location": {
+        "table_index": 0,
+        "row_index": 14,
+        "body_index": 2,
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "rule_type": "上行升速包月费",
+      "name": "上行升速500M",
+      "description": "200元/月",
+      "amount": 200.0,
+      "currency": "CNY",
+      "billing_period": "月",
+      "contract_period": "",
+      "conditions": [
+        "订购上行升速500M"
+      ],
+      "applies_to": [
+        "可选包"
+      ],
+      "source_evidence": "上行升速500M：□ 200元/月",
+      "source_location": {
+        "table_index": 0,
+        "row_index": 14,
+        "body_index": 2,
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "rule_type": "上行升速包年费",
+      "name": "上行升速500M",
+      "description": "2400元/年",
+      "amount": 2400.0,
+      "currency": "CNY",
+      "billing_period": "年",
+      "contract_period": "",
+      "conditions": [
+        "订购上行升速500M"
+      ],
+      "applies_to": [
+        "可选包"
+      ],
+      "source_evidence": "上行升速500M：□ 2400元/年",
+      "source_location": {
+        "table_index": 0,
+        "row_index": 14,
+        "body_index": 2,
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "rule_type": "monthly_fee",
+      "name": "商云通月基本费",
+      "description": "国内通话2500分钟/月；国内通话超出后资费0.1元/分钟。",
+      "amount": null,
+      "currency": "",
+      "billing_period": "月",
+      "contract_period": "",
+      "conditions": [
+        "订购商云通"
+      ],
+      "applies_to": [
+        "可选包"
+      ],
+      "source_evidence": "国内通话2500分钟/月；国内通话超出后资费0.1元/分钟。",
+      "source_location": {
+        "table_index": 0,
+        "row_index": 12,
+        "body_index": 2,
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.85
+    },
+    {
+      "rule_type": "monthly_fee",
+      "name": "移动业务月基本费",
+      "description": "每线含国内流量120GB/月、国内通话1000分钟/月",
+      "amount": null,
+      "currency": "",
+      "billing_period": "月",
+      "contract_period": "",
+      "conditions": [
+        "订购移动业务"
+      ],
+      "applies_to": [
+        "可选包"
+      ],
+      "source_evidence": "每线含国内流量120GB/月、国内通话1000分钟/月",
+      "source_location": {
+        "table_index": 0,
+        "row_index": 13,
+        "body_index": 2,
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.85
+    },
+    {
+      "rule_type": "违约金",
+      "name": "商云通提前终止违约金",
+      "description": "剩余协议期6个月（含）以下的，收取1个月增值业务基本资费作为违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）*2个月增值业务基本资费作为违约金，其中业务月基本费：45元/月/线",
+      "amount": null,
+      "currency": "",
+      "billing_period": "月",
+      "contract_period": "",
+      "conditions": [
+        "客户因自身原因退出商云通",
+        "协议期内"
+      ],
+      "applies_to": [
+        "商云通"
+      ],
+      "source_evidence": "剩余协议期6个月（含）以下的，收取1个月增值业务基本资费作为违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）*2个月增值业务基本资费作为违约金，其中业务月基本费：45元/月/线",
+      "source_location": {
+        "paragraph_index": 30,
+        "body_index": 31,
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    }
+  ],
+  "agreement_rules": [
+    {
+      "rule_type": "合同限制",
+      "title": "变更资费生效规则",
+      "description": "在用固话/商云通参加本活动的，若变更前的原套餐资费标准为次月生效模式的，则变更当月至本活动套餐资费标准生效期间，仍维持原套餐资费。",
+      "severity": "中",
+      "applies_to": [
+        "客户"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "客户使用固话/商云通参加本活动",
+        "原套餐资费标准为次月生效模式"
+      ],
+      "consequence": "变更当月至本活动套餐资费标准生效期间，客户仍按原套餐资费标准支付费用。",
+      "source_evidence": "在用固话/商云通参加本活动的，若变更前的原套餐资费标准为次月生效模式的，则变更当月至本活动套餐资费标准生效期间，仍维持原套餐资费。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 15,
+        "table_index": 0,
+        "row_index": 15,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "违约责任",
+      "title": "提前终止活动的违约金",
+      "description": "在协议期内,因客户原因退出本活动或导致本活动提前终止的,客户应结清之前已使用的费用及违约金。违约金金额标准详见本营销活动规则。",
+      "severity": "高",
+      "applies_to": [
+        "客户"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "客户在协议期内因自身原因退出本活动",
+        "活动被提前终止"
+      ],
+      "consequence": "客户需结清已使用费用，并支付违约金（具体金额依据营销活动规则）。",
+      "source_evidence": "在协议期内,因客户原因退出本活动或导致本活动提前终止的,客户应结清之前已使用的费用及违约金。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 15,
+        "table_index": 0,
+        "row_index": 15,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "服务终止",
+      "title": "客户违规行为导致的服务终止",
+      "description": "客户保证遵守国家有关法律、法规，不得利用中国电信上海公司提供的服务从事违法行为、违规外呼行为、外呼骚扰行为、诈骗行为、呼叫频次异常行为和其他有损中国电信上海公司利益、第三方利益或社会公共利益的行为。客户号码一旦出现上述情形，或被投诉、被举报查证属实的，中国电信上海公司有权终止对客户提供服务并收回相应号码及其他管控手段，由此产生的损失由客户承担。",
+      "severity": "高",
+      "applies_to": [
+        "客户"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "客户利用服务从事违法行为",
+        "客户号码被投诉或举报属实"
+      ],
+      "consequence": "中国电信上海公司有权终止服务并收回号码，客户承担相关损失。",
+      "source_evidence": "客户保证遵守国家有关法律、法规，不得利用中国电信上海公司提供的服务从事违法行为...客户号码一旦出现上述情形，或被投诉、被举报查证属实的，中国电信上海公司有权终止对客户提供服务并收回相应号码及其他管控手段，由此产生的损失由客户承担。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 18,
+        "table_index": 0,
+        "row_index": 18,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "服务终止",
+      "title": "设备复接或连接其他终端导致的服务终止",
+      "description": "若甲方使用的商云通设备为网关类型，则应承诺本网关设备仅用于传真业务的办公场景，即本网关设备只接入传真机或模拟电话机。如中国电信上海公司发现本网关存在复接设备或连接其他终端的情况，有权终止对甲方提供服务并回收相应号码，由此产生的损失由甲方承担。",
+      "severity": "高",
+      "applies_to": [
+        "客户"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "客户使用网关设备连接非传真机或模拟电话机",
+        "发现复接设备或连接其他终端"
+      ],
+      "consequence": "中国电信上海公司有权终止服务并回收号码，客户承担相关损失。",
+      "source_evidence": "若甲方使用的商云通设备为网关类型，则应承诺本网关设备仅用于传真业务的办公场景...如中国电信上海公司发现本网关存在复接设备或连接其他终端的情况，有权终止对甲方提供服务并回收相应号码，由此产生的损失由甲方承担。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 20,
+        "table_index": 0,
+        "row_index": 20,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "服务终止",
+      "title": "安装地址不符导致的服务终止",
+      "description": "甲方办理商云通业务，所有商云通设备涉及的安装地址都必须真实且详尽地填写，甲方商云通使用地点限制于办理业务时所登记的安装地址，任一安装地址的变更需及时通知中国电信上海公司进行信息修改，若中国电信上海公司发现甲方填写地址与实际使用地址不符，中国电信上海公司有权终止对甲方提供服务并回收相应号码，由此产生的损失由甲方承担。",
+      "severity": "高",
+      "applies_to": [
+        "客户"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "客户未如实填写安装地址",
+        "发现地址与实际使用地址不符"
+      ],
+      "consequence": "中国电信上海公司有权终止服务并回收号码，客户承担相关损失。",
+      "source_evidence": "甲方办理商云通业务，所有商云通设备涉及的安装地址都必须真实且详尽地填写...若中国电信上海公司发现甲方填写地址与实际使用地址不符，中国电信上海公司有权终止对甲方提供服务并回收相应号码，由此产生的损失由甲方承担。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 20,
+        "table_index": 0,
+        "row_index": 20,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "服务终止",
+      "title": "欠费停机及拆机规则",
+      "description": "本规则有效期内，若因客户欠费等属于客户责任的原因全部或部分被停机（暂停提供服务）的，停机期间，中国电信上海公司将继续按月出帐，收取客户所选择的套餐月使用费和可选产品月使用费；年付/2年付用户将继续计入套餐费用的使用月份中。停机之日起满60日，客户仍未缴费或导致停机的原因未消除的，中国电信上海公司有权拆机（终止提供服务），本规则终止。",
+      "severity": "高",
+      "applies_to": [
+        "客户"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "客户欠费导致停机",
+        "停机满60日仍未缴费或原因未消除"
+      ],
+      "consequence": "中国电信上海公司有权拆机并终止服务。",
+      "source_evidence": "本规则有效期内，若因客户欠费等属于客户责任的原因全部或部分被停机（暂停提供服务）的...停机之日起满60日，客户仍未缴费或导致停机的原因未消除的，中国电信上海公司有权拆机（终止提供服务），本规则终止。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 37,
+        "table_index": 0,
+        "row_index": 37,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "服务终止",
+      "title": "违规使用业务导致的服务终止",
+      "description": "客户所申请的宽带业务以及智能组网（商企版）无线路由服务仅限本企业内部自用，客户不得私自利用中国电信上海公司所提供的业务服务经营长话业务或进行长途国际话音转接，也不得以任何方式提供给第三方使用，一经发现违规行为，中国电信上海公司有权立即终止提供所有服务，本规则终止。",
+      "severity": "高",
+      "applies_to": [
+        "客户"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "客户违规使用业务（如经营长话业务、长途国际话音转接等）",
+        "发现违规行为"
+      ],
+      "consequence": "中国电信上海公司有权立即终止服务并终止本规则。",
+      "source_evidence": "客户所申请的宽带业务以及智能组网（商企版）无线路由服务仅限本企业内部自用...一经发现违规行为，中国电信上海公司有权立即终止提供所有服务，本规则终止。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 43,
+        "table_index": 0,
+        "row_index": 43,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "服务终止",
+      "title": "信息安全威胁导致的服务终止",
+      "description": "如中国电信上海公司发现客户在宽带业务使用中，存在有异常行为足以威胁信息安全的，包括但不限于使用异常大幅上传流量等，在中国电信上海公司书面告知后仍有上述行为且无法对其用途做出正当性书面解释的，中国电信上海公司有权终止服务。",
+      "severity": "高",
+      "applies_to": [
+        "客户"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "客户使用宽带业务存在异常行为（如大幅上传流量）",
+        "书面告知后仍无正当解释"
+      ],
+      "consequence": "中国电信上海公司有权终止服务。",
+      "source_evidence": "如中国电信上海公司发现客户在宽带业务使用中，存在有异常行为足以威胁信息安全的...中国电信上海公司有权终止服务。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 44,
+        "table_index": 0,
+        "row_index": 44,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "服务终止",
+      "title": "违反信息安全承诺书条款导致的服务终止",
+      "description": "本单位承诺遵守《中华人民共和国网络安全法》《中华人民共和国数据安全法》《中华人民共和国个人信息保护法》等法律法规，若违反承诺书条款，本单位承担一切责任，贵公司有权立即终止合同。",
+      "severity": "高",
+      "applies_to": [
+        "客户"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "客户违反信息安全承诺书中的条款"
+      ],
+      "consequence": "中国电信上海公司有权立即终止合同。",
+      "source_evidence": "本单位郑重承诺遵守本承诺书，如有违反本承诺书有关条款的行为，本单位承担由此带来的一切责任。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 51,
+        "table_index": 0,
+        "row_index": 51,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.95
+    }
+  ],
+  "application_materials": [
+    {
+      "material_name": "经办人身份证复印件",
+      "material_type": "身份证明文件",
+      "required": true,
+      "applies_to": [
+        "申请参加营销活动"
+      ],
+      "condition": "经企业授权的内部员工",
+      "copies": "1份",
+      "format": "身份证原件复印件，加盖客户公章",
+      "seal_required": false,
+      "seal_type": "",
+      "signature_required": true,
+      "signature_party": "经办人",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "用于办理申请参加本营销活动手续",
+      "source_evidence": "经办人为经企业授权，办理申请参加本营销活动手续的企业内部员工。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 15,
+        "table_index": 0,
+        "row_index": 15,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "material_name": "单位证明经办人身份的介绍信",
+      "material_type": "身份证明文件",
+      "required": true,
+      "applies_to": [
+        "申请参加营销活动"
+      ],
+      "condition": "经企业授权的内部员工",
+      "copies": "1份",
+      "format": "书面证明文件",
+      "seal_required": true,
+      "seal_type": "客户公章",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "证明经办人身份及授权情况",
+      "source_evidence": "b) 客户申请所勾选的业务时，需出示和提供相应业务所必须涉及的相关资质文件原件供中国电信上海公司审核，并提交复印件（加盖客户公章）供中国电信上海公司留存。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 19,
+        "table_index": 0,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.85
+    },
+    {
+      "material_name": "营业执照复印件（三证合一）",
+      "material_type": "资质证明文件",
+      "required": true,
+      "applies_to": [
+        "申请参加营销活动"
+      ],
+      "condition": "具备从事互联网服务的全部合法必要的资质条件",
+      "copies": "1份",
+      "format": "营业执照原件复印件，加盖客户公章",
+      "seal_required": true,
+      "seal_type": "客户公章",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "证明企业合法经营资格",
+      "source_evidence": "b) 客户申请所勾选的业务时，需出示和提供相应业务所必须涉及的相关资质文件原件供中国电信上海公司审核，并提交复印件（加盖客户公章）供中国电信上海公司留存。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 19,
+        "table_index": 0,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.85
+    },
+    {
+      "material_name": "法定代表人/负责人身份证复印件",
+      "material_type": "身份证明文件",
+      "required": true,
+      "applies_to": [
+        "申请参加营销活动"
+      ],
+      "condition": "具备从事互联网服务的全部合法必要的资质条件",
+      "copies": "1份",
+      "format": "身份证原件复印件，加盖客户公章",
+      "seal_required": true,
+      "seal_type": "客户公章",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "证明法定代表人或负责人的身份",
+      "source_evidence": "b) 客户申请所勾选的业务时，需出示和提供相应业务所必须涉及的相关资质文件原件供中国电信上海公司审核，并提交复印件（加盖客户公章）供中国电信上海公司留存。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 19,
+        "table_index": 0,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.85
+    },
+    {
+      "material_name": "《上海市新入网电话用户法律责任告知书》",
+      "material_type": "法律文书",
+      "required": true,
+      "applies_to": [
+        "申请参加营销活动"
+      ],
+      "condition": "无具体条件限制，但为必要材料",
+      "copies": "1份",
+      "format": "纸质文件",
+      "seal_required": false,
+      "seal_type": "",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "告知新入网用户法律责任",
+      "source_evidence": "请认真阅读《中国电信股份有限公司上海分公司业务服务协议》、《中国电信股份有限公司上海分公司智云上海专线基础版套餐营销活动规则》、《网络及信息安全承诺书》。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 15,
+        "table_index": 0,
+        "row_index": 15,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "material_name": "网络及信息安全承诺书",
+      "material_type": "承诺类文件",
+      "required": true,
+      "applies_to": [
+        "申请参加营销活动"
+      ],
+      "condition": "客户承诺遵守网络安全相关规定",
+      "copies": "1份",
+      "format": "纸质文件",
+      "seal_required": true,
+      "seal_type": "客户公章",
+      "signature_required": true,
+      "signature_party": "授权代表",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "客户承诺遵守网络安全规定，承担相应责任",
+      "source_evidence": "网络及信息安全承诺书",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 51,
+        "table_index": 0,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "material_name": "授权委托书",
+      "material_type": "授权类文件",
+      "required": true,
+      "applies_to": [
+        "办理电信业务"
+      ],
+      "condition": "委托单位授权员工代为办理现场确认相关事项",
+      "copies": "1份",
+      "format": "书面文件",
+      "seal_required": true,
+      "seal_type": "委托单位和被委托单位公章",
+      "signature_required": true,
+      "signature_party": "授权代表",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "明确授权范围和被授权人信息",
+      "source_evidence": "授权委托书",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 156,
+        "table_index": 0,
+        "row_index": null,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.85
+    }
+  ],
+  "eligibility_and_constraints": [
+    {
+      "constraint_type": "准入条件",
+      "name": "ISDN迁转要求",
+      "description": "ISDN（2B+D）须付清所有欠费并迁转改装为普通固话后方可参加本营销活动。",
+      "condition": "ISDN用户需付清欠费并改装为普通固话",
+      "result": "可参与营销活动",
+      "blocks_recommendation": false,
+      "applies_to": [],
+      "rule_source": "文档第1段",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "ISDN（2B+D）须付清所有欠费并迁转改装为普通固话后方可参加本营销活动。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 15,
+        "table_index": 0,
+        "row_index": 15,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "constraint_type": "准入条件",
+      "name": "套餐业务同名同址合并开账",
+      "description": "套餐内的各项业务必须同名同址且合并开账。",
+      "condition": "套餐业务需同名同址并合并开账",
+      "result": "可参与套餐",
+      "blocks_recommendation": false,
+      "applies_to": [],
+      "rule_source": "文档第2段",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "套餐内的各项业务必须同名同址且合并开账。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 15,
+        "table_index": 0,
+        "row_index": 15,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "constraint_type": "准入条件",
+      "name": "登记表填写要求",
+      "description": "请认真、正确填写本登记表中的每一项，其中带*项必须填写。",
+      "condition": "必须完整填写登记表，特别是带*号项",
+      "result": "可提交申请",
+      "blocks_recommendation": false,
+      "applies_to": [],
+      "rule_source": "文档第3段",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "请认真、正确填写本登记表中的每一项，其中带*项必须填写。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 15,
+        "table_index": 0,
+        "row_index": 15,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "constraint_type": "准入条件",
+      "name": "宽带限制",
+      "description": "仅限一线宽带加入本套餐。若客户装有两线及以上宽带，应分别申请加入套餐。",
+      "condition": "客户只能使用一线宽带加入套餐；多线宽带需分开申请",
+      "result": "多线宽带客户需分开申请",
+      "blocks_recommendation": false,
+      "applies_to": [],
+      "rule_source": "文档第4段",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "仅限一线宽带加入本套餐。若客户装有两线及以上宽带，应分别申请加入套餐。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 16,
+        "table_index": 0,
+        "row_index": 16,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "constraint_type": "准入条件",
+      "name": "欠费客户限制",
+      "description": "欠费2个月以上的客户不得参加本次优惠活动。",
+      "condition": "客户欠费不得超过2个月",
+      "result": "欠费超2个月客户不可参加",
+      "blocks_recommendation": false,
+      "applies_to": [],
+      "rule_source": "文档第5段",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "欠费2个月以上的客户不得参加本次优惠活动。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 18,
+        "table_index": 0,
+        "row_index": 18,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "constraint_type": "准入条件",
+      "name": "已有优惠活动限制",
+      "description": "已参加中国电信上海公司宽带业务优惠活动且仍在营销规则约束期内的客户除非退出原活动，否则不得参加本次优惠活动、享受套餐优惠；已参加中国电信上海公司可选包中相关产品营销活动的且仍在营销规则约束期内的客户，不能选择与该产品有关的可选优惠。",
+      "condition": "客户不得同时参与多个营销活动",
+      "result": "需退出原有活动才能参加新活动",
+      "blocks_recommendation": false,
+      "applies_to": [],
+      "rule_source": "文档第6段",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "已参加中国电信上海公司宽带业务优惠活动且仍在营销规则约束期内的客户除非退出原活动，否则不得参加本次优惠活动、享受套餐优惠；已参加中国电信上海公司可选包中相关产品营销活动的且仍在营销规则约束期内的客户，不能选择与该产品有关的可选优惠。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 18,
+        "table_index": 0,
+        "row_index": 18,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "constraint_type": "准入条件",
+      "name": "设备要求",
+      "description": "客户申请中国电信上海公司商云通业务，需具备符合中国电信上海公司网络和平台对接使用要求的商云通设备（即设备需使用符合商云通平台对接要求的指定固件版本）。",
+      "condition": "设备需符合指定固件版本要求",
+      "result": "可开通商云通业务",
+      "blocks_recommendation": false,
+      "applies_to": [],
+      "rule_source": "文档第7段",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "客户申请中国电信上海公司商云通业务，需具备符合中国电信上海公司网络和平台对接使用要求的商云通设备（即设备需使用符合商云通平台对接要求的指定固件版本）。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 20,
+        "table_index": 0,
+        "row_index": 20,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "constraint_type": "准入条件",
+      "name": "IP地址及带宽要求",
+      "description": "商云通需连接互联网宽带使用，该宽带必须保证每个加载商云通号码的终端都必须为有上海地区 IP 地址（在上海地区申请宽带可能存在IP 地址其实不属于上海的情况，请客户注意），且至少有不少于 100Kbits/s 上下行的带宽且网络丢包率<1%、网络抖动<=60ms 和时延<60ms。",
+      "condition": "宽带需满足上海IP、带宽、丢包率、抖动、时延等要求",
+      "result": "不满足要求可能导致话音质量问题",
+      "blocks_recommendation": false,
+      "applies_to": [],
+      "rule_source": "文档第9段",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "商云通需连接互联网宽带使用，该宽带必须保证每个加载商云通号码的终端都必须为有上海地区 IP 地址（在上海地区申请宽带可能存在IP 地址其实不属于上海的情况，请客户注意），且至少有不少于 100Kbits/s 上下行的带宽且网络丢包率<1%、网络抖动<=60ms 和时延<60ms。",
+      "source_location": {
+        "page": null,
+        "paragraph_index": 26,
+        "table_index": 0,
+        "row_index": 26,
+        "column_index": null,
+        "sheet_name": "",
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+      },
+      "confidence": 0.9
+    }
+  ],
+  "supplemental_rules": [],
+  "extraction_meta": {
+    "generated_at": "2026-05-29T14:34:28",
+    "source_file": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx",
+    "source_file_hash": "a0edd55d0eca51aa7a86a0d332bed7eb3f0fadd31a4d310b30a2f9ab933f060a",
+    "method": "llm_schema_module_extraction",
+    "llm_self_check": {
+      "validation_issues": [],
+      "schema_warnings": []
+    },
+    "validation_issues": [],
+    "validation_issue_count": 0,
+    "schema_warnings": [],
+    "review_status": "draft"
+  }
+}

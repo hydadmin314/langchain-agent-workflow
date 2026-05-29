@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import json
 import re
+import threading
 import time
 from collections.abc import Awaitable, Sequence
 from typing import Any
@@ -64,6 +65,8 @@ class ProductDocumentLLMExtractor:
         self.max_concurrency = max(1, max_concurrency or len(EXTRACTION_MODULES))
         self.rate_limit_max_attempts = max(1, PRODUCT_DOC_AGENT_RATE_LIMIT_MAX_ATTEMPTS)
         self.rate_limit_retry_seconds = max(0.0, PRODUCT_DOC_AGENT_RATE_LIMIT_RETRY_SECONDS)
+        self._async_rate_limit_lock = asyncio.Lock()
+        self._sync_rate_limit_lock = threading.Lock()
 
     def extract_modules(
         self,
@@ -249,12 +252,7 @@ class ProductDocumentLLMExtractor:
             except Exception as exc:
                 rate_limited = is_rate_limit_error(exc)
                 if rate_limited and attempt < self.rate_limit_max_attempts:
-                    logger.warning(
-                        f"{expected_module}: rate limited by LLM provider; "
-                        f"retrying in {self.rate_limit_retry_seconds:.1f}s "
-                        f"({attempt}/{self.rate_limit_max_attempts})"
-                    )
-                    time.sleep(self.rate_limit_retry_seconds)
+                    self._sleep_before_rate_limit_retry(expected_module, attempt)
                     continue
                 raise build_llm_request_error(
                     expected_module,
@@ -275,12 +273,7 @@ class ProductDocumentLLMExtractor:
             except Exception as exc:
                 rate_limited = is_rate_limit_error(exc)
                 if rate_limited and attempt < self.rate_limit_max_attempts:
-                    logger.warning(
-                        f"{expected_module}: rate limited by LLM provider; "
-                        f"retrying in {self.rate_limit_retry_seconds:.1f}s "
-                        f"({attempt}/{self.rate_limit_max_attempts})"
-                    )
-                    await asyncio.sleep(self.rate_limit_retry_seconds)
+                    await self._sleep_before_rate_limit_retry_async(expected_module, attempt)
                     continue
                 raise build_llm_request_error(
                     expected_module,
@@ -290,6 +283,29 @@ class ProductDocumentLLMExtractor:
                     retryable=not rate_limited,
                     rate_limited=rate_limited,
                 ) from exc
+
+    def _sleep_before_rate_limit_retry(self, expected_module: str, attempt: int) -> None:
+        with self._sync_rate_limit_lock:
+            delay = self._rate_limit_retry_delay(attempt)
+            logger.warning(
+                f"{expected_module}: rate limited by LLM provider; "
+                f"serialized retry in {delay:.1f}s "
+                f"({attempt}/{self.rate_limit_max_attempts})"
+            )
+            time.sleep(delay)
+
+    async def _sleep_before_rate_limit_retry_async(self, expected_module: str, attempt: int) -> None:
+        async with self._async_rate_limit_lock:
+            delay = self._rate_limit_retry_delay(attempt)
+            logger.warning(
+                f"{expected_module}: rate limited by LLM provider; "
+                f"serialized retry in {delay:.1f}s "
+                f"({attempt}/{self.rate_limit_max_attempts})"
+            )
+            await asyncio.sleep(delay)
+
+    def _rate_limit_retry_delay(self, attempt: int) -> float:
+        return self.rate_limit_retry_seconds * max(1, attempt)
 
 def parse_json_response(response: Any, *, expected_module: str) -> Any:
     content = getattr(response, "content", response)

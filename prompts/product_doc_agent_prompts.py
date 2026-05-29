@@ -149,6 +149,18 @@ SELF_CHECK_PROMPT = """
   "validation_issues": [],
   "schema_warnings": []
 }
+
+补充自检边界：
+1. 不要给自由文本字段发明枚举限制。只要本地 schema 没有定义 enum，就不要因为某个值不是你偏好的标准词而报错。
+2. 不要要求输出 schema 模板里不存在的字段。例如 price_items 里没有 tier/speed 字段时，只要档位已经能通过 source_evidence、item_name、name 或 options 追溯，就不要报缺字段。
+3. 不要把 schema 中定义为 string 的字段强行要求改成 array。一个字符串里包含多个相关后果时，只有在它导致无法理解或与原文矛盾时才报告。
+4. 你检查的是已经经过程序归一化后的最终 JSON。不要报告当前 JSON 中已经不存在、已经修复或仅属于中间抽取过程的问题。
+5. confidence=0.0 是合法数字；只有缺少 confidence 字段、不是数字、或超出 0 到 1 范围时才报告。
+6. 只报告真正影响审核、入库、发布或后续推荐的数据问题；不要输出“虽然可以接受”“无需处理”“可忽略”这类假问题。
+7. 空白申请表中的下划线、空格、待填写框、"________"、"______________" 只是占位符，不是已抽取到的金额或文本值；不要因为原文有“月租费：____”就要求 price 必须有数值。
+8. base_package.packages 中多个档位可以共享同一个 package_name，只要 speed、price、billing_period、contract_period 或 package_code 能区分，不要把重复 package_name 报为错误。
+9. optional_packages.options 的 schema 是字符串数组；字符串可以保留原文中的必要说明。不要因为 options 不是纯标签就报 schema 错误，除非它明显混入了其它无关产品或整段合同条款。
+10. base_package.included_items 的 schema 是开放对象，不要求必须有 item_name；不要发明 included_items 的必填字段。
 """
 
 

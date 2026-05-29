@@ -35,9 +35,14 @@ class ProductDocumentMerger:
     def apply_self_check(self, product_document: dict[str, Any], self_check: dict[str, Any]) -> dict[str, Any]:
         result = deepcopy(product_document)
         meta = result.setdefault("extraction_meta", {})
-        meta["llm_self_check"] = self_check.get("llm_self_check", {})
-        meta["validation_issues"] = normalize_validation_issues(self_check.get("validation_issues", []))
-        meta["schema_warnings"] = normalize_schema_warnings(self_check.get("schema_warnings", []))
+        llm_self_check = self_check.get("llm_self_check", {})
+        if not isinstance(llm_self_check, dict):
+            llm_self_check = {}
+        llm_self_check["validation_issues"] = normalize_validation_issues(self_check.get("validation_issues", []))
+        llm_self_check["schema_warnings"] = normalize_schema_warnings(self_check.get("schema_warnings", []))
+        meta["llm_self_check"] = llm_self_check
+        meta.setdefault("validation_issues", [])
+        meta.setdefault("schema_warnings", [])
         meta["validation_issue_count"] = len(meta["validation_issues"])
         return result
 
@@ -77,6 +82,8 @@ def normalize_validation_issues(value: Any) -> list[dict[str, Any]]:
     issues: list[dict[str, Any]] = []
     for index, item in enumerate(ensure_list(value)):
         if isinstance(item, dict):
+            if is_non_actionable_self_check_issue(item):
+                continue
             issues.append(item)
             continue
         if item is None:
@@ -91,13 +98,58 @@ def normalize_validation_issues(value: Any) -> list[dict[str, Any]]:
     return issues
 
 
+def is_non_actionable_self_check_issue(issue: dict[str, Any]) -> bool:
+    message = str(issue.get("message", "")).lower()
+    if not message:
+        return False
+
+    if "not allowed" not in message and "\u4e0d\u5141\u8bb8" not in message:
+        permissive_markers = ("allowed", "acceptable", "no error", "disregard", "\u53ef\u63a5\u53d7", "\u4e0d\u662f\u9519\u8bef", "\u53ef\u5ffd\u7565")
+        if any(marker in message for marker in permissive_markers):
+            return True
+
+    invented_schema_markers = (
+        "float but",
+        "should be int",
+        "integer amount",
+        "decimal point",
+        "plain string labels",
+        "options must be plain",
+        "missing 'column_index'",
+        "source_location missing 'column_index'",
+        "confidence must reflect objective",
+        "correct usage",
+    )
+    if any(marker in message for marker in invented_schema_markers):
+        return True
+
+    inference_markers = ("likely mislabeled", "expected annual", "pricing logic", "appears to be annual")
+    if any(marker in message for marker in inference_markers):
+        return True
+
+    false_positive_markers = (
+        "acceptable",
+        "not an error",
+        "disregard",
+        "skip",
+        "no warning needed",
+        "allowed per spec",
+        "permitted per spec",
+        "\u53ef\u63a5\u53d7",
+        "\u4e0d\u662f\u9519\u8bef",
+        "\u65e0\u9700\u5904\u7406",
+        "\u53ef\u5ffd\u7565",
+    )
+    return any(marker in message for marker in false_positive_markers)
+
+
 def normalize_schema_warnings(value: Any) -> list[str]:
     warnings: list[str] = []
     for item in ensure_list(value):
         if item is None:
             continue
-        if isinstance(item, str):
-            warnings.append(item)
-        else:
-            warnings.append(str(item))
+        warning = item if isinstance(item, str) else str(item)
+        if is_non_actionable_self_check_issue({"message": warning}):
+            continue
+        warnings.append(warning)
     return warnings

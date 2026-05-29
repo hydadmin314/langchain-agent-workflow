@@ -64,17 +64,23 @@ class MarkdownRenderer:
     def render_field_row(self, cells: list[str]) -> str:
         label = normalize_label(cells[0])
         value = normalize_cell_text(" ".join(cell for cell in cells[1:] if cell))
+        detail_items: list[str] = []
+        if self.options.split_long_table_cells and len(value) >= self.options.long_cell_min_chars:
+            detail_items = split_long_text(value)
+
+        # For very long cells, keep the table shape but move the full content into
+        # bullet details. Repeating the whole paragraph both in the table cell and
+        # in details makes module prompts noisy and can cause duplicate extraction.
+        rendered_value = "see details below" if len(detail_items) > 1 else value
         lines = [
             "| field | value |",
             "| --- | --- |",
-            f"| {escape_table_cell(label)} | {escape_table_cell(value)} |",
+            f"| {escape_table_cell(label)} | {escape_table_cell(rendered_value)} |",
         ]
 
-        if self.options.split_long_table_cells and len(value) >= self.options.long_cell_min_chars:
-            items = split_long_text(value)
-            if len(items) > 1:
-                lines.extend(["", "details:"])
-                lines.extend(format_detail_item(item) for item in items)
+        if len(detail_items) > 1:
+            lines.extend(["", "details:"])
+            lines.extend(format_detail_item(item) for item in detail_items)
         return "\n".join(lines)
 
 
