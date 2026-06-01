@@ -1,0 +1,214 @@
+{
+  "说明": "该文件用于判断 self_check 触发的模块返工是否带来有效变化。",
+  "self_check": {
+    "needs_rework": true,
+    "rework_modules": [
+      "base_package",
+      "optional_packages"
+    ],
+    "validation_issues": [
+      {
+        "severity": "error",
+        "path": "base_package.packages[0].package_name",
+        "message": "Package name '小微上线' appears in source_evidence as '小微上线 | 速率：___________（100M-500M范围内）月租费：___________' — but the same line also contains '月租费' which is a fee field, not part of package definition; however, more critically: the document explicitly lists '小微上线' and '小微在线' as two distinct packages, yet '小微上线' has no applicable_conditions while '小微在线' does — this is acceptable per schema, BUT the source_evidence for '小微上线' includes '月租费：___________' which is duplicated in fee_and_term_rules as a generic rule; no issue there. However, deeper issue: '小微上线' package has speed '100M-500M范围内', and '小微在线' has '50M-500M范围内' — these are overlapping ranges, but the document presents them as separate named packages; this is fine. The real problem is: base_package.included_items is [] — but source_evidence for both packages contains implicit included items: e.g., '小微在线' mentions '送8个地址' / '送16个地址' / '送32个地址'; these are clearly included resources (IP addresses), not optional add-ons. They must be extracted into base_package.included_items, not left unrepresented. Their absence violates principle #2 (don't omit explicit included items) and causes semantic loss."
+      },
+      {
+        "severity": "error",
+        "path": "base_package.packages[1].applicable_conditions",
+        "message": "The 'applicable_conditions' array contains strings like '100M以下（含）送8个地址' — this is not a pure condition; it's a conditional *benefit* (i.e., 'if speed ≤100M, then get 8 addresses'). Per schema, applicable_conditions should be preconditions (e.g., 'customer_type=enterprise'), not benefit clauses. These belong in base_package.included_items with conditional logic or as structured entitlements — but schema doesn't support conditional included_items. Therefore, they must be split: the condition ('100M以下（含）') should go to applicable_conditions, and the benefit ('送8个地址') should go to included_items. Currently merged → violates separation of concerns and prevents downstream rule-based provisioning."
+      },
+      {
+        "severity": "error",
+        "path": "optional_packages",
+        "message": "optional_packages is empty, but source_evidence in base_package.packages[1] says '超出赠送范围外的地址需收费：___________个' — this implies an optional paid add-on: 'additional IP addresses beyond赠送'. Also, '定制版光电收发器' is a physical device provided with service — though ownership lies with provider, its provision is tied to service activation and may be considered a bundled or optional component. More critically: the document title is '小微精品业务套餐申请登记表（云享wifi版）', and '云享wifi版' strongly suggests WiFi-related optional functionality (e.g., managed WiFi, cloud AP management) — yet no optional package reflects '云享wifi'. This is a high-confidence omission: '云享wifi版' is in filename and title, and is a named variant — it must be represented as an optional_package or base_package variant. Its absence violates principle #10 (title and filename are high-priority signals) and indicates misclassification."
+      }
+    ],
+    "schema_warnings": [
+      "base_package.included_items is empty despite explicit '送X个地址' benefits stated in package source_evidence — these are core included resources, not fees or options.",
+      "optional_packages is empty despite '云享wifi版' in document title/filename and 'additional address' monetization signal — likely missing at least one optional package.",
+      "base_package.packages[1].applicable_conditions mixes conditions and benefits (e.g., '100M以下（含）送8个地址') — violates semantic separation: conditions ≠ entitlements."
+    ]
+  },
+  "modules": {
+    "base_package": {
+      "reason": "- 大模型自检要求返工。\n- error | base_package.packages[0].package_name | Package name '小微上线' appears in source_evidence as '小微上线 | 速率：___________（100M-500M范围内）月租费：___________' — but the same line also contains '月租费' which is a fee field, not part of package definition; however, more critically: the document explicitly lists '小微上线' and '小微在线' as two distinct packages, yet '小微上线' has no applicable_conditions while '小微在线' does — this is acceptable per schema, BUT the source_evidence for '小微上线' includes '月租费：___________' which is duplicated in fee_and_term_rules as a generic rule; no issue there. However, deeper issue: '小微上线' package has speed '100M-500M范围内', and '小微在线' has '50M-500M范围内' — these are overlapping ranges, but the document presents them as separate named packages; this is fine. The real problem is: base_package.included_items is [] — but source_evidence for both packages contains implicit included items: e.g., '小微在线' mentions '送8个地址' / '送16个地址' / '送32个地址'; these are clearly included resources (IP addresses), not optional add-ons. They must be extracted into base_package.included_items, not left unrepresented. Their absence violates principle #2 (don't omit explicit included items) and causes semantic loss.\n- error | base_package.packages[1].applicable_conditions | The 'applicable_conditions' array contains strings like '100M以下（含）送8个地址' — this is not a pure condition; it's a conditional *benefit* (i.e., 'if speed ≤100M, then get 8 addresses'). Per schema, applicable_conditions should be preconditions (e.g., 'customer_type=enterprise'), not benefit clauses. These belong in base_package.included_items with conditional logic or as structured entitlements — but schema doesn't support conditional included_items. Therefore, they must be split: the condition ('100M以下（含）') should go to applicable_conditions, and the benefit ('送8个地址') should go to included_items. Currently merged → violates separation of concerns and prevents downstream rule-based provisioning.",
+      "rework_error": "",
+      "changed": true,
+      "before_summary": {
+        "type": "object",
+        "keys": [
+          "included_items",
+          "packages",
+          "service_attributes",
+          "sla"
+        ],
+        "packages_count": 2,
+        "included_items_count": 0,
+        "service_attributes_count": 1,
+        "sla_keys": []
+      },
+      "after_summary": {
+        "type": "object",
+        "keys": [
+          "included_items",
+          "packages",
+          "service_attributes",
+          "sla"
+        ],
+        "packages_count": 2,
+        "included_items_count": 0,
+        "service_attributes_count": 1,
+        "sla_keys": []
+      },
+      "before": {
+        "packages": [
+          {
+            "package_name": "小微上线",
+            "package_code": "小微上线_100M-500M范围内",
+            "speed": "100M-500M范围内",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": null,
+            "price": null,
+            "currency": "",
+            "billing_period": "",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "小微上线 | 速率：___________（100M-500M范围内）月租费：___________",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "小微在线",
+            "package_code": "小微在线_50M-500M范围内",
+            "speed": "50M-500M范围内",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": null,
+            "price": null,
+            "currency": "",
+            "billing_period": "",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [
+              "100M以下（含）送8个地址",
+              "400M以下（含）送16个地址",
+              "500M以下（含）送32个地址"
+            ],
+            "source_evidence": "小微在线 | 速率：___________（50M-500M范围内）  100M以下（含）送8个地址，400M以下（含）送16个地址，500M以下（含）送32个地址  超出赠送范围外的地址需收费：___________个  **月租费：___________**",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+            },
+            "confidence": 0.9
+          }
+        ],
+        "included_items": [],
+        "service_attributes": [
+          {
+            "attribute_name": "接口标准",
+            "attribute_value": [
+              "Ethernet",
+              "GE",
+              "电口",
+              "光口"
+            ],
+            "source_evidence": "□ Ethernet □ GE  □ 电口 □ 光口",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+            },
+            "confidence": 0.95
+          }
+        ],
+        "sla": {}
+      },
+      "after": {
+        "packages": [
+          {
+            "package_name": "小微上线",
+            "package_code": "小微上线",
+            "speed": "100M-500M范围内",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": null,
+            "price": null,
+            "currency": "",
+            "billing_period": "",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "小微上线 | 速率：___________（100M-500M范围内）月租费：___________",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+            },
+            "confidence": 0.95
+          },
+          {
+            "package_name": "小微在线",
+            "package_code": "小微在线",
+            "speed": "50M-500M范围内",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": null,
+            "price": null,
+            "currency": "",
+            "billing_period": "",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [
+              "100M以下（含）",
+              "400M以下（含）",
+              "500M以下（含）"
+            ],
+            "source_evidence": "小微在线 | 速率：___________（50M-500M范围内）  100M以下（含）送8个地址，400M以下（含）送16个地址，500M以下（含）送32个地址",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+            },
+            "confidence": 0.95
+          }
+        ],
+        "included_items": [],
+        "service_attributes": [
+          {
+            "attribute_name": "接口标准",
+            "attribute_value": [
+              "Ethernet",
+              "GE",
+              "电口",
+              "光口"
+            ],
+            "source_evidence": "□ Ethernet □ GE  □ 电口 □ 光口",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+            },
+            "confidence": 0.95
+          }
+        ],
+        "sla": {}
+      }
+    },
+    "optional_packages": {
+      "reason": "- 大模型自检要求返工。\n- error | optional_packages | optional_packages is empty, but source_evidence in base_package.packages[1] says '超出赠送范围外的地址需收费：___________个' — this implies an optional paid add-on: 'additional IP addresses beyond赠送'. Also, '定制版光电收发器' is a physical device provided with service — though ownership lies with provider, its provision is tied to service activation and may be considered a bundled or optional component. More critically: the document title is '小微精品业务套餐申请登记表（云享wifi版）', and '云享wifi版' strongly suggests WiFi-related optional functionality (e.g., managed WiFi, cloud AP management) — yet no optional package reflects '云享wifi'. This is a high-confidence omission: '云享wifi版' is in filename and title, and is a named variant — it must be represented as an optional_package or base_package variant. Its absence violates principle #10 (title and filename are high-priority signals) and indicates misclassification.",
+      "rework_error": "",
+      "changed": false,
+      "before_summary": {
+        "type": "list",
+        "count": 0,
+        "non_empty_count": 0
+      },
+      "after_summary": {
+        "type": "list",
+        "count": 0,
+        "non_empty_count": 0
+      },
+      "before": [],
+      "after": []
+    }
+  }
+}

@@ -1,0 +1,1325 @@
+{
+  "说明": "该文件用于判断 self_check 触发的模块返工是否带来有效变化。",
+  "self_check": {
+    "needs_rework": true,
+    "rework_modules": [
+      "base_package",
+      "optional_packages",
+      "fee_and_term_rules"
+    ],
+    "validation_issues": [
+      {
+        "severity": "error",
+        "path": "base_package.packages[0].billing_period",
+        "message": "billing_period='月' 与 source_evidence '（688元/月/线）' 一致，但 contract_period='' 为空；原文明确该档位对应12个月协议期（见 fee_and_term_rules 中 contract_period='12个月' 的规则），应补全或 align"
+      },
+      {
+        "severity": "error",
+        "path": "base_package.packages[1].billing_period",
+        "message": "billing_period='年' 与 source_evidence '（6880元/年/线）' 一致，但 contract_period='' 为空；fee_and_term_rules 明确其 contract_period='12个月'，存在语义冲突：'年费' ≠ '12个月协议期' —— 年费通常隐含12个月服务期，但此处需显式对齐，避免后续计费逻辑误判"
+      },
+      {
+        "severity": "error",
+        "path": "base_package.packages[2].billing_period",
+        "message": "billing_period='2年' 与 source_evidence '（11880元/2年/线）' 一致，但 contract_period='' 为空；fee_and_term_rules 明确其 contract_period='24个月'，必须同步填充以保持语义一致性"
+      },
+      {
+        "severity": "error",
+        "path": "optional_packages[3].price_items[0].billing_period",
+        "message": "price_items[0] billing_period='年' 但 source_evidence='上行升速200M：□ 100元/月 □ 1200元/年' —— 该 price_item 描述为'上行升速200M'，但 price=100.0 且 billing_period='年'，明显矛盾：100元是月费，非年费；应拆分为两个 price_item 或修正 billing_period"
+      },
+      {
+        "severity": "error",
+        "path": "optional_packages[3].price_items[1].billing_period",
+        "message": "price_items[1] billing_period='年' and price=1200.0 matches source_evidence, but price_items[0] (price=100.0) is mislabeled as '年' — this breaks the one-to-one mapping between source_evidence tokens and price_items"
+      },
+      {
+        "severity": "error",
+        "path": "fee_and_term_rules[3].billing_period",
+        "message": "rule_type='monthly_fee' but billing_period='月' is correct; however, fee_and_term_rules[4] (annual_fee) has billing_period='年' — consistent. But optional_packages[3] contains 6 price_items with billing_period='年' for all, which contradicts source_evidence listing both '元/月' and '元/年' variants per speed tier — must split into monthly/annual pairs per speed"
+      }
+    ],
+    "schema_warnings": [
+      "base_package.packages contains 3 packages with identical package_name='拨号 100M/500M' — acceptable per self-check boundary #8, as package_code, price, and billing_period distinguish them",
+      "optional_packages[0] and [1] share same package_type='固话/商云通' but are correctly split into separate objects per '□ 固话' / '□ 商云通' — no merge error",
+      "fee_and_term_rules contains 16 entries covering base + optional + one-time + penalty — matches source granularity; no missing or over-merged rules"
+    ]
+  },
+  "modules": {
+    "base_package": {
+      "reason": "- 大模型自检要求返工。\n- error | base_package.packages[0].billing_period | billing_period='月' 与 source_evidence '（688元/月/线）' 一致，但 contract_period='' 为空；原文明确该档位对应12个月协议期（见 fee_and_term_rules 中 contract_period='12个月' 的规则），应补全或 align\n- error | base_package.packages[1].billing_period | billing_period='年' 与 source_evidence '（6880元/年/线）' 一致，但 contract_period='' 为空；fee_and_term_rules 明确其 contract_period='12个月'，存在语义冲突：'年费' ≠ '12个月协议期' —— 年费通常隐含12个月服务期，但此处需显式对齐，避免后续计费逻辑误判\n- error | base_package.packages[2].billing_period | billing_period='2年' 与 source_evidence '（11880元/2年/线）' 一致，但 contract_period='' 为空；fee_and_term_rules 明确其 contract_period='24个月'，必须同步填充以保持语义一致性",
+      "rework_error": "",
+      "changed": true,
+      "before_summary": {
+        "type": "object",
+        "keys": [
+          "included_items",
+          "packages",
+          "service_attributes",
+          "sla"
+        ],
+        "packages_count": 3,
+        "included_items_count": 0,
+        "service_attributes_count": 2,
+        "sla_keys": []
+      },
+      "after_summary": {
+        "type": "object",
+        "keys": [
+          "included_items",
+          "packages",
+          "service_attributes",
+          "sla"
+        ],
+        "packages_count": 3,
+        "included_items_count": 0,
+        "service_attributes_count": 2,
+        "sla_keys": []
+      },
+      "before": {
+        "packages": [
+          {
+            "package_name": "拨号 100M/500M",
+            "package_code": "拨号100M/500M_100M/500M_月_688",
+            "speed": "100M/500M",
+            "upstream_speed": "100M",
+            "downstream_speed": "500M",
+            "bandwidth_unit": "M",
+            "has_voice": null,
+            "price": 688.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "线",
+            "applicable_conditions": [
+              "光网资源到达适用"
+            ],
+            "source_evidence": "□ 拨号 100M/500M（688元/月/线）",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+            },
+            "confidence": 0.95
+          },
+          {
+            "package_name": "拨号 100M/500M",
+            "package_code": "拨号100M/500M_100M/500M_年_6880",
+            "speed": "100M/500M",
+            "upstream_speed": "100M",
+            "downstream_speed": "500M",
+            "bandwidth_unit": "M",
+            "has_voice": null,
+            "price": 6880.0,
+            "currency": "CNY",
+            "billing_period": "年",
+            "contract_period": "",
+            "quantity_limit": "线",
+            "applicable_conditions": [
+              "光网资源到达适用"
+            ],
+            "source_evidence": "□ 拨号 100M/500M（6880元/年/线）",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+            },
+            "confidence": 0.95
+          },
+          {
+            "package_name": "拨号 100M/500M",
+            "package_code": "拨号100M/500M_100M/500M_2年_11880",
+            "speed": "100M/500M",
+            "upstream_speed": "100M",
+            "downstream_speed": "500M",
+            "bandwidth_unit": "M",
+            "has_voice": null,
+            "price": 11880.0,
+            "currency": "CNY",
+            "billing_period": "2年",
+            "contract_period": "",
+            "quantity_limit": "线",
+            "applicable_conditions": [
+              "光网资源到达适用"
+            ],
+            "source_evidence": "□ 拨号 100M/500M（11880元/2年/线）",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+            },
+            "confidence": 0.95
+          }
+        ],
+        "included_items": [],
+        "service_attributes": [
+          {
+            "attribute_name": "套餐类型",
+            "attribute_value": "纯新装宽带",
+            "source_evidence": "□ 纯新装宽带",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "attribute_name": "套餐类型",
+            "attribute_value": "在用宽带",
+            "source_evidence": "□ 在用宽带（号码__________）",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+            },
+            "confidence": 0.9
+          }
+        ],
+        "sla": {}
+      },
+      "after": {
+        "packages": [
+          {
+            "package_name": "拨号 100M/500M",
+            "package_code": "拨号100M/500M_100M/500M_月_688",
+            "speed": "100M/500M",
+            "upstream_speed": "100M",
+            "downstream_speed": "500M",
+            "bandwidth_unit": "M",
+            "has_voice": null,
+            "price": 688.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "12个月",
+            "quantity_limit": "线",
+            "applicable_conditions": [
+              "光网资源到达适用"
+            ],
+            "source_evidence": "□ 拨号 100M/500M（688元/月/线）",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+            },
+            "confidence": 0.95
+          },
+          {
+            "package_name": "拨号 100M/500M",
+            "package_code": "拨号100M/500M_100M/500M_年_6880",
+            "speed": "100M/500M",
+            "upstream_speed": "100M",
+            "downstream_speed": "500M",
+            "bandwidth_unit": "M",
+            "has_voice": null,
+            "price": 6880.0,
+            "currency": "CNY",
+            "billing_period": "年",
+            "contract_period": "12个月",
+            "quantity_limit": "线",
+            "applicable_conditions": [
+              "光网资源到达适用"
+            ],
+            "source_evidence": "□ 拨号 100M/500M（6880元/年/线）",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+            },
+            "confidence": 0.95
+          },
+          {
+            "package_name": "拨号 100M/500M",
+            "package_code": "拨号100M/500M_100M/500M_2年_11880",
+            "speed": "100M/500M",
+            "upstream_speed": "100M",
+            "downstream_speed": "500M",
+            "bandwidth_unit": "M",
+            "has_voice": null,
+            "price": 11880.0,
+            "currency": "CNY",
+            "billing_period": "2年",
+            "contract_period": "24个月",
+            "quantity_limit": "线",
+            "applicable_conditions": [
+              "光网资源到达适用"
+            ],
+            "source_evidence": "□ 拨号 100M/500M（11880元/2年/线）",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+            },
+            "confidence": 0.95
+          }
+        ],
+        "included_items": [],
+        "service_attributes": [
+          {
+            "attribute_name": "套餐类型",
+            "attribute_value": "纯新装宽带",
+            "source_evidence": "□ 纯新装宽带",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "attribute_name": "套餐类型",
+            "attribute_value": "在用宽带",
+            "source_evidence": "□ 在用宽带（号码__________）",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+            },
+            "confidence": 0.9
+          }
+        ],
+        "sla": {}
+      }
+    },
+    "fee_and_term_rules": {
+      "reason": "- 大模型自检要求返工。\n- error | fee_and_term_rules[3].billing_period | rule_type='monthly_fee' but billing_period='月' is correct; however, fee_and_term_rules[4] (annual_fee) has billing_period='年' — consistent. But optional_packages[3] contains 6 price_items with billing_period='年' for all, which contradicts source_evidence listing both '元/月' and '元/年' variants per speed tier — must split into monthly/annual pairs per speed",
+      "rework_error": "",
+      "changed": true,
+      "before_summary": {
+        "type": "list",
+        "count": 16,
+        "non_empty_count": 16
+      },
+      "after_summary": {
+        "type": "list",
+        "count": 16,
+        "non_empty_count": 16
+      },
+      "before": [
+        {
+          "rule_type": "monthly_fee",
+          "name": "基础套餐月费",
+          "description": "拨号 100M/500M宽带月基本费",
+          "amount": 688.0,
+          "currency": "CNY",
+          "billing_period": "月",
+          "contract_period": "12个月",
+          "conditions": [],
+          "applies_to": [
+            "base_package"
+          ],
+          "source_evidence": "□ 拨号 100M/500M（688元/月/线）",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "rule_type": "annual_fee",
+          "name": "基础套餐年费",
+          "description": "拨号 100M/500M宽带年基本费",
+          "amount": 6880.0,
+          "currency": "CNY",
+          "billing_period": "年",
+          "contract_period": "12个月",
+          "conditions": [],
+          "applies_to": [
+            "base_package"
+          ],
+          "source_evidence": "□ 拨号 100M/500M（6880元/年/线）",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "rule_type": "biennial_fee",
+          "name": "基础套餐两年费",
+          "description": "拨号 100M/500M宽带两年基本费",
+          "amount": 11880.0,
+          "currency": "CNY",
+          "billing_period": "2年",
+          "contract_period": "24个月",
+          "conditions": [],
+          "applies_to": [
+            "base_package"
+          ],
+          "source_evidence": "□ 拨号 100M/500M（11880元/2年/线）",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "rule_type": "monthly_fee",
+          "name": "上行升速200M月费",
+          "description": "上行升速200M可选包月基本费",
+          "amount": 100.0,
+          "currency": "CNY",
+          "billing_period": "月",
+          "contract_period": "12个月",
+          "conditions": [],
+          "applies_to": [
+            "optional_package"
+          ],
+          "source_evidence": "上行升速200M：□ 100元/月",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "rule_type": "annual_fee",
+          "name": "上行升速200M年费",
+          "description": "上行升速200M可选包年基本费",
+          "amount": 1200.0,
+          "currency": "CNY",
+          "billing_period": "年",
+          "contract_period": "12个月",
+          "conditions": [],
+          "applies_to": [
+            "optional_package"
+          ],
+          "source_evidence": "上行升速200M：□ 1200元/年",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "rule_type": "monthly_fee",
+          "name": "上行升速300M月费",
+          "description": "上行升速300M可选包月基本费",
+          "amount": 150.0,
+          "currency": "CNY",
+          "billing_period": "月",
+          "contract_period": "12个月",
+          "conditions": [],
+          "applies_to": [
+            "optional_package"
+          ],
+          "source_evidence": "上行升速300M：□ 150元/月",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "rule_type": "annual_fee",
+          "name": "上行升速300M年费",
+          "description": "上行升速300M可选包年基本费",
+          "amount": 1800.0,
+          "currency": "CNY",
+          "billing_period": "年",
+          "contract_period": "12个月",
+          "conditions": [],
+          "applies_to": [
+            "optional_package"
+          ],
+          "source_evidence": "上行升速300M：□ 1800元/年",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "rule_type": "monthly_fee",
+          "name": "上行升速500M月费",
+          "description": "上行升速500M可选包月基本费",
+          "amount": 200.0,
+          "currency": "CNY",
+          "billing_period": "月",
+          "contract_period": "12个月",
+          "conditions": [],
+          "applies_to": [
+            "optional_package"
+          ],
+          "source_evidence": "上行升速500M：□ 200元/月",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "rule_type": "annual_fee",
+          "name": "上行升速500M年费",
+          "description": "上行升速500M可选包年基本费",
+          "amount": 2400.0,
+          "currency": "CNY",
+          "billing_period": "年",
+          "contract_period": "12个月",
+          "conditions": [],
+          "applies_to": [
+            "optional_package"
+          ],
+          "source_evidence": "上行升速500M：□ 2400元/年",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "rule_type": "one_time_fee",
+          "name": "宽带一次性费用",
+          "description": "含手续费及安装调测费",
+          "amount": 310.0,
+          "currency": "CNY",
+          "billing_period": "一次性",
+          "contract_period": "",
+          "conditions": [
+            "新装宽带"
+          ],
+          "applies_to": [
+            "base_package"
+          ],
+          "source_evidence": "一次性费用：宽带一次性费用为310元/线/次（含手续费10元/线/次，安装调测费300元/线/次）",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.98
+        },
+        {
+          "rule_type": "one_time_fee",
+          "name": "商云通一次性费用（直线老号码携带）",
+          "description": "含手续费及安装调测费",
+          "amount": 300.0,
+          "currency": "CNY",
+          "billing_period": "一次性",
+          "contract_period": "",
+          "conditions": [
+            "商云通直线老号码携带"
+          ],
+          "applies_to": [
+            "optional_package"
+          ],
+          "source_evidence": "商云通如为直线老号码携带，收取一次性费用为300元/线/次（含直线改商云通手续费 100 元/线/次，安装调测费 200 元/线/次）",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.98
+        },
+        {
+          "rule_type": "penalty_fee",
+          "name": "协议期提前终止违约金（基础套餐）",
+          "description": "因客户原因退出本活动或导致本活动提前终止的违约金",
+          "amount": null,
+          "currency": "CNY",
+          "billing_period": "一次性",
+          "contract_period": "",
+          "conditions": [
+            "剩余协议期≤6个月",
+            "客户原因退出"
+          ],
+          "applies_to": [
+            "base_package"
+          ],
+          "source_evidence": "违约金金额标准详见本营销活动规则。……剩余协议期6个月（含）以下的，收取1个月套餐月基本费的违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）\\*2个月套餐月基本费",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.92
+        },
+        {
+          "rule_type": "penalty_fee",
+          "name": "协议期提前终止违约金（商云通增值业务）",
+          "description": "因客户原因退出商云通增值业务或导致其提前终止的违约金",
+          "amount": null,
+          "currency": "CNY",
+          "billing_period": "月",
+          "contract_period": "",
+          "conditions": [
+            "剩余协议期≤6个月",
+            "客户原因退出"
+          ],
+          "applies_to": [
+            "optional_package"
+          ],
+          "source_evidence": "商云通：协议期内,因客户原因退出增值业务或导致增值业务提前终止的,客户应结清之前已使用的费用及违约金，……剩余协议期6个月（含）以下的，收取1个月增值业务基本资费作为违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）\\*2个月增值业务基本资费作为违约金，其中业务月基本费：45元/月/线",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.93
+        },
+        {
+          "rule_type": "device_replacement_fee",
+          "name": "领航者Navigator定制网关赔偿费",
+          "description": "未归还设备时需支付的设备费用",
+          "amount": 1000.0,
+          "currency": "CNY",
+          "billing_period": "一次性",
+          "contract_period": "",
+          "conditions": [
+            "协议期满后注销宽带且未归还设备"
+          ],
+          "applies_to": [
+            "base_package"
+          ],
+          "source_evidence": "若有中国电信领航者Navigator定制网关的，需归还该设备并保证设备的完好可用，不能归还的，客户需向中国电信上海公司支付“中国电信领航者Navigator定制网关”：1000元/台",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.97
+        },
+        {
+          "rule_type": "prorated_fee",
+          "name": "首月按天折算资费",
+          "description": "首月资费按实际使用天数折算",
+          "amount": null,
+          "currency": "CNY",
+          "billing_period": "月",
+          "contract_period": "",
+          "conditions": [
+            "首月办理",
+            "协议期内首月拆机"
+          ],
+          "applies_to": [
+            "base_package",
+            "optional_package"
+          ],
+          "source_evidence": "首月资费均按月付套餐资费按天折算。……首月资费：将套餐费按天进行折算后收取",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.96
+        },
+        {
+          "rule_type": "one_time_fee",
+          "name": "首月一次性费用不退",
+          "description": "已收取的一次性费用不予退还",
+          "amount": null,
+          "currency": "CNY",
+          "billing_period": "一次性",
+          "contract_period": "",
+          "conditions": [
+            "首月办理拆机"
+          ],
+          "applies_to": [
+            "base_package"
+          ],
+          "source_evidence": "一次性费用：一次性费用标准资费为310元/线/次，已收取的，不予退还。",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.94
+        }
+      ],
+      "after": [
+        {
+          "rule_type": "monthly_fee",
+          "name": "基础套餐月费",
+          "description": "拨号 100M/500M宽带月基本费",
+          "amount": 688.0,
+          "currency": "CNY",
+          "billing_period": "月",
+          "contract_period": "12个月",
+          "conditions": [],
+          "applies_to": [
+            "base_package"
+          ],
+          "source_evidence": "□ 拨号 100M/500M（688元/月/线）",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "rule_type": "annual_fee",
+          "name": "基础套餐年费",
+          "description": "拨号 100M/500M宽带年基本费",
+          "amount": 6880.0,
+          "currency": "CNY",
+          "billing_period": "年",
+          "contract_period": "12个月",
+          "conditions": [],
+          "applies_to": [
+            "base_package"
+          ],
+          "source_evidence": "□ 拨号 100M/500M（6880元/年/线）",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "rule_type": "biennial_fee",
+          "name": "基础套餐两年费",
+          "description": "拨号 100M/500M宽带两年基本费",
+          "amount": 11880.0,
+          "currency": "CNY",
+          "billing_period": "2年",
+          "contract_period": "24个月",
+          "conditions": [],
+          "applies_to": [
+            "base_package"
+          ],
+          "source_evidence": "□ 拨号 100M/500M（11880元/2年/线）",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "rule_type": "monthly_fee",
+          "name": "上行升速200M月费",
+          "description": "上行升速200M可选包月基本费",
+          "amount": 100.0,
+          "currency": "CNY",
+          "billing_period": "月",
+          "contract_period": "12个月",
+          "conditions": [],
+          "applies_to": [
+            "optional_package"
+          ],
+          "source_evidence": "上行升速200M：□ 100元/月",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "rule_type": "annual_fee",
+          "name": "上行升速200M年费",
+          "description": "上行升速200M可选包年基本费",
+          "amount": 1200.0,
+          "currency": "CNY",
+          "billing_period": "年",
+          "contract_period": "12个月",
+          "conditions": [],
+          "applies_to": [
+            "optional_package"
+          ],
+          "source_evidence": "上行升速200M：□ 1200元/年",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "rule_type": "monthly_fee",
+          "name": "上行升速300M月费",
+          "description": "上行升速300M可选包月基本费",
+          "amount": 150.0,
+          "currency": "CNY",
+          "billing_period": "月",
+          "contract_period": "12个月",
+          "conditions": [],
+          "applies_to": [
+            "optional_package"
+          ],
+          "source_evidence": "上行升速300M：□ 150元/月",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "rule_type": "annual_fee",
+          "name": "上行升速300M年费",
+          "description": "上行升速300M可选包年基本费",
+          "amount": 1800.0,
+          "currency": "CNY",
+          "billing_period": "年",
+          "contract_period": "12个月",
+          "conditions": [],
+          "applies_to": [
+            "optional_package"
+          ],
+          "source_evidence": "上行升速300M：□ 1800元/年",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "rule_type": "monthly_fee",
+          "name": "上行升速500M月费",
+          "description": "上行升速500M可选包月基本费",
+          "amount": 200.0,
+          "currency": "CNY",
+          "billing_period": "月",
+          "contract_period": "12个月",
+          "conditions": [],
+          "applies_to": [
+            "optional_package"
+          ],
+          "source_evidence": "上行升速500M：□ 200元/月",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "rule_type": "annual_fee",
+          "name": "上行升速500M年费",
+          "description": "上行升速500M可选包年基本费",
+          "amount": 2400.0,
+          "currency": "CNY",
+          "billing_period": "年",
+          "contract_period": "12个月",
+          "conditions": [],
+          "applies_to": [
+            "optional_package"
+          ],
+          "source_evidence": "上行升速500M：□ 2400元/年",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "rule_type": "one_time_fee",
+          "name": "宽带一次性费用",
+          "description": "含手续费及安装调测费",
+          "amount": 310.0,
+          "currency": "CNY",
+          "billing_period": "一次性",
+          "contract_period": "",
+          "conditions": [
+            "新装宽带"
+          ],
+          "applies_to": [
+            "base_package"
+          ],
+          "source_evidence": "一次性费用：宽带一次性费用为310元/线/次（含手续费10元/线/次，安装调测费300元/线/次）",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.98
+        },
+        {
+          "rule_type": "one_time_fee",
+          "name": "商云通一次性费用（直线老号码携带）",
+          "description": "含手续费及安装调测费",
+          "amount": 300.0,
+          "currency": "CNY",
+          "billing_period": "一次性",
+          "contract_period": "",
+          "conditions": [
+            "商云通直线老号码携带"
+          ],
+          "applies_to": [
+            "optional_package"
+          ],
+          "source_evidence": "商云通如为直线老号码携带，收取一次性费用为300元/线/次（含直线改商云通手续费 100 元/线/次，安装调测费 200 元/线/次）",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.98
+        },
+        {
+          "rule_type": "penalty_fee",
+          "name": "协议期提前终止违约金（基础套餐）",
+          "description": "因客户原因退出本活动或导致本活动提前终止的违约金",
+          "amount": null,
+          "currency": "CNY",
+          "billing_period": "一次性",
+          "contract_period": "",
+          "conditions": [
+            "剩余协议期≤6个月",
+            "客户原因退出"
+          ],
+          "applies_to": [
+            "base_package"
+          ],
+          "source_evidence": "剩余协议期6个月（含）以下的，收取1个月套餐月基本费的违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）*2个月套餐月基本费",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.92
+        },
+        {
+          "rule_type": "penalty_fee",
+          "name": "协议期提前终止违约金（商云通增值业务）",
+          "description": "因客户原因退出商云通增值业务或导致其提前终止的违约金",
+          "amount": null,
+          "currency": "CNY",
+          "billing_period": "月",
+          "contract_period": "",
+          "conditions": [
+            "剩余协议期≤6个月",
+            "客户原因退出"
+          ],
+          "applies_to": [
+            "optional_package"
+          ],
+          "source_evidence": "剩余协议期6个月（含）以下的，收取1个月增值业务基本资费作为违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）*2个月增值业务基本资费作为违约金，其中业务月基本费：45元/月/线",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.93
+        },
+        {
+          "rule_type": "device_replacement_fee",
+          "name": "领航者Navigator定制网关赔偿费",
+          "description": "未归还设备时需支付的设备费用",
+          "amount": 1000.0,
+          "currency": "CNY",
+          "billing_period": "一次性",
+          "contract_period": "",
+          "conditions": [
+            "协议期满后注销宽带且未归还设备"
+          ],
+          "applies_to": [
+            "base_package"
+          ],
+          "source_evidence": "不能归还的，客户需向中国电信上海公司支付“中国电信领航者Navigator定制网关”：1000元/台",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.97
+        },
+        {
+          "rule_type": "prorated_fee",
+          "name": "首月按天折算资费",
+          "description": "首月资费按实际使用天数折算",
+          "amount": null,
+          "currency": "CNY",
+          "billing_period": "月",
+          "contract_period": "",
+          "conditions": [
+            "首月办理",
+            "协议期内首月拆机"
+          ],
+          "applies_to": [
+            "base_package",
+            "optional_package"
+          ],
+          "source_evidence": "首月资费均按月付套餐资费按天折算。……首月资费：将套餐费按天进行折算后收取",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.96
+        },
+        {
+          "rule_type": "one_time_fee",
+          "name": "首月一次性费用不退",
+          "description": "已收取的一次性费用不予退还",
+          "amount": null,
+          "currency": "CNY",
+          "billing_period": "一次性",
+          "contract_period": "",
+          "conditions": [
+            "首月办理拆机"
+          ],
+          "applies_to": [
+            "base_package"
+          ],
+          "source_evidence": "一次性费用：一次性费用标准资费为310元/线/次，已收取的，不予退还。",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.94
+        }
+      ]
+    },
+    "optional_packages": {
+      "reason": "- 大模型自检要求返工。\n- error | optional_packages[3].price_items[0].billing_period | price_items[0] billing_period='年' 但 source_evidence='上行升速200M：□ 100元/月 □ 1200元/年' —— 该 price_item 描述为'上行升速200M'，但 price=100.0 且 billing_period='年'，明显矛盾：100元是月费，非年费；应拆分为两个 price_item 或修正 billing_period\n- error | optional_packages[3].price_items[1].billing_period | price_items[1] billing_period='年' and price=1200.0 matches source_evidence, but price_items[0] (price=100.0) is mislabeled as '年' — this breaks the one-to-one mapping between source_evidence tokens and price_items",
+      "rework_error": "",
+      "changed": true,
+      "before_summary": {
+        "type": "list",
+        "count": 4,
+        "non_empty_count": 4
+      },
+      "after_summary": {
+        "type": "list",
+        "count": 6,
+        "non_empty_count": 6
+      },
+      "before": [
+        {
+          "package_type": "固话/商云通",
+          "name": "固话(含翼名片)",
+          "category": "通信服务",
+          "description": "固话(含翼名片)/商云通（两项总共不超过5线）：□ 固话，申请线数：_______线 每线固话均含翼名片（来电文本），每月可发送100条来电文本信息，（100条文本信息发送完毕后自动关停，次月重新开始计次）。 □ 商云通（需自备商云通话机），申请线数：_______线 国内通话2500分钟/月；国内通话超出后资费0.1元/分钟。",
+          "fee_summary": "月基本费0元（仅限5线）",
+          "price_items": [
+            {
+              "price": 0.0,
+              "currency": "CNY",
+              "billing_period": "月",
+              "description": "月基本费",
+              "source_evidence": "固话：申请线数，每线含翼名片（来电文本），每月可发送100条来电文本信息，100条发送完毕后自动关停，次月重置：固话(含翼名片)/商云通  月基本费0元  （仅限5线）",
+              "source_location": {
+                "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+              },
+              "confidence": 0.95
+            }
+          ],
+          "options": [
+            "固话：申请线数，每线含翼名片（来电文本），每月可发送100条来电文本信息，100条发送完毕后自动关停，次月重置"
+          ],
+          "required_with": [],
+          "incompatible_with": [],
+          "applicable_conditions": [
+            "两项总共不超过5线"
+          ],
+          "source_evidence": "固话(含翼名片) | 固话：申请线数，每线含翼名片（来电文本），每月可发送100条来电文本信息，100条发送完毕后自动关停，次月重置",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.98
+        },
+        {
+          "package_type": "固话/商云通",
+          "name": "商云通",
+          "category": "通信服务",
+          "description": "固话(含翼名片)/商云通（两项总共不超过5线）：□ 固话，申请线数：_______线 每线固话均含翼名片（来电文本），每月可发送100条来电文本信息，（100条文本信息发送完毕后自动关停，次月重新开始计次）。 □ 商云通（需自备商云通话机），申请线数：_______线 国内通话2500分钟/月；国内通话超出后资费0.1元/分钟。",
+          "fee_summary": "月基本费0元（仅限5线）",
+          "price_items": [
+            {
+              "price": 0.0,
+              "currency": "CNY",
+              "billing_period": "月",
+              "description": "月基本费",
+              "source_evidence": "固话：申请线数，每线含翼名片（来电文本），每月可发送100条来电文本信息，100条发送完毕后自动关停，次月重置：固话(含翼名片)/商云通  月基本费0元  （仅限5线）",
+              "source_location": {
+                "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+              },
+              "confidence": 0.95
+            }
+          ],
+          "options": [
+            "商云通：需自备商云通话机，申请线数，国内通话2500分钟/月，超出后0.1元/分钟"
+          ],
+          "required_with": [],
+          "incompatible_with": [],
+          "applicable_conditions": [
+            "两项总共不超过5线"
+          ],
+          "source_evidence": "商云通 | 商云通：需自备商云通话机，申请线数，国内通话2500分钟/月，超出后0.1元/分钟",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.98
+        },
+        {
+          "package_type": "移动业务",
+          "name": "移动业务",
+          "category": "移动通信",
+          "description": "□ 订购，申请主卡线数：_______线（最多限5线） 每线含国内流量120GB/月、国内通话1000分钟/月 超出后资费：1、国内通话：0.15元/分钟；2、国内短/彩信：0.1元/条；3、国内流量：3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB(不含)—1GB (含)部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 □是否订购副卡（每张主卡最多可订购2线） 数量：_________",
+          "fee_summary": "月基本费0元（仅限5线）",
+          "price_items": [
+            {
+              "price": 0.0,
+              "currency": "CNY",
+              "billing_period": "月",
+              "description": "月基本费",
+              "source_evidence": "移动业务  月基本费0元  （仅限5线）",
+              "source_location": {
+                "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+              },
+              "confidence": 0.95
+            }
+          ],
+          "options": [
+            "主卡：申请线数（最多5线），含国内流量120GB/月、国内通话1000分钟/月；超出后：国内通话0.15元/分钟、短/彩信0.1元/条、流量3元/GB（分段计费）",
+            "副卡：每张主卡最多可订购2线，数量需填写"
+          ],
+          "required_with": [],
+          "incompatible_with": [],
+          "applicable_conditions": [
+            "主卡最多限5线",
+            "每张主卡最多可订购2线副卡"
+          ],
+          "source_evidence": "移动业务  月基本费0元  （仅限5线） | □ 订购，申请主卡线数：\\_\\_\\_\\_\\_\\_\\_线（最多限5线）  每线含国内流量120GB/月、国内通话1000分钟/月  **超出后资费**：  1、国内通话：0.15元/分钟；  2、国内短/彩信：0.1元/条  3、国内流量：3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB(不含)—1GB (含)部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。  **□是否订购副卡（每张主卡最多可订购2线） 数量：\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_**",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.97
+        },
+        {
+          "package_type": "上行升速包",
+          "name": "上行升速包",
+          "category": "带宽增值",
+          "description": "上行升速200M：□ 100元/月 □ 1200元/年 上行升速300M：□ 150元/月 □ 1800元/年 上行升速500M：□ 200元/月 □ 2400元/年",
+          "fee_summary": "",
+          "price_items": [
+            {
+              "price": 100.0,
+              "currency": "CNY",
+              "billing_period": "年",
+              "description": "上行升速200M",
+              "source_evidence": "上行升速200M：□ 100元/月 □ 1200元/年",
+              "source_location": {
+                "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+              },
+              "confidence": 0.96
+            },
+            {
+              "price": 1200.0,
+              "currency": "CNY",
+              "billing_period": "年",
+              "description": "上行升速200M",
+              "source_evidence": "上行升速200M：□ 100元/月 □ 1200元/年",
+              "source_location": {
+                "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+              },
+              "confidence": 0.96
+            },
+            {
+              "price": 150.0,
+              "currency": "CNY",
+              "billing_period": "年",
+              "description": "上行升速300M",
+              "source_evidence": "上行升速300M：□ 150元/月 □ 1800元/年",
+              "source_location": {
+                "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+              },
+              "confidence": 0.96
+            },
+            {
+              "price": 1800.0,
+              "currency": "CNY",
+              "billing_period": "年",
+              "description": "上行升速300M",
+              "source_evidence": "上行升速300M：□ 150元/月 □ 1800元/年",
+              "source_location": {
+                "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+              },
+              "confidence": 0.96
+            },
+            {
+              "price": 200.0,
+              "currency": "CNY",
+              "billing_period": "年",
+              "description": "上行升速500M",
+              "source_evidence": "上行升速500M：□ 200元/月 □ 2400元/年",
+              "source_location": {
+                "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+              },
+              "confidence": 0.96
+            },
+            {
+              "price": 2400.0,
+              "currency": "CNY",
+              "billing_period": "年",
+              "description": "上行升速500M",
+              "source_evidence": "上行升速500M：□ 200元/月 □ 2400元/年",
+              "source_location": {
+                "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+              },
+              "confidence": 0.96
+            }
+          ],
+          "options": [
+            "上行升速200M",
+            "上行升速300M",
+            "上行升速500M"
+          ],
+          "required_with": [],
+          "incompatible_with": [],
+          "applicable_conditions": [],
+          "source_evidence": "**上行升速包** | 上行升速200M：□ 100元/月 □ 1200元/年  上行升速300M：□ 150元/月 □ 1800元/年  上行升速500M：□ 200元/月 □ 2400元/年",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.99
+        }
+      ],
+      "after": [
+        {
+          "package_type": "固话/商云通",
+          "name": "固话(含翼名片)",
+          "category": "通信服务",
+          "description": "固话(含翼名片)/商云通（两项总共不超过5线）：□ 固话，申请线数：_______线 每线固话均含翼名片（来电文本），每月可发送100条来电文本信息，（100条文本信息发送完毕后自动关停，次月重新开始计次）。 □ 商云通（需自备商云通话机），申请线数：_______线 国内通话2500分钟/月；国内通话超出后资费0.1元/分钟。",
+          "fee_summary": "月基本费0元（仅限5线）",
+          "price_items": [
+            {
+              "price": 0.0,
+              "currency": "CNY",
+              "billing_period": "月",
+              "description": "月基本费",
+              "source_evidence": "固话：申请线数，每线含翼名片（来电文本），每月可发送100条来电文本信息，100条发送完毕后自动关停，次月重置：固话(含翼名片)/商云通  月基本费0元  （仅限5线）",
+              "source_location": {
+                "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+              },
+              "confidence": 0.95
+            }
+          ],
+          "options": [
+            "固话：申请线数，每线含翼名片（来电文本），每月可发送100条来电文本信息，100条发送完毕后自动关停，次月重置"
+          ],
+          "required_with": [],
+          "incompatible_with": [],
+          "applicable_conditions": [
+            "两项总共不超过5线"
+          ],
+          "source_evidence": "固话(含翼名片) | 固话：申请线数，每线含翼名片（来电文本），每月可发送100条来电文本信息，100条发送完毕后自动关停，次月重置",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.98
+        },
+        {
+          "package_type": "固话/商云通",
+          "name": "商云通",
+          "category": "通信服务",
+          "description": "固话(含翼名片)/商云通（两项总共不超过5线）：□ 固话，申请线数：_______线 每线固话均含翼名片（来电文本），每月可发送100条来电文本信息，（100条文本信息发送完毕后自动关停，次月重新开始计次）。 □ 商云通（需自备商云通话机），申请线数：_______线 国内通话2500分钟/月；国内通话超出后资费0.1元/分钟。",
+          "fee_summary": "月基本费0元（仅限5线）",
+          "price_items": [
+            {
+              "price": 0.0,
+              "currency": "CNY",
+              "billing_period": "月",
+              "description": "月基本费",
+              "source_evidence": "固话：申请线数，每线含翼名片（来电文本），每月可发送100条来电文本信息，100条发送完毕后自动关停，次月重置：固话(含翼名片)/商云通  月基本费0元  （仅限5线）",
+              "source_location": {
+                "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+              },
+              "confidence": 0.95
+            }
+          ],
+          "options": [
+            "商云通：需自备商云通话机，申请线数，国内通话2500分钟/月，超出后0.1元/分钟"
+          ],
+          "required_with": [],
+          "incompatible_with": [],
+          "applicable_conditions": [
+            "两项总共不超过5线"
+          ],
+          "source_evidence": "商云通 | 商云通：需自备商云通话机，申请线数，国内通话2500分钟/月，超出后0.1元/分钟",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.98
+        },
+        {
+          "package_type": "移动业务",
+          "name": "移动业务",
+          "category": "移动通信",
+          "description": "□ 订购，申请主卡线数：_______线（最多限5线） 每线含国内流量120GB/月、国内通话1000分钟/月 超出后资费：1、国内通话：0.15元/分钟；2、国内短/彩信：0.1元/条；3、国内流量：3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB(不含)—1GB (含)部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 □是否订购副卡（每张主卡最多可订购2线） 数量：_________",
+          "fee_summary": "月基本费0元（仅限5线）",
+          "price_items": [
+            {
+              "price": 0.0,
+              "currency": "CNY",
+              "billing_period": "月",
+              "description": "月基本费",
+              "source_evidence": "移动业务  月基本费0元  （仅限5线）",
+              "source_location": {
+                "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+              },
+              "confidence": 0.95
+            }
+          ],
+          "options": [
+            "主卡：申请线数（最多5线），含国内流量120GB/月、国内通话1000分钟/月；超出后：国内通话0.15元/分钟、短/彩信0.1元/条、流量3元/GB（分段计费）",
+            "副卡：每张主卡最多可订购2线，数量需填写"
+          ],
+          "required_with": [],
+          "incompatible_with": [],
+          "applicable_conditions": [
+            "主卡最多限5线",
+            "每张主卡最多可订购2线副卡"
+          ],
+          "source_evidence": "移动业务  月基本费0元  （仅限5线） | □ 订购，申请主卡线数：\\_\\_\\_\\_\\_\\_\\_线（最多限5线）  每线含国内流量120GB/月、国内通话1000分钟/月  **超出后资费**：  1、国内通话：0.15元/分钟；  2、国内短/彩信：0.1元/条  3、国内流量：3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB(不含)—1GB (含)部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。  **□是否订购副卡（每张主卡最多可订购2线） 数量：\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_**",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.97
+        },
+        {
+          "package_type": "上行升速包",
+          "name": "上行升速200M",
+          "category": "带宽增值",
+          "description": "上行升速200M：□ 100元/月 □ 1200元/年",
+          "fee_summary": "",
+          "price_items": [
+            {
+              "price": 100.0,
+              "currency": "CNY",
+              "billing_period": "年",
+              "description": "上行升速200M",
+              "source_evidence": "上行升速200M：□ 100元/月 □ 1200元/年",
+              "source_location": {
+                "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+              },
+              "confidence": 0.96
+            },
+            {
+              "price": 1200.0,
+              "currency": "CNY",
+              "billing_period": "年",
+              "description": "上行升速200M",
+              "source_evidence": "上行升速200M：□ 100元/月 □ 1200元/年",
+              "source_location": {
+                "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+              },
+              "confidence": 0.96
+            }
+          ],
+          "options": [],
+          "required_with": [],
+          "incompatible_with": [],
+          "applicable_conditions": [],
+          "source_evidence": "上行升速200M：□ 100元/月 □ 1200元/年",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.99
+        },
+        {
+          "package_type": "上行升速包",
+          "name": "上行升速300M",
+          "category": "带宽增值",
+          "description": "上行升速300M：□ 150元/月 □ 1800元/年",
+          "fee_summary": "",
+          "price_items": [
+            {
+              "price": 150.0,
+              "currency": "CNY",
+              "billing_period": "年",
+              "description": "上行升速300M",
+              "source_evidence": "上行升速300M：□ 150元/月 □ 1800元/年",
+              "source_location": {
+                "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+              },
+              "confidence": 0.96
+            },
+            {
+              "price": 1800.0,
+              "currency": "CNY",
+              "billing_period": "年",
+              "description": "上行升速300M",
+              "source_evidence": "上行升速300M：□ 150元/月 □ 1800元/年",
+              "source_location": {
+                "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+              },
+              "confidence": 0.96
+            }
+          ],
+          "options": [],
+          "required_with": [],
+          "incompatible_with": [],
+          "applicable_conditions": [],
+          "source_evidence": "上行升速300M：□ 150元/月 □ 1800元/年",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.99
+        },
+        {
+          "package_type": "上行升速包",
+          "name": "上行升速500M",
+          "category": "带宽增值",
+          "description": "上行升速500M：□ 200元/月 □ 2400元/年",
+          "fee_summary": "",
+          "price_items": [
+            {
+              "price": 200.0,
+              "currency": "CNY",
+              "billing_period": "年",
+              "description": "上行升速500M",
+              "source_evidence": "上行升速500M：□ 200元/月 □ 2400元/年",
+              "source_location": {
+                "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+              },
+              "confidence": 0.96
+            },
+            {
+              "price": 2400.0,
+              "currency": "CNY",
+              "billing_period": "年",
+              "description": "上行升速500M",
+              "source_evidence": "上行升速500M：□ 200元/月 □ 2400元/年",
+              "source_location": {
+                "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+              },
+              "confidence": 0.96
+            }
+          ],
+          "options": [],
+          "required_with": [],
+          "incompatible_with": [],
+          "applicable_conditions": [],
+          "source_evidence": "上行升速500M：□ 200元/月 □ 2400元/年",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx"
+          },
+          "confidence": 0.99
+        }
+      ]
+    }
+  }
+}

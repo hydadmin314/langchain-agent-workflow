@@ -771,6 +771,8 @@ class ProductDocumentNormalizer:
             for price_item in price_items:
                 if not isinstance(price_item, dict):
                     continue
+                if normalize_price_item_billing_period(price_item):
+                    changed = True
                 if price_item.get("price") is not None:
                     continue
                 evidence = str(price_item.get("source_evidence", ""))
@@ -898,7 +900,7 @@ class ProductDocumentNormalizer:
             if "billing_period" not in item:
                 continue
             evidence = str(item.get("source_evidence", ""))
-            inferred = infer_billing_period_from_evidence(evidence)
+            inferred = infer_billing_period_for_item(item, evidence)
             if not inferred or item.get("billing_period") == inferred:
                 continue
             item["billing_period"] = inferred
@@ -1414,6 +1416,67 @@ def normalize_billing_period(value: str) -> str:
     if value in {"两年"}:
         return "2年"
     return value
+
+
+def normalize_price_item_billing_period(price_item: dict[str, Any]) -> bool:
+    """根据价格项自己的金额和证据，确定性修正计费周期。"""
+
+    evidence = str(price_item.get("source_evidence", ""))
+    inferred = infer_billing_period_for_item(price_item, evidence)
+    if not inferred or price_item.get("billing_period") == inferred:
+        return False
+    price_item["billing_period"] = inferred
+    return True
+
+
+def infer_billing_period_for_item(item: dict[str, Any], evidence: str) -> str:
+    """优先按当前金额在证据中的最近单位推断周期，避免一条证据里月费/年费互相干扰。"""
+
+    amount = first_numeric_value(item.get("price"))
+    if amount is None:
+        amount = first_numeric_value(item.get("amount"))
+    if amount is not None:
+        inferred = infer_billing_period_for_amount(evidence, amount)
+        if inferred:
+            return inferred
+    return infer_billing_period_from_evidence(evidence)
+
+
+def infer_billing_period_for_amount(evidence: str, amount: float) -> str:
+    """从“100元/月 1200元/年”这类证据中，按金额精确找到对应周期。"""
+
+    text = str(evidence or "")
+    if not text:
+        return ""
+    amount_pattern = format_amount_pattern(amount)
+    pattern = re.compile(
+        rf"(?<!\d){amount_pattern}\s*元\s*(?:/|／)?\s*(2年|两年|年|月|线|号|次|分钟|条|GB|MB)?",
+        flags=re.IGNORECASE,
+    )
+    match = pattern.search(text)
+    if not match:
+        return ""
+    return normalize_billing_period(match.group(1) or "")
+
+
+def first_numeric_value(value: Any) -> float | None:
+    """把模型输出的金额安全转成数字，用于周期纠偏。"""
+
+    if isinstance(value, (int, float)) and not isinstance(value, bool):
+        return float(value)
+    if isinstance(value, str):
+        match = re.search(r"\d+(?:\.\d+)?", value)
+        if match:
+            return float(match.group(0))
+    return None
+
+
+def format_amount_pattern(amount: float) -> str:
+    """生成兼容整数和小数写法的金额正则。"""
+
+    if float(amount).is_integer():
+        return rf"{int(amount)}(?:\.0+)?"
+    return re.escape(f"{amount:g}")
 
 
 def surrounding_text(text: str, start: int, end: int, *, window: int = 36) -> str:

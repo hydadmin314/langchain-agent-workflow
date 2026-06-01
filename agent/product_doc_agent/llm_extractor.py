@@ -211,7 +211,13 @@ class ProductDocumentLLMExtractor:
             result = await self._repair_if_needed_async(module_name, result)
             return module_name, result, None
         except LLMExtractionError as exc:
-            retry_result = await self._retry_with_compact_prompt_async(module_name, context, exc)
+            retry_result = await self._retry_rework_with_compact_prompt_async(
+                module_name,
+                context,
+                previous_json,
+                reason,
+                exc,
+            )
             if retry_result is not None:
                 return module_name, retry_result, None
             if not continue_on_error:
@@ -299,6 +305,41 @@ class ProductDocumentLLMExtractor:
             return await self._repair_if_needed_async(module_name, result)
         except LLMExtractionError as retry_error:
             logger.warning(f"{module_name}: 紧凑重试失败：{retry_error}")
+            return None
+
+    async def _retry_rework_with_compact_prompt_async(
+        self,
+        module_name: str,
+        context: str,
+        previous_json: str,
+        reason: str,
+        error: LLMExtractionError,
+    ) -> Any | None:
+        """返工请求超时时，用紧凑上下文重试，但继续保留旧 JSON 和返工原因。"""
+
+        if not error.retryable:
+            return None
+        if error.rate_limited:
+            logger.warning(f"{module_name}: 模型服务商返回限流错误，跳过返工紧凑重试")
+            return None
+
+        compact_context = compact_context_for_retry(module_name, context)
+        compact_prompt = build_module_rework_prompt(
+            module_name,
+            compact_context,
+            previous_json,
+            reason,
+        )
+        logger.warning(
+            f"{module_name}: 返工请求失败后使用紧凑 prompt 重试；"
+            f"prompt_chars={len(compact_prompt)}"
+        )
+        try:
+            result = await self._ainvoke_json(compact_prompt, expected_module=f"{module_name}.rework_compact_retry")
+            result = normalize_to_module_schema(module_name, result)
+            return await self._repair_if_needed_async(module_name, result)
+        except LLMExtractionError as retry_error:
+            logger.warning(f"{module_name}: 返工紧凑重试失败：{retry_error}")
             return None
 
     def self_check(self, product_document: dict[str, Any]) -> dict[str, Any]:

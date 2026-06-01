@@ -234,12 +234,29 @@ def build_module_rework_prompt(
             "1. 只输出当前模块本身的合法 JSON，不解释。",
             "2. 必须优先解决自检指出的漏抽、错放、字段为空或列表不完整问题。",
             "3. 只能依据下面的 Markdown 原文重新抽取；旧 JSON 只用于理解问题，不作为事实来源。",
+            "4. 返工不是自由扩写；没有原文明确证据的内容仍然保持空值或空数组。",
+            rework_guardrails(module_name),
             f"模块名：{module_name}",
             f"返工原因：\n{rework_reason}",
             f"上一次模块 JSON：\n{previous_module_json}",
             DOCUMENT_CONTEXT_TEMPLATE.format(document_blocks=document_blocks),
         ]
     )
+
+
+def rework_guardrails(module_name: str) -> str:
+    """按模块补充返工边界，避免返工时为了修问题而过度抽取。"""
+
+    if module_name == "optional_packages":
+        return """
+optional_packages 返工边界：
+1. 只有原文明确出现可售卖、可勾选、可单独订购的可选包/权益包/增值业务时，才创建 optional_package。
+2. “配套业务”“业务说明”“协议条款”“办理说明”“承诺书”“限制规则”等泛称，不能单独作为 optional_package。
+3. 如果 self_check 只是根据其它模块里的泛称推测存在可选包，但 Markdown 没有明确可选包名称、费用、勾选项或订购条件，则输出 []。
+4. 每个可选包一条对象；不要把多个权益、多个业务、多个价格档位合并成一条。
+5. 返工时重点检查原文中的“可选包、权益包、增值服务、可选产品、配套产品、上行升速包、移动业务、固话、商云通”等明确栏目或行。
+"""
+    return ""
 
 
 def build_module_repair_prompt(module_name: str, module_json: str, validation_issues: str) -> str:
