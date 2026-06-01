@@ -88,12 +88,11 @@ class ProductDocAgentWorkflow:
 
     async def extract_loaded_document_async(self, loaded_document: LoadedDocument) -> dict[str, Any]:
         """文档解析 -> Markdown -> 模块切块 -> LLM 抽取 -> 合并 -> 校验。"""
-        # 1. 先把原始文档转换成给大模型看的 Markdown。
-        llm_markdown = self.markdown_renderer.render_document(
-            loaded_document,
-            max_chars=self.extractor.max_context_chars,
-        )
-        # 2. 再按 schema 模块切出各自上下文，避免 9 个模块都吃完整文档。
+        # 1. 先把原始文档完整转换成 Markdown。
+        # 不在这里截断整篇文档，避免靠后的协议、材料、补充规则在切模块前被丢弃。
+        llm_markdown = self.markdown_renderer.render_document(loaded_document)
+
+        # 2. 再按 schema 模块切出各自上下文，并在 splitter 内按模块预算截断。
         module_contexts = build_module_contexts_from_markdown(
             llm_markdown,
             max_chars=self.extractor.max_context_chars,
@@ -373,9 +372,7 @@ def should_rework_module(module_name: str, issues: list[dict[str, Any]], reason:
         )
 
     if module_name == "optional_packages":
-        if issues and all(is_price_period_issue(issue) for issue in issues):
-            return False
-        return contains_any(
+        can_improve_package_shape = contains_any(
             combined_text,
             (
                 "漏抽",
@@ -387,13 +384,19 @@ def should_rework_module(module_name: str, issues: list[dict[str, Any]], reason:
                 "omitted",
                 "合并",
                 "拆分",
+                "应拆分",
                 "merged",
                 "split",
                 "只输出一条",
             ),
         )
+        if issues and all(is_price_period_issue(issue) for issue in issues) and not can_improve_package_shape:
+            return False
+        return can_improve_package_shape
 
     if module_name == "fee_and_term_rules":
+        if is_indirect_fee_rework_request(combined_text, issues):
+            return False
         if issues and all(is_price_period_issue(issue) or mentions_other_module(issue) for issue in issues):
             return False
         return contains_any(combined_text, ("漏抽", "缺少", "未抽", "合并", "拆分", "missing", "omitted", "merged"))
@@ -413,6 +416,22 @@ def mentions_other_module(issue: dict[str, Any]) -> bool:
 
     text = str(issue.get("message", ""))
     return any(module in text for module in EXTRACTION_MODULES if module != module_from_issue_path(str(issue.get("path", ""))))
+
+
+def is_indirect_fee_rework_request(text: str, issues: list[dict[str, Any]]) -> bool:
+    """fee_and_term_rules 本身没缺规则、只是被其它模块牵连时不返工。"""
+
+    if not contains_any(text, ("optional_packages", "price_items", "可选包", "可选产品")):
+        return False
+    return not contains_any(
+        text,
+        (
+            "fee_and_term_rules 缺少",
+            "fee_and_term_rules 漏抽",
+            "fee_and_term_rules missing",
+            "fee_and_term_rules omitted",
+        ),
+    ) or all(mentions_other_module(issue) or is_price_period_issue(issue) for issue in issues)
 
 
 def contains_any(text: str, keywords: tuple[str, ...]) -> bool:

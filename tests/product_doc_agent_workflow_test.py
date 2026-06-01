@@ -35,7 +35,12 @@ def main() -> None:
 
     print_llm_config()
     
-    workflow = ProductDocAgentWorkflow(max_context_chars=12000, enable_debug_markdown=True, enable_self_check=True, max_concurrency=6, enable_debug_markdown=True)
+    workflow = ProductDocAgentWorkflow(
+        max_context_chars=12000,
+        enable_debug_markdown=True,
+        enable_self_check=True,
+        max_concurrency=6,
+    )
     try:
         result = workflow.run(r"data/raw/1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx")
     except Exception as exc:
