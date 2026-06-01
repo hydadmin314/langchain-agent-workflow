@@ -28,7 +28,8 @@ INVALID_CONTRACT_PERIOD_VALUES = {"线", "次", "月", "年", "元", "元/月", 
 
 
 def normalize_to_module_schema(module_name: str, value: Any) -> Any:
-    """Align an LLM module response to the module schema without adding facts."""
+    """把大模型模块输出对齐到模块 schema，不新增业务事实。"""
+
     schema = get_module_json_schema(module_name)
     unwrapped = unwrap_module_payload(module_name, value, schema)
     return normalize_value(unwrapped, schema)
@@ -223,9 +224,11 @@ class ProductDocumentNormalizationResult:
 
 
 class ProductDocumentNormalizer:
-    """Normalize a merged product document without adding unsupported business facts."""
+    """归一化合并后的产品文档，不新增无依据的业务事实。"""
 
     def normalize_product_document(self, product_document: dict[str, Any]) -> ProductDocumentNormalizationResult:
+        """执行字段清洗、去重、标准化和轻量纠偏。"""
+
         issues: list[dict[str, Any]] = []
         self._normalize_extraction_meta(product_document)
         issues.extend(self._fill_document_status(product_document))
@@ -990,13 +993,11 @@ class ProductDocumentNormalizer:
         return issues
 
     def _remove_same_document_supplemental_rules(self, product_document: dict[str, Any]) -> list[dict[str, Any]]:
-        """Keep supplemental_rules only for rules sourced from other files.
+        """只保留来自其它文件的 supplemental_rules。
 
-        supplemental_rules is reserved for cross-file enrichment, such as an
-        external price table or discount policy. If an extracted supplemental
-        rule cites the same source_path as the current main document, it is an
-        embedded section of the current document and should be handled by the
-        normal rule/material modules instead.
+        supplemental_rules 用于跨文件补充，例如外部价格表、折扣政策等。
+        如果某条 supplemental_rule 的 source_path 与当前主文档相同，
+        它实际是主文档内部章节，应交给普通规则/材料模块处理。
         """
         supplemental_rules = product_document.get("supplemental_rules", [])
         if not isinstance(supplemental_rules, list):

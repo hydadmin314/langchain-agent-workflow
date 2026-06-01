@@ -7,7 +7,7 @@ from schema.schema import TOP_LEVEL_LIST_KEYS, make_empty_product_document
 
 
 class ProductDocumentMerger:
-    """Merge module-level LLM outputs into the unified product document schema."""
+    """把模块级大模型输出合并成统一产品文档 schema。"""
 
     def merge(
         self,
@@ -15,6 +15,8 @@ class ProductDocumentMerger:
         *,
         document_metadata: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
+        """合并 9 个模块结果，并补齐文档来源元信息。"""
+
         product_document = make_empty_product_document()
         document_metadata = document_metadata or {}
 
@@ -33,6 +35,8 @@ class ProductDocumentMerger:
         return product_document
 
     def apply_self_check(self, product_document: dict[str, Any], self_check: dict[str, Any]) -> dict[str, Any]:
+        """把大模型语义自检结果写入 extraction_meta。"""
+
         result = deepcopy(product_document)
         meta = result.setdefault("extraction_meta", {})
         llm_self_check = self_check.get("llm_self_check", {})
@@ -52,6 +56,8 @@ class ProductDocumentMerger:
         document_info: Any,
         document_metadata: dict[str, Any],
     ) -> None:
+        """合并 document_info，并用加载阶段的元数据兜底。"""
+
         if isinstance(document_info, dict):
             self._merge_object(product_document, "document_info", document_info)
         target = product_document["document_info"]
@@ -61,6 +67,8 @@ class ProductDocumentMerger:
         target["source_file_type"] = target.get("source_file_type") or document_metadata.get("source_file_type", "")
 
     def _merge_object(self, product_document: dict[str, Any], key: str, value: Any) -> None:
+        """合并对象型模块；只接受 schema 顶层已定义的字段。"""
+
         if not isinstance(value, dict):
             return
         target = product_document[key]
@@ -71,6 +79,8 @@ class ProductDocumentMerger:
 
 
 def ensure_list(value: Any) -> list[Any]:
+    """把模型输出统一转成列表，便于处理列表型模块。"""
+
     if value is None:
         return []
     if isinstance(value, list):
@@ -79,6 +89,8 @@ def ensure_list(value: Any) -> list[Any]:
 
 
 def normalize_validation_issues(value: Any) -> list[dict[str, Any]]:
+    """规范化 self_check 输出的问题列表。"""
+
     issues: list[dict[str, Any]] = []
     for index, item in enumerate(ensure_list(value)):
         if isinstance(item, dict):
@@ -99,6 +111,8 @@ def normalize_validation_issues(value: Any) -> list[dict[str, Any]]:
 
 
 def is_non_actionable_self_check_issue(issue: dict[str, Any]) -> bool:
+    """过滤大模型自检中的无行动价值问题。"""
+
     message = str(issue.get("message", "")).lower()
     if not message:
         return False
@@ -144,6 +158,8 @@ def is_non_actionable_self_check_issue(issue: dict[str, Any]) -> bool:
 
 
 def normalize_schema_warnings(value: Any) -> list[str]:
+    """规范化 self_check 输出的 schema_warnings。"""
+
     warnings: list[str] = []
     for item in ensure_list(value):
         if item is None:

@@ -21,23 +21,26 @@ INACTIVE_STATUS_HINTS = ("停用", "停止申请", "停止使用", "已停", "�
 
 
 class ProductDocumentValidator:
-    """Deterministic validation after LLM extraction and normalization.
+    """归一化后的确定性程序校验。
 
-    The validator intentionally avoids business semantic judgement. It checks
-    only stable program rules: schema shape, evidence metadata, scalar formats,
-    and explicit contradictions that can be verified without understanding a
-    carrier-specific product.
+    Validator 不做业务语义判断，只检查稳定的程序规则：schema 结构、证据字段、
+    标量格式，以及无需理解具体运营商产品也能确认的显式矛盾。
     """
 
     def validate(self, product_document: dict[str, Any]) -> list[dict[str, Any]]:
+        """执行最终程序校验。"""
+
         issues = validate_against_schema(product_document, PRODUCT_DOCUMENT_JSON_SCHEMA)
         issues.extend(self._validate_evidence(product_document))
         issues.extend(self._validate_scalar_formats(product_document))
         issues.extend(self._validate_deterministic_consistency(product_document))
+        issues.extend(self._validate_required_module_completeness(product_document))
         issues.extend(self._validate_cross_module_duplicates(product_document))
         return issues
 
     def attach_issues(self, product_document: dict[str, Any], issues: list[dict[str, Any]]) -> dict[str, Any]:
+        """把程序校验问题追加到 extraction_meta.validation_issues。"""
+
         meta = product_document.setdefault("extraction_meta", {})
         existing = meta.get("validation_issues", [])
         if not isinstance(existing, list):
@@ -48,6 +51,8 @@ class ProductDocumentValidator:
         return product_document
 
     def _validate_evidence(self, product_document: dict[str, Any]) -> list[dict[str, Any]]:
+        """校验关键列表对象是否保留证据、来源和置信度。"""
+
         issues: list[dict[str, Any]] = []
         for key in EVIDENCE_LIST_KEYS:
             for index, item in enumerate(product_document.get(key, [])):
@@ -69,6 +74,8 @@ class ProductDocumentValidator:
         return issues
 
     def _validate_scalar_formats(self, product_document: dict[str, Any]) -> list[dict[str, Any]]:
+        """校验金额、币种、置信度、日期等标量格式。"""
+
         issues: list[dict[str, Any]] = []
         for path, item in iter_dicts(product_document):
             if "confidence" in item:
@@ -78,7 +85,7 @@ class ProductDocumentValidator:
                         {
                             "severity": "warning",
                             "path": f"{path}.confidence",
-                            "message": "confidence must be a number between 0 and 1",
+                            "message": "confidence 必须是 0 到 1 之间的数字",
                             "actual": confidence,
                         }
                     )
@@ -88,7 +95,7 @@ class ProductDocumentValidator:
                     {
                         "severity": "warning",
                         "path": f"{path}.currency",
-                        "message": "currency should be normalized to CNY or left empty",
+                        "message": "currency 应归一化为 CNY 或留空",
                         "actual": item.get("currency"),
                     }
                 )
@@ -98,7 +105,7 @@ class ProductDocumentValidator:
                     {
                         "severity": "error",
                         "path": f"{path}.price",
-                        "message": "price must be numeric when present",
+                        "message": "price 有值时必须是数字",
                         "actual": item.get("price"),
                     }
                 )
@@ -108,7 +115,7 @@ class ProductDocumentValidator:
                     {
                         "severity": "error",
                         "path": f"{path}.amount",
-                        "message": "amount must be numeric when present",
+                        "message": "amount 有值时必须是数字",
                         "actual": item.get("amount"),
                     }
                 )
@@ -119,7 +126,7 @@ class ProductDocumentValidator:
                     {
                         "severity": "error",
                         "path": f"{path}.contract_period",
-                        "message": "contract_period looks like a billing/unit value, not an agreement term",
+                        "message": "contract_period 看起来是计费/计量单位，不是真实协议期限",
                         "actual": contract_period,
                     }
                 )
@@ -133,13 +140,15 @@ class ProductDocumentValidator:
                         {
                             "severity": "warning",
                             "path": f"document_info.{key}",
-                            "message": "date value is not in a recognizable format",
+                            "message": "日期值不是可识别格式",
                             "actual": value,
                         }
                     )
         return issues
 
     def _validate_deterministic_consistency(self, product_document: dict[str, Any]) -> list[dict[str, Any]]:
+        """校验文件名、路径、状态等确定性一致性。"""
+
         issues: list[dict[str, Any]] = []
         document_info = product_document.get("document_info", {})
         base_package = product_document.get("base_package", {})
@@ -156,7 +165,7 @@ class ProductDocumentValidator:
                 {
                     "severity": "error",
                     "path": "document_info.document_status",
-                    "message": "path or filename indicates inactive document but document_status is active",
+                    "message": "路径或文件名显示文档已停用，但 document_status 为 active",
                 }
             )
 
@@ -165,7 +174,7 @@ class ProductDocumentValidator:
                 {
                     "severity": "warning",
                     "path": "document_info.document_status",
-                    "message": "effective_from is in the future; document_status should be reviewed before publishing",
+                    "message": "effective_from 是未来日期，发布前需要复核 document_status",
                 }
             )
 
@@ -181,14 +190,49 @@ class ProductDocumentValidator:
                             {
                                 "severity": "error",
                                 "path": f"base_package.packages[{index}].has_voice",
-                                "message": "has_voice contradicts filename or source path",
+                                "message": "has_voice 与文件名或来源路径矛盾",
                                 "expected": expected_voice,
                                 "actual": actual_voice,
                             }
                         )
         return issues
 
+    def _validate_required_module_completeness(self, product_document: dict[str, Any]) -> list[dict[str, Any]]:
+        """校验申请类文档的关键模块是否为空。
+
+        这里不判断具体业务语义，只做结构完整性兜底：申请表/登记表如果完全没有申请字段，
+        后续审核和推荐都无法使用，必须暴露为程序问题。
+        """
+
+        document_info = product_document.get("document_info", {})
+        parties = product_document.get("parties_and_application", {})
+        if not isinstance(document_info, dict) or not isinstance(parties, dict):
+            return []
+
+        document_text = " ".join(
+            str(document_info.get(key, ""))
+            for key in ("document_type", "title", "filename", "source_path")
+        )
+        if not any(marker in document_text for marker in ("申请登记表", "申请表", "登记表", "办理单", "受理单")):
+            return []
+
+        fields = parties.get("application_fields", {})
+        required = fields.get("required", []) if isinstance(fields, dict) else []
+        optional = fields.get("optional", []) if isinstance(fields, dict) else []
+        if required or optional:
+            return []
+
+        return [
+            {
+                "severity": "error",
+                "path": "parties_and_application.application_fields",
+                "message": "申请表没有抽取到任何 application_fields",
+            }
+        ]
+
     def _validate_cross_module_duplicates(self, product_document: dict[str, Any]) -> list[dict[str, Any]]:
+        """校验客户申请字段是否被重复放入基础套餐属性。"""
+
         application_names, application_evidence = collect_application_field_signatures(product_document)
         issues: list[dict[str, Any]] = []
         for index, item in enumerate(product_document.get("base_package", {}).get("service_attributes", [])):
@@ -201,7 +245,7 @@ class ProductDocumentValidator:
                     {
                         "severity": "warning",
                         "path": f"base_package.service_attributes[{index}]",
-                        "message": "service attribute duplicates an application field source_evidence",
+                        "message": "基础套餐属性重复了申请字段的 source_evidence",
                     }
                 )
             elif name and name in application_names and is_customer_application_name(name):
@@ -209,28 +253,31 @@ class ProductDocumentValidator:
                     {
                         "severity": "warning",
                         "path": f"base_package.service_attributes[{index}]",
-                        "message": f"customer application field should not be duplicated in base package attributes: {name}",
+                        "message": f"客户申请字段不应重复出现在基础套餐属性中：{name}",
                     }
                 )
         return issues
 
 
 def validate_item_evidence(item: dict[str, Any], path: str) -> list[dict[str, Any]]:
+    """校验单条业务对象的证据信息。"""
+
     issues: list[dict[str, Any]] = []
     if not item.get("source_evidence"):
-        issues.append({"severity": "warning", "path": f"{path}.source_evidence", "message": "missing source evidence"})
+        issues.append({"severity": "warning", "path": f"{path}.source_evidence", "message": "缺少 source_evidence"})
 
     location = item.get("source_location")
     if item.get("source_evidence") and isinstance(location, dict) and not location.get("path"):
-        issues.append({"severity": "warning", "path": f"{path}.source_location.path", "message": "missing source file path"})
+        issues.append({"severity": "warning", "path": f"{path}.source_location.path", "message": "缺少来源文件路径"})
 
     if "confidence" not in item:
-        issues.append({"severity": "warning", "path": f"{path}.confidence", "message": "missing confidence"})
+        issues.append({"severity": "warning", "path": f"{path}.confidence", "message": "缺少 confidence"})
     return issues
 
 
 def validate_against_schema(value: Any, schema: dict[str, Any], path: str = "$") -> list[dict[str, Any]]:
-    """Recursively validate extracted JSON against the local schema definition."""
+    """递归校验抽取 JSON 是否符合本地 schema 定义。"""
+
     issues: list[dict[str, Any]] = []
     expected_type = schema.get("type")
 
@@ -239,7 +286,7 @@ def validate_against_schema(value: Any, schema: dict[str, Any], path: str = "$")
             {
                 "severity": "error",
                 "path": path,
-                "message": "type mismatch",
+                "message": "类型不匹配",
                 "expected": expected_type,
                 "actual": type(value).__name__,
             }
@@ -252,7 +299,7 @@ def validate_against_schema(value: Any, schema: dict[str, Any], path: str = "$")
             {
                 "severity": "error",
                 "path": path,
-                "message": "value is not in allowed enum",
+                "message": "值不在允许的枚举范围内",
                 "expected": enum_values,
                 "actual": value,
             }
@@ -268,7 +315,7 @@ def validate_against_schema(value: Any, schema: dict[str, Any], path: str = "$")
                     {
                         "severity": "error",
                         "path": f"{path}.{key}",
-                        "message": "missing required schema field",
+                        "message": "缺少 schema 必需字段",
                     }
                 )
         if schema.get("additionalProperties") is False:
@@ -276,9 +323,9 @@ def validate_against_schema(value: Any, schema: dict[str, Any], path: str = "$")
                 if key not in properties:
                     issues.append(
                         {
-                            "severity": "error",
-                            "path": f"{path}.{key}",
-                            "message": "unexpected field not defined in schema",
+                        "severity": "error",
+                        "path": f"{path}.{key}",
+                        "message": "出现 schema 未定义的多余字段",
                         }
                     )
         for key, child_value in value.items():
@@ -297,6 +344,8 @@ def validate_against_schema(value: Any, schema: dict[str, Any], path: str = "$")
 
 
 def collect_application_field_signatures(product_document: dict[str, Any]) -> tuple[set[str], set[str]]:
+    """收集申请字段的名称和证据签名，用于跨模块重复检测。"""
+
     fields = product_document.get("parties_and_application", {}).get("application_fields", {})
     names: set[str] = set()
     evidence_values: set[str] = set()
@@ -320,6 +369,8 @@ def collect_application_field_signatures(product_document: dict[str, Any]) -> tu
 
 
 def iter_dicts(value: Any, path: str = "$"):
+    """遍历嵌套 JSON 中的所有 dict 节点。"""
+
     if isinstance(value, dict):
         yield path, value
         for key, child in value.items():
@@ -330,6 +381,8 @@ def iter_dicts(value: Any, path: str = "$"):
 
 
 def _matches_type(value: Any, expected_type: Any) -> bool:
+    """判断值是否匹配 schema type。"""
+
     if expected_type is None:
         return True
     if isinstance(expected_type, list):
@@ -338,6 +391,8 @@ def _matches_type(value: Any, expected_type: Any) -> bool:
 
 
 def _matches_single_type(value: Any, expected_type: str) -> bool:
+    """判断值是否匹配单个 schema type。"""
+
     if expected_type == "null":
         return value is None
     if expected_type == "object":
@@ -356,6 +411,8 @@ def _matches_single_type(value: Any, expected_type: str) -> bool:
 
 
 def _effective_schema_type(expected_type: Any, value: Any) -> str | None:
+    """从联合类型中选择当前值实际命中的 schema type。"""
+
     if isinstance(expected_type, str):
         return expected_type
     if not isinstance(expected_type, list):
@@ -367,10 +424,14 @@ def _effective_schema_type(expected_type: Any, value: Any) -> str | None:
 
 
 def is_number(value: Any) -> bool:
+    """判断值是否为非布尔数字。"""
+
     return isinstance(value, (int, float)) and not isinstance(value, bool)
 
 
 def looks_like_billing_unit(value: str) -> bool:
+    """判断 contract_period 是否被误填成计费/计量单位。"""
+
     compact = normalize_compact_text(value)
     invalid_values = {"线", "次", "月", "年", "元", "元/月", "元/年", "月/线", "年/线", "元/月/线", "元/年/线"}
     if compact in invalid_values:
@@ -379,6 +440,8 @@ def looks_like_billing_unit(value: str) -> bool:
 
 
 def looks_like_date(value: Any) -> bool:
+    """判断日期字符串是否为可识别格式。"""
+
     text = str(value).strip()
     if not text:
         return True
@@ -389,11 +452,15 @@ def looks_like_date(value: Any) -> bool:
 
 
 def is_future_date(value: str) -> bool:
+    """判断日期是否晚于当前日期。"""
+
     parsed = parse_date(value)
     return bool(parsed and parsed > date.today())
 
 
 def parse_date(value: str) -> date | None:
+    """解析常见中文/数字日期格式。"""
+
     text = str(value).strip()
     if not text:
         return None
@@ -407,6 +474,8 @@ def parse_date(value: str) -> date | None:
 
 
 def voice_hint_from_text(value: str) -> bool | None:
+    """从文件名或路径中提取带语音/不带语音提示。"""
+
     if "不带语音" in value or "无语音" in value:
         return False
     if "带语音" in value or "含语音" in value:
@@ -415,6 +484,8 @@ def voice_hint_from_text(value: str) -> bool | None:
 
 
 def is_customer_application_name(value: str) -> bool:
+    """判断字段名是否属于客户申请表字段。"""
+
     names = {
         "企业规模",
         "计算机数量",
@@ -432,8 +503,12 @@ def is_customer_application_name(value: str) -> bool:
 
 
 def canonical_name(value: str) -> str:
+    """生成字段名比较用的规范化文本。"""
+
     return normalize_compact_text(value).replace("*", "").replace("□", "")
 
 
 def normalize_compact_text(value: str) -> str:
+    """去除空白，便于做文本比较。"""
+
     return re.sub(r"\s+", "", value or "")

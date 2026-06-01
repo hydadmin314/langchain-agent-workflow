@@ -28,7 +28,7 @@ COMMON_EXTRACTION_RULES = f"""
 1. 只依据输入文档块，不要编造。
 2. 无法确定的字符串填 ""，数字填 null，布尔填 null，数组填 []，对象填 {{}}。
 3. 保留原文证据，source_evidence 必须是文档中真实出现的片段。
-4. source_location 必须来自文档块中的 source_location。
+4. 当前输入是 MarkItDown 生成的纯 Markdown，不再包含 source_location 注释；source_evidence 必须来自原文，source_location 无法精确定位时填 {{}}。
 5. 同一事实不要重复输出；但不同套餐、不同费用、不同材料、不同条款必须分别输出。
 6. 不要把可选权益包误填到基础套餐字段。
 7. 不要把表单字段标签误当作办理材料，例如“身份证号码”不是“经办人身份证复印件”。
@@ -45,8 +45,9 @@ COMMON_EXTRACTION_RULES = f"""
 
 
 DOCUMENT_CONTEXT_TEMPLATE = """
-文档内容如下，格式为 Markdown。每个段落或表格行前都有 HTML 注释形式的 source 元数据，
-其中包含 block_id、block_type 和 source_location。抽取 source_location 时必须使用这些 source 元数据。
+文档内容如下，格式为 MarkItDown 转换后的纯 Markdown。
+请只依据下面的 Markdown 原文抽取；不要假设存在隐藏的 source 注释或额外元数据。
+source_evidence 必须截取自 Markdown 原文；source_location 无法从 Markdown 精确定位时填 {{}}。
 
 {document_blocks}
 """
@@ -128,7 +129,7 @@ contract_period 只能填写“一年、二年、24个月、至某日期”等�
 
 
 SELF_CHECK_PROMPT = """
-你只做 JSON 自检，不重新抽取。
+你只做语义质量自检，并判断是否需要触发模块返工；本步骤不重新抽取、不补字段。
 检查目标：
 1. 是否存在列表字段只输出一条但 source_evidence 中明显包含多条业务事实。
 2. 是否把可选包/权益包误放入基础套餐。
@@ -136,16 +137,23 @@ SELF_CHECK_PROMPT = """
 4. 是否缺少 source_evidence、source_location 或 confidence。
 5. 是否存在金额、期限、适用条件归属错误。
 6. 是否有字段类型不符合 schema。
+7. 是否存在字段之间的明显矛盾，例如同一事实在两个模块里表达冲突。
 
 自检边界：
-1. 只报告“当前 JSON 已经存在”的确定问题，不要基于常识、推断或业务经验提出补抽建议。
+1. 只根据当前 JSON 判断语义质量问题；不要补字段，不要输出修复后的业务数据。
 2. 不要要求补充原文没有明确列出的 included_items；例如不能因为套餐有带宽，就建议凭推断新增“互联网接入”等包含项。
 3. schema_warnings 只输出简短字符串，不要输出对象、字典或嵌套 JSON。
 4. validation_issues 每条必须包含 severity、path、message 三个字段；不要使用 type、field_path、issue 等自创字段。
+5. 如果问题需要回到原始 Markdown 重新抽取，请在 llm_self_check.rework_modules 中明确列出模块名和原因。
+6. rework_modules 只能使用这 9 个模块名：document_info、parties_and_application、base_package、optional_packages、fee_and_term_rules、agreement_rules、application_materials、eligibility_and_constraints、supplemental_rules。
+7. 申请表字段完全为空、schema 字段缺失、confidence 类型错误、currency 格式错误、路径状态矛盾等确定性问题由程序校验负责；除非它们导致语义错放或字段冲突，否则不要在 self_check 中重复报告。
 
 只输出一个对象：
 {
-  "llm_self_check": {},
+  "llm_self_check": {
+    "needs_rework": false,
+    "rework_modules": []
+  },
   "validation_issues": [],
   "schema_warnings": []
 }
@@ -161,6 +169,7 @@ SELF_CHECK_PROMPT = """
 8. base_package.packages 中多个档位可以共享同一个 package_name，只要 speed、price、billing_period、contract_period 或 package_code 能区分，不要把重复 package_name 报为错误。
 9. optional_packages.options 的 schema 是字符串数组；字符串可以保留原文中的必要说明。不要因为 options 不是纯标签就报 schema 错误，除非它明显混入了其它无关产品或整段合同条款。
 10. base_package.included_items 的 schema 是开放对象，不要求必须有 item_name；不要发明 included_items 的必填字段。
+11. 如果发现可选包被放入基础套餐、费用规则归属错误、source_evidence 中多条事实被合并成一条、或者模块之间语义冲突，可以把对应模块加入 rework_modules。
 """
 
 
@@ -205,6 +214,32 @@ def build_compact_module_prompt(module_name: str, document_blocks: str) -> str:
 
 def build_self_check_prompt(product_json: str) -> str:
     return "\n\n".join([COMMON_EXTRACTION_RULES, SELF_CHECK_PROMPT, f"待检查 JSON：\n{product_json}"])
+
+
+def build_module_rework_prompt(
+    module_name: str,
+    document_blocks: str,
+    previous_module_json: str,
+    rework_reason: str,
+) -> str:
+    if module_name not in MODULE_PROMPTS:
+        raise KeyError(f"Unknown extraction module: {module_name}")
+    return "\n\n".join(
+        [
+            COMMON_EXTRACTION_RULES,
+            module_output_contract(module_name),
+            MODULE_PROMPTS[module_name],
+            "下面是自检发现的问题。请回到原始 Markdown 重新抽取当前模块，不要只修补旧 JSON。",
+            "返工要求：",
+            "1. 只输出当前模块本身的合法 JSON，不解释。",
+            "2. 必须优先解决自检指出的漏抽、错放、字段为空或列表不完整问题。",
+            "3. 只能依据下面的 Markdown 原文重新抽取；旧 JSON 只用于理解问题，不作为事实来源。",
+            f"模块名：{module_name}",
+            f"返工原因：\n{rework_reason}",
+            f"上一次模块 JSON：\n{previous_module_json}",
+            DOCUMENT_CONTEXT_TEMPLATE.format(document_blocks=document_blocks),
+        ]
+    )
 
 
 def build_module_repair_prompt(module_name: str, module_json: str, validation_issues: str) -> str:
