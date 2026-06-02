@@ -1,0 +1,151 @@
+{
+  "说明": "该文件用于判断 self_check 触发的模块返工是否带来有效变化。",
+  "self_check": {
+    "needs_rework": true,
+    "rework_modules": [
+      "base_package",
+      "optional_packages",
+      "fee_and_term_rules",
+      "agreement_rules",
+      "application_materials",
+      "eligibility_and_constraints",
+      "supplemental_rules"
+    ],
+    "validation_issues": [
+      {
+        "severity": "error",
+        "path": "base_package.packages",
+        "message": "base_package.packages is empty, but the document is a service application form for MSTP/SDH/OTN/MPLS-VPN/etc. — these are core telecom circuit products with implicit package structure (e.g., by service_type + port_rate + interface_standard); at minimum, one base package should be inferred or represented via service_attributes or placeholder with source_evidence."
+      },
+      {
+        "severity": "error",
+        "path": "base_package.service_attributes",
+        "message": "service_attributes is empty despite multiple explicit technical attributes present in application fields: '接口标准' (G.703/STM-1/Ethernet/GE/10GE), '业务类型' (MSTP/SDH/OTN/MPLS-VPN), '端口速率', '业务速率(CIR或SCR)' — these are canonical service_attributes and must be extracted as discrete objects with source_evidence."
+      },
+      {
+        "severity": "error",
+        "path": "optional_packages",
+        "message": "optional_packages is empty, but 'IP地址数精品(国内国际国内国际)普通' and '□开账 □开票' suggest optional add-ons or configuration choices; also, 'MPLS-VPN（附表）' and '云专网（附表）' imply supplemental packages referenced externally — these require at least stub entries with source_evidence pointing to '(附表)' notation."
+      },
+      {
+        "severity": "error",
+        "path": "fee_and_term_rules",
+        "message": "fee_and_term_rules is empty, yet the document is a commercial service受理单 — mandatory fee-related fields like '月租费' or '一次性费用' are expected in such forms; absence indicates failure to extract even placeholder or 'to be quoted' rules with confidence > 0."
+      },
+      {
+        "severity": "error",
+        "path": "agreement_rules",
+        "message": "agreement_rules is empty despite presence of contractual fields: '割接联系人', '希望完工日期', '□短信通知 □邮件通知', and '备注：透传/口非透传' — these reflect SLA, notification, and service behavior commitments that belong in agreement_rules, not just application_fields."
+      },
+      {
+        "severity": "error",
+        "path": "application_materials",
+        "message": "application_materials is empty, but standard telecom受理单 requires materials like '营业执照复印件'、'经办人身份证复印件'、'授权书' — their absence suggests failure to apply domain knowledge or fallback heuristics when not explicitly listed; at minimum, generic materials should be populated with low-confidence stubs or noted as 'not specified'."
+      },
+      {
+        "severity": "error",
+        "path": "eligibility_and_constraints",
+        "message": "eligibility_and_constraints is empty despite '业务类型' including regulated services (e.g., '长途', '国际') and '模拟线/光纤（选光纤必填箱号）' implying physical infrastructure constraints — these constitute eligibility conditions and must be captured as rules."
+      },
+      {
+        "severity": "error",
+        "path": "supplemental_rules",
+        "message": "supplemental_rules is empty despite multiple '(附表)' references ('MPLS-VPN（附表）', '云专网（附表）', '商贸翼网通（附表）') — each '(附表)' is an explicit pointer to supplemental contractual or technical annexes and must generate at least one supplemental_rule entry with source_evidence containing '(附表)'."
+      }
+    ],
+    "schema_warnings": [
+      "base_package.included_items is empty — while not strictly required, telecom circuit services almost always include implicit items (e.g., '点对点专线接入', 'SLA保障') that could be inferred from service_type; however, per instructions, no inference is allowed — this is acceptable only if truly absent from source, but given context, likely under-extracted.",
+      "confidence values in application_fields range from 0.5–0.9 — all are valid (0–1), but several low-confidence items (e.g., notification_method=0.5, ip_address_count=0.5) lack disambiguating context; no schema violation, but semantic reliability is reduced."
+    ]
+  },
+  "modules": {
+    "base_package": {
+      "reason": "- 大模型自检要求返工。\n- error | base_package.packages | base_package.packages is empty, but the document is a service application form for MSTP/SDH/OTN/MPLS-VPN/etc. — these are core telecom circuit products with implicit package structure (e.g., by service_type + port_rate + interface_standard); at minimum, one base package should be inferred or represented via service_attributes or placeholder with source_evidence.\n- error | base_package.service_attributes | service_attributes is empty despite multiple explicit technical attributes present in application fields: '接口标准' (G.703/STM-1/Ethernet/GE/10GE), '业务类型' (MSTP/SDH/OTN/MPLS-VPN), '端口速率', '业务速率(CIR或SCR)' — these are canonical service_attributes and must be extracted as discrete objects with source_evidence.",
+      "rework_error": "",
+      "changed": true,
+      "before_summary": {
+        "type": "object",
+        "keys": [
+          "included_items",
+          "packages",
+          "service_attributes",
+          "sla"
+        ],
+        "packages_count": 0,
+        "included_items_count": 0,
+        "service_attributes_count": 0,
+        "sla_keys": []
+      },
+      "after_summary": {
+        "type": "object",
+        "keys": [
+          "included_items",
+          "packages",
+          "service_attributes",
+          "sla"
+        ],
+        "packages_count": 0,
+        "included_items_count": 0,
+        "service_attributes_count": 3,
+        "sla_keys": []
+      },
+      "before": {
+        "packages": [],
+        "included_items": [],
+        "service_attributes": [],
+        "sla": {}
+      },
+      "after": {
+        "packages": [],
+        "included_items": [],
+        "service_attributes": [
+          {
+            "attribute_name": "业务类型",
+            "attribute_value": "",
+            "source_evidence": "业务类型 (MSTP/SDH/OTN/MPLS-VPN)",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+            },
+            "confidence": 0.95
+          },
+          {
+            "attribute_name": "接口标准",
+            "attribute_value": "",
+            "source_evidence": "接口标准 (G.703/STM-1/Ethernet/GE/10GE)",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+            },
+            "confidence": 0.95
+          },
+          {
+            "attribute_name": "端口速率",
+            "attribute_value": "",
+            "source_evidence": "端口速率",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+            },
+            "confidence": 0.9
+          }
+        ],
+        "sla": {}
+      }
+    },
+    "optional_packages": {
+      "reason": "- 大模型自检要求返工。\n- error | optional_packages | optional_packages is empty, but 'IP地址数精品(国内国际国内国际)普通' and '□开账 □开票' suggest optional add-ons or configuration choices; also, 'MPLS-VPN（附表）' and '云专网（附表）' imply supplemental packages referenced externally — these require at least stub entries with source_evidence pointing to '(附表)' notation.",
+      "rework_error": "",
+      "changed": false,
+      "before_summary": {
+        "type": "list",
+        "count": 0,
+        "non_empty_count": 0
+      },
+      "after_summary": {
+        "type": "list",
+        "count": 0,
+        "non_empty_count": 0
+      },
+      "before": [],
+      "after": []
+    }
+  }
+}

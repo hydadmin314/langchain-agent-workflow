@@ -1,0 +1,446 @@
+{
+  "document_info": {
+    "document_id": "doc_c225965347fe",
+    "document_type": "",
+    "title": "",
+    "product_name": "",
+    "product_family": "",
+    "carrier": "",
+    "region": "",
+    "version": "",
+    "effective_from": "",
+    "effective_to": "",
+    "document_status": "active",
+    "filename": "1 商云通客户信息表（代为填写表格用）.xlsx",
+    "source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx",
+    "source_file_type": "xlsx"
+  },
+  "parties_and_application": {
+    "service_provider": {
+      "name": "",
+      "carrier": "",
+      "region": "",
+      "contact_channels": []
+    },
+    "customer": {
+      "name": "",
+      "filled_values": [
+        {}
+      ],
+      "is_blank_form": false
+    },
+    "application_fields": {
+      "required": [
+        {
+          "label": "客户名称",
+          "field_key": "customer_name",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*客户名称",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 1,
+            "column_index": 0,
+            "sheet_name": "Sheet1",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "统一信用代码",
+          "field_key": "unified_social_credit_code",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*统一信用代码",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 2,
+            "column_index": 0,
+            "sheet_name": "Sheet1",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "客户安装地址",
+          "field_key": "installation_address",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*客户安装地址",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 3,
+            "column_index": 0,
+            "sheet_name": "Sheet1",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "商云通使用用途",
+          "field_key": "usage_purpose",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*商云通使用用途",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 4,
+            "column_index": 0,
+            "sheet_name": "Sheet1",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "账单地址",
+          "field_key": "billing_address",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*账单地址",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 5,
+            "column_index": 0,
+            "sheet_name": "Sheet1",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "经办人姓名",
+          "field_key": "applicant_name",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*经办人姓名",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 6,
+            "column_index": 0,
+            "sheet_name": "Sheet1",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "经办人联系电话（手机号码）",
+          "field_key": "applicant_mobile_phone",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "phone",
+          "source_evidence": "*经办人联系电话（手机号码）",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 7,
+            "column_index": 0,
+            "sheet_name": "Sheet1",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "经办人固定电话",
+          "field_key": "applicant_landline",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "phone",
+          "source_evidence": "*经办人固定电话",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 8,
+            "column_index": 0,
+            "sheet_name": "Sheet1",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "经办人身份证号码",
+          "field_key": "applicant_id_number",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*经办人身份证号码",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 9,
+            "column_index": 0,
+            "sheet_name": "Sheet1",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "申请商云通数量",
+          "field_key": "number_of_lines",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*申请商云通数量",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 10,
+            "column_index": 0,
+            "sheet_name": "Sheet1",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "是否开通国际长途功能",
+          "field_key": "international_long_distance_enabled",
+          "required": true,
+          "value": null,
+          "options": [
+            "是",
+            "否"
+          ],
+          "value_type": "single_select",
+          "source_evidence": "*是否开通国际长途功能",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 11,
+            "column_index": 0,
+            "sheet_name": "Sheet1",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx"
+          },
+          "confidence": 0.85
+        },
+        {
+          "label": "呼叫时段",
+          "field_key": "calling_hours",
+          "required": true,
+          "value": "工作日08:30到18：00",
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*呼叫时段 | 工作日08:30到18：00",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 12,
+            "column_index": 0,
+            "sheet_name": "Sheet1",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "呼叫频次",
+          "field_key": "calling_frequency",
+          "required": true,
+          "value": "50次/号/日",
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*呼叫频次 | 50次/号/日",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 13,
+            "column_index": 0,
+            "sheet_name": "Sheet1",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "邮箱",
+          "field_key": "email",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*邮箱",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 14,
+            "column_index": 0,
+            "sheet_name": "Sheet1",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "选择商云通套餐",
+          "field_key": "package_selection",
+          "required": true,
+          "value": null,
+          "options": [
+            "69元",
+            "90元",
+            "45元",
+            "35元",
+            "25元"
+          ],
+          "value_type": "single_select",
+          "source_evidence": "*选择商云通套餐 | 69元 90元 45元 35元 25元",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 15,
+            "column_index": 0,
+            "sheet_name": "Sheet1",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx"
+          },
+          "confidence": 0.85
+        }
+      ],
+      "optional": [
+        {
+          "label": "设备购买情况",
+          "field_key": "device_purchase_status",
+          "required": false,
+          "value": null,
+          "options": [
+            "话机",
+            "网关"
+          ],
+          "value_type": "single_select",
+          "source_evidence": "设备购买情况 | 话机 网关",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 11,
+            "column_index": 1,
+            "sheet_name": "Sheet1",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx"
+          },
+          "confidence": 0.8
+        },
+        {
+          "label": "语音可选包（可叠加，非必选）",
+          "field_key": "voice_optional_package",
+          "required": false,
+          "value": null,
+          "options": [
+            "20元/月/号",
+            "36元/月/号",
+            "48元/月/号",
+            "10元/月/号"
+          ],
+          "value_type": "single_select",
+          "source_evidence": "语音可选包（可叠加，非必选） | 20元/月/号 36元/月/号 48元/月/号 10元/月/号",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 16,
+            "column_index": 0,
+            "sheet_name": "Sheet1",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx"
+          },
+          "confidence": 0.8
+        }
+      ]
+    },
+    "application_notes": []
+  },
+  "base_package": {
+    "packages": [],
+    "included_items": [],
+    "service_attributes": [],
+    "sla": {}
+  },
+  "optional_packages": [],
+  "fee_and_term_rules": [],
+  "agreement_rules": [],
+  "application_materials": [],
+  "eligibility_and_constraints": [],
+  "supplemental_rules": [],
+  "extraction_meta": {
+    "generated_at": "2026-06-02T15:00:36",
+    "source_file": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx",
+    "source_file_hash": "08fb8ae530590b0ff75c944ea009c245d575bc0abbd356fed02e5add45cbfcde",
+    "method": "llm_schema_module_extraction",
+    "llm_self_check": {
+      "needs_rework": true,
+      "rework_modules": [
+        "base_package",
+        "optional_packages"
+      ],
+      "validation_issues": [
+        {
+          "severity": "error",
+          "path": "base_package.packages",
+          "message": "base_package.packages is empty, but source_evidence contains 5 distinct package options ('69元', '90元', '45元', '35元', '25元') under '*选择商云通套餐' — these are clearly base tier packages, not optional add-ons, and must be extracted as individual package objects."
+        },
+        {
+          "severity": "error",
+          "path": "optional_packages",
+          "message": "optional_packages is empty, but source_evidence explicitly lists '语音可选包（可叠加，非必选） | 20元/月/号 36元/月/号 48元/月/号 10元/月/号' — these are 4 distinct optional packages and must each appear as a separate object in optional_packages."
+        }
+      ],
+      "schema_warnings": [],
+      "rework_applied_modules": [
+        "optional_packages"
+      ],
+      "rework_requests": [
+        {
+          "module": "optional_packages",
+          "reason": "- 大模型自检要求返工。\n- error | optional_packages | optional_packages is empty, but source_evidence explicitly lists '语音可选包（可叠加，非必选） | 20元/月/号 36元/月/号 48元/月/号 10元/月/号' — these are 4 distinct optional packages and must each appear as a separate object in optional_packages."
+        }
+      ]
+    },
+    "validation_issues": [],
+    "validation_issue_count": 0,
+    "schema_warnings": [],
+    "review_status": "draft",
+    "raw_category": {
+      "raw_root": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw",
+      "raw_relative_path": "电信号百/1.1 商云通/1 商云通客户信息表（代为填写表格用）.xlsx",
+      "category_path": "电信号百/1.1 商云通",
+      "category_levels": [
+        "电信号百",
+        "1.1 商云通"
+      ]
+    },
+    "source_conversion": {
+      "original_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx",
+      "extraction_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.1 商云通\\1 商云通客户信息表（代为填写表格用）.xlsx",
+      "converted": false,
+      "converter": ""
+    }
+  }
+}

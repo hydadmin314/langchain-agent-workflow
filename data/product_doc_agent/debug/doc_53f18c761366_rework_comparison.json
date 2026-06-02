@@ -1,0 +1,539 @@
+{
+  "说明": "该文件用于判断 self_check 触发的模块返工是否带来有效变化。",
+  "self_check": {
+    "needs_rework": true,
+    "rework_modules": [
+      "base_package",
+      "fee_and_term_rules"
+    ],
+    "validation_issues": [
+      {
+        "severity": "high",
+        "path": "base_package.packages[].included_items",
+        "message": "基础套餐中的 included_items 应该是每个套餐独有的，但当前 JSON 中所有套餐共享相同的 included_items。需要为每个套餐单独列出其包含的项目。"
+      },
+      {
+        "severity": "high",
+        "path": "fee_and_term_rules[].rule_type",
+        "message": "月基本费规则重复且归属错误，应该只在 base_package.packages 中定义一次，而不是在 fee_and_term_rules 中重复列出。"
+      }
+    ],
+    "schema_warnings": [
+      "基础套餐和费用规则之间存在重复信息，导致数据冗余。",
+      "部分字段缺少 source_evidence 和 confidence 值，尽管这些字段在 schema 中是必需的。"
+    ]
+  },
+  "modules": {
+    "base_package": {
+      "reason": "- 大模型自检要求返工。\n- high | base_package.packages[].included_items | 基础套餐中的 included_items 应该是每个套餐独有的，但当前 JSON 中所有套餐共享相同的 included_items。需要为每个套餐单独列出其包含的项目。",
+      "rework_error": "base_package.rework: 大模型请求在 120.6s 后失败；prompt_chars=15598; original_error=APITimeoutError: Request timed out.",
+      "changed": false,
+      "before_summary": {
+        "type": "object",
+        "keys": [
+          "included_items",
+          "packages",
+          "service_attributes",
+          "sla"
+        ],
+        "packages_count": 8,
+        "included_items_count": 5,
+        "service_attributes_count": 3,
+        "sla_keys": []
+      },
+      "after_summary": {
+        "type": "object",
+        "keys": [
+          "included_items",
+          "packages",
+          "service_attributes",
+          "sla"
+        ],
+        "packages_count": 8,
+        "included_items_count": 5,
+        "service_attributes_count": 3,
+        "sla_keys": []
+      },
+      "before": {
+        "packages": [
+          {
+            "package_name": "99元基础套餐",
+            "package_code": "99元基础套餐_月_99",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 99.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "| 99 | 20 | 400 | 0.15 | 3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）—1GB（含）部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 | 0.1 | 国内 | 来电  显示  189邮箱-免费版  天翼云盘-免费版 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "129元基础套餐",
+            "package_code": "129元基础套餐_月_129",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 129.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "| 129 | 30 | 500 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "169元基础套餐",
+            "package_code": "169元基础套餐_月_169",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 169.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "| 169 | 40 | 800 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "199元基础套餐",
+            "package_code": "199元基础套餐_月_199",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 199.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "| 199 | 60 | 1000 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "239元基础套餐",
+            "package_code": "239元基础套餐_月_239",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 239.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "| 239 | 80 | 1000 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "299元基础套餐",
+            "package_code": "299元基础套餐_月_299",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 299.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "| 299 | 100 | 1500 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "399元基础套餐",
+            "package_code": "399元基础套餐_月_399",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 399.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "| 399 | 150 | 2000 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "599元基础套餐",
+            "package_code": "599元基础套餐_月_599",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 599.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "| 599 | 300 | 3000 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          }
+        ],
+        "included_items": [
+          {
+            "item_name": "国内流量",
+            "quantity": 20,
+            "unit": "GB/月",
+            "source_evidence": "| 99 | 20 | 400 | 0.15 | 3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）—1GB（含）部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 | 0.1 | 国内 | 来电  显示  189邮箱-免费版  天翼云盘-免费版 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "国内通话",
+            "quantity": 400,
+            "unit": "分钟/月",
+            "source_evidence": "| 99 | 20 | 400 | 0.15 | 3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）—1GB（含）部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 | 0.1 | 国内 | 来电  显示  189邮箱-免费版  天翼云盘-免费版 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "来电显示",
+            "source_evidence": "| 99 | 20 | 400 | 0.15 | 3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）—1GB（含）部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 | 0.1 | 国内 | 来电  显示  189邮箱-免费版  天翼云盘-免费版 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "189邮箱-免费版",
+            "source_evidence": "| 99 | 20 | 400 | 0.15 | 3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）—1GB（含）部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 | 0.1 | 国内 | 来电  显示  189邮箱-免费版  天翼云盘-免费版 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "天翼云盘-免费版",
+            "source_evidence": "| 99 | 20 | 400 | 0.15 | 3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）—1GB（含）部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 | 0.1 | 国内 | 来电  显示  189邮箱-免费版  天翼云盘-免费版 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          }
+        ],
+        "service_attributes": [
+          {
+            "attribute_name": "国内流量超出后资费",
+            "value": "3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）—1GB（含）部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。",
+            "source_evidence": "| 99 | 20 | 400 | 0.15 | 3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）—1GB（含）部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 | 0.1 | 国内 | 来电  显示  189邮箱-免费版  天翼云盘-免费版 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "attribute_name": "国内短/彩信费用",
+            "value": "0.1",
+            "source_evidence": "| 99 | 20 | 400 | 0.15 | 3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）—1GB（含）部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 | 0.1 | 国内 | 来电  显示  189邮箱-免费版  天翼云盘-免费版 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "attribute_name": "接听免费",
+            "value": "国内",
+            "source_evidence": "| 99 | 20 | 400 | 0.15 | 3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）—1GB（含）部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 | 0.1 | 国内 | 来电  显示  189邮箱-免费版  天翼云盘-免费版 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          }
+        ],
+        "sla": {}
+      },
+      "after": {
+        "packages": [
+          {
+            "package_name": "99元基础套餐",
+            "package_code": "99元基础套餐_月_99",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 99.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "| 99 | 20 | 400 | 0.15 | 3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）—1GB（含）部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 | 0.1 | 国内 | 来电  显示  189邮箱-免费版  天翼云盘-免费版 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "129元基础套餐",
+            "package_code": "129元基础套餐_月_129",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 129.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "| 129 | 30 | 500 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "169元基础套餐",
+            "package_code": "169元基础套餐_月_169",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 169.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "| 169 | 40 | 800 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "199元基础套餐",
+            "package_code": "199元基础套餐_月_199",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 199.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "| 199 | 60 | 1000 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "239元基础套餐",
+            "package_code": "239元基础套餐_月_239",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 239.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "| 239 | 80 | 1000 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "299元基础套餐",
+            "package_code": "299元基础套餐_月_299",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 299.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "| 299 | 100 | 1500 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "399元基础套餐",
+            "package_code": "399元基础套餐_月_399",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 399.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "| 399 | 150 | 2000 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "599元基础套餐",
+            "package_code": "599元基础套餐_月_599",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 599.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "| 599 | 300 | 3000 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          }
+        ],
+        "included_items": [
+          {
+            "item_name": "国内流量",
+            "quantity": 20,
+            "unit": "GB/月",
+            "source_evidence": "| 99 | 20 | 400 | 0.15 | 3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）—1GB（含）部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 | 0.1 | 国内 | 来电  显示  189邮箱-免费版  天翼云盘-免费版 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "国内通话",
+            "quantity": 400,
+            "unit": "分钟/月",
+            "source_evidence": "| 99 | 20 | 400 | 0.15 | 3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）—1GB（含）部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 | 0.1 | 国内 | 来电  显示  189邮箱-免费版  天翼云盘-免费版 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "来电显示",
+            "source_evidence": "| 99 | 20 | 400 | 0.15 | 3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）—1GB（含）部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 | 0.1 | 国内 | 来电  显示  189邮箱-免费版  天翼云盘-免费版 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "189邮箱-免费版",
+            "source_evidence": "| 99 | 20 | 400 | 0.15 | 3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）—1GB（含）部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 | 0.1 | 国内 | 来电  显示  189邮箱-免费版  天翼云盘-免费版 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "天翼云盘-免费版",
+            "source_evidence": "| 99 | 20 | 400 | 0.15 | 3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）—1GB（含）部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 | 0.1 | 国内 | 来电  显示  189邮箱-免费版  天翼云盘-免费版 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          }
+        ],
+        "service_attributes": [
+          {
+            "attribute_name": "国内流量超出后资费",
+            "value": "3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）—1GB（含）部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。",
+            "source_evidence": "| 99 | 20 | 400 | 0.15 | 3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）—1GB（含）部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 | 0.1 | 国内 | 来电  显示  189邮箱-免费版  天翼云盘-免费版 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "attribute_name": "国内短/彩信费用",
+            "value": "0.1",
+            "source_evidence": "| 99 | 20 | 400 | 0.15 | 3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）—1GB（含）部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 | 0.1 | 国内 | 来电  显示  189邮箱-免费版  天翼云盘-免费版 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "attribute_name": "接听免费",
+            "value": "国内",
+            "source_evidence": "| 99 | 20 | 400 | 0.15 | 3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）—1GB（含）部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 | 0.1 | 国内 | 来电  显示  189邮箱-免费版  天翼云盘-免费版 |",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\3.1 5G畅享\\2 5G畅享套餐新版营销规则.docx"
+            },
+            "confidence": 0.9
+          }
+        ],
+        "sla": {}
+      }
+    }
+  }
+}

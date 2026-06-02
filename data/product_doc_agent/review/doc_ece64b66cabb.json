@@ -1,0 +1,199 @@
+{
+  "document_info": {
+    "document_id": "doc_ece64b66cabb",
+    "document_type": "",
+    "title": "",
+    "product_name": "",
+    "product_family": "",
+    "carrier": "",
+    "region": "",
+    "version": "",
+    "effective_from": "",
+    "effective_to": "",
+    "document_status": "active",
+    "filename": "1 【铅印版】中国联通互联网专线接入业务（沃专线类）新装申请表.pdf",
+    "source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\联通\\1.1 沃专线\\1 【铅印版】中国联通互联网专线接入业务（沃专线类）新装申请表.pdf",
+    "source_file_type": "pdf"
+  },
+  "parties_and_application": {
+    "service_provider": {
+      "name": "",
+      "carrier": "",
+      "region": "",
+      "contact_channels": []
+    },
+    "customer": {
+      "name": "",
+      "filled_values": [
+        {}
+      ],
+      "is_blank_form": true
+    },
+    "application_fields": {
+      "required": [
+        {
+          "label": "",
+          "field_key": "",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\联通\\1.1 沃专线\\1 【铅印版】中国联通互联网专线接入业务（沃专线类）新装申请表.pdf"
+          },
+          "confidence": 0.0
+        }
+      ],
+      "optional": [
+        {
+          "label": "",
+          "field_key": "",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\联通\\1.1 沃专线\\1 【铅印版】中国联通互联网专线接入业务（沃专线类）新装申请表.pdf"
+          },
+          "confidence": 0.0
+        }
+      ]
+    },
+    "application_notes": []
+  },
+  "base_package": {
+    "packages": [],
+    "included_items": [],
+    "service_attributes": [],
+    "sla": {}
+  },
+  "optional_packages": [],
+  "fee_and_term_rules": [],
+  "agreement_rules": [],
+  "application_materials": [],
+  "eligibility_and_constraints": [],
+  "supplemental_rules": [],
+  "extraction_meta": {
+    "generated_at": "2026-06-02T16:32:37",
+    "source_file": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\联通\\1.1 沃专线\\1 【铅印版】中国联通互联网专线接入业务（沃专线类）新装申请表.pdf",
+    "source_file_hash": "26ebdb0143ea2ed9903002d7da0e0da0dd95131e52737830faed3b746bd2b92a",
+    "method": "llm_schema_module_extraction",
+    "llm_self_check": {
+      "needs_rework": true,
+      "rework_modules": [
+        "document_info",
+        "parties_and_application",
+        "base_package",
+        "application_materials"
+      ],
+      "validation_issues": [
+        {
+          "severity": "high",
+          "path": "document_info",
+          "message": "多个字段为空字符串或null，需要从原文中抽取相应信息。"
+        },
+        {
+          "severity": "high",
+          "path": "parties_and_application.service_provider",
+          "message": "服务提供商名称、运营商、地区等字段为空字符串，需要从原文中抽取相应信息。"
+        },
+        {
+          "severity": "high",
+          "path": "parties_and_application.customer.filled_values",
+          "message": "客户填写值为空数组，需确认是否为实际空白表单或未正确抽取。"
+        },
+        {
+          "severity": "high",
+          "path": "parties_and_application.application_fields.required",
+          "message": "所有必填字段均为空字符串或null，需确认是否为实际空白表单或未正确抽取。"
+        },
+        {
+          "severity": "high",
+          "path": "parties_and_application.application_fields.optional",
+          "message": "所有选填字段均为空字符串或null，需确认是否为实际空白表单或未正确抽取。"
+        },
+        {
+          "severity": "high",
+          "path": "base_package.packages",
+          "message": "基础套餐包为空数组，需确认是否有相关套餐信息并进行抽取。"
+        },
+        {
+          "severity": "high",
+          "path": "base_package.included_items",
+          "message": "包含项为空数组，需确认是否有相关包含项信息并进行抽取。"
+        },
+        {
+          "severity": "high",
+          "path": "base_package.service_attributes",
+          "message": "服务属性为空数组，需确认是否有相关服务属性信息并进行抽取。"
+        },
+        {
+          "severity": "high",
+          "path": "optional_packages",
+          "message": "可选包为空数组，需确认是否有相关可选包信息并进行抽取。"
+        },
+        {
+          "severity": "high",
+          "path": "fee_and_term_rules",
+          "message": "费用和期限规则为空数组，需确认是否有相关费用和期限信息并进行抽取。"
+        },
+        {
+          "severity": "high",
+          "path": "agreement_rules",
+          "message": "协议规则为空数组，需确认是否有相关协议信息并进行抽取。"
+        },
+        {
+          "severity": "high",
+          "path": "application_materials",
+          "message": "办理材料为空数组，需确认是否有相关办理材料信息并进行抽取。"
+        },
+        {
+          "severity": "high",
+          "path": "eligibility_and_constraints",
+          "message": "准入条件和限制规则为空数组，需确认是否有相关准入条件和限制信息并进行抽取。"
+        },
+        {
+          "severity": "high",
+          "path": "supplemental_rules",
+          "message": "补充规则为空数组，需确认是否有相关补充规则信息并进行抽取。"
+        }
+      ],
+      "schema_warnings": [
+        "document_info 中的多个字段为空字符串或null，建议重新检查文档内容。",
+        "parties_and_application 中的服务提供商和客户信息未完全抽取。",
+        "base_package 中的基础套餐包、包含项和服务属性未抽取到任何信息。",
+        "application_materials 中没有列出任何办理材料，需确认是否为实际空白表单或未正确抽取。"
+      ],
+      "rework_applied_modules": [
+        "base_package"
+      ],
+      "rework_requests": [
+        {
+          "module": "base_package",
+          "reason": "- 大模型自检要求返工。\n- high | base_package.packages | 基础套餐包为空数组，需确认是否有相关套餐信息并进行抽取。\n- high | base_package.included_items | 包含项为空数组，需确认是否有相关包含项信息并进行抽取。\n- high | base_package.service_attributes | 服务属性为空数组，需确认是否有相关服务属性信息并进行抽取。"
+        }
+      ]
+    },
+    "validation_issues": [],
+    "validation_issue_count": 0,
+    "schema_warnings": [],
+    "review_status": "draft",
+    "raw_category": {
+      "raw_root": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw",
+      "raw_relative_path": "联通/1.1 沃专线/1 【铅印版】中国联通互联网专线接入业务（沃专线类）新装申请表.pdf",
+      "category_path": "联通/1.1 沃专线",
+      "category_levels": [
+        "联通",
+        "1.1 沃专线"
+      ]
+    },
+    "source_conversion": {
+      "original_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\联通\\1.1 沃专线\\1 【铅印版】中国联通互联网专线接入业务（沃专线类）新装申请表.pdf",
+      "extraction_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\联通\\1.1 沃专线\\1 【铅印版】中国联通互联网专线接入业务（沃专线类）新装申请表.pdf",
+      "converted": false,
+      "converter": ""
+    }
+  }
+}

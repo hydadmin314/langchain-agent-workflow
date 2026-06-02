@@ -1,0 +1,136 @@
+{
+  "说明": "该文件用于判断 self_check 触发的模块返工是否带来有效变化。",
+  "self_check": {
+    "needs_rework": true,
+    "rework_modules": [
+      "base_package",
+      "optional_packages",
+      "fee_and_term_rules",
+      "agreement_rules",
+      "application_materials",
+      "eligibility_and_constraints",
+      "supplemental_rules"
+    ],
+    "validation_issues": [
+      {
+        "severity": "error",
+        "path": "base_package.packages",
+        "message": "base_package.packages is empty, but the document is a service application form for BGP/IPMAN services — at minimum, service_type options (e.g., 'MPLS-VPN（附表）', '云专网（附表）') imply concrete product packages; these must be extracted as distinct packages with name, code, or service_type linkage where evidence exists."
+      },
+      {
+        "severity": "error",
+        "path": "base_package.service_attributes",
+        "message": "interface_standard and port_rate are explicitly listed in application fields with enumerated options (e.g., 'G.703', 'STM-1', 'Ethernet', 'GE', '10GE'), indicating they are core service attributes — they must appear in base_package.service_attributes, not only in application_fields."
+      },
+      {
+        "severity": "error",
+        "path": "optional_packages",
+        "message": "The presence of '(附表)' suffix in multiple service_type options (e.g., 'MPLS-VPN（附表）', '云专网（附表）', '商贸翼网通（附表）') strongly implies attached optional/ancillary packages — these must be represented as separate objects in optional_packages, not omitted."
+      },
+      {
+        "severity": "error",
+        "path": "fee_and_term_rules",
+        "message": "No fee, term, or billing rules extracted despite explicit application fields like '多月付：__ __（个月）', '帐单寄达地址', and 'IT开账 账单合并并帐设备号' — these indicate billing cycle, consolidation, and payment terms that belong in fee_and_term_rules."
+      },
+      {
+        "severity": "error",
+        "path": "agreement_rules",
+        "message": "Fields such as '割接联系人' and '希望完工日期' imply SLA, implementation timelines, and service commencement obligations — these constitute agreement-level rules and must be captured in agreement_rules, not left unextracted."
+      },
+      {
+        "severity": "error",
+        "path": "application_materials",
+        "message": "Application fields like '客户名称(中英文)', '甲端 名称', '乙端 名称', 'E-mail地址', '帐单寄达地址', and 'IP地址数...' are labels — but the *requirement to provide* those values implies supporting materials (e.g., '营业执照复印件', '双方盖章确认函', 'IP地址分配说明') — absence of any application_materials violates principle #7 (don’t mistake labels for materials) *only if no materials are present*, but here zero materials contradicts standard telecom受理 practice and document context; at minimum, '加盖公章的申请表' or '双方有效证件' should be inferred from form usage and must be extracted or marked as unknown with confidence."
+      },
+      {
+        "severity": "error",
+        "path": "eligibility_and_constraints",
+        "message": "service_type includes '其他' and conditional phrasing like '（选光纤必填箱号）', '（附表）', and '透传/口非透传' — these reflect technical eligibility constraints and service-specific prerequisites that must be captured in eligibility_and_constraints."
+      }
+    ],
+    "schema_warnings": [
+      "base_package.included_items is empty — while not strictly required, omission without justification contradicts typical telecom service forms where bandwidth, ports, or IP counts are core inclusions; however, per self-check boundary #2, no inference is allowed — this is not reported as error unless source_evidence explicitly lists inclusions.",
+      "confidence scores below 0.6 (e.g., 0.5 for notification_method and billing_and_invoicing) are low but acceptable per schema; no violation detected.",
+      "All array fields are correctly typed (e.g., options are string arrays); no schema type violation found."
+    ]
+  },
+  "modules": {
+    "base_package": {
+      "reason": "- 大模型自检要求返工。\n- error | base_package.packages | base_package.packages is empty, but the document is a service application form for BGP/IPMAN services — at minimum, service_type options (e.g., 'MPLS-VPN（附表）', '云专网（附表）') imply concrete product packages; these must be extracted as distinct packages with name, code, or service_type linkage where evidence exists.\n- error | base_package.service_attributes | interface_standard and port_rate are explicitly listed in application fields with enumerated options (e.g., 'G.703', 'STM-1', 'Ethernet', 'GE', '10GE'), indicating they are core service attributes — they must appear in base_package.service_attributes, not only in application_fields.",
+      "rework_error": "",
+      "changed": false,
+      "before_summary": {
+        "type": "object",
+        "keys": [
+          "included_items",
+          "packages",
+          "service_attributes",
+          "sla"
+        ],
+        "packages_count": 0,
+        "included_items_count": 0,
+        "service_attributes_count": 0,
+        "sla_keys": []
+      },
+      "after_summary": {
+        "type": "object",
+        "keys": [
+          "included_items",
+          "packages",
+          "service_attributes",
+          "sla"
+        ],
+        "packages_count": 0,
+        "included_items_count": 0,
+        "service_attributes_count": 0,
+        "sla_keys": []
+      },
+      "before": {
+        "packages": [],
+        "included_items": [],
+        "service_attributes": [],
+        "sla": {}
+      },
+      "after": {
+        "packages": [],
+        "included_items": [],
+        "service_attributes": [],
+        "sla": {}
+      }
+    },
+    "fee_and_term_rules": {
+      "reason": "- 大模型自检要求返工。\n- error | fee_and_term_rules | No fee, term, or billing rules extracted despite explicit application fields like '多月付：__ __（个月）', '帐单寄达地址', and 'IT开账 账单合并并帐设备号' — these indicate billing cycle, consolidation, and payment terms that belong in fee_and_term_rules.",
+      "rework_error": "",
+      "changed": false,
+      "before_summary": {
+        "type": "list",
+        "count": 0,
+        "non_empty_count": 0
+      },
+      "after_summary": {
+        "type": "list",
+        "count": 0,
+        "non_empty_count": 0
+      },
+      "before": [],
+      "after": []
+    },
+    "optional_packages": {
+      "reason": "- 大模型自检要求返工。\n- error | optional_packages | The presence of '(附表)' suffix in multiple service_type options (e.g., 'MPLS-VPN（附表）', '云专网（附表）', '商贸翼网通（附表）') strongly implies attached optional/ancillary packages — these must be represented as separate objects in optional_packages, not omitted.",
+      "rework_error": "",
+      "changed": false,
+      "before_summary": {
+        "type": "list",
+        "count": 0,
+        "non_empty_count": 0
+      },
+      "after_summary": {
+        "type": "list",
+        "count": 0,
+        "non_empty_count": 0
+      },
+      "before": [],
+      "after": []
+    }
+  }
+}

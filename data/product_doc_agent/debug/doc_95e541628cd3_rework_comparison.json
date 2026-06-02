@@ -1,0 +1,751 @@
+{
+  "说明": "该文件用于判断 self_check 触发的模块返工是否带来有效变化。",
+  "self_check": {
+    "needs_rework": true,
+    "rework_modules": [
+      "base_package",
+      "application_materials"
+    ],
+    "validation_issues": [
+      {
+        "severity": "medium",
+        "path": "base_package.included_items",
+        "message": "多个 included_items 对象的 item_name 相同，但没有区分不同套餐或条件。"
+      },
+      {
+        "severity": "high",
+        "path": "application_materials[2]",
+        "message": "营业执照的 source_evidence 不符合实际情况，应重新确认该材料的相关信息。"
+      }
+    ],
+    "schema_warnings": [
+      "部分字段如 base_package.packages.speed、base_package.packages.upstream_speed 等为空字符串，建议检查是否可以从原文中抽取相关信息。",
+      "application_materials 中的部分材料缺少 required 字段的具体值，建议补充完整。"
+    ]
+  },
+  "modules": {
+    "base_package": {
+      "reason": "- 大模型自检要求返工。\n- medium | base_package.included_items | 多个 included_items 对象的 item_name 相同，但没有区分不同套餐或条件。",
+      "rework_error": "",
+      "changed": false,
+      "before_summary": {
+        "type": "object",
+        "keys": [
+          "included_items",
+          "packages",
+          "service_attributes",
+          "sla"
+        ],
+        "packages_count": 8,
+        "included_items_count": 16,
+        "service_attributes_count": 2,
+        "sla_keys": []
+      },
+      "after_summary": {
+        "type": "object",
+        "keys": [
+          "included_items",
+          "packages",
+          "service_attributes",
+          "sla"
+        ],
+        "packages_count": 8,
+        "included_items_count": 16,
+        "service_attributes_count": 2,
+        "sla_keys": []
+      },
+      "before": {
+        "packages": [
+          {
+            "package_name": "99元/月",
+            "package_code": "99元/月_月_99",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 99.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "**□99**",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "129元/月",
+            "package_code": "129元/月_月_129",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 129.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "**□129**",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "169元/月",
+            "package_code": "169元/月_月_169",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 169.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "**□169**",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "199元/月",
+            "package_code": "199元/月_月_199",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 199.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "**□199**",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "239元/月",
+            "package_code": "239元/月_月_239",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 239.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "**□239**",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "299元/月",
+            "package_code": "299元/月_月_299",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 299.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "**□299**",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "399元/月",
+            "package_code": "399元/月_月_399",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 399.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "**□399**",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "599元/月",
+            "package_code": "599元/月_月_599",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 599.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "**□599**",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          }
+        ],
+        "included_items": [
+          {
+            "item_name": "手机国内上网流量(每月)",
+            "quantity": 20,
+            "unit": "GB",
+            "source_evidence": "20GB",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "手机国内上网流量(每月)",
+            "quantity": 30,
+            "unit": "GB",
+            "source_evidence": "30GB",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "手机国内上网流量(每月)",
+            "quantity": 40,
+            "unit": "GB",
+            "source_evidence": "40GB",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "手机国内上网流量(每月)",
+            "quantity": 60,
+            "unit": "GB",
+            "source_evidence": "60GB",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "手机国内上网流量(每月)",
+            "quantity": 80,
+            "unit": "GB",
+            "source_evidence": "80GB",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "手机国内上网流量(每月)",
+            "quantity": 100,
+            "unit": "GB",
+            "source_evidence": "100GB",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "手机国内上网流量(每月)",
+            "quantity": 150,
+            "unit": "GB",
+            "source_evidence": "150GB",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "手机国内上网流量(每月)",
+            "quantity": 300,
+            "unit": "GB",
+            "source_evidence": "300GB",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "国内通话（分钟/月）",
+            "quantity": 400,
+            "unit": "分钟",
+            "source_evidence": "400",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "国内通话（分钟/月）",
+            "quantity": 500,
+            "unit": "分钟",
+            "source_evidence": "500",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "国内通话（分钟/月）",
+            "quantity": 800,
+            "unit": "分钟",
+            "source_evidence": "800",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "国内通话（分钟/月）",
+            "quantity": 1000,
+            "unit": "分钟",
+            "source_evidence": "1000",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "国内通话（分钟/月）",
+            "quantity": 1500,
+            "unit": "分钟",
+            "source_evidence": "1500",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "国内通话（分钟/月）",
+            "quantity": 2000,
+            "unit": "分钟",
+            "source_evidence": "2000",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "国内通话（分钟/月）",
+            "quantity": 3000,
+            "unit": "分钟",
+            "source_evidence": "3000",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "增值业务",
+            "description": "来电显示, 189邮箱",
+            "source_evidence": "1、来电显示  2、189邮箱",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          }
+        ],
+        "service_attributes": [
+          {
+            "attribute_name": "免费接听范围",
+            "value": "国内接听免费（不含中国台湾、中国香港、中国澳门地区）",
+            "source_evidence": "国内接听免费（不含中国台湾、中国香港、中国澳门地区）",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "attribute_name": "新装优惠",
+            "value": "免UIM卡一次性费用",
+            "source_evidence": "免UIM卡一次性费用",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          }
+        ],
+        "sla": {}
+      },
+      "after": {
+        "packages": [
+          {
+            "package_name": "99元/月",
+            "package_code": "99元/月_月_99",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 99.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "**□99**",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "129元/月",
+            "package_code": "129元/月_月_129",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 129.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "**□129**",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "169元/月",
+            "package_code": "169元/月_月_169",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 169.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "**□169**",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "199元/月",
+            "package_code": "199元/月_月_199",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 199.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "**□199**",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "239元/月",
+            "package_code": "239元/月_月_239",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 239.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "**□239**",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "299元/月",
+            "package_code": "299元/月_月_299",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 299.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "**□299**",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "399元/月",
+            "package_code": "399元/月_月_399",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 399.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "**□399**",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "package_name": "599元/月",
+            "package_code": "599元/月_月_599",
+            "speed": "",
+            "upstream_speed": "",
+            "downstream_speed": "",
+            "bandwidth_unit": "",
+            "has_voice": true,
+            "price": 599.0,
+            "currency": "CNY",
+            "billing_period": "月",
+            "contract_period": "",
+            "quantity_limit": "",
+            "applicable_conditions": [],
+            "source_evidence": "**□599**",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          }
+        ],
+        "included_items": [
+          {
+            "item_name": "手机国内上网流量(每月)",
+            "quantity": 20,
+            "unit": "GB",
+            "source_evidence": "20GB",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "手机国内上网流量(每月)",
+            "quantity": 30,
+            "unit": "GB",
+            "source_evidence": "30GB",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "手机国内上网流量(每月)",
+            "quantity": 40,
+            "unit": "GB",
+            "source_evidence": "40GB",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "手机国内上网流量(每月)",
+            "quantity": 60,
+            "unit": "GB",
+            "source_evidence": "60GB",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "手机国内上网流量(每月)",
+            "quantity": 80,
+            "unit": "GB",
+            "source_evidence": "80GB",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "手机国内上网流量(每月)",
+            "quantity": 100,
+            "unit": "GB",
+            "source_evidence": "100GB",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "手机国内上网流量(每月)",
+            "quantity": 150,
+            "unit": "GB",
+            "source_evidence": "150GB",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "手机国内上网流量(每月)",
+            "quantity": 300,
+            "unit": "GB",
+            "source_evidence": "300GB",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "国内通话（分钟/月）",
+            "quantity": 400,
+            "unit": "分钟",
+            "source_evidence": "400",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "国内通话（分钟/月）",
+            "quantity": 500,
+            "unit": "分钟",
+            "source_evidence": "500",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "国内通话（分钟/月）",
+            "quantity": 800,
+            "unit": "分钟",
+            "source_evidence": "800",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "国内通话（分钟/月）",
+            "quantity": 1000,
+            "unit": "分钟",
+            "source_evidence": "1000",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "国内通话（分钟/月）",
+            "quantity": 1500,
+            "unit": "分钟",
+            "source_evidence": "1500",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "国内通话（分钟/月）",
+            "quantity": 2000,
+            "unit": "分钟",
+            "source_evidence": "2000",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "国内通话（分钟/月）",
+            "quantity": 3000,
+            "unit": "分钟",
+            "source_evidence": "3000",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "item_name": "增值业务",
+            "description": "来电显示, 189邮箱",
+            "source_evidence": "1、来电显示  2、189邮箱",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          }
+        ],
+        "service_attributes": [
+          {
+            "attribute_name": "免费接听范围",
+            "value": "国内接听免费（不含中国台湾、中国香港、中国澳门地区）",
+            "source_evidence": "国内接听免费（不含中国台湾、中国香港、中国澳门地区）",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          },
+          {
+            "attribute_name": "新装优惠",
+            "value": "免UIM卡一次性费用",
+            "source_evidence": "免UIM卡一次性费用",
+            "source_location": {
+              "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\3.1 5G畅享\\1 5G畅享套餐申请登记表 .docx"
+            },
+            "confidence": 0.9
+          }
+        ],
+        "sla": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,289 @@
+{
+  "document_info": {
+    "document_id": "doc_76f43de38a7a",
+    "document_type": "大客户需求登记表",
+    "title": "大客户需求登记表",
+    "product_name": "",
+    "product_family": "",
+    "carrier": "",
+    "region": "",
+    "version": "SHCH/Z/JL/B/0/ZG-012-2004",
+    "effective_from": "",
+    "effective_to": "",
+    "document_status": "active",
+    "filename": "2 10月14日启用-表3.转定用的大客户需求表IPRAN(1).docx",
+    "source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.2本地IPRAN\\2 10月14日启用-表3.转定用的大客户需求表IPRAN(1).docx",
+    "source_file_type": "MarkItDown"
+  },
+  "parties_and_application": {
+    "service_provider": {
+      "name": "上海市电信有限公司",
+      "carrier": "",
+      "region": "",
+      "contact_channels": []
+    },
+    "customer": {
+      "name": "",
+      "filled_values": [
+        {
+          "用户名": "",
+          "联系人": "",
+          "联系电话": "",
+          "营业执照号码": "",
+          "经（代 经（代）办人有效证件名称": "身份证",
+          "姓名": "",
+          "证件号码": "",
+          "个人 客标": "",
+          "账单地址": ""
+        }
+      ],
+      "is_blank_form": false
+    },
+    "application_fields": {
+      "required": [
+        {
+          "label": "用户名",
+          "field_key": "username",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "用 户 名 称",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.2本地IPRAN\\2 10月14日启用-表3.转定用的大客户需求表IPRAN(1).docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "联系人",
+          "field_key": "contact_person",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "联 系 人",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.2本地IPRAN\\2 10月14日启用-表3.转定用的大客户需求表IPRAN(1).docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "联系电话",
+          "field_key": "phone_number",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "联系电话",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.2本地IPRAN\\2 10月14日启用-表3.转定用的大客户需求表IPRAN(1).docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "营业执照号码",
+          "field_key": "business_license_number",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "营业执照号码",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.2本地IPRAN\\2 10月14日启用-表3.转定用的大客户需求表IPRAN(1).docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "经（代 经（代）办人有效证件名称",
+          "field_key": "id_type",
+          "required": true,
+          "value": "身份证",
+          "options": [
+            "身份证",
+            "社保卡",
+            "驾驶证"
+          ],
+          "value_type": "string",
+          "source_evidence": "经（代 经（代）办人有效证件名称 | 身份证 社保卡 驾驶证",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.2本地IPRAN\\2 10月14日启用-表3.转定用的大客户需求表IPRAN(1).docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "姓名",
+          "field_key": "name",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "姓 名",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.2本地IPRAN\\2 10月14日启用-表3.转定用的大客户需求表IPRAN(1).docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "证件号码",
+          "field_key": "id_number",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "证件号码",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.2本地IPRAN\\2 10月14日启用-表3.转定用的大客户需求表IPRAN(1).docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "账单地址",
+          "field_key": "billing_address",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "账单地址",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.2本地IPRAN\\2 10月14日启用-表3.转定用的大客户需求表IPRAN(1).docx"
+          },
+          "confidence": 0.5
+        }
+      ],
+      "optional": [
+        {
+          "label": "E-MAIL",
+          "field_key": "email",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "E-MAIL",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.2本地IPRAN\\2 10月14日启用-表3.转定用的大客户需求表IPRAN(1).docx"
+          },
+          "confidence": 0.3
+        },
+        {
+          "label": "业务需求信息",
+          "field_key": "service_requirements",
+          "required": false,
+          "value": "IPRAN",
+          "options": [
+            "IPRAN",
+            "MSTP"
+          ],
+          "value_type": "string",
+          "source_evidence": "**业务需求信息（请在以下需要的项目内打“√”）** | IPRAN MSTP",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.2本地IPRAN\\2 10月14日启用-表3.转定用的大客户需求表IPRAN(1).docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "业务类型",
+          "field_key": "service_type",
+          "required": false,
+          "value": "新装",
+          "options": [
+            "新装",
+            "移机",
+            "拆机",
+            "升速",
+            "降速"
+          ],
+          "value_type": "string",
+          "source_evidence": "业务类型 | 新装 移机 拆机 升速 降速",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.2本地IPRAN\\2 10月14日启用-表3.转定用的大客户需求表IPRAN(1).docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "项目地址",
+          "field_key": "project_address",
+          "required": false,
+          "value": "甲端：上海市浦东新区芳春路400号蓝光科技园 4号楼4楼 （必须到楼层） 乙端：陕西省西安市雁塔区科技二路72号西安软件园零壹广场二层 （必须到楼层）",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "| 新：甲端：上海市浦东新区芳春路400号蓝光科技园 4号楼4楼 （必须到楼层） 乙端：陕西省西安市雁塔区科技二路72号西安软件园零壹广场二层 （必须到楼层） 。。。。。 | | | | | | | | | | | | |",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.2本地IPRAN\\2 10月14日启用-表3.转定用的大客户需求表IPRAN(1).docx"
+          },
+          "confidence": 0.9
+        }
+      ]
+    },
+    "application_notes": [
+      "{'note': '备注（用同一个U1设备的填写前面一根的设备号做参考编号）', 'source_evidence': '| 用户说明 | 备注（用同一个U1设备的填写前面一根的设备号做参考编号） | | | | | | | | | | | | |', 'source_location': {}}",
+      "{'note': '希望完工日期', 'source_evidence': '| 希望完工日期 |  | | | | | | | | | | | | |', 'source_location': {}}"
+    ]
+  },
+  "base_package": {
+    "packages": [],
+    "included_items": [],
+    "service_attributes": [],
+    "sla": {}
+  },
+  "optional_packages": [],
+  "fee_and_term_rules": [],
+  "agreement_rules": [],
+  "application_materials": [],
+  "eligibility_and_constraints": [],
+  "supplemental_rules": [],
+  "extraction_meta": {
+    "generated_at": "2026-06-02T16:13:00",
+    "source_file": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.2本地IPRAN\\2 10月14日启用-表3.转定用的大客户需求表IPRAN(1).docx",
+    "source_file_hash": "2b930fc09b57a83daed22335c6529f8cfda67525785003074c84147c1e081ed0",
+    "method": "llm_schema_module_extraction",
+    "llm_self_check": {
+      "needs_rework": true,
+      "rework_modules": [
+        "parties_and_application",
+        "base_package",
+        "application_materials"
+      ],
+      "validation_issues": [
+        {
+          "severity": "high",
+          "path": "parties_and_application.customer.filled_values",
+          "message": "filled_values should not be an array of objects, but rather individual fields under customer."
+        },
+        {
+          "severity": "medium",
+          "path": "parties_and_application.application_fields.required[4].label",
+          "message": "Label '经（代 经（代）办人有效证件名称' is unclear and possibly incorrect. It should be cleaned up."
+        },
+        {
+          "severity": "medium",
+          "path": "parties_and_application.application_fields.optional[3].value",
+          "message": "The value for '项目地址' contains unnecessary text and should be cleaned up."
+        }
+      ],
+      "schema_warnings": [
+        "parties_and_application.customer.filled_values is incorrectly structured.",
+        "base_package.packages, base_package.included_items, base_package.service_attributes are empty but should contain relevant information based on the document type.",
+        "application_materials is empty but should contain relevant materials based on the document type."
+      ]
+    },
+    "validation_issues": [],
+    "validation_issue_count": 0,
+    "schema_warnings": [],
+    "review_status": "draft",
+    "raw_category": {
+      "raw_root": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw",
+      "raw_relative_path": "电信政企/2.2本地IPRAN/2 10月14日启用-表3.转定用的大客户需求表IPRAN(1).doc",
+      "category_path": "电信政企/2.2本地IPRAN",
+      "category_levels": [
+        "电信政企",
+        "2.2本地IPRAN"
+      ]
+    },
+    "source_conversion": {
+      "original_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.2本地IPRAN\\2 10月14日启用-表3.转定用的大客户需求表IPRAN(1).doc",
+      "extraction_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.2本地IPRAN\\2 10月14日启用-表3.转定用的大客户需求表IPRAN(1).docx",
+      "converted": true,
+      "converter": "microsoft_word_com"
+    }
+  }
+}
