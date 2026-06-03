@@ -12,10 +12,35 @@ os.environ.setdefault("LLM_MAX_RETRIES", "0")
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from agent.product_doc_agent import ProductDocAgentWorkflow
+from config.settings import (
+    LLM_MODEL,
+    LLM_TIMEOUT,
+    LLM_MAX_RETRIES,
+    OPENAI_BASE_URL,
+    OPENAI_API_KEY,
+    PRODUCT_DOC_AGENT_RATE_LIMIT_MAX_ATTEMPTS,
+    PRODUCT_DOC_AGENT_RATE_LIMIT_RETRY_SECONDS,
+)
 
+def print_llm_config() -> None:
+    print("LLM_MODEL:", LLM_MODEL)
+    print("OPENAI_BASE_URL:", OPENAI_BASE_URL)
+    print("LLM_TIMEOUT:", LLM_TIMEOUT)
+    print("LLM_MAX_RETRIES:", LLM_MAX_RETRIES)
+    print("OPENAI_API_KEY configured:", bool(OPENAI_API_KEY))
+    print("PRODUCT_DOC_AGENT_RATE_LIMIT_MAX_ATTEMPTS:", PRODUCT_DOC_AGENT_RATE_LIMIT_MAX_ATTEMPTS)
+    print("PRODUCT_DOC_AGENT_RATE_LIMIT_RETRY_SECONDS:", PRODUCT_DOC_AGENT_RATE_LIMIT_RETRY_SECONDS)
 
 def main() -> None:
-    workflow = ProductDocAgentWorkflow(max_context_chars=12000, max_concurrency=9, enable_self_check=True)
+
+    print_llm_config()
+    
+    workflow = ProductDocAgentWorkflow(
+        max_context_chars=12000,
+        enable_debug_markdown=True,
+        enable_self_check=True,
+        max_concurrency=6,
+    )
     try:
         result = workflow.run(r"data/raw/1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx")
     except Exception as exc:

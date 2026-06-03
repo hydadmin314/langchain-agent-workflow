@@ -1,0 +1,467 @@
+{
+  "document_info": {
+    "document_id": "doc_acf0ff8bd714",
+    "document_type": "申请登记表",
+    "title": "SDWAN群组申请信息",
+    "product_name": "",
+    "product_family": "",
+    "carrier": "",
+    "region": "",
+    "version": "",
+    "effective_from": "",
+    "effective_to": "",
+    "document_status": "active",
+    "filename": "2 国内SD-WAN申请单填写模板.xlsx",
+    "source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx",
+    "source_file_type": "Markdown"
+  },
+  "parties_and_application": {
+    "service_provider": {
+      "name": "中国电信股份有限公司上海分公司",
+      "carrier": "",
+      "region": "上海",
+      "contact_channels": []
+    },
+    "customer": {
+      "name": "上海电信",
+      "filled_values": [
+        {
+          "field_key": "产权客户",
+          "value": "上海电信"
+        },
+        {
+          "field_key": "使用客户",
+          "value": "上海电信"
+        },
+        {
+          "field_key": "联系人",
+          "value": "张三"
+        },
+        {
+          "field_key": "联系电话",
+          "value": "18900000000"
+        },
+        {
+          "field_key": "客户名称",
+          "value": "上海电信"
+        },
+        {
+          "field_key": "联系人",
+          "value": "林某"
+        },
+        {
+          "field_key": "联系人手机",
+          "value": "18000000000"
+        },
+        {
+          "field_key": "客户邮箱",
+          "value": "xx@no.com"
+        },
+        {
+          "field_key": "统一社会信用代码",
+          "value": "营业执照上18位代码"
+        },
+        {
+          "field_key": "安装地址",
+          "value": "南崇明路1号甲1层"
+        },
+        {
+          "field_key": "出账户名",
+          "value": "上海电信"
+        },
+        {
+          "field_key": "帐单寄达地址",
+          "value": "南崇明路1号甲1层"
+        },
+        {
+          "field_key": "邮政编码",
+          "value": ""
+        },
+        {
+          "field_key": "帐务联系人",
+          "value": "林某"
+        },
+        {
+          "field_key": "联系电话",
+          "value": "18000000000"
+        }
+      ],
+      "is_blank_form": false
+    },
+    "application_fields": {
+      "required": [
+        {
+          "label": "产权客户",
+          "field_key": "产权客户",
+          "required": true,
+          "value": "上海电信",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "产权客户 | 上海电信",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "使用客户",
+          "field_key": "使用客户",
+          "required": true,
+          "value": "上海电信",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "使用客户 | 上海电信",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "联系人",
+          "field_key": "联系人",
+          "required": true,
+          "value": "张三",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "联系人 | 张三",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "联系电话",
+          "field_key": "联系电话",
+          "required": true,
+          "value": "18900000000",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "联系电话 | 18900000000",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "客户名称",
+          "field_key": "客户名称",
+          "required": true,
+          "value": "上海电信",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "客户名称 | 上海电信",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "联系人",
+          "field_key": "联系人",
+          "required": true,
+          "value": "林某",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "联系人 | 林某",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "联系人手机",
+          "field_key": "联系人手机",
+          "required": true,
+          "value": "18000000000",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "联系人手机 | 18000000000",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "客户邮箱",
+          "field_key": "客户邮箱",
+          "required": true,
+          "value": "xx@no.com",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "客户邮箱 | xx@no.com",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "统一社会信用代码",
+          "field_key": "统一社会信用代码",
+          "required": true,
+          "value": "营业执照上18位代码",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "统一社会信用代码 | 营业执照上18位代码",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "安装地址",
+          "field_key": "安装地址",
+          "required": true,
+          "value": "南崇明路1号甲1层",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "安装地址 | 南崇明路1号甲1层",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "出账户名",
+          "field_key": "出账户名",
+          "required": true,
+          "value": "上海电信",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "出账户名 | 上海电信",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "帐单寄达地址",
+          "field_key": "帐单寄达地址",
+          "required": true,
+          "value": "南崇明路1号甲1层",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "帐单寄达地址 | 南崇明路1号甲1层",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "帐务联系人",
+          "field_key": "帐务联系人",
+          "required": true,
+          "value": "林某",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "帐务联系人 | 林某",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "联系电话",
+          "field_key": "联系电话",
+          "required": true,
+          "value": "18000000000",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "联系电话 | 18000000000",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.9
+        }
+      ],
+      "optional": [
+        {
+          "label": "付费方式",
+          "field_key": "付费方式",
+          "required": false,
+          "value": "月付",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "付费方式 | 月付",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.8
+        },
+        {
+          "label": "是否公免",
+          "field_key": "是否公免",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "boolean",
+          "source_evidence": "是否公免",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.3
+        },
+        {
+          "label": "MSS合同编号",
+          "field_key": "MSS合同编号",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "MSS合同编号",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.3
+        },
+        {
+          "label": "ICT项目编号",
+          "field_key": "ICT项目编号",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "ICT项目编号",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.3
+        },
+        {
+          "label": "新建网群号",
+          "field_key": "新建网群号",
+          "required": false,
+          "value": false,
+          "options": [
+            "新建网群号",
+            "使用已有群号"
+          ],
+          "value_type": "boolean",
+          "source_evidence": "□新建网群号 | 新建网群号 使用已有群号",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.8
+        },
+        {
+          "label": "使用已有群号",
+          "field_key": "使用已有群号",
+          "required": false,
+          "value": true,
+          "options": [
+            "新建网群号",
+            "使用已有群号"
+          ],
+          "value_type": "boolean",
+          "source_evidence": "√使用已有群号 | 新建网群号 使用已有群号",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.8
+        },
+        {
+          "label": "要求完成日期",
+          "field_key": "要求完成日期",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "date",
+          "source_evidence": "要求完成日期",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.3
+        },
+        {
+          "label": "月使用费合计",
+          "field_key": "月使用费合计",
+          "required": false,
+          "value": "1000元/月",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "月使用费合计 | 1000元/月",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.7
+        },
+        {
+          "label": "付费周期",
+          "field_key": "付费周期",
+          "required": false,
+          "value": "月付",
+          "options": [
+            "月付",
+            "年付",
+            "其他"
+          ],
+          "value_type": "string",
+          "source_evidence": "付费周期： | 月付 年付 其他",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx"
+          },
+          "confidence": 0.8
+        }
+      ]
+    },
+    "application_notes": []
+  },
+  "base_package": {
+    "packages": [],
+    "included_items": [],
+    "service_attributes": [],
+    "sla": {}
+  },
+  "optional_packages": [],
+  "fee_and_term_rules": [],
+  "agreement_rules": [],
+  "application_materials": [],
+  "eligibility_and_constraints": [],
+  "supplemental_rules": [],
+  "extraction_meta": {
+    "generated_at": "2026-06-02T16:19:57",
+    "source_file": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx",
+    "source_file_hash": "96f7ceb4ab2beace411a32369285dab7c15fc720fe0ca0ab4231b7dbc46f5365",
+    "method": "llm_schema_module_extraction",
+    "llm_self_check": {
+      "needs_rework": true,
+      "rework_modules": [
+        "parties_and_application",
+        "application_materials"
+      ],
+      "validation_issues": [
+        {
+          "severity": "warning",
+          "path": "parties_and_application.customer.filled_values",
+          "message": "存在重复的字段 '联系人' 和 '联系电话'，需要合并或去重。"
+        },
+        {
+          "severity": "error",
+          "path": "application_materials",
+          "message": "未提取任何办理材料，但文档中可能存在相关字段。"
+        }
+      ],
+      "schema_warnings": [
+        "部分可选字段如 '是否公免', 'MSS合同编号', 'ICT项目编号', '要求完成日期' 的值为 null，但这些字段在原文中有提及，可能需要进一步确认。"
+      ]
+    },
+    "validation_issues": [],
+    "validation_issue_count": 0,
+    "schema_warnings": [],
+    "review_status": "draft",
+    "raw_category": {
+      "raw_root": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw",
+      "raw_relative_path": "电信政企/2.6SD-WAN/2 国内SD-WAN申请单填写模板.xlsx",
+      "category_path": "电信政企/2.6SD-WAN",
+      "category_levels": [
+        "电信政企",
+        "2.6SD-WAN"
+      ]
+    },
+    "source_conversion": {
+      "original_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx",
+      "extraction_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.6SD-WAN\\2 国内SD-WAN申请单填写模板.xlsx",
+      "converted": false,
+      "converter": ""
+    }
+  }
+}

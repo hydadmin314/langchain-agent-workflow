@@ -1,0 +1,45 @@
+{
+  "说明": "该文件用于判断 self_check 触发的模块返工是否带来有效变化。",
+  "self_check": {
+    "needs_rework": true,
+    "rework_modules": [
+      "base_package",
+      "optional_packages"
+    ],
+    "validation_issues": [
+      {
+        "severity": "error",
+        "path": "base_package.packages",
+        "message": "base_package.packages is empty, but fee_and_term_rules contains '云中继功能费' (20元/月/号) and multiple optional controls — these strongly imply a base service package exists (e.g., '云中继基础服务'), yet no package is extracted. Base package must be inferred from core mandatory fee and service name per product context."
+      },
+      {
+        "severity": "error",
+        "path": "optional_packages",
+        "message": "optional_packages is empty, but fee_and_term_rules explicitly lists '外呼频次控制（可选）', '外呼流量控制（可选）', '外呼黑名单控制（可选）' — each marked '(可选)' and charged separately. These are classic optional add-on packages and must be represented as distinct objects in optional_packages, not buried only in fee rules."
+      }
+    ],
+    "schema_warnings": [
+      "Optional packages ('外呼频次控制', '外呼流量控制', '外呼黑名单控制') appear only in fee_and_term_rules but are missing from optional_packages — violates extraction principle #6 (don't misplace optional packages into base) and #7 (must output multi-record arrays for distinct optional packages).",
+      "base_package is fully empty (packages=[], included_items=[], service_attributes=[]) despite clear product identity ('集团云中继业务') and mandatory base fee ('云中继功能费') — violates priority rule #10 (application form region is high-priority) and semantic completeness."
+    ]
+  },
+  "modules": {
+    "optional_packages": {
+      "reason": "- 大模型自检要求返工。\n- error | optional_packages | optional_packages is empty, but fee_and_term_rules explicitly lists '外呼频次控制（可选）', '外呼流量控制（可选）', '外呼黑名单控制（可选）' — each marked '(可选)' and charged separately. These are classic optional add-on packages and must be represented as distinct objects in optional_packages, not buried only in fee rules.",
+      "rework_error": "",
+      "changed": false,
+      "before_summary": {
+        "type": "list",
+        "count": 0,
+        "non_empty_count": 0
+      },
+      "after_summary": {
+        "type": "list",
+        "count": 0,
+        "non_empty_count": 0
+      },
+      "before": [],
+      "after": []
+    }
+  }
+}

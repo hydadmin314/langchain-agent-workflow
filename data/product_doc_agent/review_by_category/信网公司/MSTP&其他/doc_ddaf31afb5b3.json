@@ -1,0 +1,600 @@
+{
+  "document_info": {
+    "document_id": "QB/SHXW/JL-SY-1-A/2-2023",
+    "document_type": "客户受理单",
+    "title": "客户受理单",
+    "product_name": "",
+    "product_family": "",
+    "carrier": "",
+    "region": "",
+    "version": "2023",
+    "effective_from": "",
+    "effective_to": "",
+    "document_status": "active",
+    "filename": "1 客户受理单.docx",
+    "source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx",
+    "source_file_type": "docx"
+  },
+  "parties_and_application": {
+    "service_provider": {
+      "name": "",
+      "carrier": "",
+      "region": "",
+      "contact_channels": []
+    },
+    "customer": {
+      "name": "",
+      "filled_values": [],
+      "is_blank_form": true
+    },
+    "application_fields": {
+      "required": [
+        {
+          "label": "客户名称(中英文)",
+          "field_key": "customer_name",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "客户名称(中英文)",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "甲端 名称",
+          "field_key": "party_a_name",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "甲端",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.8
+        },
+        {
+          "label": "甲端 地址",
+          "field_key": "party_a_address",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "地址",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.8
+        },
+        {
+          "label": "甲端 联系人",
+          "field_key": "party_a_contact_person",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "联系人",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.8
+        },
+        {
+          "label": "乙端 名称",
+          "field_key": "party_b_name",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "乙端",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.8
+        },
+        {
+          "label": "乙端 联系人",
+          "field_key": "party_b_contact_person",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "乙端",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.8
+        },
+        {
+          "label": "E-mail地址",
+          "field_key": "email_address",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "E-mail地址",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "帐单寄达地址",
+          "field_key": "billing_address",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "帐单寄达地址",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "业务类型",
+          "field_key": "service_type",
+          "required": true,
+          "value": null,
+          "options": [
+            "ELAN 上网",
+            "IPMS 多线上网",
+            "ISP上网",
+            "IPAD 163上网",
+            "长途",
+            "本地",
+            "MSTP",
+            "SDH",
+            "OTN",
+            "MPLS-VPN（附表）",
+            "云专网（附表）",
+            "视网通",
+            "翼享Wi-Fi",
+            "翼通无限",
+            "商贸翼网通（附表）",
+            "其他"
+          ],
+          "value_type": "select",
+          "source_evidence": "业务类型 | ELAN 上网 IPMS 多线上网 ISP上网 IPAD 163上网 长途 本地 MSTP SDH OTN MPLS-VPN（附表） 云专网（附表） 视网通 翼享Wi-Fi 翼通无限 商贸翼网通（附表） 其他",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.7
+        },
+        {
+          "label": "甲乙端口",
+          "field_key": "port_configuration",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "甲乙端口",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.6
+        },
+        {
+          "label": "接口标准",
+          "field_key": "interface_standard",
+          "required": true,
+          "value": null,
+          "options": [
+            "G.703",
+            "STM-1",
+            "Ethernet",
+            "GE",
+            "10GE",
+            "其他"
+          ],
+          "value_type": "select",
+          "source_evidence": "接口标准 | G.703 STM-1 Ethernet GE 10GE 其他",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.7
+        },
+        {
+          "label": "端口速率（必选一）",
+          "field_key": "port_rate",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "端口速率（必选一）",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.6
+        },
+        {
+          "label": "模拟线/光纤（选光纤必填箱号）",
+          "field_key": "cable_type",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "模拟线/光纤（选光纤必填箱号）",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.6
+        },
+        {
+          "label": "业务速率(CIR或SCR)",
+          "field_key": "service_rate_cir_scr",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "业务速率(CIR或SCR)",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.6
+        },
+        {
+          "label": "割接联系人：",
+          "field_key": "cutover_contact_person",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "割接联系人：",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.7
+        },
+        {
+          "label": "电话：",
+          "field_key": "cutover_phone",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "电话：",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.7
+        },
+        {
+          "label": "邮箱：",
+          "field_key": "cutover_email",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "邮箱：",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.7
+        },
+        {
+          "label": "□短信通知 □邮件通知",
+          "field_key": "notification_method",
+          "required": true,
+          "value": null,
+          "options": [
+            "短信通知",
+            "邮件通知"
+          ],
+          "value_type": "checkbox",
+          "source_evidence": "□短信通知 □邮件通知",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "希望完工日期",
+          "field_key": "desired_completion_date",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "date",
+          "source_evidence": "希望完工日期",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.6
+        }
+      ],
+      "optional": [
+        {
+          "label": "甲端 机房电话",
+          "field_key": "party_a_datacenter_phone",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "甲端",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.7
+        },
+        {
+          "label": "乙端 机房电话",
+          "field_key": "party_b_datacenter_phone",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "乙端",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.7
+        },
+        {
+          "label": "甲端 传真",
+          "field_key": "party_a_fax",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "传真",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.7
+        },
+        {
+          "label": "乙端 传真",
+          "field_key": "party_b_fax",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "传真",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.7
+        },
+        {
+          "label": "IP地址数精品(国内国际国内国际)普通",
+          "field_key": "ip_address_count",
+          "required": false,
+          "value": null,
+          "options": [
+            "精品(国内",
+            "国际",
+            "国内",
+            "国际)",
+            "普通"
+          ],
+          "value_type": "text",
+          "source_evidence": "IP地址数精品(国内国际国内国际)普通",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "邮编",
+          "field_key": "postal_code",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "邮编",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.8
+        },
+        {
+          "label": "账务信息 □多月付：__ __（个月）",
+          "field_key": "billing_cycle_months",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "number",
+          "source_evidence": "□多月付：\\_\\_ \\_\\_（个月）",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.6
+        },
+        {
+          "label": "IT开账 账单合并并帐设备号",
+          "field_key": "it_billing_merge_device_id",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "IT开账 账单合并并帐设备号",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "□开账 □开票",
+          "field_key": "billing_and_invoicing",
+          "required": false,
+          "value": null,
+          "options": [
+            "开账",
+            "开票"
+          ],
+          "value_type": "checkbox",
+          "source_evidence": "□开账 □开票",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "转帐 银行托收托收开户银行及帐号",
+          "field_key": "bank_account_info",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "转帐 银行托收托收开户银行及帐号",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "备注：透传/口非透传",
+          "field_key": "remark_transparent_or_not",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "备注：透传/口非透传",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+          },
+          "confidence": 0.6
+        }
+      ]
+    },
+    "application_notes": []
+  },
+  "base_package": {
+    "packages": [],
+    "included_items": [],
+    "service_attributes": [
+      {
+        "attribute_name": "业务类型",
+        "attribute_value": "",
+        "source_evidence": "业务类型 (MSTP/SDH/OTN/MPLS-VPN)",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+        },
+        "confidence": 0.95
+      },
+      {
+        "attribute_name": "接口标准",
+        "attribute_value": "",
+        "source_evidence": "接口标准 (G.703/STM-1/Ethernet/GE/10GE)",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+        },
+        "confidence": 0.95
+      },
+      {
+        "attribute_name": "端口速率",
+        "attribute_value": "",
+        "source_evidence": "端口速率",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx"
+        },
+        "confidence": 0.9
+      }
+    ],
+    "sla": {}
+  },
+  "optional_packages": [],
+  "fee_and_term_rules": [],
+  "agreement_rules": [],
+  "application_materials": [],
+  "eligibility_and_constraints": [],
+  "supplemental_rules": [],
+  "extraction_meta": {
+    "generated_at": "2026-06-02T14:56:23",
+    "source_file": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx",
+    "source_file_hash": "b6210803d5712d91996af86f2061f74347b671b8cca03686ee8bd4beda4b67a6",
+    "method": "llm_schema_module_extraction",
+    "llm_self_check": {
+      "needs_rework": true,
+      "rework_modules": [
+        "base_package",
+        "optional_packages",
+        "fee_and_term_rules",
+        "agreement_rules",
+        "application_materials",
+        "eligibility_and_constraints",
+        "supplemental_rules"
+      ],
+      "validation_issues": [
+        {
+          "severity": "error",
+          "path": "base_package.packages",
+          "message": "base_package.packages is empty, but the document is a service application form for MSTP/SDH/OTN/MPLS-VPN/etc. — these are core telecom circuit products with implicit package structure (e.g., by service_type + port_rate + interface_standard); at minimum, one base package should be inferred or represented via service_attributes or placeholder with source_evidence."
+        },
+        {
+          "severity": "error",
+          "path": "base_package.service_attributes",
+          "message": "service_attributes is empty despite multiple explicit technical attributes present in application fields: '接口标准' (G.703/STM-1/Ethernet/GE/10GE), '业务类型' (MSTP/SDH/OTN/MPLS-VPN), '端口速率', '业务速率(CIR或SCR)' — these are canonical service_attributes and must be extracted as discrete objects with source_evidence."
+        },
+        {
+          "severity": "error",
+          "path": "optional_packages",
+          "message": "optional_packages is empty, but 'IP地址数精品(国内国际国内国际)普通' and '□开账 □开票' suggest optional add-ons or configuration choices; also, 'MPLS-VPN（附表）' and '云专网（附表）' imply supplemental packages referenced externally — these require at least stub entries with source_evidence pointing to '(附表)' notation."
+        },
+        {
+          "severity": "error",
+          "path": "fee_and_term_rules",
+          "message": "fee_and_term_rules is empty, yet the document is a commercial service受理单 — mandatory fee-related fields like '月租费' or '一次性费用' are expected in such forms; absence indicates failure to extract even placeholder or 'to be quoted' rules with confidence > 0."
+        },
+        {
+          "severity": "error",
+          "path": "agreement_rules",
+          "message": "agreement_rules is empty despite presence of contractual fields: '割接联系人', '希望完工日期', '□短信通知 □邮件通知', and '备注：透传/口非透传' — these reflect SLA, notification, and service behavior commitments that belong in agreement_rules, not just application_fields."
+        },
+        {
+          "severity": "error",
+          "path": "application_materials",
+          "message": "application_materials is empty, but standard telecom受理单 requires materials like '营业执照复印件'、'经办人身份证复印件'、'授权书' — their absence suggests failure to apply domain knowledge or fallback heuristics when not explicitly listed; at minimum, generic materials should be populated with low-confidence stubs or noted as 'not specified'."
+        },
+        {
+          "severity": "error",
+          "path": "eligibility_and_constraints",
+          "message": "eligibility_and_constraints is empty despite '业务类型' including regulated services (e.g., '长途', '国际') and '模拟线/光纤（选光纤必填箱号）' implying physical infrastructure constraints — these constitute eligibility conditions and must be captured as rules."
+        },
+        {
+          "severity": "error",
+          "path": "supplemental_rules",
+          "message": "supplemental_rules is empty despite multiple '(附表)' references ('MPLS-VPN（附表）', '云专网（附表）', '商贸翼网通（附表）') — each '(附表)' is an explicit pointer to supplemental contractual or technical annexes and must generate at least one supplemental_rule entry with source_evidence containing '(附表)'."
+        }
+      ],
+      "schema_warnings": [
+        "confidence values in application_fields range from 0.5–0.9 — all are valid (0–1), but several low-confidence items (e.g., notification_method=0.5, ip_address_count=0.5) lack disambiguating context; no schema violation, but semantic reliability is reduced."
+      ],
+      "rework_applied_modules": [
+        "base_package",
+        "optional_packages"
+      ],
+      "rework_requests": [
+        {
+          "module": "base_package",
+          "reason": "- 大模型自检要求返工。\n- error | base_package.packages | base_package.packages is empty, but the document is a service application form for MSTP/SDH/OTN/MPLS-VPN/etc. — these are core telecom circuit products with implicit package structure (e.g., by service_type + port_rate + interface_standard); at minimum, one base package should be inferred or represented via service_attributes or placeholder with source_evidence.\n- error | base_package.service_attributes | service_attributes is empty despite multiple explicit technical attributes present in application fields: '接口标准' (G.703/STM-1/Ethernet/GE/10GE), '业务类型' (MSTP/SDH/OTN/MPLS-VPN), '端口速率', '业务速率(CIR或SCR)' — these are canonical service_attributes and must be extracted as discrete objects with source_evidence."
+        },
+        {
+          "module": "optional_packages",
+          "reason": "- 大模型自检要求返工。\n- error | optional_packages | optional_packages is empty, but 'IP地址数精品(国内国际国内国际)普通' and '□开账 □开票' suggest optional add-ons or configuration choices; also, 'MPLS-VPN（附表）' and '云专网（附表）' imply supplemental packages referenced externally — these require at least stub entries with source_evidence pointing to '(附表)' notation."
+        }
+      ]
+    },
+    "validation_issues": [],
+    "validation_issue_count": 0,
+    "schema_warnings": [],
+    "review_status": "draft",
+    "raw_category": {
+      "raw_root": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw",
+      "raw_relative_path": "信网公司/MSTP&其他/1 客户受理单.doc",
+      "category_path": "信网公司/MSTP&其他",
+      "category_levels": [
+        "信网公司",
+        "MSTP&其他"
+      ]
+    },
+    "source_conversion": {
+      "original_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\MSTP&其他\\1 客户受理单.doc",
+      "extraction_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\信网公司\\MSTP&其他\\1 客户受理单.docx",
+      "converted": true,
+      "converter": "microsoft_word_com"
+    }
+  }
+}

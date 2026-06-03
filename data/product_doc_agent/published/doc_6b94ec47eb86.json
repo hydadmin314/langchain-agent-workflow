@@ -1,0 +1,271 @@
+{
+  "document_info": {
+    "document_id": "doc_6b94ec47eb86",
+    "document_type": "",
+    "title": "",
+    "product_name": "",
+    "product_family": "",
+    "carrier": "",
+    "region": "",
+    "version": "",
+    "effective_from": "",
+    "effective_to": "",
+    "document_status": "active",
+    "filename": "1 【铅印版】中国联通MPLS-VPN业务新装申请单.pdf",
+    "source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\联通\\2.2 本地国内MPLS-VPN\\1 【铅印版】中国联通MPLS-VPN业务新装申请单.pdf",
+    "source_file_type": "pdf"
+  },
+  "parties_and_application": {
+    "service_provider": {
+      "name": "",
+      "carrier": "",
+      "region": "",
+      "contact_channels": []
+    },
+    "customer": {
+      "name": "",
+      "filled_values": [
+        {}
+      ],
+      "is_blank_form": true
+    },
+    "application_fields": {
+      "required": [
+        {
+          "label": "",
+          "field_key": "",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\联通\\2.2 本地国内MPLS-VPN\\1 【铅印版】中国联通MPLS-VPN业务新装申请单.pdf"
+          },
+          "confidence": 0.0
+        }
+      ],
+      "optional": [
+        {
+          "label": "",
+          "field_key": "",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\联通\\2.2 本地国内MPLS-VPN\\1 【铅印版】中国联通MPLS-VPN业务新装申请单.pdf"
+          },
+          "confidence": 0.0
+        }
+      ]
+    },
+    "application_notes": []
+  },
+  "base_package": {
+    "packages": [
+      {
+        "package_name": "",
+        "package_code": "package_1",
+        "speed": "",
+        "upstream_speed": "",
+        "downstream_speed": "",
+        "bandwidth_unit": "",
+        "has_voice": null,
+        "price": null,
+        "currency": "",
+        "billing_period": "",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [],
+        "source_evidence": "",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\联通\\2.2 本地国内MPLS-VPN\\1 【铅印版】中国联通MPLS-VPN业务新装申请单.pdf"
+        },
+        "confidence": 0.5
+      }
+    ],
+    "included_items": [
+      {
+        "item_name": "",
+        "description": "",
+        "quantity": null,
+        "unit": "",
+        "source_evidence": "",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\联通\\2.2 本地国内MPLS-VPN\\1 【铅印版】中国联通MPLS-VPN业务新装申请单.pdf"
+        },
+        "confidence": 0.5
+      }
+    ],
+    "service_attributes": [
+      {
+        "attribute_name": "",
+        "value": "",
+        "source_evidence": "",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\联通\\2.2 本地国内MPLS-VPN\\1 【铅印版】中国联通MPLS-VPN业务新装申请单.pdf"
+        },
+        "confidence": 0.5
+      }
+    ],
+    "sla": {
+      "availability": "",
+      "response_time": "",
+      "support_hours": "",
+      "uptime_guarantee": "",
+      "source_evidence": "",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\联通\\2.2 本地国内MPLS-VPN\\1 【铅印版】中国联通MPLS-VPN业务新装申请单.pdf"
+      },
+      "confidence": 0.5
+    }
+  },
+  "optional_packages": [],
+  "fee_and_term_rules": [],
+  "agreement_rules": [],
+  "application_materials": [],
+  "eligibility_and_constraints": [],
+  "supplemental_rules": [],
+  "extraction_meta": {
+    "generated_at": "2026-06-02T16:38:38",
+    "source_file": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\联通\\2.2 本地国内MPLS-VPN\\1 【铅印版】中国联通MPLS-VPN业务新装申请单.pdf",
+    "source_file_hash": "235aeafd75c1a6f23f25734549777f897a1a004485bb74d9dee4ae7fba04403b",
+    "method": "llm_schema_module_extraction",
+    "llm_self_check": {
+      "needs_rework": true,
+      "rework_modules": [
+        "document_info",
+        "parties_and_application",
+        "base_package",
+        "optional_packages",
+        "fee_and_term_rules",
+        "agreement_rules",
+        "application_materials",
+        "eligibility_and_constraints",
+        "supplemental_rules"
+      ],
+      "validation_issues": [
+        {
+          "severity": "error",
+          "path": "document_info",
+          "message": "Multiple required fields are empty or missing, such as document_type, title, product_name, carrier, region, etc."
+        },
+        {
+          "severity": "error",
+          "path": "parties_and_application.service_provider",
+          "message": "Service provider information is missing or incomplete."
+        },
+        {
+          "severity": "error",
+          "path": "parties_and_application.customer.filled_values",
+          "message": "Customer filled values array is empty and should contain actual form data."
+        },
+        {
+          "severity": "error",
+          "path": "parties_and_application.application_fields.required[].label",
+          "message": "Required application fields labels are missing."
+        },
+        {
+          "severity": "error",
+          "path": "base_package.packages",
+          "message": "Base package packages array is empty."
+        },
+        {
+          "severity": "error",
+          "path": "base_package.included_items",
+          "message": "Included items array is empty."
+        },
+        {
+          "severity": "error",
+          "path": "base_package.service_attributes",
+          "message": "Service attributes array is empty."
+        },
+        {
+          "severity": "error",
+          "path": "optional_packages",
+          "message": "Optional packages array is empty."
+        },
+        {
+          "severity": "error",
+          "path": "fee_and_term_rules",
+          "message": "Fee and term rules array is empty."
+        },
+        {
+          "severity": "error",
+          "path": "agreement_rules",
+          "message": "Agreement rules array is empty."
+        },
+        {
+          "severity": "error",
+          "path": "application_materials",
+          "message": "Application materials array is empty."
+        },
+        {
+          "severity": "error",
+          "path": "eligibility_and_constraints",
+          "message": "Eligibility and constraints array is empty."
+        },
+        {
+          "severity": "error",
+          "path": "supplemental_rules",
+          "message": "Supplemental rules array is empty."
+        }
+      ],
+      "schema_warnings": [
+        "Many fields in the JSON are empty or have default values. This may indicate that the extraction process did not capture the necessary details from the source document.",
+        "The confidence values for several fields are set to 0.0, which suggests a lack of evidence or low confidence in the extracted data."
+      ],
+      "rework_applied_modules": [
+        "base_package",
+        "optional_packages"
+      ],
+      "rework_requests": [
+        {
+          "module": "base_package",
+          "reason": "- 大模型自检要求返工。\n- error | base_package.packages | Base package packages array is empty.\n- error | base_package.included_items | Included items array is empty.\n- error | base_package.service_attributes | Service attributes array is empty."
+        },
+        {
+          "module": "optional_packages",
+          "reason": "- 大模型自检要求返工。\n- error | optional_packages | Optional packages array is empty."
+        }
+      ]
+    },
+    "validation_issues": [
+      {
+        "severity": "warning",
+        "path": "base_package.packages[0].source_evidence",
+        "message": "缺少 source_evidence"
+      },
+      {
+        "severity": "warning",
+        "path": "base_package.included_items[0].source_evidence",
+        "message": "缺少 source_evidence"
+      },
+      {
+        "severity": "warning",
+        "path": "base_package.service_attributes[0].source_evidence",
+        "message": "缺少 source_evidence"
+      }
+    ],
+    "validation_issue_count": 3,
+    "schema_warnings": [],
+    "review_status": "draft",
+    "raw_category": {
+      "raw_root": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw",
+      "raw_relative_path": "联通/2.2 本地国内MPLS-VPN/1 【铅印版】中国联通MPLS-VPN业务新装申请单.pdf",
+      "category_path": "联通/2.2 本地国内MPLS-VPN",
+      "category_levels": [
+        "联通",
+        "2.2 本地国内MPLS-VPN"
+      ]
+    },
+    "source_conversion": {
+      "original_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\联通\\2.2 本地国内MPLS-VPN\\1 【铅印版】中国联通MPLS-VPN业务新装申请单.pdf",
+      "extraction_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\联通\\2.2 本地国内MPLS-VPN\\1 【铅印版】中国联通MPLS-VPN业务新装申请单.pdf",
+      "converted": false,
+      "converter": ""
+    }
+  }
+}

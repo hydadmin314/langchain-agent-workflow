@@ -1,0 +1,1048 @@
+{
+  "document_info": {
+    "document_id": "doc_861b331cfba0",
+    "document_type": "申请登记表",
+    "title": "天翼领航“旺铺宽带”套餐申请登记表",
+    "product_name": "旺铺宽带",
+    "product_family": "天翼领航",
+    "carrier": "中国电信股份有限公司上海分公司",
+    "region": "上海",
+    "version": "2025/A",
+    "effective_from": "",
+    "effective_to": "",
+    "document_status": "active",
+    "filename": "1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx",
+    "source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx",
+    "source_file_type": "Markdown"
+  },
+  "parties_and_application": {
+    "service_provider": {
+      "name": "中国电信股份有限公司上海分公司",
+      "carrier": "",
+      "region": "",
+      "contact_channels": []
+    },
+    "customer": {
+      "name": "",
+      "filled_values": [
+        {}
+      ],
+      "is_blank_form": true
+    },
+    "application_fields": {
+      "required": [
+        {
+          "label": "企 业 全 称",
+          "field_key": "enterprise_full_name",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "\\*企 业 全 称",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "统一社会信用代码",
+          "field_key": "unified_social_credit_code",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "\\*统一社会信用代码",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "企 业 规 模",
+          "field_key": "enterprise_scale",
+          "required": true,
+          "value": null,
+          "options": [
+            "10人以下",
+            "10-30人",
+            "31-80人",
+            "81-200人",
+            "200人以上"
+          ],
+          "value_type": "single_select",
+          "source_evidence": "\\*企 业 规 模 | 10人以下 10-30人 31-80人 81-200人 200人以上",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "计算机数量",
+          "field_key": "computer_quantity",
+          "required": true,
+          "value": null,
+          "options": [
+            "5台及以下",
+            "6-15台",
+            "16-40台",
+            "41-100台",
+            "100台以上"
+          ],
+          "value_type": "single_select",
+          "source_evidence": "\\*计算机数量 | 5台及以下 6-15台 16-40台 41-100台 100台以上",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "安 装 地 址",
+          "field_key": "installation_address",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "\\*安 装 地 址",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "邮 编",
+          "field_key": "zip_code",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "\\*邮 编",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "联 系 人",
+          "field_key": "contact_person",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "\\*联 系 人",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "联系电话",
+          "field_key": "phone_number",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "phone",
+          "source_evidence": "\\*联系电话",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "账 单 地 址",
+          "field_key": "billing_address",
+          "required": true,
+          "value": null,
+          "options": [
+            "同安装地址",
+            "其它"
+          ],
+          "value_type": "single_select",
+          "source_evidence": "\\*账 单 地 址 | 同安装地址 其它",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "付 款 方 式",
+          "field_key": "payment_method",
+          "required": true,
+          "value": null,
+          "options": [
+            "托 收 银行账号：",
+            "现 金"
+          ],
+          "value_type": "single_select",
+          "source_evidence": "\\*付 款 方 式 | 托 收 银行账号： 现 金",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+          },
+          "confidence": 0.5
+        }
+      ],
+      "optional": [
+        {
+          "label": "联系人职务",
+          "field_key": "position",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "联系人职务",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "E-MAIL",
+          "field_key": "email",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "email",
+          "source_evidence": "E-MAIL",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "传 真",
+          "field_key": "fax",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "phone",
+          "source_evidence": "传 真",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "身份证号码",
+          "field_key": "id_number",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "身份证号码",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+          },
+          "confidence": 0.5
+        }
+      ]
+    },
+    "application_notes": []
+  },
+  "base_package": {
+    "packages": [
+      {
+        "package_name": "169元/月/线",
+        "package_code": "169元/月/线_拨号上行4M/下行100M_月_169",
+        "speed": "拨号 上行4M / 下行100M",
+        "upstream_speed": "4M",
+        "downstream_speed": "100M",
+        "bandwidth_unit": "",
+        "has_voice": null,
+        "price": 169.0,
+        "currency": "CNY",
+        "billing_period": "月",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [],
+        "source_evidence": "□ 169元/月/线",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+        },
+        "confidence": 0.9
+      },
+      {
+        "package_name": "1500元/年/线",
+        "package_code": "1500元/年/线_拨号上行4M/下行100M_年_1500",
+        "speed": "拨号 上行4M / 下行100M",
+        "upstream_speed": "4M",
+        "downstream_speed": "100M",
+        "bandwidth_unit": "",
+        "has_voice": null,
+        "price": 1500.0,
+        "currency": "CNY",
+        "billing_period": "年",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [],
+        "source_evidence": "□ 1500元/年/线",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+        },
+        "confidence": 0.9
+      },
+      {
+        "package_name": "2800元/2年/线",
+        "package_code": "2800元/2年/线_拨号上行4M/下行100M_2年_2800",
+        "speed": "拨号 上行4M / 下行100M",
+        "upstream_speed": "4M",
+        "downstream_speed": "100M",
+        "bandwidth_unit": "",
+        "has_voice": null,
+        "price": 2800.0,
+        "currency": "CNY",
+        "billing_period": "2年",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [],
+        "source_evidence": "□ 2800元/2年/线",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+        },
+        "confidence": 0.9
+      },
+      {
+        "package_name": "229元/月/线",
+        "package_code": "229元/月/线_拨号上行20M/下行300M_月_229",
+        "speed": "拨号 上行20M / 下行300M",
+        "upstream_speed": "20M",
+        "downstream_speed": "300M",
+        "bandwidth_unit": "",
+        "has_voice": null,
+        "price": 229.0,
+        "currency": "CNY",
+        "billing_period": "月",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [],
+        "source_evidence": "□ 229元/月/线",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+        },
+        "confidence": 0.9
+      },
+      {
+        "package_name": "1990元/年/线",
+        "package_code": "1990元/年/线_拨号上行20M/下行300M_年_1990",
+        "speed": "拨号 上行20M / 下行300M",
+        "upstream_speed": "20M",
+        "downstream_speed": "300M",
+        "bandwidth_unit": "",
+        "has_voice": null,
+        "price": 1990.0,
+        "currency": "CNY",
+        "billing_period": "年",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [],
+        "source_evidence": "□ 1990元/年/线",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+        },
+        "confidence": 0.9
+      },
+      {
+        "package_name": "3600元/2年/线",
+        "package_code": "3600元/2年/线_拨号上行20M/下行300M_2年_3600",
+        "speed": "拨号 上行20M / 下行300M",
+        "upstream_speed": "20M",
+        "downstream_speed": "300M",
+        "bandwidth_unit": "",
+        "has_voice": null,
+        "price": 3600.0,
+        "currency": "CNY",
+        "billing_period": "2年",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [],
+        "source_evidence": "□ 3600元/2年/线",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+        },
+        "confidence": 0.9
+      }
+    ],
+    "included_items": [],
+    "service_attributes": [
+      {
+        "attribute_name": "接口标准",
+        "value": "拨号",
+        "source_evidence": "拨号 上行4M / 下行100M",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+        },
+        "confidence": 0.9
+      },
+      {
+        "attribute_name": "套餐类型",
+        "value": "基础套餐",
+        "source_evidence": "基础套餐申请信息（请在以下需要的项目内打“√”，基础套餐必择其一）",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+        },
+        "confidence": 0.9
+      }
+    ],
+    "sla": {}
+  },
+  "optional_packages": [],
+  "fee_and_term_rules": [
+    {
+      "rule_type": "monthly_fee",
+      "name": "169元/月/线",
+      "description": "月付套餐资费",
+      "amount": 169.0,
+      "currency": "CNY",
+      "billing_period": "月",
+      "contract_period": "",
+      "conditions": [],
+      "applies_to": [
+        "line"
+      ],
+      "source_evidence": "**□ 169元/月/线**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "rule_type": "annual_fee",
+      "name": "1500元/年/线",
+      "description": "年付套餐资费",
+      "amount": 1500.0,
+      "currency": "CNY",
+      "billing_period": "年",
+      "contract_period": "12",
+      "conditions": [],
+      "applies_to": [
+        "line"
+      ],
+      "source_evidence": "**□ 1500元/年/线**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "rule_type": "biennial_fee",
+      "name": "2800元/2年/线",
+      "description": "两年付套餐资费",
+      "amount": 2800.0,
+      "currency": "CNY",
+      "billing_period": "2年",
+      "contract_period": "24",
+      "conditions": [],
+      "applies_to": [
+        "line"
+      ],
+      "source_evidence": "**□ 2800元/2年/线**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "rule_type": "monthly_fee",
+      "name": "229元/月/线",
+      "description": "月付套餐资费",
+      "amount": 229.0,
+      "currency": "CNY",
+      "billing_period": "月",
+      "contract_period": "",
+      "conditions": [],
+      "applies_to": [
+        "line"
+      ],
+      "source_evidence": "**□ 229元/月/线**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "rule_type": "annual_fee",
+      "name": "1990元/年/线",
+      "description": "年付套餐资费",
+      "amount": 1990.0,
+      "currency": "CNY",
+      "billing_period": "年",
+      "contract_period": "12",
+      "conditions": [],
+      "applies_to": [
+        "line"
+      ],
+      "source_evidence": "**□ 1990元/年/线**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "rule_type": "biennial_fee",
+      "name": "3600元/2年/线",
+      "description": "两年付套餐资费",
+      "amount": 3600.0,
+      "currency": "CNY",
+      "billing_period": "2年",
+      "contract_period": "24",
+      "conditions": [],
+      "applies_to": [
+        "line"
+      ],
+      "source_evidence": "**□ 3600元/2年/线**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "rule_type": "monthly_fee",
+      "name": "39元/月/路（首路）",
+      "description": "智能组网（商企版）无线路由服务首路月费",
+      "amount": 39.0,
+      "currency": "CNY",
+      "billing_period": "月",
+      "contract_period": "12",
+      "conditions": [],
+      "applies_to": [
+        "route"
+      ],
+      "source_evidence": "**□ 首路39元/月**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "rule_type": "monthly_fee",
+      "name": "32元/月/路（第二路起）",
+      "description": "智能组网（商企版）无线路由服务第二路起月费",
+      "amount": 32.0,
+      "currency": "CNY",
+      "billing_period": "月",
+      "contract_period": "12",
+      "conditions": [],
+      "applies_to": [
+        "route"
+      ],
+      "source_evidence": "**第二路起32元/月/路**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "rule_type": "monthly_fee",
+      "name": "25元/月/路（首路）",
+      "description": "智能组网（商企版）无线路由服务首路月费",
+      "amount": 25.0,
+      "currency": "CNY",
+      "billing_period": "月",
+      "contract_period": "24",
+      "conditions": [],
+      "applies_to": [
+        "route"
+      ],
+      "source_evidence": "**□ 首路25元/月**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "rule_type": "monthly_fee",
+      "name": "20元/月/路（第二路起）",
+      "description": "智能组网（商企版）无线路由服务第二路起月费",
+      "amount": 20.0,
+      "currency": "CNY",
+      "billing_period": "月",
+      "contract_period": "24",
+      "conditions": [],
+      "applies_to": [
+        "route"
+      ],
+      "source_evidence": "**第二路起20元/月/路**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "rule_type": "monthly_fee",
+      "name": "19元/月/线",
+      "description": "4K IPTV月费",
+      "amount": 19.0,
+      "currency": "CNY",
+      "billing_period": "月",
+      "contract_period": "12",
+      "conditions": [],
+      "applies_to": [
+        "IPTV"
+      ],
+      "source_evidence": "**□19元/月/线**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "rule_type": "annual_fee",
+      "name": "190元/年/线",
+      "description": "4K IPTV年费",
+      "amount": 190.0,
+      "currency": "CNY",
+      "billing_period": "年",
+      "contract_period": "12",
+      "conditions": [],
+      "applies_to": [
+        "IPTV"
+      ],
+      "source_evidence": "**□190元/年/线**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "rule_type": "one_time_fee",
+      "name": "宽带一次性费用310元/线/次",
+      "description": "月付及年付方式收取的宽带一次性费用",
+      "amount": 310.0,
+      "currency": "CNY",
+      "billing_period": "线",
+      "contract_period": "",
+      "conditions": [],
+      "applies_to": [
+        "broadband"
+      ],
+      "source_evidence": "**如用户选择月付及年付方式，收取宽带一次性费用310元/线/次（含手续费10元）**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "rule_type": "one_time_fee",
+      "name": "宽带一次性费用160元/线/次",
+      "description": "两年付方式收取的宽带一次性费用",
+      "amount": 160.0,
+      "currency": "CNY",
+      "billing_period": "线",
+      "contract_period": "",
+      "conditions": [],
+      "applies_to": [
+        "broadband"
+      ],
+      "source_evidence": "**如选择两年付方式，则收取宽带一次性费用为160元/线/次（含手续费10元，安装调测费优惠价150元/线/次）**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "rule_type": "one_time_fee",
+      "name": "网络调测费50元/路/次",
+      "description": "智能组网（商企版）无线路由服务收取的网络调测费",
+      "amount": 50.0,
+      "currency": "CNY",
+      "billing_period": "once",
+      "contract_period": "",
+      "conditions": [],
+      "applies_to": [
+        "network"
+      ],
+      "source_evidence": "**智能组网（商企版）无线路由服务收取网络调测费50元/路/次**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "rule_type": "deposit",
+      "name": "宽带设备押金200元/线",
+      "description": "预付费套餐需要支付的宽带设备押金",
+      "amount": 200.0,
+      "currency": "CNY",
+      "billing_period": "线",
+      "contract_period": "",
+      "conditions": [],
+      "applies_to": [
+        "broadband"
+      ],
+      "source_evidence": "**预付费套餐需要支付宽带设备押金200元/线**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "rule_type": "monthly_fee",
+      "name": "50元/月/线",
+      "description": "旺铺上行提速可选包月费",
+      "amount": 50.0,
+      "currency": "CNY",
+      "billing_period": "月",
+      "contract_period": "",
+      "conditions": [],
+      "applies_to": [
+        "uplink"
+      ],
+      "source_evidence": "**□ 50元/月/线**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.8
+    }
+  ],
+  "agreement_rules": [
+    {
+      "rule_type": "contract_limitation",
+      "title": "协议期内客户退出或变更套餐的限制",
+      "description": "协议期内,因客户原因退出增值业务可选包或导致增值业务可选包提前终止的,客户应结清之前已使用的费用及违约金,并根据所选增值业务可选包支付提前退出违约金。",
+      "severity": "high",
+      "applies_to": [
+        "增值业务可选包"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "客户原因退出或提前终止增值业务可选包"
+      ],
+      "consequence": "客户需支付提前退出违约金，并归还设备或赔偿设备费用。",
+      "source_evidence": "**协议期内,因客户原因退出增值业务可选包或导致增值业务可选包提前终止的,客户应结清之前已使用的费用及违约金,并根据所选增值业务可选包支付提前退出违约金：4K IPTV可选包，剩余协议期6个月（含）以下的，收取1个月可选包基本资费的违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）\\*2个月增值业务可选包基本资费的违约金；智能组网（商企版）无线路由服务可选包，收取2个月可选包月基本费作为提前退出违约金。领用过相关设备的，客户须归还设备并保证设备的完好可用，或者向中国电信上海公司全额支付已领用的设备费用（智能组网（商企版）无线路由器设备240元/台，4K IPTV机顶盒200元/台)。**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "rule_type": "termination",
+      "title": "协议期满后客户的处理方式",
+      "description": "本规则协议期到期前30日内，若客户不作资费套餐的变更，则本营销规则自动延展12个月（1年）或24个月（2年），延展次数不限。",
+      "severity": "medium",
+      "applies_to": [
+        "基础套餐",
+        "增值业务可选包"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "协议期到期前30日内不作资费套餐的变更"
+      ],
+      "consequence": "营销规则自动延展12个月或24个月。",
+      "source_evidence": "**本规则协议期到期前30日内，若客户不作资费套餐的变更，则本营销规则自动延展12个月（1年）或24个月（2年），延展次数不限**；",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.85
+    },
+    {
+      "rule_type": "cancellation",
+      "title": "协议期满后客户的注销手续",
+      "description": "协议期满后，客户不续约的，可以办理相关产品注销手续（需归还路由器等设备）。",
+      "severity": "medium",
+      "applies_to": [
+        "基础套餐",
+        "增值业务可选包"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "协议期满后不续约"
+      ],
+      "consequence": "客户需办理注销手续并归还设备。",
+      "source_evidence": "**协议期满后，客户不续约的，可以办理相关产品注销手续（需归还路由器等设备）。**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.85
+    },
+    {
+      "rule_type": "usage_limitation",
+      "title": "宽带业务使用限制",
+      "description": "客户所申请的宽带业务以及智能组网（商企版）无线路由服务仅限本企业内部自用，不得私自利用该服务经营长话业务或进行长途国际话音转接，也不得以任何方式提供给第三方使用。",
+      "severity": "high",
+      "applies_to": [
+        "宽带业务",
+        "智能组网（商企版）无线路由服务"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "客户私自利用该服务经营长话业务或进行长途国际话音转接，或将服务提供给第三方使用"
+      ],
+      "consequence": "中国电信上海公司有权立即终止提供所有服务，本规则终止。",
+      "source_evidence": "**客户所申请的宽带业务以及智能组网（商企版）无线路由服务仅限本企业内部自用，客户不得私自利用中国电信上海公司所提供的业务服务经营长话业务或进行长途国际话音转接，也不得以任何方式提供给第三方使用，一经发现违规行为，中国电信上海公司有权立即终止提供所有服务，本规则终止。**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "rule_type": "payment_terms",
+      "title": "欠费停机处理方式",
+      "description": "若因客户欠费等原因被停机，停机期间仍将继续按月出账，收取套餐（含可选包）月基本费，年付客户仍将计入套餐费用包含的使用月份中。",
+      "severity": "high",
+      "applies_to": [
+        "套餐",
+        "可选包"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "客户欠费等属于客户责任的原因被停机"
+      ],
+      "consequence": "停机期间继续按月出账，收取套餐月基本费，年付客户仍将计入套餐费用包含的使用月份中。",
+      "source_evidence": "**本规则有效期内，若因客户欠费等属于客户责任的原因全部或部分被停机（暂停提供服务）的，停机期间，中国电信上海公司仍将继续按月出账，收取套餐（含可选包）月基本费，年付客户仍将计入套餐费用包含的使用月份中，停机之日起满60日，客户仍未缴费或导致停机的原因未消除的，中国电信上海公司有权拆机（终止提供服务），本规则终止。**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.85
+    },
+    {
+      "rule_type": "equipment_return",
+      "title": "设备归还及赔偿",
+      "description": "客户不再使用中国电信上海公司相关业务时，须归还终端设备并保证设备的完好可用，否则需全额支付已领用的设备费用。",
+      "severity": "medium",
+      "applies_to": [
+        "终端设备"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "客户不再使用相关业务"
+      ],
+      "consequence": "客户需归还设备并保证设备的完好可用，否则需全额支付已领用的设备费用。",
+      "source_evidence": "**客户不再使用中国电信上海公司相关业务时,须归还该设备并保证设备的完好可用或者向中国电信上海公司全额支付已领用的设备费用(宽带网关：250元/台，智能组网（商企版）无线路由器设备240元/台，4K IPTV机顶盒200元/台)。**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.85
+    },
+    {
+      "rule_type": "early_termination_fee",
+      "title": "提前退出违约金",
+      "description": "套餐协议期内,因客户原因退出本活动或导致本活动提前终止的,客户应结清之前已使用的费用及违约金,并根据所选套餐支付提前退出违约金。",
+      "severity": "high",
+      "applies_to": [
+        "套餐"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "客户原因退出或提前终止套餐"
+      ],
+      "consequence": "客户需支付提前退出违约金，并归还设备或赔偿设备费用。",
+      "source_evidence": "**套餐协议期内,因客户原因退出本活动或导致本活动提前终止的,客户应结清之前已使用的费用及违约金,并根据所选套餐支付提前退出违约金：剩余协议期6个月（含）以下的，收取1个月套餐月基本费的违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）\\*2个月套餐月基本费。领用过相关设备的，客户须归还设备并保证设备的完好可用，或者向中国电信上海公司全额支付已领用的设备费用（宽带网关：250元/台）。享受过一次性费用优惠的,须补足相关优惠（两年付用户150元/线/次）。套餐(含宽带、可选包)优惠终止,套餐内产品恢复标准资费。**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "rule_type": "service_termination",
+      "title": "信息安全风险处理",
+      "description": "如中国电信上海公司发现客户在宽带业务使用中存在信息安全风险的行为，在书面告知后仍有上述行为的，中国电信上海公司有权终止服务。",
+      "severity": "high",
+      "applies_to": [
+        "宽带业务"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "客户存在信息安全风险的行为"
+      ],
+      "consequence": "中国电信上海公司有权终止服务。",
+      "source_evidence": "**如中国电信上海公司发现客户在宽带业务使用中，存在有信息安全风险的行为，包括但不限于将自用的上行带宽聚合形成大带宽进行流量经营等，在中国电信上海公司书面告知后仍有上述行为的，中国电信上海公司有权终止服务。**",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.85
+    }
+  ],
+  "application_materials": [
+    {
+      "material_name": "责任人证件复印件",
+      "material_type": "",
+      "required": true,
+      "applies_to": [],
+      "condition": "",
+      "copies": "",
+      "format": "",
+      "seal_required": false,
+      "seal_type": "",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "",
+      "source_evidence": "须附责任人证件复印件，所有项目均为必填项",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "material_name": "授权委托书",
+      "material_type": "",
+      "required": true,
+      "applies_to": [],
+      "condition": "",
+      "copies": "",
+      "format": "",
+      "seal_required": true,
+      "seal_type": "",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "",
+      "source_evidence": "本单位 （统一社会信用代码为 ），在贵公司办理 （手机/固话/宽带）业务的 （新装/移机/变更/改性能/拆机）事宜，本单位使用上述业务用于： 。我单位电信业务经办人为： （身份证号为 ）。\n现本单位就电信业务办理过程中，委托单位（委托单位盖章）",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.7
+    }
+  ],
+  "eligibility_and_constraints": [
+    {
+      "constraint_type": "排除条件",
+      "name": "",
+      "description": "欠费2个月以上的客户不得参加本次优惠活动；已参加中国电信上海公司宽带业务优惠活动的且仍在营销规则约束期内的客户除非退出原活动，否则不得参加本次优惠活动、享受套餐优惠；已参加中国电信上海公司可选包中相关产品营销活动的且仍在营销规则约束期内的客户，不能选择与该产品有关的可选优惠。",
+      "condition": "欠费2个月以上",
+      "result": "不得参加本次优惠活动",
+      "blocks_recommendation": true,
+      "applies_to": [
+        "欠费2个月以上的客户",
+        "仍在营销规则约束期内的客户"
+      ],
+      "rule_source": "",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "欠费2个月以上的客户不得参加本次优惠活动；已参加中国电信上海公司宽带业务优惠活动的且仍在营销规则约束期内的客户除非退出原活动，否则不得参加本次优惠活动、享受套餐优惠；已参加中国电信上海公司可选包中相关产品营销活动的且仍在营销规则约束期内的客户，不能选择与该产品有关的可选优惠。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "constraint_type": "额外要求",
+      "name": "",
+      "description": "客户所申请的宽带业务以及智能组网（商企版）无线路由服务仅限本企业内部自用，客户不得私自利用中国电信上海公司所提供的业务服务经营长话业务或进行长途国际话音转接，也不得以任何方式提供给第三方使用。",
+      "condition": "客户所申请的宽带业务以及智能组网（商企版）无线路由服务",
+      "result": "仅限本企业内部自用，不得私自利用中国电信上海公司所提供的业务服务经营长话业务或进行长途国际话音转接，也不得以任何方式提供给第三方使用",
+      "blocks_recommendation": true,
+      "applies_to": [
+        "宽带业务",
+        "智能组网（商企版）无线路由服务"
+      ],
+      "rule_source": "",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "客户所申请的宽带业务以及智能组网（商企版）无线路由服务仅限本企业内部自用，客户不得私自利用中国电信上海公司所提供的业务服务经营长话业务或进行长途国际话音转接，也不得以任何方式提供给第三方使用，一经发现违规行为，中国电信上海公司有权立即终止提供所有服务，本规则终止。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "constraint_type": "停用/不可推荐规则",
+      "name": "",
+      "description": "若因客户欠费等属于客户责任的原因全部或部分被停机（暂停提供服务）的，停机期间，中国电信上海公司仍将继续按月出账，收取套餐（含可选包）月基本费，年付客户仍将计入套餐费用包含的使用月份中，停机之日起满60日，客户仍未缴费或导致停机的原因未消除的，中国电信上海公司有权拆机（终止提供服务），本规则终止。",
+      "condition": "因客户欠费等属于客户责任的原因全部或部分被停机",
+      "result": "停机期间，中国电信上海公司仍将继续按月出账，收取套餐（含可选包）月基本费，年付客户仍将计入套餐费用包含的使用月份中，停机之日起满60日，客户仍未缴费或导致停机的原因未消除的，中国电信上海公司有权拆机（终止提供服务），本规则终止。",
+      "blocks_recommendation": true,
+      "applies_to": [
+        "欠费客户"
+      ],
+      "rule_source": "",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "本规则有效期内，若因客户欠费等属于客户责任的原因全部或部分被停机（暂停提供服务）的，停机期间，中国电信上海公司仍将继续按月出账，收取套餐（含可选包）月基本费，年付客户仍将计入套餐费用包含的使用月份中，停机之日起满60日，客户仍未缴费或导致停机的原因未消除的，中国电信上海公司有权拆机（终止提供服务），本规则终止。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.8
+    },
+    {
+      "constraint_type": "额外要求",
+      "name": "",
+      "description": "电信公司受理客户的互联网接入业务时，基于网络和信息安全风险防范要求，一律默认关闭互联网IP地址的80及8080、443端口。客户不得通过宽带拨号业务提供互联网信息服务。",
+      "condition": "电信公司受理客户的互联网接入业务",
+      "result": "基于网络和信息安全风险防范要求，一律默认关闭互联网IP地址的80及8080、443端口。客户不得通过宽带拨号业务提供互联网信息服务。",
+      "blocks_recommendation": true,
+      "applies_to": [
+        "互联网接入业务"
+      ],
+      "rule_source": "",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "电信公司受理客户的互联网接入业务时，基于网络和信息安全风险防范要求，一律默认关闭互联网IP地址的80及8080、443端口。客户不得通过宽带拨号业务提供互联网信息服务。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.9
+    },
+    {
+      "constraint_type": "额外要求",
+      "name": "",
+      "description": "未经中国电信上海公司同意,客户不得将中国电信上海公司免费提供的设备转借﹑出租﹑出售或赠与他人,也不得将上述设备用于非中国电信上海公司提供的业务中。",
+      "condition": "未经中国电信上海公司同意",
+      "result": "客户不得将中国电信上海公司免费提供的设备转借﹑出租﹑出售或赠与他人,也不得将上述设备用于非中国电信上海公司提供的业务中。",
+      "blocks_recommendation": true,
+      "applies_to": [
+        "终端设备"
+      ],
+      "rule_source": "",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "未经中国电信上海公司同意,客户不得将中国电信上海公司免费提供的设备转借﹑出租﹑出售或赠与他人,也不得将上述设备用于非中国电信上海公司提供的业务中,一经发现,中国电信上海公司有权终止提供相关服务。客户不再使用中国电信上海公司相关业务时,须归还该设备并保证设备的完好可用或者向中国电信上海公司全额支付已领用的设备费用(宽带网关：250元/台，智能组网（商企版）无线路由器设备240元/台，4K IPTV机顶盒200元/台)。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx"
+      },
+      "confidence": 0.8
+    }
+  ],
+  "supplemental_rules": [],
+  "extraction_meta": {
+    "generated_at": "2026-06-02T15:55:25",
+    "source_file": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx",
+    "source_file_hash": "5c5dcd68b0b97230fb64fbc9bdd7edaae128617c16e139fddbe99820d9f3a62b",
+    "method": "llm_schema_module_extraction",
+    "llm_self_check": {},
+    "validation_issues": [
+      {
+        "severity": "error",
+        "path": "llm_module.optional_packages",
+        "message": "optional_packages: 大模型请求在 120.7s 后失败；prompt_chars=5287; original_error=APITimeoutError: Request timed out."
+      }
+    ],
+    "validation_issue_count": 1,
+    "schema_warnings": [
+      "部分模块抽取失败，已跳过 LLM 自检。"
+    ],
+    "review_status": "draft",
+    "raw_category": {
+      "raw_root": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw",
+      "raw_relative_path": "电信政企/1.5旺铺宽带/1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx",
+      "category_path": "电信政企/1.5旺铺宽带",
+      "category_levels": [
+        "电信政企",
+        "1.5旺铺宽带"
+      ]
+    },
+    "source_conversion": {
+      "original_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx",
+      "extraction_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.5旺铺宽带\\1 【2025.4.2起】天翼领航“旺铺宽带”单宽.docx",
+      "converted": false,
+      "converter": ""
+    }
+  }
+}
