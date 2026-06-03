@@ -7,10 +7,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from agent.sales_recommendation_agent.config import SalesRecommendationSettings
-from agent.sales_recommendation_agent.models import RegionScope, ScenarioType
-from agent.sales_recommendation_agent.parsers import HeuristicDemandParser, parse_customer_demand_json
-from agent.sales_recommendation_agent.workflow import SalesRequirementWorkflow
+from agent.sales_recommendation_agent.intent_parser import (
+    HeuristicDemandParser,
+    RegionScope,
+    SalesRecommendationSettings,
+    SalesRequirementWorkflow,
+    ScenarioType,
+    parse_customer_demand_json,
+)
 
 
 class SalesRecommendationRequirementTest(unittest.TestCase):

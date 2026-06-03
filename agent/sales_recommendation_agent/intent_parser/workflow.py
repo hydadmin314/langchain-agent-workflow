@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from agent.sales_recommendation_agent.config import SalesRecommendationSettings
-from agent.sales_recommendation_agent.models import DemandAnalysisRequest, RequirementAnalysisResult
-from agent.sales_recommendation_agent.parsers import DemandParser, ResilientDemandParser
-from agent.sales_recommendation_agent.rules import ScenarioRouter
+from agent.sales_recommendation_agent.intent_parser.config import SalesRecommendationSettings
+from agent.sales_recommendation_agent.intent_parser.models import DemandAnalysisRequest, RequirementAnalysisResult
+from agent.sales_recommendation_agent.intent_parser.parsers import DemandParser, ResilientDemandParser
+from agent.sales_recommendation_agent.intent_parser.rules import ScenarioRouter
 
 
 class SalesRequirementWorkflow:

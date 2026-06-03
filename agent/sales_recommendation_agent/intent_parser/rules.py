@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from agent.sales_recommendation_agent.config import SalesRecommendationSettings
-from agent.sales_recommendation_agent.models import CustomerDemand, RegionScope, RouteDecision, ScenarioType
+from agent.sales_recommendation_agent.intent_parser.config import SalesRecommendationSettings
+from agent.sales_recommendation_agent.intent_parser.models import CustomerDemand, RegionScope, RouteDecision, ScenarioType
 
 
 class ScenarioRouter:

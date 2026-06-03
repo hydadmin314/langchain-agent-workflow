@@ -7,8 +7,8 @@ from typing import Any, Protocol
 
 from pydantic import ValidationError
 
-from agent.sales_recommendation_agent.config import SalesRecommendationSettings
-from agent.sales_recommendation_agent.models import CustomerDemand, RegionScope, ScenarioType
+from agent.sales_recommendation_agent.intent_parser.config import SalesRecommendationSettings
+from agent.sales_recommendation_agent.intent_parser.models import CustomerDemand, RegionScope, ScenarioType
 
 
 SYSTEM_PROMPT = """你负责把销售侧口语化客户需求提取为严格 JSON，不要输出 Markdown 或解释。
