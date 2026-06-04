@@ -2,17 +2,8 @@ from __future__ import annotations
 
 from pydantic import BaseModel, Field
 
+from agent.sales_recommendation_agent.intent_parser.models import DemandCategoryMatch
 from agent.sales_recommendation_agent.product_repository.models import ProductCandidate
-
-
-class DemandCategoryMatch(BaseModel):
-    """需求分类体系中的命中结果。"""
-
-    category_id: str
-    category_name: str
-    score: float = 0.0
-    matched_keywords: list[str] = Field(default_factory=list)
-    reason: str = ""
 
 
 class RetrievedCandidate(BaseModel):
@@ -32,7 +23,9 @@ class RetrievedCandidate(BaseModel):
 class CandidateRetrievalResult(BaseModel):
     """Candidate Retriever 的完整输出。"""
 
-    route: str
+    primary_category_id: str = ""
+    primary_category_name: str = ""
+    recommendation_mode: str = "clarify"
     total_products: int
     matched_count: int
     demand_categories: list[DemandCategoryMatch] = Field(default_factory=list)

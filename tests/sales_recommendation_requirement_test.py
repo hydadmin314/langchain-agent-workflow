@@ -46,29 +46,32 @@ class SalesRecommendationRequirementTest(unittest.TestCase):
         self.assertEqual(result.structured_data.bandwidth_est_mbps, 10)
         self.assertEqual(result.structured_data.target_scope, RegionScope.overseas)
         self.assertEqual(result.structured_data.budget, 5000)
-        self.assertEqual(result.decision.route, "flow_overseas_access")
+        self.assertEqual(result.category_decision.primary_category_id, "4")
 
-    def test_high_bandwidth_routes_to_dedicated_flow(self) -> None:
-        result = self.workflow.analyze("深圳和广州两个点要内网互通，150人办公，先按半年看。")
+    def test_domestic_networking_category(self) -> None:
+        result = self.workflow.analyze("上海总部和杭州分公司要内网互通，两个点之间要稳定专线，约80人使用。")
 
-        self.assertEqual(result.structured_data.bandwidth_est_mbps, 150)
-        self.assertEqual(
-            result.structured_data.scenario_type,
-            ScenarioType.dedicated_ip_or_high_bandwidth,
-        )
-        self.assertEqual(result.decision.route, "flow_dedicated_ip_bandwidth")
+        self.assertEqual(result.structured_data.bandwidth_est_mbps, 80)
+        self.assertEqual(result.structured_data.scenario_type, ScenarioType.domestic_networking)
+        self.assertEqual(result.category_decision.primary_category_id, "3")
 
-    def test_fixed_ip_routes_to_dedicated_flow(self) -> None:
-        result = self.workflow.analyze("北京办公室20人访问业务系统，要求固定公网 IP。")
+    def test_fixed_ip_category(self) -> None:
+        result = self.workflow.analyze("客户有企业官网和服务器要对外访问，需要固定公网IP和备案，预计20人办公。")
 
         self.assertTrue(result.structured_data.requires_fixed_ip)
-        self.assertEqual(result.decision.route, "flow_dedicated_ip_bandwidth")
+        self.assertEqual(result.category_decision.primary_category_id, "2")
 
-    def test_incomplete_demand_routes_to_clarification(self) -> None:
-        result = self.workflow.analyze("客户想了解一下网络方案。")
+    def test_voice_category_does_not_fall_into_clarify_only(self) -> None:
+        result = self.workflow.analyze("客户要企业固定电话和呼叫中心坐席，想了解30B+D和云中继方案。")
 
-        self.assertEqual(result.decision.route, "flow_clarify_requirements")
-        self.assertIn("user_count", result.structured_data.missing_fields)
+        self.assertEqual(result.category_decision.primary_category_id, "6")
+        self.assertEqual(result.category_decision.recommendation_mode, "new_sale")
+
+    def test_mobile_5g_is_not_bandwidth(self) -> None:
+        result = self.workflow.analyze("公司要给员工办手机卡和5G大流量套餐，最好宽带和手机一起办。")
+
+        self.assertEqual(result.structured_data.bandwidth_est_mbps, 0)
+        self.assertEqual(result.category_decision.primary_category_id, "7")
 
     def test_parse_json_from_markdown_fence(self) -> None:
         demand = parse_customer_demand_json(
@@ -85,6 +88,7 @@ class SalesRecommendationRequirementTest(unittest.TestCase):
               "requires_fixed_ip": false,
               "scenario_type": "overseas_access",
               "raw_keywords": ["上海", "10人"],
+              "category_candidate_keywords": ["美国", "海外 SaaS"],
               "confidence": 0.9,
               "missing_fields": []
             }
@@ -93,6 +97,7 @@ class SalesRecommendationRequirementTest(unittest.TestCase):
 
         self.assertEqual(demand.user_count, 10)
         self.assertEqual(demand.target_scope, RegionScope.overseas)
+        self.assertIn("海外 SaaS", demand.category_candidate_keywords)
 
 
 if __name__ == "__main__":

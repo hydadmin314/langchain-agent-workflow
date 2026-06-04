@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Literal
-
 from pydantic import BaseModel, Field, field_validator
 
 
@@ -46,6 +44,10 @@ class CustomerDemand(BaseModel):
     requires_fixed_ip: bool = Field(default=False, description="是否明确需要固定 IP、公网 IP 或专线资源。")
     scenario_type: ScenarioType = Field(default=ScenarioType.unknown, description="解析得到的业务场景。")
     raw_keywords: list[str] = Field(default_factory=list, description="从原始需求中保留的关键触发词。")
+    category_candidate_keywords: list[str] = Field(
+        default_factory=list,
+        description="LLM 或本地规则识别出的产品需求分类候选关键词，只作为分类线索，不直接作为分类结论。",
+    )
     confidence: float = Field(default=0.6, ge=0, le=1, description="需求解析置信度。")
     missing_fields: list[str] = Field(default_factory=list, description="后续销售需要追问的关键字段。")
 
@@ -57,19 +59,30 @@ class CustomerDemand(BaseModel):
         return max(0, int(value))
 
 
-class RouteDecision(BaseModel):
-    """场景路由结果，暂时只负责把需求送到合适的产品推荐分支。"""
+class DemandCategoryMatch(BaseModel):
+    """13 类产品需求分类体系中的命中结果。"""
 
-    route: Literal[
-        "flow_overseas_access",
-        "flow_domestic_networking",
-        "flow_dedicated_ip_bandwidth",
-        "flow_clarify_requirements",
-    ]
-    action: str
-    matched_rules: list[str] = Field(default_factory=list)
-    priority: int = Field(ge=0, le=100)
-    reason: str
+    category_id: str
+    category_name: str
+    score: float = 0.0
+    matched_keywords: list[str] = Field(default_factory=list)
+    reason: str = ""
+
+
+class DemandCategoryDecision(BaseModel):
+    """需求分类结果。
+
+    推荐主流程只依赖 13 类产品需求分类，不再依赖早期 4 类粗路由。
+    """
+
+    primary_category_id: str = ""
+    primary_category_name: str = ""
+    category_matches: list[DemandCategoryMatch] = Field(default_factory=list)
+    recommendation_mode: str = "clarify"
+    confidence: float = 0.0
+    clarify_questions: list[str] = Field(default_factory=list)
+    notes: list[str] = Field(default_factory=list)
+    reason: str = ""
 
 
 class RequirementAnalysisResult(BaseModel):
@@ -77,4 +90,4 @@ class RequirementAnalysisResult(BaseModel):
 
     request_id: str | None = None
     structured_data: CustomerDemand
-    decision: RouteDecision
+    category_decision: DemandCategoryDecision

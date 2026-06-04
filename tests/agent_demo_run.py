@@ -18,41 +18,23 @@ DEFAULT_QUERY = "客户上海办公室10人访问美国 SaaS 很慢，预算5000
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="运行销售推荐 Agent 当前已开发到 CandidateRetriever 的完整流程。")
-    parser.add_argument(
-        "--query",
-        default=DEFAULT_QUERY,
-        help="销售输入的客户原始需求。",
-    )
-    parser.add_argument(
-        "--published-root",
-        default="data/product_doc_agent/published",
-        help="已审核发布的产品 JSON 目录。",
-    )
-    parser.add_argument(
-        "--top-k",
-        type=int,
-        default=8,
-        help="展示召回候选数量。",
-    )
-    parser.add_argument(
-        "--json",
-        action="store_true",
-        help="输出完整 JSON，便于调试字段。",
-    )
+    parser.add_argument("--query", default=DEFAULT_QUERY, help="销售输入的客户原始需求。")
+    parser.add_argument("--published-root", default="data/product_doc_agent/published", help="已审核发布的产品 JSON 目录。")
+    parser.add_argument("--top-k", type=int, default=8, help="展示召回候选数量。")
+    parser.add_argument("--json", action="store_true", help="输出完整 JSON，便于调试字段。")
     args = parser.parse_args()
 
     # 当前完整流程：
-    # 1. Intent Parser 抽取客户结构化需求
-    # 2. Scenario Router 判断需求场景
+    # 1. Intent Parser 抽取客户结构化需求，并输出分类候选关键词
+    # 2. Demand Category Classifier 按 13 类产品需求分类体系确定主分类
     # 3. Product Repository 读取 published 产品主数据
-    # 4. Candidate Retriever 按产品需求分类体系召回候选产品
+    # 4. Candidate Retriever 按主分类和候选分类召回产品
     intent_result = SalesRequirementWorkflow().analyze(args.query)
     product_result = ProductRepository(args.published_root).load_result()
     retrieval_result = CandidateRetriever(default_top_k=args.top_k).retrieve(
         demand=intent_result.structured_data,
-        decision=intent_result.decision,
+        category_decision=intent_result.category_decision,
         products=product_result.products,
-        raw_text=args.query,
         top_k=args.top_k,
     )
 
@@ -88,14 +70,19 @@ def main() -> None:
     print(f"- budget: {structured_data.budget}")
     print(f"- requires_fixed_ip: {structured_data.requires_fixed_ip}")
     print(f"- scenario_type: {structured_data.scenario_type.value}")
+    print(f"- raw_keywords: {structured_data.raw_keywords}")
+    print(f"- category_candidate_keywords: {structured_data.category_candidate_keywords}")
     print(f"- missing_fields: {structured_data.missing_fields}")
     print()
 
-    print("2. Scenario Router 结果：")
-    decision = intent_result.decision
-    print(f"- route: {decision.route}")
-    print(f"- priority: {decision.priority}")
-    print(f"- reason: {decision.reason}")
+    print("2. Demand Category Classifier 结果：")
+    category_decision = intent_result.category_decision
+    print(f"- primary_category: {category_decision.primary_category_id}_{category_decision.primary_category_name}")
+    print(f"- recommendation_mode: {category_decision.recommendation_mode}")
+    print(f"- confidence: {category_decision.confidence}")
+    print(f"- reason: {category_decision.reason}")
+    if category_decision.notes:
+        print(f"- notes: {category_decision.notes}")
     print()
 
     print("3. Product Repository 加载结果：")
@@ -107,7 +94,7 @@ def main() -> None:
             print(f"  - {error.path}: {error.error_type} - {error.message}")
     print()
 
-    print("4. Candidate Retriever 需求分类：")
+    print("4. 需求分类候选：")
     if retrieval_result.demand_categories:
         for category in retrieval_result.demand_categories:
             print(
@@ -121,12 +108,16 @@ def main() -> None:
     print()
 
     if retrieval_result.clarify_questions:
-        print("5. 当前不推荐产品，需要追问：")
+        print("5. 需要追问的信息：")
         for question in retrieval_result.clarify_questions:
             print(f"- {question}")
+        print()
+
+    print(f"6. Candidate Retriever 召回结果 Top {len(retrieval_result.candidates)}：")
+    if not retrieval_result.candidates:
+        print("- 当前没有召回候选产品。")
         return
 
-    print(f"5. Candidate Retriever 召回结果 Top {len(retrieval_result.candidates)}：")
     for index, candidate in enumerate(retrieval_result.candidates, start=1):
         product = candidate.product
         display_name = product.product_name or product.title or product.filename or product.document_id
