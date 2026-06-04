@@ -9,6 +9,7 @@ from pydantic import ValidationError
 
 from agent.sales_recommendation_agent.intent_parser.config import SalesRecommendationSettings
 from agent.sales_recommendation_agent.intent_parser.models import CustomerDemand, RegionScope, ScenarioType
+from agent.sales_recommendation_agent.intent_parser.taxonomy import DEMAND_CATEGORY_RULES
 
 
 SYSTEM_PROMPT = """你负责把销售侧口语化客户需求提取为严格 JSON，不要输出 Markdown 或解释。
@@ -26,17 +27,19 @@ SYSTEM_PROMPT = """你负责把销售侧口语化客户需求提取为严格 JSO
   "requires_fixed_ip": false,
   "scenario_type": "overseas_access/domestic_networking/dedicated_ip_or_high_bandwidth/trial_or_poc/unknown",
   "raw_keywords": [],
+  "category_candidate_keywords": [],
   "confidence": 0.0,
   "missing_fields": []
 }
 
 抽取规则：
-1. 未明确带宽但提供人数时，按每人 1 Mbps 估算 bandwidth_est_mbps。
-2. 出现固定 IP、公网 IP、专线、独享、大带宽时，requires_fixed_ip=true 或 scenario_type=dedicated_ip_or_high_bandwidth。
-3. 国内办公室访问海外应用、海外机房、海外 SaaS 时，scenario_type=overseas_access。
-4. 多地办公室、总部分公司、内网互通、组网时，scenario_type=domestic_networking。
-5. 试用、POC、先试一个月等信息写入 duration，同时可标记 scenario_type=trial_or_poc，除非更强的网络场景已经明确。
-6. 缺少来源、目标、人数、周期、预算等关键信息时，把字段名写入 missing_fields。
+1. 只抽取客户原话中明确出现或能直接归纳的字段，不要编造产品结论。
+2. category_candidate_keywords 只输出用于 13 类产品需求分类的候选关键词，例如：固定电话、30B+D、云中继、IDC、云电脑、来电名片、门店、固定IP、海外SaaS。
+3. category_candidate_keywords 不能输出分类编号或分类名，只输出客户需求里的业务关键词。
+4. 未明确带宽但提供人数时，按每人 1 Mbps 估算 bandwidth_est_mbps。
+5. “5G套餐、5G融合、手机卡”里的 5G 是移动通信制式，不要当作 5000Mbps 带宽。
+6. 只有明确出现固定IP、公网IP、公网地址时，requires_fixed_ip=true；普通“专线”不要直接等同固定 IP。
+7. 缺少来源、目标、人数、周期、预算等信息时，把字段名写入 missing_fields；缺字段不代表不能识别产品需求类别。
 """
 
 
@@ -90,7 +93,7 @@ class OpenAICompatibleDemandParser:
             "stream": False,
         }
 
-        # DashScope/Qwen 兼容接口支持这些开关；其他兼容服务会忽略或报错，必要时可通过环境变量置空。
+        # DashScope/Qwen 兼容接口支持这些开关；其他兼容服务必要时可通过环境变量置空。
         extra_body: dict[str, Any] = {}
         if self.settings.llm_enable_thinking is not None:
             extra_body["enable_thinking"] = self.settings.llm_enable_thinking
@@ -118,7 +121,7 @@ class HeuristicDemandParser:
 
         source_scope = infer_source_scope(text)
         target_scope = infer_target_scope(text)
-        requires_fixed_ip = contains_any(text, ["固定IP", "固定 IP", "公网IP", "公网 IP", "专线", "独享"])
+        requires_fixed_ip = contains_any(text, ["固定IP", "固定 IP", "公网IP", "公网 IP", "公网地址"])
         scenario_type = infer_scenario_type(
             source_scope=source_scope,
             target_scope=target_scope,
@@ -144,13 +147,18 @@ class HeuristicDemandParser:
             if value is None
         ]
 
+        category_candidate_keywords = extract_category_candidate_keywords(text)
+        raw_keywords = extract_keywords(text, category_candidate_keywords=category_candidate_keywords)
+
         confidence = 0.55
         if user_count:
             confidence += 0.1
         if target_scope != RegionScope.unknown:
             confidence += 0.1
-        if scenario_type != ScenarioType.unknown:
+        if category_candidate_keywords:
             confidence += 0.15
+        elif scenario_type != ScenarioType.unknown:
+            confidence += 0.1
         if explicit_bandwidth:
             confidence += 0.05
 
@@ -165,7 +173,8 @@ class HeuristicDemandParser:
             budget=budget,
             requires_fixed_ip=requires_fixed_ip,
             scenario_type=scenario_type,
-            raw_keywords=extract_keywords(text),
+            raw_keywords=raw_keywords,
+            category_candidate_keywords=category_candidate_keywords,
             confidence=min(confidence, 0.95),
             missing_fields=missing_fields,
         )
@@ -181,9 +190,12 @@ class ResilientDemandParser:
     def parse(self, raw_text: str) -> CustomerDemand:
         if self.primary.settings.llm_api_key:
             try:
-                return self.primary.parse(raw_text)
+                demand = self.primary.parse(raw_text)
+                # LLM 偶尔会漏掉分类关键词，这里用本地 taxonomy 再补一遍，不覆盖 LLM 已抽出的实体字段。
+                if not demand.category_candidate_keywords:
+                    demand.category_candidate_keywords = extract_category_candidate_keywords(raw_text)
+                return demand
             except (ParserError, ValidationError, json.JSONDecodeError, Exception):
-                # 需求提取不能因为模型服务短暂失败而中断销售流程，先给出可用的本地解析结果。
                 pass
         return self.fallback.parse(raw_text)
 
@@ -208,14 +220,14 @@ def extract_json_object(content: str) -> dict[str, Any]:
     return json.loads(cleaned)
 
 
-def contains_any(text: str, keywords: list[str]) -> bool:
+def contains_any(text: str, keywords: list[str] | tuple[str, ...]) -> bool:
     normalized = text.lower()
     return any(keyword.lower() in normalized for keyword in keywords)
 
 
 def extract_user_count(text: str) -> int | None:
     patterns = [
-        r"(?:大概|约|差不多|预计)?\s*(\d+)\s*(?:个)?(?:人|用户|员工|座席)",
+        r"(?:大概|约|差不多|预计)?\s*(\d+)\s*(?:个)?(?:人|用户|员工|座席|坐席|终端)",
         r"team\s*of\s*(\d+)",
         r"(\d+)\s*users?",
     ]
@@ -224,21 +236,25 @@ def extract_user_count(text: str) -> int | None:
         if match:
             return int(match.group(1))
 
-    chinese_match = re.search(r"([零一二两三四五六七八九十百千万]+)\s*(?:个)?(?:人|用户|员工|座席)", text)
+    chinese_match = re.search(r"([零一二两三四五六七八九十百千万]+)\s*(?:个)?(?:人|用户|员工|座席|坐席|终端)", text)
     if chinese_match:
         return chinese_number_to_int(chinese_match.group(1))
     return None
 
 
 def extract_bandwidth(text: str) -> int | None:
-    match = re.search(r"(\d+(?:\.\d+)?)\s*(G|Gbps|M|Mbps|兆|千兆)", text, re.I)
-    if not match:
-        return None
-    value = float(match.group(1))
-    unit = match.group(2).lower()
-    if unit in {"g", "gbps", "千兆"}:
-        value *= 1000
-    return math.ceil(value)
+    # “5G套餐/5G融合/5G手机卡”是移动通信制式，不是 5000M 带宽。
+    mobile_5g_context = re.search(r"5G[^，。；,;]{0,8}(?:套餐|融合|手机|移动|流量|卡)", text, re.I)
+    pattern = r"(\d+(?:\.\d+)?)\s*(G|Gbps|M|Mbps|兆|千兆)"
+    for match in re.finditer(pattern, text, re.I):
+        if mobile_5g_context and match.group(0).lower().startswith("5g"):
+            continue
+        value = float(match.group(1))
+        unit = match.group(2).lower()
+        if unit in {"g", "gbps", "千兆"}:
+            value *= 1000
+        return math.ceil(value)
+    return None
 
 
 def extract_duration(text: str) -> str | None:
@@ -278,7 +294,7 @@ def extract_budget(text: str) -> float | None:
 def infer_source_scope(text: str) -> RegionScope:
     if contains_any(text, ["美国办公室", "海外办公室", "新加坡办公室", "香港办公室", "海外分公司"]):
         return RegionScope.overseas
-    if contains_any(text, ["上海", "北京", "深圳", "广州", "杭州", "国内", "中国", "办公室", "分公司"]):
+    if contains_any(text, ["上海", "北京", "深圳", "广州", "杭州", "国内", "中国", "办公室", "分公司", "总部", "门店"]):
         return RegionScope.domestic
     return RegionScope.unknown
 
@@ -299,10 +315,12 @@ def infer_target_scope(text: str) -> RegionScope:
             "Microsoft 365",
             "Office 365",
             "AWS",
+            "海外SaaS",
+            "海外 SaaS",
         ],
     ):
         return RegionScope.overseas
-    if contains_any(text, ["国内组网", "内网互通", "多点组网", "总部", "分公司", "同城"]):
+    if contains_any(text, ["国内组网", "内网互通", "多点组网", "总部", "分公司", "同城", "点对点"]):
         return RegionScope.domestic
     return RegionScope.unknown
 
@@ -315,6 +333,8 @@ def infer_target_region(text: str, target_scope: RegionScope) -> str | None:
         return "海外 SaaS/云服务"
     if target_scope == RegionScope.domestic:
         return "国内多点组网"
+    if contains_any(text, ["企业官网", "服务器对外", "备案"]):
+        return "企业公网访问"
     return None
 
 
@@ -327,6 +347,8 @@ def infer_access_source(text: str) -> str | None:
         return "、".join(found)
     if "国内" in text:
         return "国内办公环境"
+    if "门店" in text:
+        return "门店"
     return None
 
 
@@ -339,27 +361,56 @@ def infer_scenario_type(
     high_bandwidth_threshold_mbps: int,
     text: str,
 ) -> ScenarioType:
+    # scenario_type 只保留为兼容早期字段，不再作为推荐主分类。
     if requires_fixed_ip or bandwidth_est_mbps > high_bandwidth_threshold_mbps:
         return ScenarioType.dedicated_ip_or_high_bandwidth
     if target_scope == RegionScope.overseas and source_scope in {RegionScope.domestic, RegionScope.unknown}:
         return ScenarioType.overseas_access
-    if target_scope == RegionScope.domestic or contains_any(text, ["组网", "互通", "分公司"]):
+    if target_scope == RegionScope.domestic or contains_any(text, ["组网", "互通", "分公司", "点对点"]):
         return ScenarioType.domestic_networking
     if contains_any(text, ["试用", "先试", "测试", "POC", "poc"]):
         return ScenarioType.trial_or_poc
     return ScenarioType.unknown
 
 
-def extract_keywords(text: str) -> list[str]:
-    candidates = ["固定IP", "公网IP", "专线", "海外", "美国", "国内组网", "内网互通", "试用", "预算"]
+def extract_category_candidate_keywords(text: str) -> list[str]:
+    """从 13 类 taxonomy 中提取客户需求侧命中的候选关键词。"""
+
+    matched: list[str] = []
+    normalized = text.lower()
+    for rule in DEMAND_CATEGORY_RULES:
+        for keyword in rule.demand_keywords:
+            if keyword.lower() in normalized:
+                matched.append(keyword)
+    return _dedupe(matched)
+
+
+def extract_keywords(text: str, *, category_candidate_keywords: list[str]) -> list[str]:
+    candidates = [
+        "固定IP",
+        "公网IP",
+        "专线",
+        "海外",
+        "美国",
+        "国内组网",
+        "内网互通",
+        "试用",
+        "预算",
+        "IDC",
+        "云电脑",
+        "商云通",
+        "云中继",
+        "400电话",
+    ]
     keywords = [item for item in candidates if item in text]
+    keywords.extend(category_candidate_keywords)
     user_count = extract_user_count(text)
     if user_count:
         keywords.append(f"{user_count}人")
     bandwidth = extract_bandwidth(text)
     if bandwidth:
         keywords.append(f"{bandwidth}M")
-    return keywords
+    return _dedupe(keywords)
 
 
 def normalize_number_text(value: str) -> str:
@@ -399,3 +450,14 @@ def chinese_number_to_int(value: str) -> int:
         base = (chinese_number_to_int(left) if left else 1) * 10
         return base + (digits.get(right, 0) if right else 0)
     return digits.get(value, 0)
+
+
+def _dedupe(values: list[str]) -> list[str]:
+    seen: set[str] = set()
+    result: list[str] = []
+    for value in values:
+        normalized = value.strip()
+        if normalized and normalized not in seen:
+            seen.add(normalized)
+            result.append(normalized)
+    return result
