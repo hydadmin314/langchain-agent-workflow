@@ -110,3 +110,114 @@ class CandidateScoreResult(BaseModel):
     scored_candidates: list[ScoredCandidate] = Field(default_factory=list)
     clarify_questions: list[str] = Field(default_factory=list)
     global_warnings: list[str] = Field(default_factory=list)
+
+
+class PackageComparisonSummary(BaseModel):
+    """基础套餐对比摘要。
+
+    这里不展开所有套餐明细，只提炼销售最常用的名称、速率、价格、周期和协议期。
+    """
+
+    package_count: int = 0
+    package_names: list[str] = Field(default_factory=list)
+    speeds: list[str] = Field(default_factory=list)
+    price_values: list[float] = Field(default_factory=list)
+    price_range: str = ""
+    billing_periods: list[str] = Field(default_factory=list)
+    contract_periods: list[str] = Field(default_factory=list)
+    has_voice_values: list[str] = Field(default_factory=list)
+
+
+class FeeComparisonSummary(BaseModel):
+    """费用规则对比摘要。
+
+    第一版只判断费用类型是否存在，不做折扣和总价核算。
+    """
+
+    fee_rule_count: int = 0
+    has_monthly_fee: bool = False
+    has_one_time_fee: bool = False
+    has_installation_fee: bool = False
+    has_deposit: bool = False
+    has_penalty_rule: bool = False
+    amount_values: list[float] = Field(default_factory=list)
+    fee_rule_names: list[str] = Field(default_factory=list)
+
+
+class OptionalPackageComparisonSummary(BaseModel):
+    """可选包、权益包和增值包对比摘要。"""
+
+    optional_package_count: int = 0
+    names: list[str] = Field(default_factory=list)
+    paid_package_names: list[str] = Field(default_factory=list)
+    free_package_names: list[str] = Field(default_factory=list)
+    categories: list[str] = Field(default_factory=list)
+    has_incompatibility: bool = False
+
+
+class ConstraintComparisonSummary(BaseModel):
+    """限制、准入和协议风险摘要。"""
+
+    constraint_count: int = 0
+    blocks_recommendation: bool = False
+    important_risks: list[str] = Field(default_factory=list)
+
+
+class MaterialComparisonSummary(BaseModel):
+    """办理材料摘要。
+
+    当前 ProductCandidate 尚未映射 application_materials，因此第一版先预留字段。
+    """
+
+    available: bool = False
+    material_count: int = 0
+    material_names: list[str] = Field(default_factory=list)
+    missing_reason: str = ""
+
+
+class ComparedProduct(BaseModel):
+    """Comparator 输出中的单个产品对比对象。"""
+
+    rank: int
+    document_id: str = ""
+    product_name: str = ""
+    product_family: str = ""
+    carrier: str = ""
+    region: str = ""
+    document_type: str = ""
+    category_path: str = ""
+    final_score: float = 0.0
+    retrieval_score: float = 0.0
+    recommendation_status: str = "candidate"
+    matched_strengths: list[str] = Field(default_factory=list)
+    risk_warnings: list[str] = Field(default_factory=list)
+    missing_info: list[str] = Field(default_factory=list)
+    package_summary: PackageComparisonSummary = Field(default_factory=PackageComparisonSummary)
+    fee_summary: FeeComparisonSummary = Field(default_factory=FeeComparisonSummary)
+    optional_package_summary: OptionalPackageComparisonSummary = Field(default_factory=OptionalPackageComparisonSummary)
+    constraint_summary: ConstraintComparisonSummary = Field(default_factory=ConstraintComparisonSummary)
+    material_summary: MaterialComparisonSummary = Field(default_factory=MaterialComparisonSummary)
+    source: dict[str, str] = Field(default_factory=dict)
+
+
+class ComparisonDimension(BaseModel):
+    """跨产品维度对比摘要。
+
+    这部分给后续 LLM Explainer 使用，让它能基于结构化差异生成销售说明。
+    """
+
+    dimension: str
+    summary: str
+
+
+class ComparisonResult(BaseModel):
+    """Comparator 的完整输出。"""
+
+    primary_category_id: str = ""
+    primary_category_name: str = ""
+    recommendation_mode: str = "clarify"
+    compared_count: int = 0
+    products: list[ComparedProduct] = Field(default_factory=list)
+    comparison_dimensions: list[ComparisonDimension] = Field(default_factory=list)
+    global_questions: list[str] = Field(default_factory=list)
+    global_warnings: list[str] = Field(default_factory=list)

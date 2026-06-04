@@ -73,6 +73,18 @@ class SalesRecommendationRequirementTest(unittest.TestCase):
         self.assertEqual(result.structured_data.bandwidth_est_mbps, 0)
         self.assertEqual(result.category_decision.primary_category_id, "7")
 
+    def test_process_keywords_route_to_service_process(self) -> None:
+        result = self.workflow.analyze("客户已有宽带，现在想拆机，需要知道办理流程和材料。")
+
+        self.assertEqual(result.category_decision.primary_category_id, "13")
+        self.assertEqual(result.category_decision.recommendation_mode, "service_process")
+
+    def test_material_and_guarantee_route_to_service_process(self) -> None:
+        result = self.workflow.analyze("外地公司在上海办理业务，需要哪些材料和担保要求？")
+
+        self.assertEqual(result.category_decision.primary_category_id, "13")
+        self.assertEqual(result.category_decision.recommendation_mode, "service_process")
+
     def test_parse_json_from_markdown_fence(self) -> None:
         demand = parse_customer_demand_json(
             """```json

@@ -10,14 +10,19 @@ sys.path.insert(0, str(ROOT))
 
 from agent.sales_recommendation_agent.intent_parser import SalesRequirementWorkflow
 from agent.sales_recommendation_agent.product_repository import ProductRepository
-from agent.sales_recommendation_agent.recommender import CandidateRetriever, CandidateRuleFilter, CandidateScorer
+from agent.sales_recommendation_agent.recommender import (
+    CandidateComparator,
+    CandidateRetriever,
+    CandidateRuleFilter,
+    CandidateScorer,
+)
 
 
 DEFAULT_QUERY = "客户上海办公室10人访问美国 SaaS 很慢，预算5000左右"
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="运行销售推荐 Agent 当前已开发到 Scorer 的完整流程。")
+    parser = argparse.ArgumentParser(description="运行销售推荐 Agent 当前已开发到 Comparator 的完整流程。")
     parser.add_argument("--query", default=DEFAULT_QUERY, help="销售输入的客户原始需求。")
     parser.add_argument("--published-root", default="data/product_doc_agent/published", help="已审核发布的产品 JSON 目录。")
     parser.add_argument("--top-k", type=int, default=8, help="展示召回候选数量。")
@@ -31,6 +36,7 @@ def main() -> None:
     # 4. Candidate Retriever 按主分类和候选分类召回产品
     # 5. Rule Filter 做确定性过滤和风险打标
     # 6. Scorer 对保留候选做稳定、可解释的程序排序
+    # 7. Comparator 对 Top N 候选做结构化对比，供后续 LLM 推荐说明使用
     intent_result = SalesRequirementWorkflow().analyze(args.query)
     product_result = ProductRepository(args.published_root).load_result()
     retrieval_result = CandidateRetriever(default_top_k=args.top_k).retrieve(
@@ -51,6 +57,12 @@ def main() -> None:
         filter_result=filter_result,
         top_k=args.top_k,
     )
+    comparison_result = CandidateComparator().compare(
+        demand=intent_result.structured_data,
+        category_decision=intent_result.category_decision,
+        score_result=score_result,
+        top_n=min(args.top_k, 3),
+    )
 
     if args.json:
         print(
@@ -66,6 +78,7 @@ def main() -> None:
                     "retrieval": retrieval_result.model_dump(mode="json"),
                     "filter": filter_result.model_dump(mode="json"),
                     "score": score_result.model_dump(mode="json"),
+                    "comparison": comparison_result.model_dump(mode="json"),
                 },
                 ensure_ascii=False,
                 indent=2,
@@ -188,6 +201,27 @@ def main() -> None:
                 print(f"- {display_name}: {reason.code} - {reason.message}")
             else:
                 print(f"- {display_name}")
+
+    print("\n7. Comparator 结构化对比摘要：")
+    if not comparison_result.products:
+        print("- 当前没有可对比的候选产品。")
+    else:
+        for item in comparison_result.products:
+            print(f"\n[{item.rank}] {item.product_name}")
+            print(f"- final_score: {item.final_score}")
+            print(f"- package_count: {item.package_summary.package_count}")
+            print(f"- price_range: {item.package_summary.price_range or '未提取'}")
+            print(f"- fee_rule_count: {item.fee_summary.fee_rule_count}")
+            print(f"- optional_package_count: {item.optional_package_summary.optional_package_count}")
+            print(f"- constraint_count: {item.constraint_summary.constraint_count}")
+            if item.risk_warnings:
+                print(f"- risks: {item.risk_warnings[:3]}")
+            if item.missing_info:
+                print(f"- missing_info: {item.missing_info[:3]}")
+
+        print("\n对比维度：")
+        for dimension in comparison_result.comparison_dimensions:
+            print(f"- {dimension.dimension}: {dimension.summary}")
 
 
 if __name__ == "__main__":

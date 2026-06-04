@@ -14,8 +14,19 @@ from agent.sales_recommendation_agent.intent_parser.models import (
     RegionScope,
     ScenarioType,
 )
-from agent.sales_recommendation_agent.product_repository.models import PackageCandidate, ProductCandidate
-from agent.sales_recommendation_agent.recommender import CandidateRetriever, CandidateRuleFilter, CandidateScorer
+from agent.sales_recommendation_agent.product_repository.models import (
+    ConstraintCandidate,
+    OptionalPackageCandidate,
+    PackageCandidate,
+    PriceRuleCandidate,
+    ProductCandidate,
+)
+from agent.sales_recommendation_agent.recommender import (
+    CandidateComparator,
+    CandidateRetriever,
+    CandidateRuleFilter,
+    CandidateScorer,
+)
 from agent.sales_recommendation_agent.recommender.models import (
     CandidateFilterResult,
     CandidateRetrievalResult,
@@ -273,6 +284,36 @@ class SalesCandidateRetrieverTest(unittest.TestCase):
         self.assertEqual(result.removed_count, 1)
         self.assertEqual(result.removed_candidates[0].filter_reasons[0].code, "service_process_mismatch")
 
+    def test_rule_filter_keeps_service_process_candidate_when_retrieval_matched_process_keyword(self) -> None:
+        demand = CustomerDemand()
+        category_decision = DemandCategoryDecision(primary_category_id="13", recommendation_mode="service_process")
+        retrieval_result = CandidateRetrievalResult(
+            total_products=1,
+            matched_count=1,
+            candidates=[
+                RetrievedCandidate(
+                    product=ProductCandidate(
+                        document_id="doc_change_process",
+                        product_name="套餐申请登记表",
+                        document_status="active",
+                        filename="套餐申请登记表.docx",
+                        category_path="电信政企/精品专线",
+                    ),
+                    retrieval_score=20,
+                    matched_keywords=["拆机", "变更"],
+                )
+            ],
+        )
+
+        result = CandidateRuleFilter().apply(
+            demand=demand,
+            category_decision=category_decision,
+            retrieval_result=retrieval_result,
+        )
+
+        self.assertEqual(result.kept_count, 1)
+        self.assertEqual(result.removed_count, 0)
+
     def test_scorer_ranks_stronger_candidate_before_risky_candidate(self) -> None:
         demand = CustomerDemand(requires_fixed_ip=True, budget=5000)
         category_decision = DemandCategoryDecision(primary_category_id="2", recommendation_mode="new_sale")
@@ -437,6 +478,87 @@ class SalesCandidateRetrieverTest(unittest.TestCase):
             result.scored_candidates[0].filtered_candidate.candidate.product.document_id,
             "doc_cloud_trunk",
         )
+
+    def test_comparator_builds_structured_product_summary(self) -> None:
+        demand = CustomerDemand(budget=5000)
+        category_decision = DemandCategoryDecision(primary_category_id="4", recommendation_mode="new_sale")
+        product = ProductCandidate(
+            document_id="doc_smart_line",
+            product_name="智能专线",
+            product_family="互联网专线",
+            carrier="中国电信",
+            region="上海",
+            document_type="申请表",
+            document_status="active",
+            category_path="电信政企/智能专线",
+            packages=[
+                PackageCandidate(
+                    package_name="智能专线100M",
+                    speed="100M",
+                    price=688,
+                    billing_period="月",
+                    contract_period="1年",
+                    source_evidence="智能专线100M 688元/月",
+                )
+            ],
+            fee_rules=[
+                PriceRuleCandidate(
+                    rule_type="installation_fee",
+                    name="安装调测费",
+                    amount=300,
+                    source_evidence="安装调测费300元",
+                )
+            ],
+            optional_packages=[
+                OptionalPackageCandidate(
+                    name="上行升速包",
+                    fee_summary="100元/月",
+                    price_items=[{"price": 100, "billing_period": "月"}],
+                )
+            ],
+            constraints=[
+                ConstraintCandidate(
+                    name="欠费限制",
+                    description="欠费客户不得办理优惠",
+                    source_evidence="欠费客户不得办理优惠",
+                )
+            ],
+        )
+        scored = CandidateScorer().score(
+            demand=demand,
+            category_decision=category_decision,
+            filter_result=CandidateFilterResult(
+                primary_category_id="4",
+                primary_category_name="海外访问与跨境加速",
+                recommendation_mode="new_sale",
+                total_candidates=1,
+                kept_count=1,
+                kept_candidates=[
+                    FilteredCandidate(
+                        decision="keep",
+                        candidate=RetrievedCandidate(product=product, retrieval_score=30),
+                    )
+                ],
+            ),
+        )
+
+        result = CandidateComparator().compare(
+            demand=demand,
+            category_decision=category_decision,
+            score_result=scored,
+            top_n=1,
+        )
+
+        self.assertEqual(result.compared_count, 1)
+        compared = result.products[0]
+        self.assertEqual(compared.product_name, "智能专线")
+        self.assertEqual(compared.package_summary.package_count, 1)
+        self.assertEqual(compared.package_summary.price_range, "688")
+        self.assertEqual(compared.fee_summary.fee_rule_count, 1)
+        self.assertTrue(compared.fee_summary.has_installation_fee)
+        self.assertEqual(compared.optional_package_summary.optional_package_count, 1)
+        self.assertIn("application_materials 尚未进入 ProductCandidate", compared.missing_info[0])
+        self.assertTrue(result.comparison_dimensions)
 
 
 if __name__ == "__main__":
