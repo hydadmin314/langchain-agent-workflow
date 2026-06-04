@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>产品推荐知识库</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Product Doc Agent / Published JSON</p>
+          <h1>产品推荐知识库</h1>
+          <p class="subtitle">面向销售推荐 Demo 的候选产品、套餐档位、办理材料与规则展示。</p>
+        </div>
+        <div class="top-actions">
+          <button class="ghost-button" id="exportSelection" type="button" title="导出当前选中文档摘要">导出摘要</button>
+          <button class="primary-button" id="copySource" type="button" title="复制当前文档来源路径">复制来源</button>
+        </div>
+      </header>
+
+      <section class="metric-strip" id="metricStrip" aria-label="数据概览"></section>
+
+      <main class="workspace">
+        <aside class="sidebar" aria-label="产品筛选">
+          <div class="filter-block">
+            <label for="searchInput">搜索</label>
+            <input id="searchInput" type="search" placeholder="产品、套餐、带宽、材料、规则" autocomplete="off" />
+          </div>
+
+          <div class="filter-row">
+            <div class="filter-block">
+              <label for="familyFilter">产品线</label>
+              <select id="familyFilter"></select>
+            </div>
+            <div class="filter-block">
+              <label for="carrierFilter">归属</label>
+              <select id="carrierFilter"></select>
+            </div>
+          </div>
+
+          <div class="filter-block">
+            <label>抽取状态</label>
+            <div class="segmented" id="qualityFilter" role="group" aria-label="抽取状态筛选">
+              <button type="button" class="active" data-quality="all">全部</button>
+              <button type="button" data-quality="可使用">可使用</button>
+              <button type="button" data-quality="可补充">可补充</button>
+              <button type="button" data-quality="需复核">需复核</button>
+            </div>
+          </div>
+
+          <div class="filter-block">
+            <label for="sortSelect">排序</label>
+            <select id="sortSelect">
+              <option value="quality">质量优先</option>
+              <option value="price-low">低价优先</option>
+              <option value="price-high">高价优先</option>
+              <option value="packages">套餐档位多</option>
+              <option value="updated">抽取时间新</option>
+            </select>
+          </div>
+
+          <div class="list-heading">
+            <span id="resultCount">0 份文档</span>
+            <span id="dataStamp"></span>
+          </div>
+          <div class="doc-list" id="docList"></div>
+        </aside>
+
+        <section class="detail" aria-label="文档详情">
+          <div class="detail-head">
+            <div>
+              <div class="badge-row" id="detailBadges"></div>
+              <h2 id="detailTitle">请选择产品文档</h2>
+              <p id="detailMeta" class="muted"></p>
+            </div>
+            <div class="score-box">
+              <span>推荐可用度</span>
+              <strong id="detailScore">0%</strong>
+              <div class="score-track"><div id="detailScoreBar"></div></div>
+            </div>
+          </div>
+
+          <div class="insight-grid" id="insightGrid"></div>
+
+          <nav class="tabs" id="tabs" aria-label="详情分类">
+            <button type="button" class="active" data-tab="overview">销售视角</button>
+            <button type="button" data-tab="packages">套餐档位</button>
+            <button type="button" data-tab="materials">办理材料</button>
+            <button type="button" data-tab="rules">费用规则</button>
+            <button type="button" data-tab="optional">可选包</button>
+            <button type="button" data-tab="issues">待复核</button>
+            <button type="button" data-tab="raw">原始 JSON</button>
+          </nav>
+
+          <div class="tab-panel" id="tabPanel"></div>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
