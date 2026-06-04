@@ -7,8 +7,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from agent.sales_recommendation_agent.intent_parser import SalesRecommendationSettings
-from agent.sales_recommendation_agent.intent_parser.models import CustomerDemand, RegionScope, RouteDecision, ScenarioType
+from agent.sales_recommendation_agent.intent_parser.models import (
+    CustomerDemand,
+    DemandCategoryDecision,
+    DemandCategoryMatch,
+    RegionScope,
+    ScenarioType,
+)
 from agent.sales_recommendation_agent.product_repository.models import ProductCandidate
 from agent.sales_recommendation_agent.recommender import CandidateRetriever
 
@@ -24,12 +29,20 @@ class SalesCandidateRetrieverTest(unittest.TestCase):
             bandwidth_est_mbps=10,
             scenario_type=ScenarioType.overseas_access,
             raw_keywords=["美国", "海外 SaaS"],
+            category_candidate_keywords=["美国", "海外 SaaS"],
         )
-        decision = RouteDecision(
-            route="flow_overseas_access",
-            action="进入海外访问类产品推荐分支",
-            priority=80,
-            reason="目标为海外。",
+        category_decision = DemandCategoryDecision(
+            primary_category_id="4",
+            primary_category_name="海外访问与跨境加速",
+            recommendation_mode="new_sale",
+            category_matches=[
+                DemandCategoryMatch(
+                    category_id="4",
+                    category_name="海外访问与跨境加速",
+                    score=20,
+                    matched_keywords=["美国"],
+                )
+            ],
         )
         products = [
             ProductCandidate(
@@ -50,9 +63,8 @@ class SalesCandidateRetrieverTest(unittest.TestCase):
 
         result = CandidateRetriever().retrieve(
             demand=demand,
-            decision=decision,
+            category_decision=category_decision,
             products=products,
-            raw_text="客户上海办公室10人访问美国 SaaS 很慢",
         )
 
         self.assertEqual(result.demand_categories[0].category_id, "4")
@@ -68,12 +80,20 @@ class SalesCandidateRetrieverTest(unittest.TestCase):
             requires_fixed_ip=True,
             scenario_type=ScenarioType.dedicated_ip_or_high_bandwidth,
             raw_keywords=["固定公网IP", "备案"],
+            category_candidate_keywords=["固定公网IP", "备案"],
         )
-        decision = RouteDecision(
-            route="flow_dedicated_ip_bandwidth",
-            action="进入固定 IP / 高带宽 / 专线类产品推荐分支",
-            priority=90,
-            reason="需要公网 IP。",
+        category_decision = DemandCategoryDecision(
+            primary_category_id="2",
+            primary_category_name="固定IP_高带宽_互联网专线",
+            recommendation_mode="new_sale",
+            category_matches=[
+                DemandCategoryMatch(
+                    category_id="2",
+                    category_name="固定IP_高带宽_互联网专线",
+                    score=30,
+                    matched_keywords=["固定公网IP", "备案"],
+                )
+            ],
         )
         products = [
             ProductCandidate(
@@ -85,22 +105,20 @@ class SalesCandidateRetrieverTest(unittest.TestCase):
             )
         ]
 
-        result = CandidateRetriever().retrieve(demand=demand, decision=decision, products=products)
+        result = CandidateRetriever().retrieve(demand=demand, category_decision=category_decision, products=products)
 
         self.assertEqual(result.demand_categories[0].category_id, "2")
         self.assertEqual(result.matched_count, 1)
         self.assertIn("公网IP", result.candidates[0].matched_keywords)
 
-    def test_clarify_route_returns_questions_without_candidates(self) -> None:
+    def test_no_category_returns_clarify_questions_without_candidates(self) -> None:
         demand = CustomerDemand(missing_fields=["user_count", "budget"])
-        decision = RouteDecision(
-            route="flow_clarify_requirements",
-            action="进入需求澄清分支",
-            priority=30,
-            reason="缺少字段。",
+        category_decision = DemandCategoryDecision(
+            recommendation_mode="clarify",
+            clarify_questions=["预计多少人、多少终端、多少号码或多少坐席使用？"],
         )
 
-        result = CandidateRetriever().retrieve(demand=demand, decision=decision, products=[])
+        result = CandidateRetriever().retrieve(demand=demand, category_decision=category_decision, products=[])
 
         self.assertEqual(result.matched_count, 0)
         self.assertTrue(result.clarify_questions)
