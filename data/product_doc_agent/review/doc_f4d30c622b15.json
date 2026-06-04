@@ -1,0 +1,82 @@
+{
+  "document_info": {
+    "document_id": "doc_f4d30c622b15",
+    "document_type": "",
+    "title": "",
+    "product_name": "",
+    "product_family": "",
+    "carrier": "",
+    "region": "",
+    "version": "",
+    "effective_from": "",
+    "effective_to": "",
+    "document_status": "active",
+    "filename": "1 商继通申请基本信息表（电子档）.xlsx",
+    "source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.3 商继通\\1 商继通申请基本信息表（电子档）.xlsx",
+    "source_file_type": "xlsx"
+  },
+  "parties_and_application": {
+    "service_provider": {
+      "name": "",
+      "carrier": "",
+      "region": "",
+      "contact_channels": []
+    },
+    "customer": {
+      "name": "",
+      "filled_values": [],
+      "is_blank_form": true
+    },
+    "application_fields": {
+      "required": [],
+      "optional": []
+    },
+    "application_notes": []
+  },
+  "base_package": {
+    "packages": [],
+    "included_items": [],
+    "service_attributes": [],
+    "sla": {}
+  },
+  "optional_packages": [],
+  "fee_and_term_rules": [],
+  "agreement_rules": [],
+  "application_materials": [],
+  "eligibility_and_constraints": [],
+  "supplemental_rules": [],
+  "extraction_meta": {
+    "generated_at": "2026-06-02T15:05:51",
+    "source_file": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.3 商继通\\1 商继通申请基本信息表（电子档）.xlsx",
+    "source_file_hash": "ea8072ec1ac6d9546e3b3696a39cc4ae28b0a5df7b5578d4b083450b9a4948b7",
+    "method": "llm_schema_module_extraction",
+    "llm_self_check": {},
+    "validation_issues": [
+      {
+        "severity": "error",
+        "path": "llm_module.parties_and_application",
+        "message": "parties_and_application: 大模型请求在 120.6s 后失败；prompt_chars=3255; original_error=APITimeoutError: Request timed out."
+      }
+    ],
+    "validation_issue_count": 1,
+    "schema_warnings": [
+      "部分模块抽取失败，已跳过 LLM 自检。"
+    ],
+    "review_status": "draft",
+    "raw_category": {
+      "raw_root": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw",
+      "raw_relative_path": "电信号百/1.3 商继通/1 商继通申请基本信息表（电子档）.xlsx",
+      "category_path": "电信号百/1.3 商继通",
+      "category_levels": [
+        "电信号百",
+        "1.3 商继通"
+      ]
+    },
+    "source_conversion": {
+      "original_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.3 商继通\\1 商继通申请基本信息表（电子档）.xlsx",
+      "extraction_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信号百\\1.3 商继通\\1 商继通申请基本信息表（电子档）.xlsx",
+      "converted": false,
+      "converter": ""
+    }
+  }
+}

@@ -1,0 +1,1240 @@
+{
+  "document_info": {
+    "document_id": "doc_cb1b9e8695e3",
+    "document_type": "申请登记表",
+    "title": "中国电信股份有限公司上海分公司互联网专线之“精品专线”营销活动申请登记表(2025/B)",
+    "product_name": "精品专线",
+    "product_family": "互联网专线",
+    "carrier": "中国电信股份有限公司上海分公司",
+    "region": "上海",
+    "version": "2025/B",
+    "effective_from": "",
+    "effective_to": "",
+    "document_status": "active",
+    "filename": "1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx",
+    "source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx",
+    "source_file_type": "docx"
+  },
+  "parties_and_application": {
+    "service_provider": {
+      "name": "中国电信股份有限公司上海分公司",
+      "carrier": "中国电信",
+      "region": "上海",
+      "contact_channels": []
+    },
+    "customer": {
+      "name": "",
+      "filled_values": [],
+      "is_blank_form": true
+    },
+    "application_fields": {
+      "required": [
+        {
+          "label": "企业全称",
+          "field_key": "enterprise_name",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*企 业 全 称",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 0,
+            "column_index": 0,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "企业所属行业",
+          "field_key": "enterprise_industry",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*企业所属行业",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 1,
+            "column_index": 5,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "企业规模",
+          "field_key": "enterprise_scale",
+          "required": true,
+          "value": null,
+          "options": [
+            "10人以下",
+            "10-30人",
+            "31-80人",
+            "81-200人",
+            "200人以上"
+          ],
+          "value_type": "option",
+          "source_evidence": "*企 业 规 模 | 10人以下 10-30人 31-80人 81-200人 200人以上",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 2,
+            "column_index": 0,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "计算机数量",
+          "field_key": "computer_count",
+          "required": true,
+          "value": null,
+          "options": [
+            "5台及以下",
+            "6-15台",
+            "16-40台",
+            "41-100台",
+            "100台以上"
+          ],
+          "value_type": "option",
+          "source_evidence": "*计算机数量 | 5台及以下 6-15台 16-40台 41-100台 100台以上",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 3,
+            "column_index": 0,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "安装地址",
+          "field_key": "installation_address",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*安 装 地 址",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 4,
+            "column_index": 0,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "邮编",
+          "field_key": "postal_code_installation",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*邮 编",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 4,
+            "column_index": 7,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "联系人",
+          "field_key": "contact_person",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*联 系 人",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 5,
+            "column_index": 0,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "身份证号码",
+          "field_key": "id_card_number",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*身份证号码",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 5,
+            "column_index": 4,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "联系电话",
+          "field_key": "contact_phone",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*联系电话",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 5,
+            "column_index": 7,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "资料邮寄地址",
+          "field_key": "mailing_address",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*资料邮寄地址",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 6,
+            "column_index": 0,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "付款方式",
+          "field_key": "payment_method",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*付 款 方 式",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 7,
+            "column_index": 0,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "代理商名称",
+          "field_key": "agent_name",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "**\\*代理商名称**",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 8,
+            "column_index": 0,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "代理商业务人员姓名",
+          "field_key": "agent_staff_name",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "**\\*代理商业务人员姓名**",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 9,
+            "column_index": 0,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "代理商业务人员联系方式",
+          "field_key": "agent_staff_contact",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "**\\*代理商业务人员联系方式**",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 9,
+            "column_index": 6,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        }
+      ],
+      "optional": [
+        {
+          "label": "企业代码",
+          "field_key": "enterprise_code",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "企 业 代 码",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 1,
+            "column_index": 0,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "联系人职务",
+          "field_key": "contact_person_position",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "联系人职务",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 6,
+            "column_index": 0,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "E-MAIL",
+          "field_key": "email",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*E-MAIL",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 6,
+            "column_index": 4,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "传真",
+          "field_key": "fax",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "传 真",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 6,
+            "column_index": 7,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "其它（资料邮寄地址）",
+          "field_key": "mailing_address_other",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "* 其它",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 6,
+            "column_index": 5,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "托收银行账号",
+          "field_key": "bank_account_collection",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "* 托 收 银行账号：",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 7,
+            "column_index": 2,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "现金",
+          "field_key": "payment_cash",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "* 现 金",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 7,
+            "column_index": 3,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        },
+        {
+          "label": "同公司地址",
+          "field_key": "mailing_address_same_as_company",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "* 同公司地址",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": 0,
+            "row_index": 6,
+            "column_index": 2,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        }
+      ]
+    },
+    "application_notes": []
+  },
+  "base_package": {
+    "packages": [
+      {
+        "package_name": "精品专线",
+        "package_code": "精品专线_50M/50M_月_2388",
+        "speed": "50M/50M",
+        "upstream_speed": "50M",
+        "downstream_speed": "50M",
+        "bandwidth_unit": "M",
+        "has_voice": null,
+        "price": 2388.0,
+        "currency": "CNY",
+        "billing_period": "月",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [
+          "本活动仅限企业自用",
+          "ISP、IDC、CDN经营的客户不适用本套餐",
+          "需另行签订协议。"
+        ],
+        "source_evidence": "□50M/50M（2388元/月）",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+        },
+        "confidence": 0.95
+      },
+      {
+        "package_name": "精品专线",
+        "package_code": "精品专线_50M/50M_年_23880",
+        "speed": "50M/50M",
+        "upstream_speed": "50M",
+        "downstream_speed": "50M",
+        "bandwidth_unit": "M",
+        "has_voice": null,
+        "price": 23880.0,
+        "currency": "CNY",
+        "billing_period": "年",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [
+          "本活动仅限企业自用",
+          "ISP、IDC、CDN经营的客户不适用本套餐",
+          "需另行签订协议。"
+        ],
+        "source_evidence": "□50M/50M（23880元/年）",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+        },
+        "confidence": 0.95
+      },
+      {
+        "package_name": "精品专线",
+        "package_code": "精品专线_100M/100M_月_3388",
+        "speed": "100M/100M",
+        "upstream_speed": "100M",
+        "downstream_speed": "100M",
+        "bandwidth_unit": "M",
+        "has_voice": null,
+        "price": 3388.0,
+        "currency": "CNY",
+        "billing_period": "月",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [
+          "本活动仅限企业自用",
+          "ISP、IDC、CDN经营的客户不适用本套餐",
+          "需另行签订协议。"
+        ],
+        "source_evidence": "□100M/100M（3388元/月）",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+        },
+        "confidence": 0.95
+      },
+      {
+        "package_name": "精品专线",
+        "package_code": "精品专线_100M/100M_年_28880",
+        "speed": "100M/100M",
+        "upstream_speed": "100M",
+        "downstream_speed": "100M",
+        "bandwidth_unit": "M",
+        "has_voice": null,
+        "price": 28880.0,
+        "currency": "CNY",
+        "billing_period": "年",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [
+          "本活动仅限企业自用",
+          "ISP、IDC、CDN经营的客户不适用本套餐",
+          "需另行签订协议。"
+        ],
+        "source_evidence": "□100M/100M（28880元/年）",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+        },
+        "confidence": 0.95
+      },
+      {
+        "package_name": "精品专线",
+        "package_code": "精品专线_100M/100M_2年_48000",
+        "speed": "100M/100M",
+        "upstream_speed": "100M",
+        "downstream_speed": "100M",
+        "bandwidth_unit": "M",
+        "has_voice": null,
+        "price": 48000.0,
+        "currency": "CNY",
+        "billing_period": "2年",
+        "contract_period": "2年",
+        "quantity_limit": "",
+        "applicable_conditions": [
+          "本活动仅限企业自用",
+          "ISP、IDC、CDN经营的客户不适用本套餐",
+          "需另行签订协议。"
+        ],
+        "source_evidence": "□100M/100M(48000元/2年)",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+        },
+        "confidence": 0.95
+      },
+      {
+        "package_name": "精品专线",
+        "package_code": "精品专线_200M/200M_月_4888",
+        "speed": "200M/200M",
+        "upstream_speed": "200M",
+        "downstream_speed": "200M",
+        "bandwidth_unit": "M",
+        "has_voice": null,
+        "price": 4888.0,
+        "currency": "CNY",
+        "billing_period": "月",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [
+          "本活动仅限企业自用",
+          "ISP、IDC、CDN经营的客户不适用本套餐",
+          "需另行签订协议。"
+        ],
+        "source_evidence": "□200M/200M（4888元/月）",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+        },
+        "confidence": 0.95
+      },
+      {
+        "package_name": "精品专线",
+        "package_code": "精品专线_200M/200M_年_48880",
+        "speed": "200M/200M",
+        "upstream_speed": "200M",
+        "downstream_speed": "200M",
+        "bandwidth_unit": "M",
+        "has_voice": null,
+        "price": 48880.0,
+        "currency": "CNY",
+        "billing_period": "年",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [
+          "本活动仅限企业自用",
+          "ISP、IDC、CDN经营的客户不适用本套餐",
+          "需另行签订协议。"
+        ],
+        "source_evidence": "□200M/200M（48880元/年）",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+        },
+        "confidence": 0.95
+      },
+      {
+        "package_name": "精品专线",
+        "package_code": "精品专线_300M/300M_月_7888",
+        "speed": "300M/300M",
+        "upstream_speed": "300M",
+        "downstream_speed": "300M",
+        "bandwidth_unit": "M",
+        "has_voice": null,
+        "price": 7888.0,
+        "currency": "CNY",
+        "billing_period": "月",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [
+          "本活动仅限企业自用",
+          "ISP、IDC、CDN经营的客户不适用本套餐",
+          "需另行签订协议。"
+        ],
+        "source_evidence": "□300M/300M（7888元/月）",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+        },
+        "confidence": 0.95
+      },
+      {
+        "package_name": "精品专线",
+        "package_code": "精品专线_300M/300M_年_78880",
+        "speed": "300M/300M",
+        "upstream_speed": "300M",
+        "downstream_speed": "300M",
+        "bandwidth_unit": "M",
+        "has_voice": null,
+        "price": 78880.0,
+        "currency": "CNY",
+        "billing_period": "年",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [
+          "本活动仅限企业自用",
+          "ISP、IDC、CDN经营的客户不适用本套餐",
+          "需另行签订协议。"
+        ],
+        "source_evidence": "□300M/300M（78880元/年）",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+        },
+        "confidence": 0.95
+      },
+      {
+        "package_name": "精品专线",
+        "package_code": "精品专线_500M/500M_月_12888",
+        "speed": "500M/500M",
+        "upstream_speed": "500M",
+        "downstream_speed": "500M",
+        "bandwidth_unit": "M",
+        "has_voice": null,
+        "price": 12888.0,
+        "currency": "CNY",
+        "billing_period": "月",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [
+          "本活动仅限企业自用",
+          "ISP、IDC、CDN经营的客户不适用本套餐",
+          "需另行签订协议。"
+        ],
+        "source_evidence": "□500M/500M（12888元/月）",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+        },
+        "confidence": 0.95
+      },
+      {
+        "package_name": "精品专线",
+        "package_code": "精品专线_500M/500M_年_128880",
+        "speed": "500M/500M",
+        "upstream_speed": "500M",
+        "downstream_speed": "500M",
+        "bandwidth_unit": "M",
+        "has_voice": null,
+        "price": 128880.0,
+        "currency": "CNY",
+        "billing_period": "年",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [
+          "本活动仅限企业自用",
+          "ISP、IDC、CDN经营的客户不适用本套餐",
+          "需另行签订协议。"
+        ],
+        "source_evidence": "□500M/500M（128880元/年）",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+        },
+        "confidence": 0.95
+      },
+      {
+        "package_name": "精品专线",
+        "package_code": "精品专线_800M/800M_月_21888",
+        "speed": "800M/800M",
+        "upstream_speed": "800M",
+        "downstream_speed": "800M",
+        "bandwidth_unit": "M",
+        "has_voice": null,
+        "price": 21888.0,
+        "currency": "CNY",
+        "billing_period": "月",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [
+          "本活动仅限企业自用",
+          "ISP、IDC、CDN经营的客户不适用本套餐",
+          "需另行签订协议。"
+        ],
+        "source_evidence": "□800M/800M（21888元/月）",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+        },
+        "confidence": 0.95
+      }
+    ],
+    "included_items": [
+      {
+        "item_name": "IP地址服务",
+        "description": "本套餐提供5个可用IPv4地址及“/64”IPv6地址”,即IPv6地址可用数量为2的64次方个。",
+        "quantity": null,
+        "unit": "",
+        "source_evidence": "1、IP地址服务：本套餐提供5个可用IPv4地址及“/64”IPv6地址”,即IPv6地址可用数量为2的64次方个。",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+        },
+        "confidence": 0.98
+      },
+      {
+        "item_name": "定制网关",
+        "description": "提供“中国电信领航者Navigator定制网关（A8-C定制终端）”一台供用户使用，提供配置快速开通服务、多PC有线无线上网服务、7*24小时远程监控值守服务等功能",
+        "quantity": 1,
+        "unit": "台",
+        "source_evidence": "提供“中国电信领航者Navigator定制网关（A8-C定制终端）”一台供用户使用，提供配置快速开通服务、多PC有线无线上网服务、7\\*24小时远程监控值守服务等功能",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+        },
+        "confidence": 0.98
+      }
+    ],
+    "service_attributes": [
+      {
+        "attribute_name": "IP地址",
+        "attribute_value": "IPv4/ IPv6双栈",
+        "source_evidence": "IP地址： IPv4/ IPv6双栈",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+        },
+        "confidence": 0.97
+      }
+    ],
+    "sla": {}
+  },
+  "optional_packages": [
+    {
+      "package_type": "增值服务",
+      "name": "天翼安全大脑（专线版300M）",
+      "category": "安全服务",
+      "description": "天翼安全大脑提供上网行为管理、多线接入、可视化流量管理；防火墙、病毒防护、IPS、SSLVPN、网安联动阻断、失陷主机定位等服务。",
+      "fee_summary": "600元/月/线，下行速率300M及以下带宽适用",
+      "price_items": [
+        {
+          "price": 600.0,
+          "currency": "CNY",
+          "billing_period": "月",
+          "unit": "line",
+          "source_evidence": "天翼安全大脑（专线版300M），600元/月/线，下行速率300M及以下带宽适用",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        }
+      ],
+      "options": [
+        "网关版本类型：防护版",
+        "网关版本类型：审计版",
+        "网关安装模式：网桥模式",
+        "网关安装模式：路由模式",
+        "网关安装模式：旁路模式"
+      ],
+      "required_with": [],
+      "incompatible_with": [],
+      "applicable_conditions": [
+        "下行速率300M及以下带宽适用"
+      ],
+      "source_evidence": "天翼安全大脑（专线版300M），600元/月/线，下行速率300M及以下带宽适用",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "package_type": "增值服务",
+      "name": "天翼安全大脑（专线版500M）",
+      "category": "安全服务",
+      "description": "天翼安全大脑提供上网行为管理、多线接入、可视化流量管理；防火墙、病毒防护、IPS、SSLVPN、网安联动阻断、失陷主机定位等服务。",
+      "fee_summary": "1200元/月/线，下行速率500M及以下带宽适用",
+      "price_items": [
+        {
+          "price": 1200.0,
+          "currency": "CNY",
+          "billing_period": "月",
+          "unit": "line",
+          "source_evidence": "天翼安全大脑（专线版500M），1200元/月/线，下行速率500M及以下带宽适用",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        }
+      ],
+      "options": [
+        "网关版本类型：防护版",
+        "网关版本类型：审计版",
+        "网关安装模式：网桥模式",
+        "网关安装模式：路由模式",
+        "网关安装模式：旁路模式"
+      ],
+      "required_with": [],
+      "incompatible_with": [],
+      "applicable_conditions": [
+        "下行速率500M及以下带宽适用"
+      ],
+      "source_evidence": "天翼安全大脑（专线版500M），1200元/月/线，下行速率500M及以下带宽适用",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "package_type": "增值服务",
+      "name": "天翼安全大脑-安全专家增值服务",
+      "category": "安全服务",
+      "description": "为客户提供安全网关设备5*8小时的安全咨询、设备巡检、故障响应、病毒查杀及现场安全维护服务等服务。",
+      "fee_summary": "300元/月/线",
+      "price_items": [
+        {
+          "price": 300.0,
+          "currency": "CNY",
+          "billing_period": "月",
+          "unit": "line",
+          "source_evidence": "天翼安全大脑-安全专家增值服务，300元/月/线",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        }
+      ],
+      "options": [],
+      "required_with": [],
+      "incompatible_with": [],
+      "applicable_conditions": [],
+      "source_evidence": "天翼安全大脑-安全专家增值服务，300元/月/线",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "package_type": "移动业务",
+      "name": "5G畅享套餐",
+      "category": "移动通信",
+      "description": "5G畅享套餐提供手机国内流量和国内通话分钟数，含来电显示、189邮箱等增值业务。",
+      "fee_summary": "1元/月/号（新装优惠价）",
+      "price_items": [
+        {
+          "price": 1.0,
+          "currency": "CNY",
+          "billing_period": "月",
+          "unit": "number",
+          "source_evidence": "移动业务  1元/月/号",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        }
+      ],
+      "options": [
+        "套餐月基本费价值99元/月/线，包含手机国内流量20GB/月，国内通话400分钟/月",
+        "套餐月基本费价值129元/月/线，包含手机国内流量30GB/月，国内通话500分钟/月",
+        "套餐月基本费价值169元/月/线，包含手机国内流量40GB/月，国内通话800分钟/月",
+        "套餐月基本费价值199元/月/线，包含手机国内流量60GB/月，国内通话1000分钟/月"
+      ],
+      "required_with": [],
+      "incompatible_with": [],
+      "applicable_conditions": [
+        "同一政企客户名下仅限新装移动设备号",
+        "月基本费降至1元/月/号",
+        "原套餐月基本费之和应小于等于精品专线业务的签约消费金额（元/月）"
+      ],
+      "source_evidence": "移动业务  1元/月/号",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "package_type": "固话业务",
+      "name": "商云通",
+      "category": "语音通信",
+      "description": "提供8位商云通电话号码；国内通话2500分钟/月/线；提供终端衍生服务：7*12 小时服务热线（8:30-20:30），远程协助客户处理障碍或其他现场服务。",
+      "fee_summary": "0元/月/线，申请线数：限1线",
+      "price_items": [
+        {
+          "price": 0.0,
+          "currency": "CNY",
+          "billing_period": "月",
+          "unit": "line",
+          "source_evidence": "□ 0元/月/线，申请线数：限1线",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+          },
+          "confidence": 0.95
+        }
+      ],
+      "options": [],
+      "required_with": [],
+      "incompatible_with": [],
+      "applicable_conditions": [
+        "仅限新装",
+        "1线分配1个8位商云通电话号码",
+        "客户注销业务时需归还终端衍生服务中提供的终端设备"
+      ],
+      "source_evidence": "商云通 | | □ 0元/月/线，申请线数：限1线",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    }
+  ],
+  "fee_and_term_rules": [],
+  "agreement_rules": [],
+  "application_materials": [
+    {
+      "material_name": "营业执照复印件",
+      "material_type": "证件类",
+      "required": true,
+      "applies_to": [
+        "客户单位"
+      ],
+      "condition": "三证合一",
+      "copies": "1份",
+      "format": "复印件",
+      "seal_required": true,
+      "seal_type": "客户公章",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "需加盖客户公章",
+      "source_evidence": "营业执照的复印件（三证合一）",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "material_name": "经办人有效身份证件复印件",
+      "material_type": "证件类",
+      "required": true,
+      "applies_to": [
+        "经办人"
+      ],
+      "condition": "",
+      "copies": "1份",
+      "format": "复印件",
+      "seal_required": true,
+      "seal_type": "客户公章",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "需加盖客户公章",
+      "source_evidence": "经办人有效身份证件",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "material_name": "单位证明经办人身份的介绍信",
+      "material_type": "证明类",
+      "required": true,
+      "applies_to": [
+        "经办人"
+      ],
+      "condition": "",
+      "copies": "1份",
+      "format": "原件",
+      "seal_required": true,
+      "seal_type": "客户公章",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "",
+      "source_evidence": "单位证明经办人身份的介绍信",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "material_name": "法定代表人/负责人身份证复印件",
+      "material_type": "证件类",
+      "required": true,
+      "applies_to": [
+        "法定代表人",
+        "负责人"
+      ],
+      "condition": "",
+      "copies": "1份",
+      "format": "复印件",
+      "seal_required": true,
+      "seal_type": "客户公章",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "需加盖客户公章",
+      "source_evidence": "法定代表人/负责人身份证的复印件",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "material_name": "《上海市新入网电话用户法律责任告知书》",
+      "material_type": "承诺/告知类",
+      "required": true,
+      "applies_to": [
+        "客户单位"
+      ],
+      "condition": "",
+      "copies": "1份",
+      "format": "原件或复印件",
+      "seal_required": true,
+      "seal_type": "客户公章",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "",
+      "source_evidence": "《上海市新入网电话用户法律责任告知书》",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "material_name": "《网络及信息安全承诺书》",
+      "material_type": "承诺/告知类",
+      "required": true,
+      "applies_to": [
+        "客户单位"
+      ],
+      "condition": "",
+      "copies": "1份",
+      "format": "原件",
+      "seal_required": true,
+      "seal_type": "客户公章",
+      "signature_required": true,
+      "signature_party": "承诺单位或授权代表",
+      "date_required": false,
+      "template_required": true,
+      "template_document": "《网络及信息安全承诺书》",
+      "notes": "作为本规则的补充协议",
+      "source_evidence": "《网络及信息安全承诺书》",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "material_name": "《域名和APP应用备案承诺书》",
+      "material_type": "承诺/告知类",
+      "required": true,
+      "applies_to": [
+        "客户单位"
+      ],
+      "condition": "",
+      "copies": "1份",
+      "format": "原件",
+      "seal_required": true,
+      "seal_type": "客户公章",
+      "signature_required": true,
+      "signature_party": "承诺单位或授权代表",
+      "date_required": false,
+      "template_required": true,
+      "template_document": "《域名和APP应用备案承诺书》",
+      "notes": "作为本规则的补充协议",
+      "source_evidence": "《域名和APP应用备案承诺书》",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "material_name": "《IP地址报备表》",
+      "material_type": "备案类",
+      "required": true,
+      "applies_to": [
+        "客户单位"
+      ],
+      "condition": "",
+      "copies": "1份",
+      "format": "原件",
+      "seal_required": true,
+      "seal_type": "客户公章",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": true,
+      "template_document": "《IP地址报备表》",
+      "notes": "是本登记表组成部分",
+      "source_evidence": "《IP地址报备表》",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "material_name": "授权委托书",
+      "material_type": "委托类",
+      "required": true,
+      "applies_to": [
+        "客户单位",
+        "被委托单位"
+      ],
+      "condition": "",
+      "copies": "1份",
+      "format": "原件",
+      "seal_required": true,
+      "seal_type": "客户公章、被委托单位公章",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": true,
+      "template_document": "《授权委托书》",
+      "notes": "用于办理电信业务新装/移机/变更/改性能/拆机事宜",
+      "source_evidence": "《授权委托书》",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx"
+      },
+      "confidence": 0.95
+    }
+  ],
+  "eligibility_and_constraints": [],
+  "supplemental_rules": [],
+  "extraction_meta": {
+    "generated_at": "2026-06-02T15:16:32",
+    "source_file": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx",
+    "source_file_hash": "442fb0ed39be5b6267c2499fb3d426545dd631231d62335a5d39b8ee65bdc6f6",
+    "method": "llm_schema_module_extraction",
+    "llm_self_check": {},
+    "validation_issues": [
+      {
+        "severity": "error",
+        "path": "llm_module.fee_and_term_rules",
+        "message": "fee_and_term_rules: 大模型请求在 120.7s 后失败；prompt_chars=10759; original_error=APITimeoutError: Request timed out."
+      },
+      {
+        "severity": "error",
+        "path": "llm_module.agreement_rules",
+        "message": "agreement_rules: 大模型请求在 120.6s 后失败；prompt_chars=13981; original_error=APITimeoutError: Request timed out."
+      },
+      {
+        "severity": "error",
+        "path": "llm_module.eligibility_and_constraints",
+        "message": "eligibility_and_constraints: 大模型请求在 120.7s 后失败；prompt_chars=11150; original_error=APITimeoutError: Request timed out."
+      }
+    ],
+    "validation_issue_count": 3,
+    "schema_warnings": [
+      "部分模块抽取失败，已跳过 LLM 自检。"
+    ],
+    "review_status": "draft",
+    "raw_category": {
+      "raw_root": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw",
+      "raw_relative_path": "电信政企/1.2精品专线/1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx",
+      "category_path": "电信政企/1.2精品专线",
+      "category_levels": [
+        "电信政企",
+        "1.2精品专线"
+      ]
+    },
+    "source_conversion": {
+      "original_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx",
+      "extraction_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.2精品专线\\1 【2025.11.11起】YX007B 互联网专线之“精品专线”营销活动申请登记表.docx",
+      "converted": false,
+      "converter": ""
+    }
+  }
+}

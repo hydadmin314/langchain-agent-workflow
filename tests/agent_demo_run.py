@@ -15,6 +15,7 @@ from agent.sales_recommendation_agent.recommender import (
     CandidateRetriever,
     CandidateRuleFilter,
     CandidateScorer,
+    RecommendationExplainer,
 )
 
 
@@ -22,11 +23,12 @@ DEFAULT_QUERY = "客户上海办公室10人访问美国 SaaS 很慢，预算5000
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="运行销售推荐 Agent 当前已开发到 Comparator 的完整流程。")
+    parser = argparse.ArgumentParser(description="运行销售推荐 Agent 当前已开发到 LLM Recommendation Explainer 的完整流程。")
     parser.add_argument("--query", default=DEFAULT_QUERY, help="销售输入的客户原始需求。")
     parser.add_argument("--published-root", default="data/product_doc_agent/published", help="已审核发布的产品 JSON 目录。")
     parser.add_argument("--top-k", type=int, default=8, help="展示召回候选数量。")
     parser.add_argument("--json", action="store_true", help="输出完整 JSON，便于调试字段。")
+    parser.add_argument("--skip-explainer", action="store_true", help="跳过真实 LLM 推荐说明，只跑程序召回、过滤、排序和对比。")
     args = parser.parse_args()
 
     # 当前完整流程：
@@ -36,7 +38,8 @@ def main() -> None:
     # 4. Candidate Retriever 按主分类和候选分类召回产品
     # 5. Rule Filter 做确定性过滤和风险打标
     # 6. Scorer 对保留候选做稳定、可解释的程序排序
-    # 7. Comparator 对 Top N 候选做结构化对比，供后续 LLM 推荐说明使用
+    # 7. Comparator 对 Top N 候选做结构化对比
+    # 8. LLM Recommendation Explainer 读取对比结果，生成销售可读推荐说明
     intent_result = SalesRequirementWorkflow().analyze(args.query)
     product_result = ProductRepository(args.published_root).load_result()
     retrieval_result = CandidateRetriever(default_top_k=args.top_k).retrieve(
@@ -63,6 +66,14 @@ def main() -> None:
         score_result=score_result,
         top_n=min(args.top_k, 3),
     )
+    explanation_result = None
+    if not args.skip_explainer:
+        explanation_result = RecommendationExplainer().explain(
+            query=args.query,
+            demand=intent_result.structured_data,
+            category_decision=intent_result.category_decision,
+            comparison_result=comparison_result,
+        )
 
     if args.json:
         print(
@@ -79,6 +90,7 @@ def main() -> None:
                     "filter": filter_result.model_dump(mode="json"),
                     "score": score_result.model_dump(mode="json"),
                     "comparison": comparison_result.model_dump(mode="json"),
+                    "explanation": explanation_result.model_dump(mode="json") if explanation_result else None,
                 },
                 ensure_ascii=False,
                 indent=2,
@@ -222,6 +234,35 @@ def main() -> None:
         print("\n对比维度：")
         for dimension in comparison_result.comparison_dimensions:
             print(f"- {dimension.dimension}: {dimension.summary}")
+
+    print("\n8. LLM Recommendation Explainer 推荐说明：")
+    if explanation_result is None:
+        print("- 已通过 --skip-explainer 跳过真实 LLM 推荐说明。")
+    else:
+        print(f"- summary: {explanation_result.summary}")
+        print(
+            "- recommended_product: "
+            f"{explanation_result.recommended_product.product_name} "
+            f"({explanation_result.recommended_product.document_id})"
+        )
+        print(f"  reason: {explanation_result.recommended_product.reason}")
+        if explanation_result.alternative_products:
+            print("- alternative_products:")
+            for item in explanation_result.alternative_products:
+                print(f"  - {item.product_name} ({item.document_id}): {item.reason}")
+        if explanation_result.comparison_summary:
+            print("- comparison_summary:")
+            for item in explanation_result.comparison_summary:
+                print(f"  - {item}")
+        if explanation_result.risk_reminders:
+            print("- risk_reminders:")
+            for item in explanation_result.risk_reminders:
+                print(f"  - {item}")
+        if explanation_result.clarifying_questions:
+            print("- clarifying_questions:")
+            for item in explanation_result.clarifying_questions:
+                print(f"  - {item}")
+        print(f"- sales_talk: {explanation_result.sales_talk}")
 
 
 if __name__ == "__main__":

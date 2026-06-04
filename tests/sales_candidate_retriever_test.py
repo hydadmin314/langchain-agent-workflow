@@ -26,12 +26,14 @@ from agent.sales_recommendation_agent.recommender import (
     CandidateRetriever,
     CandidateRuleFilter,
     CandidateScorer,
+    RecommendationExplainer,
 )
 from agent.sales_recommendation_agent.recommender.models import (
     CandidateFilterResult,
     CandidateRetrievalResult,
     FilterReason,
     FilteredCandidate,
+    RecommendationExplanationResult,
     RetrievedCandidate,
 )
 
@@ -559,6 +561,122 @@ class SalesCandidateRetrieverTest(unittest.TestCase):
         self.assertEqual(compared.optional_package_summary.optional_package_count, 1)
         self.assertIn("application_materials 尚未进入 ProductCandidate", compared.missing_info[0])
         self.assertTrue(result.comparison_dimensions)
+
+    def test_recommendation_explainer_parses_llm_json(self) -> None:
+        demand = CustomerDemand(
+            access_source="上海办公室",
+            target_region="美国 SaaS",
+            user_count=10,
+            budget=5000,
+            scenario_type=ScenarioType.overseas_access,
+        )
+        category_decision = DemandCategoryDecision(
+            primary_category_id="4",
+            primary_category_name="海外访问与跨境加速",
+            recommendation_mode="new_sale",
+        )
+        product = ProductCandidate(
+            document_id="doc_smart_line",
+            product_name="智能专线",
+            document_status="active",
+            packages=[PackageCandidate(package_name="智能专线100M", speed="100M", price=3000)],
+        )
+        scored = CandidateScorer().score(
+            demand=demand,
+            category_decision=category_decision,
+            filter_result=CandidateFilterResult(
+                primary_category_id="4",
+                primary_category_name="海外访问与跨境加速",
+                recommendation_mode="new_sale",
+                total_candidates=1,
+                kept_count=1,
+                kept_candidates=[
+                    FilteredCandidate(
+                        decision="keep",
+                        candidate=RetrievedCandidate(product=product, retrieval_score=30),
+                    )
+                ],
+            ),
+        )
+        comparison = CandidateComparator().compare(
+            demand=demand,
+            category_decision=category_decision,
+            score_result=scored,
+            top_n=1,
+        )
+        explainer = RecommendationExplainer(
+            client=FakeOpenAIClient(
+                {
+                    "summary": "智能专线能够满足当前访问美国 SaaS 的需求。",
+                    "recommended_product": {
+                        "document_id": "doc_smart_line",
+                        "product_name": "智能专线",
+                        "reason": "该候选排序第一，并有套餐价格信息，可以满足客户需求。",
+                    },
+                    "alternative_products": [],
+                    "comparison_summary": ["智能专线适合当前海外 SaaS 访问方向。"],
+                    "risk_reminders": [],
+                    "clarifying_questions": ["确认客户访问的 SaaS 名称和并发人数。"],
+                    "sales_talk": "可以先按智能专线方向沟通，再确认访问目标和预算。",
+                    "evidence_notes": ["依据 Comparator Top1。"],
+                }
+            )
+        )
+
+        result = explainer.explain(
+            query="上海办公室10人访问美国SaaS很慢，预算5000左右",
+            demand=demand,
+            category_decision=category_decision,
+            comparison_result=comparison,
+        )
+
+        self.assertIsInstance(result, RecommendationExplanationResult)
+        self.assertEqual(result.recommended_product.document_id, "doc_smart_line")
+        self.assertIn("智能专线", result.summary)
+        self.assertNotIn("能够满足", result.summary)
+        self.assertNotIn("可以满足", result.recommended_product.reason)
+        self.assertTrue(any("不能直接承诺访问效果" in item for item in result.risk_reminders))
+
+
+class FakeMessage:
+    def __init__(self, content: str):
+        self.content = content
+
+
+class FakeChoice:
+    def __init__(self, content: str):
+        self.message = FakeMessage(content)
+
+
+class FakeResponse:
+    def __init__(self, content: str):
+        self.choices = [FakeChoice(content)]
+
+
+class FakeCompletions:
+    def __init__(self, payload: dict):
+        self.payload = payload
+        self.last_request = None
+
+    def create(self, **kwargs):
+        self.last_request = kwargs
+        return FakeResponse(json_dumps(self.payload))
+
+
+class FakeChat:
+    def __init__(self, payload: dict):
+        self.completions = FakeCompletions(payload)
+
+
+class FakeOpenAIClient:
+    def __init__(self, payload: dict):
+        self.chat = FakeChat(payload)
+
+
+def json_dumps(payload: dict) -> str:
+    import json
+
+    return json.dumps(payload, ensure_ascii=False)
 
 
 if __name__ == "__main__":

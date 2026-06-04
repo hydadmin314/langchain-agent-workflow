@@ -221,3 +221,30 @@ class ComparisonResult(BaseModel):
     comparison_dimensions: list[ComparisonDimension] = Field(default_factory=list)
     global_questions: list[str] = Field(default_factory=list)
     global_warnings: list[str] = Field(default_factory=list)
+
+
+class RecommendationProductExplanation(BaseModel):
+    """LLM 对单个候选产品生成的推荐说明。
+
+    document_id 用来和候选产品主数据做稳定关联，reason 只能解释已有对比结果，不能新增产品能力。
+    """
+
+    document_id: str = ""
+    product_name: str = ""
+    reason: str = ""
+
+
+class RecommendationExplanationResult(BaseModel):
+    """LLM Recommendation Explainer 的结构化输出。
+
+    该结果面向销售阅读，但仍保持 JSON 结构，方便后续前端分区展示。
+    """
+
+    summary: str = ""
+    recommended_product: RecommendationProductExplanation = Field(default_factory=RecommendationProductExplanation)
+    alternative_products: list[RecommendationProductExplanation] = Field(default_factory=list)
+    comparison_summary: list[str] = Field(default_factory=list)
+    risk_reminders: list[str] = Field(default_factory=list)
+    clarifying_questions: list[str] = Field(default_factory=list)
+    sales_talk: str = ""
+    evidence_notes: list[str] = Field(default_factory=list)
