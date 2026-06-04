@@ -10,14 +10,14 @@ sys.path.insert(0, str(ROOT))
 
 from agent.sales_recommendation_agent.intent_parser import SalesRequirementWorkflow
 from agent.sales_recommendation_agent.product_repository import ProductRepository
-from agent.sales_recommendation_agent.recommender import CandidateRetriever
+from agent.sales_recommendation_agent.recommender import CandidateRetriever, CandidateRuleFilter, CandidateScorer
 
 
 DEFAULT_QUERY = "客户上海办公室10人访问美国 SaaS 很慢，预算5000左右"
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="运行销售推荐 Agent 当前已开发到 CandidateRetriever 的完整流程。")
+    parser = argparse.ArgumentParser(description="运行销售推荐 Agent 当前已开发到 Scorer 的完整流程。")
     parser.add_argument("--query", default=DEFAULT_QUERY, help="销售输入的客户原始需求。")
     parser.add_argument("--published-root", default="data/product_doc_agent/published", help="已审核发布的产品 JSON 目录。")
     parser.add_argument("--top-k", type=int, default=8, help="展示召回候选数量。")
@@ -29,12 +29,26 @@ def main() -> None:
     # 2. Demand Category Classifier 按 13 类产品需求分类体系确定主分类
     # 3. Product Repository 读取 published 产品主数据
     # 4. Candidate Retriever 按主分类和候选分类召回产品
+    # 5. Rule Filter 做确定性过滤和风险打标
+    # 6. Scorer 对保留候选做稳定、可解释的程序排序
     intent_result = SalesRequirementWorkflow().analyze(args.query)
     product_result = ProductRepository(args.published_root).load_result()
     retrieval_result = CandidateRetriever(default_top_k=args.top_k).retrieve(
         demand=intent_result.structured_data,
         category_decision=intent_result.category_decision,
         products=product_result.products,
+        top_k=args.top_k,
+    )
+    # Rule Filter 只做确定性过滤和风险打标，后续 Scorer 会基于保留下来的候选再排序。
+    filter_result = CandidateRuleFilter().apply(
+        demand=intent_result.structured_data,
+        category_decision=intent_result.category_decision,
+        retrieval_result=retrieval_result,
+    )
+    score_result = CandidateScorer().score(
+        demand=intent_result.structured_data,
+        category_decision=intent_result.category_decision,
+        filter_result=filter_result,
         top_k=args.top_k,
     )
 
@@ -50,6 +64,8 @@ def main() -> None:
                         "errors": [error.model_dump(mode="json") for error in product_result.errors],
                     },
                     "retrieval": retrieval_result.model_dump(mode="json"),
+                    "filter": filter_result.model_dump(mode="json"),
+                    "score": score_result.model_dump(mode="json"),
                 },
                 ensure_ascii=False,
                 indent=2,
@@ -118,13 +134,24 @@ def main() -> None:
         print("- 当前没有召回候选产品。")
         return
 
-    for index, candidate in enumerate(retrieval_result.candidates, start=1):
+    print(
+        f"- Rule Filter: 保留 {filter_result.kept_count} 个，"
+        f"移除 {filter_result.removed_count} 个"
+    )
+    if filter_result.global_warnings:
+        for warning in filter_result.global_warnings:
+            print(f"  warning: {warning}")
+
+    for index, scored in enumerate(score_result.scored_candidates, start=1):
+        filtered = scored.filtered_candidate
+        candidate = filtered.candidate
         product = candidate.product
         display_name = product.product_name or product.title or product.filename or product.document_id
         print(f"\n[{index}] {display_name}")
         print(f"- document_id: {product.document_id}")
         print(f"- category_path: {product.category_path}")
-        print(f"- score: {candidate.retrieval_score}")
+        print(f"- final_score: {scored.final_score}")
+        print(f"- retrieval_score: {candidate.retrieval_score}")
         print(f"- packages: {len(product.packages)}")
         print(f"- optional_packages: {len(product.optional_packages)}")
         print(f"- fee_rules: {len(product.fee_rules)}")
@@ -138,6 +165,29 @@ def main() -> None:
             print("- warnings:")
             for warning in candidate.warnings[:5]:
                 print(f"  - {warning}")
+        if filtered.filter_reasons:
+            print("- filter_reasons:")
+            for reason in filtered.filter_reasons[:5]:
+                print(f"  - {reason.severity} | {reason.code}: {reason.message}")
+        if scored.score_reasons:
+            print("- score_reasons:")
+            for reason in scored.score_reasons[:5]:
+                print(f"  - {reason.score_delta:+.1f} | {reason.code}: {reason.message}")
+        if scored.risk_penalties:
+            print("- risk_penalties:")
+            for penalty in scored.risk_penalties[:5]:
+                print(f"  - {penalty.score_delta:+.1f} | {penalty.code}: {penalty.message}")
+
+    if filter_result.removed_candidates:
+        print("\nRule Filter 移除的候选：")
+        for filtered in filter_result.removed_candidates[:5]:
+            product = filtered.candidate.product
+            display_name = product.product_name or product.title or product.filename or product.document_id
+            reason = filtered.filter_reasons[0] if filtered.filter_reasons else None
+            if reason:
+                print(f"- {display_name}: {reason.code} - {reason.message}")
+            else:
+                print(f"- {display_name}")
 
 
 if __name__ == "__main__":
