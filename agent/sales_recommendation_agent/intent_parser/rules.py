@@ -47,6 +47,9 @@ class DemandCategoryClassifier:
                 )
             )
 
+        # “办理流程/材料/变更/拆机”等诉求不是新销售推荐，优先进入第 13 类。
+        # 这里做成通用流程词优先级，不绑定具体运营商或产品名称，避免后续新增产品时反复补规则。
+        matches = self._apply_priority_overrides(matches=matches, demand_text=demand_text)
         matches.sort(key=lambda item: item.score, reverse=True)
         if not matches:
             return DemandCategoryDecision(
@@ -119,6 +122,78 @@ class DemandCategoryClassifier:
         if demand.requires_fixed_ip and category_id == "2":
             return 8
         return 0
+
+    def _apply_priority_overrides(
+        self,
+        *,
+        matches: list[DemandCategoryMatch],
+        demand_text: str,
+    ) -> list[DemandCategoryMatch]:
+        process_keywords = _matched_keywords(demand_text, SERVICE_PROCESS_STRONG_KEYWORDS)
+        if not process_keywords:
+            return matches
+
+        category_id = "13"
+        rule = self.rules_by_id.get(category_id) or DEMAND_CATEGORY_RULES_BY_ID[category_id]
+        process_score = 80 + 4 * len(process_keywords)
+        reason = f"命中办理流程/材料类强关键词：{', '.join(process_keywords)}"
+
+        updated: list[DemandCategoryMatch] = []
+        has_process_match = False
+        for match in matches:
+            if match.category_id != category_id:
+                updated.append(match)
+                continue
+
+            has_process_match = True
+            merged_keywords = _dedupe([*match.matched_keywords, *process_keywords])
+            updated.append(
+                DemandCategoryMatch(
+                    category_id=match.category_id,
+                    category_name=match.category_name,
+                    score=max(match.score, process_score),
+                    matched_keywords=merged_keywords,
+                    reason=reason,
+                )
+            )
+
+        if not has_process_match:
+            updated.append(
+                DemandCategoryMatch(
+                    category_id=rule.category_id,
+                    category_name=rule.category_name,
+                    score=process_score,
+                    matched_keywords=process_keywords,
+                    reason=reason,
+                )
+            )
+
+        return updated
+
+
+SERVICE_PROCESS_STRONG_KEYWORDS = (
+    "办理流程",
+    "办理手续",
+    "办理材料",
+    "申请材料",
+    "需要哪些材料",
+    "材料",
+    "手续",
+    "流程",
+    "担保",
+    "授权",
+    "盖章",
+    "拆机",
+    "撤单",
+    "续约",
+    "变更",
+    "移机",
+    "过户",
+    "更名",
+    "退费",
+    "停机",
+    "销户",
+)
 
 
 def _matched_keywords(text: str, keywords: Iterable[str]) -> list[str]:

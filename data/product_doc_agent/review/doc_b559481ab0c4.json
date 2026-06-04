@@ -1,0 +1,82 @@
+{
+  "document_info": {
+    "document_id": "doc_b559481ab0c4",
+    "document_type": "",
+    "title": "",
+    "product_name": "",
+    "product_family": "",
+    "carrier": "",
+    "region": "",
+    "version": "",
+    "effective_from": "",
+    "effective_to": "",
+    "document_status": "active",
+    "filename": "1 客户基本信息表.xlsx",
+    "source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.1 本地国内MSTP\\1 客户基本信息表.xlsx",
+    "source_file_type": "xlsx"
+  },
+  "parties_and_application": {
+    "service_provider": {
+      "name": "",
+      "carrier": "",
+      "region": "",
+      "contact_channels": []
+    },
+    "customer": {
+      "name": "",
+      "filled_values": [],
+      "is_blank_form": true
+    },
+    "application_fields": {
+      "required": [],
+      "optional": []
+    },
+    "application_notes": []
+  },
+  "base_package": {
+    "packages": [],
+    "included_items": [],
+    "service_attributes": [],
+    "sla": {}
+  },
+  "optional_packages": [],
+  "fee_and_term_rules": [],
+  "agreement_rules": [],
+  "application_materials": [],
+  "eligibility_and_constraints": [],
+  "supplemental_rules": [],
+  "extraction_meta": {
+    "generated_at": "2026-06-02T16:03:08",
+    "source_file": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.1 本地国内MSTP\\1 客户基本信息表.xlsx",
+    "source_file_hash": "dbe7f706bcd26e7ca496ff67203f2c4959f37e8ce3083328deec30a14f13008b",
+    "method": "llm_schema_module_extraction",
+    "llm_self_check": {},
+    "validation_issues": [
+      {
+        "severity": "error",
+        "path": "llm_module.parties_and_application",
+        "message": "parties_and_application: 大模型请求在 60.6s 后失败；prompt_chars=2419; original_error=APITimeoutError: Request timed out."
+      }
+    ],
+    "validation_issue_count": 1,
+    "schema_warnings": [
+      "部分模块抽取失败，已跳过 LLM 自检。"
+    ],
+    "review_status": "draft",
+    "raw_category": {
+      "raw_root": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw",
+      "raw_relative_path": "电信政企/2.1 本地国内MSTP/1 客户基本信息表.xlsx",
+      "category_path": "电信政企/2.1 本地国内MSTP",
+      "category_levels": [
+        "电信政企",
+        "2.1 本地国内MSTP"
+      ]
+    },
+    "source_conversion": {
+      "original_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.1 本地国内MSTP\\1 客户基本信息表.xlsx",
+      "extraction_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.1 本地国内MSTP\\1 客户基本信息表.xlsx",
+      "converted": false,
+      "converter": ""
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "document_info": {
+    "document_id": "doc_126cf291d9c3",
+    "document_type": "",
+    "title": "",
+    "product_name": "",
+    "product_family": "",
+    "carrier": "",
+    "region": "",
+    "version": "",
+    "effective_from": "",
+    "effective_to": "",
+    "document_status": "active",
+    "filename": "1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+    "source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.4智能专线\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+    "source_file_type": "docx"
+  },
+  "parties_and_application": {
+    "service_provider": {
+      "name": "",
+      "carrier": "",
+      "region": "",
+      "contact_channels": []
+    },
+    "customer": {
+      "name": "",
+      "filled_values": [],
+      "is_blank_form": true
+    },
+    "application_fields": {
+      "required": [],
+      "optional": []
+    },
+    "application_notes": []
+  },
+  "base_package": {
+    "packages": [],
+    "included_items": [],
+    "service_attributes": [],
+    "sla": {}
+  },
+  "optional_packages": [],
+  "fee_and_term_rules": [],
+  "agreement_rules": [],
+  "application_materials": [],
+  "eligibility_and_constraints": [],
+  "supplemental_rules": [],
+  "extraction_meta": {
+    "generated_at": "2026-06-02T15:41:43",
+    "source_file": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.4智能专线\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+    "source_file_hash": "cd602440cf904492acc524b2178ec5a6cecf649a34c84c78e3dc0be15185135e",
+    "method": "llm_schema_module_extraction",
+    "llm_self_check": {},
+    "validation_issues": [
+      {
+        "severity": "error",
+        "path": "parties_and_application.application_fields",
+        "message": "申请表没有抽取到任何 application_fields"
+      },
+      {
+        "severity": "error",
+        "path": "llm_module.document_info",
+        "message": "document_info: 大模型请求在 120.7s 后失败；prompt_chars=2794; original_error=APITimeoutError: Request timed out."
+      },
+      {
+        "severity": "error",
+        "path": "llm_module.parties_and_application",
+        "message": "parties_and_application: 大模型请求在 120.7s 后失败；prompt_chars=2463; original_error=APITimeoutError: Request timed out."
+      },
+      {
+        "severity": "error",
+        "path": "llm_module.base_package",
+        "message": "base_package: 大模型请求在 120.6s 后失败；prompt_chars=5118; original_error=APITimeoutError: Request timed out."
+      },
+      {
+        "severity": "error",
+        "path": "llm_module.optional_packages",
+        "message": "optional_packages: 大模型请求在 120.7s 后失败；prompt_chars=5652; original_error=APITimeoutError: Request timed out."
+      },
+      {
+        "severity": "error",
+        "path": "llm_module.fee_and_term_rules",
+        "message": "fee_and_term_rules: 大模型请求在 120.7s 后失败；prompt_chars=10409; original_error=APITimeoutError: Request timed out."
+      },
+      {
+        "severity": "error",
+        "path": "llm_module.agreement_rules",
+        "message": "agreement_rules: 大模型请求在 120.7s 后失败；prompt_chars=10632; original_error=APITimeoutError: Request timed out."
+      },
+      {
+        "severity": "error",
+        "path": "llm_module.application_materials",
+        "message": "application_materials: 大模型请求在 120.6s 后失败；prompt_chars=5940; original_error=APITimeoutError: Request timed out."
+      },
+      {
+        "severity": "error",
+        "path": "llm_module.eligibility_and_constraints",
+        "message": "eligibility_and_constraints: 大模型请求在 120.7s 后失败；prompt_chars=8097; original_error=APITimeoutError: Request timed out."
+      }
+    ],
+    "validation_issue_count": 9,
+    "schema_warnings": [
+      "部分模块抽取失败，已跳过 LLM 自检。"
+    ],
+    "review_status": "draft",
+    "raw_category": {
+      "raw_root": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw",
+      "raw_relative_path": "电信政企/1.4智能专线/1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+      "category_path": "电信政企/1.4智能专线",
+      "category_levels": [
+        "电信政企",
+        "1.4智能专线"
+      ]
+    },
+    "source_conversion": {
+      "original_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.4智能专线\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+      "extraction_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\1.4智能专线\\1 【2022.11.18起】YX024C互联网专线之“智能专线”融合套餐营销活动申请登记表.docx",
+      "converted": false,
+      "converter": ""
+    }
+  }
+}

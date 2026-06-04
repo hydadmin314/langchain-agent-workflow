@@ -1,0 +1,1062 @@
+{
+  "document_info": {
+    "document_id": "doc_49475812c467",
+    "document_type": "申请登记表",
+    "title": "小微精品业务套餐申请登记表",
+    "product_name": "小微精品业务套餐",
+    "product_family": "小微业务",
+    "carrier": "上海市信息网络有限公司",
+    "region": "上海市",
+    "version": "",
+    "effective_from": "",
+    "effective_to": "",
+    "document_status": "active",
+    "filename": "小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx",
+    "source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx",
+    "source_file_type": "docx"
+  },
+  "parties_and_application": {
+    "service_provider": {
+      "name": "上海市信息网络有限公司",
+      "carrier": "",
+      "region": "",
+      "contact_channels": []
+    },
+    "customer": {
+      "name": "",
+      "filled_values": [],
+      "is_blank_form": true
+    },
+    "application_fields": {
+      "required": [
+        {
+          "label": "企业全称",
+          "field_key": "enterprise_name",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*企 业 全 称",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "统一社会信用代码",
+          "field_key": "unified_social_credit_code",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*统一社会信用代码",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "企业所属行业",
+          "field_key": "industry",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*企业所属行业",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "企业规模",
+          "field_key": "enterprise_scale",
+          "required": true,
+          "value": null,
+          "options": [
+            "10人以下",
+            "10-30人",
+            "31-80人",
+            "81-200人",
+            "200人以上"
+          ],
+          "value_type": "single_select",
+          "source_evidence": "*企 业 规 模 | 10人以下 10-30人 31-80人 81-200人 200人以上",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "安装地址",
+          "field_key": "installation_address",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*安 装 地 址",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "邮编",
+          "field_key": "postal_code_installation",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*邮 编",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "经办人",
+          "field_key": "applicant_name",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*经 办 人",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "联系电话",
+          "field_key": "phone_number",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "phone",
+          "source_evidence": "*联系电话",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "账单地址",
+          "field_key": "billing_address",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "*账 单 地 址",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+          },
+          "confidence": 0.9
+        },
+        {
+          "label": "付款方式",
+          "field_key": "payment_method",
+          "required": true,
+          "value": null,
+          "options": [
+            "托收银行账号：",
+            "现金"
+          ],
+          "value_type": "single_select",
+          "source_evidence": "*付 款 方 式 | 托收银行账号： 现金",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+          },
+          "confidence": 0.9
+        }
+      ],
+      "optional": [
+        {
+          "label": "经办人职务",
+          "field_key": "applicant_position",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "经办人职务",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+          },
+          "confidence": 0.8
+        },
+        {
+          "label": "E-MAIL",
+          "field_key": "email",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "email",
+          "source_evidence": "E-MAIL",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+          },
+          "confidence": 0.8
+        },
+        {
+          "label": "传真",
+          "field_key": "fax",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "phone",
+          "source_evidence": "传 真",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+          },
+          "confidence": 0.8
+        },
+        {
+          "label": "账单地址选项",
+          "field_key": "billing_address_option",
+          "required": false,
+          "value": null,
+          "options": [
+            "同公司地址",
+            "其它"
+          ],
+          "value_type": "single_select",
+          "source_evidence": "账单地址选项 | 同公司地址 其它",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+          },
+          "confidence": 0.8
+        },
+        {
+          "label": "身份证号码",
+          "field_key": "id_number",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "身份证号码",
+          "source_location": {
+            "page": null,
+            "paragraph_index": null,
+            "table_index": null,
+            "row_index": null,
+            "column_index": null,
+            "sheet_name": "",
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+          },
+          "confidence": 0.9
+        }
+      ]
+    },
+    "application_notes": []
+  },
+  "base_package": {
+    "packages": [
+      {
+        "package_name": "小微上线",
+        "package_code": "小微上线",
+        "speed": "",
+        "upstream_speed": "",
+        "downstream_speed": "",
+        "bandwidth_unit": "",
+        "has_voice": null,
+        "price": null,
+        "currency": "",
+        "billing_period": "",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [],
+        "source_evidence": "小微上线",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+        },
+        "confidence": 0.9
+      },
+      {
+        "package_name": "小微在线",
+        "package_code": "小微在线",
+        "speed": "",
+        "upstream_speed": "",
+        "downstream_speed": "",
+        "bandwidth_unit": "",
+        "has_voice": null,
+        "price": null,
+        "currency": "",
+        "billing_period": "",
+        "contract_period": "",
+        "quantity_limit": "",
+        "applicable_conditions": [],
+        "source_evidence": "小微在线",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+        },
+        "confidence": 0.9
+      }
+    ],
+    "included_items": [],
+    "service_attributes": [
+      {
+        "attribute_name": "接口标准",
+        "attribute_value": [
+          "Ethernet",
+          "GE",
+          "电口",
+          "光口"
+        ],
+        "source_evidence": "□ Ethernet □ GE  □ 电口 □ 光口",
+        "source_location": {
+          "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+        },
+        "confidence": 0.95
+      }
+    ],
+    "sla": {}
+  },
+  "optional_packages": [],
+  "fee_and_term_rules": [
+    {
+      "rule_type": "monthly_fee",
+      "name": "月租费",
+      "description": "小微上线、小微在线及配套业务的月租费",
+      "amount": null,
+      "currency": "",
+      "billing_period": "月",
+      "contract_period": "",
+      "conditions": [],
+      "applies_to": [
+        "小微上线",
+        "小微在线",
+        "配套业务"
+      ],
+      "source_evidence": "月租费：___________",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "one_time_fee",
+      "name": "定制版光电收发器费用",
+      "description": "客户未归还定制版光电收发器时需支付的费用",
+      "amount": 1000.0,
+      "currency": "CNY",
+      "billing_period": "",
+      "contract_period": "",
+      "conditions": [
+        "客户注销业务且未归还设备",
+        "设备损坏或无法正常使用"
+      ],
+      "applies_to": [
+        "小微精品业务"
+      ],
+      "source_evidence": "定制版光电收发器费用：1000元/台",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 1.0
+    },
+    {
+      "rule_type": "one_time_fee",
+      "name": "上门调测超标准服务费",
+      "description": "网络布线超过5米或需室内暗管布线、穿墙打洞时另行协商收费",
+      "amount": null,
+      "currency": "",
+      "billing_period": "",
+      "contract_period": "",
+      "conditions": [
+        "布线长度超过5米",
+        "需室内暗管布线",
+        "需穿墙打洞"
+      ],
+      "applies_to": [
+        "小微精品业务"
+      ],
+      "source_evidence": "若网络布线超过标准长度（5米）或客户需要室内暗管布线、穿墙打洞服务，需另行协商收费。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.98
+    },
+    {
+      "rule_type": "prorated_fee",
+      "name": "首月资费",
+      "description": "首月按天折算收取",
+      "amount": null,
+      "currency": "",
+      "billing_period": "月",
+      "contract_period": "",
+      "conditions": [
+        "首月办理完工",
+        "首月申请首月办理拆机"
+      ],
+      "applies_to": [
+        "小微精品业务"
+      ],
+      "source_evidence": "首月资费：将套餐费按天进行折算后收取。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.99
+    },
+    {
+      "rule_type": "prorated_fee",
+      "name": "首月资费",
+      "description": "月付自产品完工之日起算，首月资费按天折算",
+      "amount": null,
+      "currency": "",
+      "billing_period": "月",
+      "contract_period": "",
+      "conditions": [
+        "月付模式",
+        "产品完工当月"
+      ],
+      "applies_to": [
+        "小微精品业务"
+      ],
+      "source_evidence": "月付自客户所选择的小微精品业务产品完工之日起算，首月资费按月付套餐资费按天折算。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.99
+    }
+  ],
+  "agreement_rules": [
+    {
+      "rule_type": "服务终止",
+      "title": "擅自终止服务限制",
+      "description": "在客户未办理业务注销（拆机）手续前，且客户未欠费的情况下，上海市信息网络有限公司不得擅自终止向用户提供通信服务。",
+      "severity": "high",
+      "applies_to": [
+        "service_provider"
+      ],
+      "obligation_party": "service_provider",
+      "conditions": [
+        "客户未办理注销手续",
+        "客户未欠费"
+      ],
+      "consequence": "不得擅自终止通信服务",
+      "source_evidence": "2. 为保障客户通信的连续性，在客户未办理业务注销（拆机）手续前，且客户未欠费的情况下，上海市信息网络有限公司不得擅自终止向用户提供通信服务。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "rule_type": "注销/拆机",
+      "title": "产品注销及设备归还要求",
+      "description": "客户可办理小微精品业务注销；若使用定制版光电收发器，须归还且保证完好可用；无法归还的，需按1000元/台赔偿。",
+      "severity": "medium",
+      "applies_to": [
+        "customer"
+      ],
+      "obligation_party": "customer",
+      "conditions": [
+        "办理小微精品业务注销",
+        "持有定制版光电收发器"
+      ],
+      "consequence": "须归还设备；无法归还则支付1000元/台费用",
+      "source_evidence": "3. 客户不再使用上海市信息网络有限公司小微精品业务的，可以办理相关产品注销手续（若有定制版光电收发器的，需归还该设备并保证设备的完好可用，不能归还的，客户需向上海市信息网络有限公司支付定制版光电收发器费用：1000元/台）。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.98
+    },
+    {
+      "rule_type": "设备权属与保修",
+      "title": "定制设备产权归属及保修责任",
+      "description": "定制版光电收发器产权归上海市信息网络有限公司所有；客户正常付费期间，由该公司负责保修。",
+      "severity": "medium",
+      "applies_to": [
+        "customer",
+        "service_provider"
+      ],
+      "obligation_party": "service_provider",
+      "conditions": [
+        "客户正常付费"
+      ],
+      "consequence": "设备产权归属信网公司；信网公司承担保修责任",
+      "source_evidence": "5. 客户订购小微精品业务，上海市信息网络有限公司为其提供一台定制版光电收发器设备供使用。设备产权归上海市信息网络有限公司所有，客户正常付费期间，该设备由上海市信息网络有限公司负责保修。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.97
+    },
+    {
+      "rule_type": "服务终止",
+      "title": "违规经营长话/国际话音转接的立即终止权",
+      "description": "客户私自利用业务经营长话或进行长途国际话音转接的，信网公司有权立即终止所有服务，本规则终止。",
+      "severity": "critical",
+      "applies_to": [
+        "customer"
+      ],
+      "obligation_party": "customer",
+      "conditions": [
+        "私自经营长话业务",
+        "私自进行长途国际话音转接"
+      ],
+      "consequence": "信网公司有权立即终止所有服务，本规则终止",
+      "source_evidence": "6. 规则有效期内，客户如私自利用上海市信息网络有限公司所提供的业务服务经营长话业务或进行长途国际话音转接的，一经发现，上海市信息网络有限公司有权立即终止提供所有服务，本规则终止。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.99
+    },
+    {
+      "rule_type": "停机与拆机",
+      "title": "欠费停机及满60日拆机规则",
+      "description": "因客户欠费等原因被停机的，停机期间仍按月计费；停机满60日未缴费或原因未消除的，信网公司有权拆机，本规则终止。",
+      "severity": "high",
+      "applies_to": [
+        "customer"
+      ],
+      "obligation_party": "customer",
+      "conditions": [
+        "因客户责任导致停机",
+        "停机满60日未缴费或原因未消除"
+      ],
+      "consequence": "信网公司有权拆机，本规则终止",
+      "source_evidence": "6. ...本规则有效期内，若因客户欠费等属于客户责任的原因全部或部分被停机（暂停提供服务）的，停机期间，上海市信息网络有限公司将继续按月出帐，收取客户所选择的套餐月使用费和可选产品月使用费。停机之日起满60日，客户仍未缴费或导致停机的原因未消除的，上海市信息网络有限公司有权拆机（终止提供服务），本规则终止。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.99
+    },
+    {
+      "rule_type": "费用结算",
+      "title": "首月拆机资费折算规则",
+      "description": "首月申请并办理拆机的，首月资费按天折算收取。",
+      "severity": "medium",
+      "applies_to": [
+        "customer"
+      ],
+      "obligation_party": "customer",
+      "conditions": [
+        "首月申请并办理拆机"
+      ],
+      "consequence": "首月资费按天折算后收取",
+      "source_evidence": "7. 首月申请首月办理拆机的，需支付下列费用：首月资费：将套餐费按天进行折算后收取。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.96
+    },
+    {
+      "rule_type": "使用限制",
+      "title": "业务自用限制及禁止转租转用",
+      "description": "小微精品业务仅限本企业内部自用；禁止经营长话/国际话音转接；禁止以任何方式提供给第三方使用；违规则立即终止服务。",
+      "severity": "critical",
+      "applies_to": [
+        "customer"
+      ],
+      "obligation_party": "customer",
+      "conditions": [
+        "将业务用于非自用目的",
+        "经营长话或国际话音转接",
+        "提供给第三方使用"
+      ],
+      "consequence": "信网公司有权立即终止所有服务，本规则终止",
+      "source_evidence": "11. 客户所申请的小微精品业务仅限本企业内部自用，客户不得私自利用上海市信息网络有限公司所提供的业务服务经营长话业务或进行长途国际话音转接，也不得以任何方式提供给第三方使用，一经发现违规行为，上海市信息网络有限公司有权立即终止提供所有服务，本规则终止。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.99
+    },
+    {
+      "rule_type": "信息安全处置",
+      "title": "异常上传流量等安全威胁的处置权",
+      "description": "如客户存在异常行为（如大幅上传流量）威胁信息安全，经书面告知后仍未改正或无法正当解释的，信网公司有权终止服务。",
+      "severity": "high",
+      "applies_to": [
+        "customer"
+      ],
+      "obligation_party": "customer",
+      "conditions": [
+        "存在异常行为威胁信息安全",
+        "经书面告知后未改正或无法正当解释"
+      ],
+      "consequence": "信网公司有权终止服务",
+      "source_evidence": "12. 如上海市信息网络有限公司发现客户在宽带业务使用中，存在有异常行为足以威胁信息安全的，包括但不限于使用异常大幅上传流量等，在上海市信息网络有限公司书面告知后仍有上述行为且无法对其用途做出正当性书面解释的，上海市信息网络有限公司有权终止服务。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.98
+    },
+    {
+      "rule_type": "合同终止与赔偿",
+      "title": "违反入网责任书的合同终止及赔偿责任",
+      "description": "用户违反《互联网业务用户入网责任书》规定，信网公司有权终止协议/合同；造成损失的，用户应予赔偿。",
+      "severity": "high",
+      "applies_to": [
+        "customer"
+      ],
+      "obligation_party": "customer",
+      "conditions": [
+        "违反入网责任书规定"
+      ],
+      "consequence": "信网公司有权终止协议/合同；用户应赔偿损失",
+      "source_evidence": "并要求用户在限期内改正。如用户在限期内未改正的，信网公司有权终止双方间各类互联网业务用户协议/合同，并不承担任何责任；用户存在前述情形给信网公司造成损失的，并应当予以赔偿。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.94
+    },
+    {
+      "rule_type": "端口管理",
+      "title": "80/8080端口开通前提与违约后果",
+      "description": "默认关闭80及8080端口；用户开办网站须完成工信部备案并获备案号后方可开通；未备案网站，信网公司有权停止或中止服务，不承担责任；造成损失的，用户应赔偿。",
+      "severity": "high",
+      "applies_to": [
+        "customer"
+      ],
+      "obligation_party": "customer",
+      "conditions": [
+        "申请开通80/8080端口",
+        "未完成网站备案"
+      ],
+      "consequence": "信网公司有权停止或中止服务；用户应赔偿损失",
+      "source_evidence": "11. 信网公司受理用户的互联网业务时，一律默认关闭互联网IP地址的80及8080端口。用户如开办网站申请开通80及8080端口的，需按照工信部规定进行互联网网站备案，获得网站备案号后才能开通80及8080端口提供网站业务。甲方应遵循“先备案、后接入”的要求，如出现未备案网站，乙方有权停止或中止服务，并不承担任何责任。甲方存在上述情形给乙方造成损失的，并应当予以赔偿。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.97
+    },
+    {
+      "rule_type": "违约责任",
+      "title": "违反网络信息安全承诺书的法律责任与服务暂停/解除权",
+      "description": "违反《网络信息安全承诺书》条款的，用户承担民事、行政、刑事责任；信网公司有权暂停或解除互联网业务服务。",
+      "severity": "critical",
+      "applies_to": [
+        "customer"
+      ],
+      "obligation_party": "customer",
+      "conditions": [
+        "违反网络信息安全承诺书条款"
+      ],
+      "consequence": "承担全部法律责任；信网公司有权暂停或解除服务",
+      "source_evidence": "十、若违反本承诺书有关条款和国家相关法律法规的，本单位直接承担相应法律责任，造成财产损失的，由本单位直接赔偿。同时，贵单位有权暂停提供互联网业务服务直至解除双方间各类互联网业务用户协议/合同。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.99
+    }
+  ],
+  "application_materials": [
+    {
+      "material_name": "经办人身份证复印件",
+      "material_type": "身份证明",
+      "required": true,
+      "applies_to": [
+        "经办人"
+      ],
+      "condition": "",
+      "copies": "1",
+      "format": "复印件",
+      "seal_required": true,
+      "seal_type": "公章",
+      "signature_required": true,
+      "signature_party": "经办人",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "填表说明第2条及第3条明确要求提供经办人身份证等有效证件复印件并加盖公章备案；登记表中‘经办人身份证号码’为带*必填项，且‘经办人签字’‘客户盖章’栏位存在。",
+      "source_evidence": "经办人为经企业授权,办理申请参加本套餐手续的企业内部员工。……用户应提供企业法人或主要负责人或经办人的身份证等有效证件交信网公司审核，复印件提交信网公司备案。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "material_name": "营业执照",
+      "material_type": "资质证明",
+      "required": true,
+      "applies_to": [
+        "用户"
+      ],
+      "condition": "从事互联网服务所必需",
+      "copies": "1",
+      "format": "复印件",
+      "seal_required": true,
+      "seal_type": "公章",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "第2条明确列示‘营业执照（或组织机构代码证等有效证件）’为‘全部合法必要的资质条件’之一，须提供原件审核、复印件加盖公章备案。",
+      "source_evidence": "用户保证具备从事互联网服务的全部合法必要的资质条件，包括但不限于营业执照（或组织机构代码证等有效证件）、增值电信业务经营许可证、广告经营许可证、税务登记证、非经营性互联网信息服务备案证明以及信网公司要求提交的其他资质证明……复印件加盖公章提交信网公司备案。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.98
+    },
+    {
+      "material_name": "网络信息安全承诺书",
+      "material_type": "承诺类文件",
+      "required": true,
+      "applies_to": [
+        "用户"
+      ],
+      "condition": "",
+      "copies": "1",
+      "format": "原件",
+      "seal_required": true,
+      "seal_type": "公章",
+      "signature_required": true,
+      "signature_party": "单位法定代表人或授权代表",
+      "date_required": true,
+      "template_required": true,
+      "template_document": "网络信息安全承诺书",
+      "notes": "标题明确为‘网络信息安全承诺书’，正文含‘本单位郑重承诺’‘签署之日起生效’及‘单位盖章’栏位；第十条、第十二条强调签署与盖章义务。",
+      "source_evidence": "**网络信息安全承诺书**\n本单位郑重承诺遵守本承诺书的有关条款……十二、本承诺书自签署之日起生效并遵行。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.97
+    },
+    {
+      "material_name": "网络信息安全责任人证件复印件",
+      "material_type": "身份证明",
+      "required": true,
+      "applies_to": [
+        "网络信息安全责任人"
+      ],
+      "condition": "所有项目均为必填项",
+      "copies": "1",
+      "format": "复印件",
+      "seal_required": true,
+      "seal_type": "公章",
+      "signature_required": false,
+      "signature_party": "",
+      "date_required": false,
+      "template_required": false,
+      "template_document": "",
+      "notes": "表格标题明确要求‘须附责任人证件复印件’，且注明‘所有项目均为必填项’；证件类型选项含身份证、护照等。",
+      "source_evidence": "| **网络信息安全责任人信息（须附责任人证件复印件，所有项目均为必填项）** | | | |",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.96
+    },
+    {
+      "material_name": "域名和APP应用备案承诺（附件三）",
+      "material_type": "承诺类文件",
+      "required": true,
+      "applies_to": [
+        "用户"
+      ],
+      "condition": "",
+      "copies": "1",
+      "format": "原件",
+      "seal_required": true,
+      "seal_type": "公章",
+      "signature_required": true,
+      "signature_party": "个人用户签字或单位盖章",
+      "date_required": false,
+      "template_required": true,
+      "template_document": "附件三",
+      "notes": "第4条明确要求提供该承诺，注明‘加盖公章（个人用户签字）提交信网公司备案’。",
+      "source_evidence": "用户应提供域名和APP应用备案承诺（附件三），加盖公章（个人用户签字）提交信网公司备案。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.94
+    }
+  ],
+  "eligibility_and_constraints": [
+    {
+      "constraint_type": "准入条件",
+      "name": "资质证明要求",
+      "description": "用户必须具备营业执照（或组织机构代码证等有效证件）、增值电信业务经营许可证、广告经营许可证、税务登记证、非经营性互联网信息服务备案证明等合法必要资质，并在签订协议前向信网公司提交原件审核及加盖公章的复印件备案。",
+      "condition": "申请经营性互联网服务",
+      "result": "须取得增值电信业务经营许可证并在网站主页显著位置标明编号",
+      "blocks_recommendation": false,
+      "applies_to": [
+        "互联网接入业务",
+        "经营性互联网服务"
+      ],
+      "rule_source": "责任书第2条、第3条",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "用户保证具备从事互联网服务的全部合法必要的资质条件，包括但不限于营业执照（或组织机构代码证等有效证件）、增值电信业务经营许可证、广告经营许可证、税务登记证、非经营性互联网信息服务备案证明以及信网公司要求提交的其他资质证明，方得以使用所租用的资源、设施合法开展业务。用户如从事经营性互联网服务，必须取得相应的增值电信业务经营许可证，并应当在其网站主页的显著位置标明其经营许可证编号。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.95
+    },
+    {
+      "constraint_type": "准入条件",
+      "name": "网站备案要求",
+      "description": "开办网站需完成工信部网站备案并获得备案号后方可开通80及8080端口；单位网站须在正式联通之日起30日内到辖区公安机关网安部门备案。",
+      "condition": "申请开通80/8080端口或开办网站",
+      "result": "未备案则不得开通端口，信网公司有权停止服务",
+      "blocks_recommendation": true,
+      "applies_to": [
+        "互联网接入业务",
+        "网站服务"
+      ],
+      "rule_source": "责任书第11条、第12条",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "用户如开办网站申请开通80及8080端口的，需按照工信部规定进行互联网网站备案，获得网站备案号后才能开通80及8080端口提供网站业务。……根据上海市公安局要求，用户开办的网站，应在网站正式联通之日起30日内，到所在辖区公安机关网安部门办理备案手续",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.98
+    },
+    {
+      "constraint_type": "排除条件",
+      "name": "禁止经营长话及国际话音转接",
+      "description": "客户不得私自利用业务服务经营长话业务或进行长途国际话音转接。",
+      "condition": "存在经营长话或长途国际话音转接行为",
+      "result": "信网公司有权立即终止所有服务，规则终止",
+      "blocks_recommendation": true,
+      "applies_to": [
+        "小微精品业务"
+      ],
+      "rule_source": "规则第6条、第11条",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "规则有效期内，客户如私自利用上海市信息网络有限公司所提供的业务服务经营长话业务或进行长途国际话音转接的，一经发现，上海市信息网络有限公司有权立即终止提供所有服务，本规则终止。……客户不得私自利用上海市信息网络有限公司所提供的业务服务经营长话业务或进行长途国际话音转接，一经发现违规行为，上海市信息网络有限公司有权立即终止提供所有服务，本规则终止。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.99
+    },
+    {
+      "constraint_type": "排除条件",
+      "name": "禁止第三方使用及转租",
+      "description": "客户不得将电路以任何方式提供给第三方使用，也不得用于约定用途以外的其他用途。",
+      "condition": "将电路提供给第三方使用或超范围使用",
+      "result": "信网公司有权立即终止所有服务，规则终止",
+      "blocks_recommendation": true,
+      "applies_to": [
+        "小微精品业务",
+        "互联网接入业务"
+      ],
+      "rule_source": "规则第9条、第11条；责任书第9条",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "未经乙方书面同意，不得将电路以任何方式提供给第三方使用，也不得用于本规则约定用途以外的其他用途。……客户不得……以任何方式提供给第三方使用，一经发现违规行为，上海市信息网络有限公司有权立即终止提供所有服务，本规则终止。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.97
+    },
+    {
+      "constraint_type": "合规要求",
+      "name": "IP端口默认关闭",
+      "description": "信网公司受理互联网业务时，默认关闭IP地址的80、8080、443端口；客户不得通过小微上线业务提供互联网信息服务。",
+      "condition": "申请小微精品业务或互联网接入业务",
+      "result": "80/8080/443端口默认关闭，不可擅自启用",
+      "blocks_recommendation": true,
+      "applies_to": [
+        "小微精品业务",
+        "互联网接入业务",
+        "小微上线"
+      ],
+      "rule_source": "规则第10条；责任书第11条",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "上海市信息网络有限公司受理用户的互联网接入业务时，基于网络和信息安全风险防范要求，一律默认关闭互联网IP地址的80及8080、443端口。客户不得通过小微上线业务提供互联网信息服务。……信网公司受理用户的互联网业务时，一律默认关闭互联网IP地址的80及8080端口。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.96
+    },
+    {
+      "constraint_type": "合规要求",
+      "name": "信息安全责任人持证上岗",
+      "description": "单位须设立信息安全责任人和审查员，并经公安机关安全技术培训后持证上岗。",
+      "condition": "开办单位网站",
+      "result": "未持证则不符合安全管理要求，可能影响服务持续性",
+      "blocks_recommendation": false,
+      "applies_to": [
+        "网站服务"
+      ],
+      "rule_source": "责任书第四条",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "本单位承诺严格按照国家相关法律法规做好本单位网站的信息安全管理工作，按政府有关部门要求设立信息安全责任人和信息安全审查员，信息安全责任人和信息安全审查员应在通过公安机关的安全技术培训后，持证上岗。",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.92
+    },
+    {
+      "constraint_type": "排除条件",
+      "name": "禁止危害国家安全及违法信息传播",
+      "description": "不得利用电信公网从事危害国家安全、泄露国家机密、妨碍社会治安、传播淫秽黄色信息等活动。",
+      "condition": "存在危害国家安全、传播违法不良信息等行为",
+      "result": "信网公司有权立即报告相关部门并停止服务",
+      "blocks_recommendation": true,
+      "applies_to": [
+        "互联网接入业务"
+      ],
+      "rule_source": "责任书第5条、第13条",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "用户不能利用电信公网从事危害国家安全、泄露国家机密等犯罪活动，不能利用电信公网查阅、复制和传播危害国家安全、妨碍社会治安和淫秽黄色的信息……如用户违反上述保证，信网公司有权拒绝或停止提供服务或设施，并要求用户在限期内改正。如用户在限期内未改正的，信网公司有权终止双方间各类互联网业务用户协议/合同，并不承担任何责任",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.94
+    },
+    {
+      "constraint_type": "额外要求",
+      "name": "定制版光电收发器归还义务",
+      "description": "若客户申领定制版光电收发器，注销业务时须归还且保证完好可用；无法归还的，须支付1000元/台费用。",
+      "condition": "办理产品注销且已领取定制版光电收发器",
+      "result": "须归还设备或支付1000元/台赔偿费",
+      "blocks_recommendation": false,
+      "applies_to": [
+        "小微精品业务"
+      ],
+      "rule_source": "规则第3条",
+      "normalized_logic": {},
+      "related_materials": [],
+      "related_fee_rules": [],
+      "valid_from": "",
+      "valid_to": "",
+      "source_evidence": "若有定制版光电收发器的，需归还该设备并保证设备的完好可用，不能归还的，客户需向上海市信息网络有限公司支付定制版光电收发器费用：1000元/台",
+      "source_location": {
+        "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx"
+      },
+      "confidence": 0.93
+    }
+  ],
+  "supplemental_rules": [],
+  "extraction_meta": {
+    "generated_at": "2026-06-02T14:59:40",
+    "source_file": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx",
+    "source_file_hash": "ca3a1c14a712e55ad51fb2db79ee89446d2b60148e7e3b17b228fb48d019192a",
+    "method": "llm_schema_module_extraction",
+    "llm_self_check": {
+      "needs_rework": false,
+      "rework_modules": [],
+      "validation_issues": [],
+      "schema_warnings": []
+    },
+    "validation_issues": [],
+    "validation_issue_count": 0,
+    "schema_warnings": [],
+    "review_status": "draft",
+    "raw_category": {
+      "raw_root": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw",
+      "raw_relative_path": "信网公司/小微上线&小微在线/小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx",
+      "category_path": "信网公司/小微上线&小微在线",
+      "category_levels": [
+        "信网公司",
+        "小微上线&小微在线"
+      ]
+    },
+    "source_conversion": {
+      "original_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx",
+      "extraction_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\信网公司\\小微上线&小微在线\\小微精品业务套餐申请登记表（云享wifi版）2024-7-3.docx",
+      "converted": false,
+      "converter": ""
+    }
+  }
+}

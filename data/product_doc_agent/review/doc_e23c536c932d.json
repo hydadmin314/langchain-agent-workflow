@@ -1,0 +1,390 @@
+{
+  "document_info": {
+    "document_id": "doc_e23c536c932d",
+    "document_type": "大客户需求登记表",
+    "title": "大客户需求登记表",
+    "product_name": "",
+    "product_family": "",
+    "carrier": "",
+    "region": "",
+    "version": "SHCH/Z/JL/B/0/ZG-012-2004",
+    "effective_from": "",
+    "effective_to": "",
+    "document_status": "active",
+    "filename": "3 【2021.10.14起】表3.转定用的大客户需求表.docx",
+    "source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.docx",
+    "source_file_type": "MarkItDown"
+  },
+  "parties_and_application": {
+    "service_provider": {
+      "name": "上海市电信有限公司",
+      "carrier": "",
+      "region": "",
+      "contact_channels": []
+    },
+    "customer": {
+      "name": "",
+      "filled_values": [
+        {
+          "label": "用户名称",
+          "value": ""
+        },
+        {
+          "label": "联系人",
+          "value": ""
+        },
+        {
+          "label": "联系电话",
+          "value": ""
+        },
+        {
+          "label": "E-MAIL",
+          "value": ""
+        },
+        {
+          "label": "统一社会代码",
+          "value": ""
+        },
+        {
+          "label": "经（代）办人有效证件名称",
+          "value": "身份证"
+        },
+        {
+          "label": "姓名",
+          "value": ""
+        },
+        {
+          "label": "证件号码",
+          "value": ""
+        },
+        {
+          "label": "账单地址",
+          "value": ""
+        }
+      ],
+      "is_blank_form": true
+    },
+    "application_fields": {
+      "required": [
+        {
+          "label": "用户名称",
+          "field_key": "user_name",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "用 户 名 称",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "联系人",
+          "field_key": "contact_person",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "联 系 人",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "联系电话",
+          "field_key": "phone_number",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "phone",
+          "source_evidence": "联系电话",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "E-MAIL",
+          "field_key": "email",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "email",
+          "source_evidence": "E-MAIL",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "统一社会代码",
+          "field_key": "social_credit_code",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "统一社会代码",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "经（代）办人有效证件名称",
+          "field_key": "id_document_type",
+          "required": true,
+          "value": "身份证",
+          "options": [
+            "身份证",
+            "社保卡",
+            "驾驶证"
+          ],
+          "value_type": "string",
+          "source_evidence": "经（代 经（代）办人有效证件名称 | 身份证 社保卡 驾驶证",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.docx"
+          },
+          "confidence": 0.8
+        },
+        {
+          "label": "姓名",
+          "field_key": "full_name",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "姓 名",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "证件号码",
+          "field_key": "id_number",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "证件号码",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "账单地址",
+          "field_key": "billing_address",
+          "required": true,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "账单地址",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.docx"
+          },
+          "confidence": 0.5
+        }
+      ],
+      "optional": [
+        {
+          "label": "业务需求信息",
+          "field_key": "business_requirements",
+          "required": false,
+          "value": "MSTP, 月付, 甲端端口类型: RJ45, 乙端端口类型: RJ45, VLAN透传: 是, QINQ: 否",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "**业务需求信息（请在以下需要的项目内打“√”）** | MSTP, 月付, 甲端端口类型: RJ45, 乙端端口类型: RJ45, VLAN透传: 是, QINQ: 否",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.docx"
+          },
+          "confidence": 0.7
+        },
+        {
+          "label": "业务类型",
+          "field_key": "business_type",
+          "required": false,
+          "value": "新装",
+          "options": [
+            "新装",
+            "移机",
+            "拆机",
+            "升速",
+            "降速"
+          ],
+          "value_type": "string",
+          "source_evidence": "业务类型 | 新装 移机 拆机 升速 降速",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.docx"
+          },
+          "confidence": 0.8
+        },
+        {
+          "label": "项目地址",
+          "field_key": "project_address",
+          "required": false,
+          "value": "甲端：, 乙端：",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "项目地址 | 甲端：, 乙端：",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.docx"
+          },
+          "confidence": 0.6
+        },
+        {
+          "label": "希望完工日期",
+          "field_key": "desired_completion_date",
+          "required": false,
+          "value": null,
+          "options": [],
+          "value_type": "text",
+          "source_evidence": "希望完工日期",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.docx"
+          },
+          "confidence": 0.5
+        },
+        {
+          "label": "现有通局及设备情况",
+          "field_key": "existing_equipment",
+          "required": false,
+          "value": "光缆: 有/无, 光端机型号: , 光端机空余端口: 有/无",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "现有通局及设备情况 | 光缆: 有/无, 光端机型号: , 光端机空余端口: 有/无",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.docx"
+          },
+          "confidence": 0.6
+        },
+        {
+          "label": "楼宇性质",
+          "field_key": "building_type",
+          "required": false,
+          "value": "业主/租赁",
+          "options": [
+            "业主",
+            "租赁"
+          ],
+          "value_type": "string",
+          "source_evidence": "楼 宇 性 质 | 业主 租赁",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.docx"
+          },
+          "confidence": 0.7
+        },
+        {
+          "label": "建设进度",
+          "field_key": "construction_progress",
+          "required": false,
+          "value": "土建中/结构封顶/机电安装",
+          "options": [
+            "土建中",
+            "结构封顶",
+            "机电安装"
+          ],
+          "value_type": "string",
+          "source_evidence": "建 设 进 度 | 土建中 结构封顶 机电安装",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.docx"
+          },
+          "confidence": 0.7
+        },
+        {
+          "label": "帐务信息",
+          "field_key": "account_information",
+          "required": false,
+          "value": "开户银行及帐号: , 帐单寄达地址: , 邮政编码: ",
+          "options": [],
+          "value_type": "string",
+          "source_evidence": "帐 务 信 息 | 开户银行及帐号: , 帐单寄达地址: , 邮政编码:",
+          "source_location": {
+            "path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.docx"
+          },
+          "confidence": 0.6
+        }
+      ]
+    },
+    "application_notes": [
+      "{'note': '备注信息：（光箱号，大光端机网元号，以及其它需要备注的信息）', 'source_evidence': '| 用 户 说 明 | 备注信息：（光箱号，大光端机网元号，以及其它需要备注的信息） | | | | | | | | | | | | | |', 'source_location': {}, 'confidence': 0.7}"
+    ]
+  },
+  "base_package": {
+    "packages": [],
+    "included_items": [],
+    "service_attributes": [],
+    "sla": {}
+  },
+  "optional_packages": [],
+  "fee_and_term_rules": [],
+  "agreement_rules": [],
+  "application_materials": [],
+  "eligibility_and_constraints": [],
+  "supplemental_rules": [],
+  "extraction_meta": {
+    "generated_at": "2026-06-02T16:05:27",
+    "source_file": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.docx",
+    "source_file_hash": "1449ab72c046852bb20d91fb320b5567374094a4dab9a775f05486537923afc7",
+    "method": "llm_schema_module_extraction",
+    "llm_self_check": {
+      "needs_rework": true,
+      "rework_modules": [
+        "parties_and_application",
+        "base_package",
+        "application_materials"
+      ],
+      "validation_issues": [
+        {
+          "severity": "warning",
+          "path": "parties_and_application.application_fields.required",
+          "message": "部分必填字段的 value 为空，但这些字段在原文中是必填项。"
+        },
+        {
+          "severity": "error",
+          "path": "base_package.packages",
+          "message": "基础套餐信息缺失，未找到任何基础套餐内容。"
+        },
+        {
+          "severity": "error",
+          "path": "application_materials",
+          "message": "办理材料为空，未找到任何申请材料信息。"
+        }
+      ],
+      "schema_warnings": [
+        "部分字段的 source_location 为 {}，无法精确定位原文位置。",
+        "部分字段的 confidence 值较低（如 0.5），建议确认抽取准确性。"
+      ],
+      "rework_applied_modules": [
+        "base_package"
+      ],
+      "rework_requests": [
+        {
+          "module": "base_package",
+          "reason": "- 大模型自检要求返工。\n- error | base_package.packages | 基础套餐信息缺失，未找到任何基础套餐内容。"
+        }
+      ]
+    },
+    "validation_issues": [],
+    "validation_issue_count": 0,
+    "schema_warnings": [],
+    "review_status": "draft",
+    "raw_category": {
+      "raw_root": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw",
+      "raw_relative_path": "电信政企/2.1 本地国内MSTP/3 【2021.10.14起】表3.转定用的大客户需求表.doc",
+      "category_path": "电信政企/2.1 本地国内MSTP",
+      "category_levels": [
+        "电信政企",
+        "2.1 本地国内MSTP"
+      ]
+    },
+    "source_conversion": {
+      "original_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\raw\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.doc",
+      "extraction_source_path": "E:\\GitHub\\langchain-agent-workflow-520\\data\\product_doc_agent\\converted_docx\\电信政企\\2.1 本地国内MSTP\\3 【2021.10.14起】表3.转定用的大客户需求表.docx",
+      "converted": true,
+      "converter": "microsoft_word_com"
+    }
+  }
+}
