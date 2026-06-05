@@ -108,20 +108,22 @@ class HeuristicDemandParser:
         target_region = infer_target_region(text, target_scope)
         duration = extract_duration(text)
         budget = extract_budget(text)
+        budget_text = extract_budget_text(text)
+        bandwidth_text = extract_bandwidth_text(text)
+        category_candidate_keywords = extract_category_candidate_keywords(text)
+        raw_keywords = extract_keywords(text, category_candidate_keywords=category_candidate_keywords)
+
         missing_fields = [
             name
             for name, value in {
-                "access_source": access_source,
-                "target_region": target_region,
+                "usage_scene": access_source,
+                "primary_goal": infer_primary_goal(text, category_candidate_keywords),
                 "user_count": user_count,
-                "duration": duration,
-                "budget": budget,
+                "business_action": infer_business_action(text),
+                "budget": budget_text,
             }.items()
-            if value is None
+            if is_missing_value(value)
         ]
-
-        category_candidate_keywords = extract_category_candidate_keywords(text)
-        raw_keywords = extract_keywords(text, category_candidate_keywords=category_candidate_keywords)
 
         confidence = 0.55
         if user_count:
@@ -136,18 +138,29 @@ class HeuristicDemandParser:
             confidence += 0.05
 
         return CustomerDemand(
-            access_source=access_source,
-            source_scope=source_scope,
-            target_region=target_region,
-            target_scope=target_scope,
-            user_count=user_count,
-            bandwidth_est_mbps=bandwidth_est or 0,
-            duration=duration,
-            budget=budget,
-            requires_fixed_ip=requires_fixed_ip,
-            scenario_type=scenario_type,
+            primary_goal=infer_primary_goal(text, category_candidate_keywords) or target_region or "",
+            usage_scene=access_source or "",
+            business_action=infer_business_action(text) or "未知",
+            site_count=extract_site_count_text(text),
+            user_count=f"{user_count}人" if user_count else "",
+            bandwidth_need=bandwidth_text,
+            fixed_ip_required=True if requires_fixed_ip else infer_negative_requirement(text, ("固定IP", "公网IP", "公网地址")),
+            fixed_ip_count=extract_fixed_ip_count_text(text),
+            voice_required=infer_positive_or_negative(text, positive=("语音", "固定电话", "固话", "云中继", "商云通", "30B+D"), negative=("不带语音", "不要语音")),
+            concurrent_calls=extract_concurrent_calls_text(text),
+            overseas_access=True if target_scope == RegionScope.overseas else infer_negative_requirement(text, ("海外", "国外", "跨境", "国际")),
+            overseas_target=target_region or "",
+            server_or_idc_required=infer_positive_or_negative(text, positive=("服务器", "IDC", "机房", "云主机", "托管"), negative=()),
+            cloud_office_required=infer_positive_or_negative(text, positive=("云电脑", "云桌面", "云盘", "远程办公", "视频会议"), negative=()),
+            security_required=infer_positive_or_negative(text, positive=("安全", "防护", "运维", "代维", "托管"), negative=()),
+            industry_scene=infer_industry_scene(text),
+            marketing_touch_required=infer_positive_or_negative(text, positive=("400", "来电名片", "挂机短信", "云录音", "营销触达"), negative=()),
+            budget=budget_text or (str(int(budget)) if budget is not None else ""),
+            reliability_level=infer_reliability_level(text),
+            carrier_preference=infer_carrier_preference(text),
+            region=infer_region(text) or access_source or "",
+            customer_type=infer_customer_type(text),
             raw_keywords=raw_keywords,
-            category_candidate_keywords=category_candidate_keywords,
             confidence=min(confidence, 0.95),
             missing_fields=missing_fields,
         )
@@ -164,10 +177,8 @@ class ResilientDemandParser:
         if self.primary.settings.llm_api_key:
             try:
                 demand = self.primary.parse(raw_text)
-                # LLM 偶尔会漏掉分类关键词，这里用本地 taxonomy 再补一遍，不覆盖 LLM 已抽出的实体字段。
-                if not demand.category_candidate_keywords:
-                    demand.category_candidate_keywords = extract_category_candidate_keywords(raw_text)
-                return demand
+                # LLM 偶尔会漏掉人数、预算、区域等显性字段；用本地规则做补漏，不覆盖模型已明确抽出的值。
+                return merge_customer_demand(demand, self.fallback.parse(raw_text))
             except (ParserError, ValidationError, json.JSONDecodeError, Exception):
                 pass
         return self.fallback.parse(raw_text)
@@ -176,6 +187,88 @@ class ResilientDemandParser:
 def parse_customer_demand_json(content: str) -> CustomerDemand:
     payload = extract_json_object(content)
     return CustomerDemand.model_validate(payload)
+
+
+def merge_customer_demand(primary: CustomerDemand, fallback: CustomerDemand) -> CustomerDemand:
+    """把 LLM 结果和本地规则结果合并。
+
+    LLM 负责语义理解；本地规则负责补齐客户原话里非常明确的人数、预算、区域、带宽等字段。
+    """
+
+    merged = primary.model_copy(deep=True)
+    text_fields = [
+        "primary_goal",
+        "usage_scene",
+        "business_action",
+        "site_count",
+        "user_count",
+        "bandwidth_need",
+        "overseas_target",
+        "industry_scene",
+        "budget",
+        "reliability_level",
+        "carrier_preference",
+        "region",
+        "customer_type",
+    ]
+    for field_name in text_fields:
+        if not getattr(merged, field_name):
+            setattr(merged, field_name, getattr(fallback, field_name))
+
+    bool_fields = [
+        "fixed_ip_required",
+        "voice_required",
+        "overseas_access",
+        "server_or_idc_required",
+        "cloud_office_required",
+        "security_required",
+        "marketing_touch_required",
+    ]
+    for field_name in bool_fields:
+        if getattr(merged, field_name) is None:
+            setattr(merged, field_name, getattr(fallback, field_name))
+
+    if merged.fixed_ip_count is None:
+        merged.fixed_ip_count = fallback.fixed_ip_count
+    if merged.concurrent_calls is None:
+        merged.concurrent_calls = fallback.concurrent_calls
+    if not merged.raw_keywords:
+        merged.raw_keywords = fallback.raw_keywords
+
+    merged.missing_fields = [
+        field_name
+        for field_name in _dedupe([*primary.missing_fields, *fallback.missing_fields])
+        if is_customer_need_field_missing(merged, field_name)
+    ]
+    merged.confidence = max(primary.confidence, fallback.confidence)
+    return merged
+
+
+def is_missing_value(value: Any) -> bool:
+    """判断解析出的字段是否仍然缺失。"""
+
+    if value is None:
+        return True
+    if isinstance(value, str):
+        return value.strip() == "" or value == "未知"
+    if isinstance(value, list):
+        return not value
+    return False
+
+
+def is_customer_need_field_missing(demand: CustomerDemand, field_name: str) -> bool:
+    """判断字段合并后是否仍为空，用于刷新 missing_fields。"""
+
+    if not hasattr(demand, field_name):
+        return False
+    value = getattr(demand, field_name)
+    if value is None:
+        return True
+    if isinstance(value, str):
+        return value.strip() == "" or value == "未知"
+    if isinstance(value, list):
+        return not value
+    return False
 
 
 def extract_json_object(content: str) -> dict[str, Any]:
@@ -230,6 +323,20 @@ def extract_bandwidth(text: str) -> int | None:
     return None
 
 
+def extract_bandwidth_text(text: str) -> str:
+    """保留客户原始带宽表达，供前端和 LLM 解释使用。"""
+
+    mobile_5g_context = re.search(r"5G[^，。；,;]{0,8}(?:套餐|融合|手机|移动|流量|卡)", text, re.I)
+    pattern = r"(\d+(?:\.\d+)?)\s*(G|Gbps|M|Mbps|兆|千兆)"
+    for match in re.finditer(pattern, text, re.I):
+        if mobile_5g_context and match.group(0).lower().startswith("5g"):
+            continue
+        return match.group(0)
+    if "不确定" in text and contains_any(text, ("带宽", "速率")):
+        return "客户不确定"
+    return ""
+
+
 def extract_duration(text: str) -> str | None:
     trial_match = re.search(
         r"(试用|先试|测试|poc|POC)[^\d零一二两三四五六七八九十百千万]{0,8}"
@@ -262,6 +369,175 @@ def extract_budget(text: str) -> float | None:
     elif unit in {"千", "k", "K"}:
         value *= 1000
     return value
+
+
+def extract_budget_text(text: str) -> str:
+    """保留预算原文，金额标准化由 CustomerDemand.budget_amount 负责。"""
+
+    match = re.search(r"(?:预算|费用|价格|报价|控制在)[^，。；,;]{0,16}", text)
+    if match:
+        return match.group(0)
+    match = re.search(r"\d+(?:\.\d+)?\s*(?:万|千|k|K|元|块)(?:左右|以内|以下|以上)?", text)
+    return match.group(0) if match else ""
+
+
+def extract_site_count_text(text: str) -> str:
+    """抽取使用地点数量原文。"""
+
+    if contains_any(text, ("总部", "分支", "分公司")):
+        match = re.search(r"总部\s*[+加和与、]?\s*(\d+)\s*(?:个)?(?:分支|分公司|门店)", text)
+        return match.group(0) if match else "总部+分支"
+    match = re.search(r"(\d+)\s*(?:个)?(?:门店|网点|办公室|站点|点位)", text)
+    if match:
+        return match.group(0)
+    if contains_any(text, ("多点", "多地")):
+        return "多点"
+    if contains_any(text, ("单点", "一个办公室", "一家门店")):
+        return "单点"
+    return ""
+
+
+def extract_fixed_ip_count_text(text: str) -> str | None:
+    """抽取固定公网 IP 数量原文。"""
+
+    match = re.search(r"(\d+)\s*(?:个)?(?:固定)?(?:公网)?IP", text, re.I)
+    return match.group(0) if match else None
+
+
+def extract_concurrent_calls_text(text: str) -> str | None:
+    """抽取语音并发、通道、线数或 30B+D 等表达。"""
+
+    match = re.search(r"(\d+)\s*(?:路|线|通道|并发|坐席)", text)
+    if match:
+        return match.group(0)
+    match = re.search(r"\d+B\s*\+\s*D", text, re.I)
+    return match.group(0) if match else None
+
+
+def infer_business_action(text: str) -> str | None:
+    """从销售话术中识别办理动作。"""
+
+    action_keywords = (
+        ("拆机", ("拆机", "销户", "注销")),
+        ("撤单", ("撤单",)),
+        ("续约", ("续约", "续签")),
+        ("改套餐", ("改套餐", "改资费", "换套餐")),
+        ("变更", ("变更", "改业务")),
+        ("移机", ("移机",)),
+        ("过户", ("过户",)),
+        ("新装", ("新装", "新办", "开通", "新办公室", "新门店")),
+    )
+    for action, keywords in action_keywords:
+        if contains_any(text, keywords):
+            return action
+    return None
+
+
+def infer_primary_goal(text: str, category_candidate_keywords: list[str]) -> str | None:
+    """归纳客户的核心目标，优先使用原文中的强业务词。"""
+
+    goal_keywords = (
+        "海外访问",
+        "海外SaaS",
+        "海外 SaaS",
+        "固定IP",
+        "公网IP",
+        "云中继",
+        "30B+D",
+        "云电脑",
+        "远程办公",
+        "IDC",
+        "服务器托管",
+        "办公上网",
+        "办公上网",
+        "组网",
+        "固定电话",
+        "5G",
+        "流量套餐",
+        "门店WiFi",
+    )
+    for keyword in goal_keywords:
+        if keyword in text:
+            return keyword
+    if contains_any(text, ("美国", "香港", "新加坡", "海外", "国外", "跨境")) and contains_any(text, ("访问", "SaaS", "系统", "网站")):
+        return "海外访问"
+    for keyword in category_candidate_keywords:
+        if keyword:
+            return keyword
+    return None
+
+
+def infer_positive_or_negative(
+    text: str,
+    *,
+    positive: tuple[str, ...],
+    negative: tuple[str, ...],
+) -> bool | None:
+    """抽取三态需求：明确需要、明确不需要、未说明。"""
+
+    if negative and contains_any(text, negative):
+        return False
+    if positive and contains_any(text, positive):
+        return True
+    return None
+
+
+def infer_negative_requirement(text: str, keywords: tuple[str, ...]) -> bool | None:
+    """只在客户明确否定时返回 false，否则保持未知。"""
+
+    for keyword in keywords:
+        if f"不需要{keyword}" in text or f"不要{keyword}" in text:
+            return False
+    return None
+
+
+def infer_reliability_level(text: str) -> str:
+    """抽取稳定性或时延要求。"""
+
+    if contains_any(text, ("极高", "高保障", "专线保障")):
+        return "极高"
+    if contains_any(text, ("较高", "稳定", "低延迟", "低时延")):
+        return "较高"
+    if contains_any(text, ("普通", "一般")):
+        return "普通"
+    return ""
+
+
+def infer_carrier_preference(text: str) -> str:
+    """抽取运营商偏好。"""
+
+    for carrier in ("电信", "联通", "移动"):
+        if carrier in text:
+            return carrier
+    if "无偏好" in text or "都可以" in text:
+        return "无偏好"
+    return ""
+
+
+def infer_region(text: str) -> str:
+    """抽取客户或安装区域。"""
+
+    regions = ["上海", "北京", "深圳", "广州", "杭州", "成都", "武汉", "南京", "外地", "跨省", "多地"]
+    matched = [region for region in regions if region in text]
+    return "、".join(matched)
+
+
+def infer_customer_type(text: str) -> str:
+    """抽取客户类型。"""
+
+    for keyword in ("上海公司", "外地公司", "门店", "集团", "存量客户", "个体工商户", "小微企业"):
+        if keyword in text:
+            return keyword
+    return ""
+
+
+def infer_industry_scene(text: str) -> str:
+    """抽取行业或专项场景。"""
+
+    for keyword in ("视频监控", "电梯", "物业", "园区", "地图", "图像", "物联", "收银", "酒店"):
+        if keyword in text:
+            return keyword
+    return ""
 
 
 def infer_source_scope(text: str) -> RegionScope:

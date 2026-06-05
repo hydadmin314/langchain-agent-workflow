@@ -182,7 +182,7 @@ class CandidateComparator:
             parts.append("有费用证据的候选：" + "、".join(with_fee[:5]))
         if without_fee:
             parts.append("缺少费用证据的候选：" + "、".join(without_fee[:5]))
-        if demand.budget is not None and without_fee:
+        if demand.budget_amount is not None and without_fee:
             parts.append("客户已给出预算，缺少费用证据的候选不适合直接报价。")
         return ComparisonDimension(dimension="费用", summary="；".join(parts) if parts else "当前候选费用信息不足。")
 

@@ -247,7 +247,7 @@ class CandidateRuleFilter:
                 risk_tags.append("mobile_bundle_needs_confirmation")
 
         # 规则 6：客户给出预算时，如果候选没有任何价格或费用规则，提示后续报价风险。
-        if demand.budget is not None and not has_price_evidence(product):
+        if demand.budget_amount is not None and not has_price_evidence(product):
             reasons.append(
                 FilterReason(
                     code="budget_without_price_evidence",
