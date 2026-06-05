@@ -253,7 +253,7 @@ class CandidateScorer:
                     )
                 )
 
-        if demand.budget is not None and has_price_evidence(product):
+        if demand.budget_amount is not None and has_price_evidence(product):
             reasons.append(
                 ScoreReason(
                     code="price_evidence_for_budget",
@@ -262,7 +262,7 @@ class CandidateScorer:
                 )
             )
 
-        if demand.user_count and has_capacity_or_bandwidth_evidence(product_text):
+        if demand.user_count_value and has_capacity_or_bandwidth_evidence(product_text):
             reasons.append(
                 ScoreReason(
                     code="capacity_or_bandwidth_evidence",

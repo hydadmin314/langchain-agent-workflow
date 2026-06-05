@@ -8,30 +8,45 @@ DEMAND_PARSER_SYSTEM_PROMPT = """你负责把销售侧口语化客户需求提�
 
 只允许输出这些字段：
 {
-  "access_source": "",
-  "source_scope": "domestic/overseas/unknown",
-  "target_region": "",
-  "target_scope": "domestic/overseas/unknown",
-  "user_count": null,
-  "bandwidth_est_mbps": 0,
-  "duration": "",
-  "budget": null,
-  "requires_fixed_ip": false,
-  "scenario_type": "overseas_access/domestic_networking/dedicated_ip_or_high_bandwidth/trial_or_poc/unknown",
+  "primary_category": "",
+  "secondary_categories": [],
+  "primary_goal": "",
+  "usage_scene": "",
+  "business_action": "未知",
+  "site_count": "",
+  "user_count": "",
+  "bandwidth_need": "",
+  "fixed_ip_required": null,
+  "fixed_ip_count": null,
+  "voice_required": null,
+  "concurrent_calls": null,
+  "overseas_access": null,
+  "overseas_target": "",
+  "server_or_idc_required": null,
+  "cloud_office_required": null,
+  "security_required": null,
+  "industry_scene": "",
+  "marketing_touch_required": null,
+  "budget": "",
+  "reliability_level": "",
+  "carrier_preference": "",
+  "region": "",
+  "customer_type": "",
   "raw_keywords": [],
-  "category_candidate_keywords": [],
-  "confidence": 0.0,
-  "missing_fields": []
+  "missing_fields": [],
+  "confidence": 0.0
 }
 
 抽取规则：
 1. 只抽取客户原话中明确出现或能直接归纳的字段，不要编造产品结论。
-2. category_candidate_keywords 只输出用于 13 类产品需求分类的候选关键词，例如：固定电话、30B+D、云中继、IDC、云电脑、来电名片、门店、固定IP、海外SaaS。
-3. category_candidate_keywords 不能输出分类编号或分类名，只输出客户需求里的业务关键词。
-4. 未明确带宽但提供人数时，按每人 1 Mbps 估算 bandwidth_est_mbps。
-5. “5G套餐、5G融合、手机卡”里的 5G 是移动通信制式，不要当作 5000Mbps 带宽。
-6. 只有明确出现固定IP、公网IP、公网地址时，requires_fixed_ip=true；普通“专线”不要直接等同固定 IP。
-7. 缺少来源、目标、人数、周期、预算等信息时，把字段名写入 missing_fields；缺字段不代表不能识别产品需求类别。
+2. primary_category 和 secondary_categories 输出 13 类产品需求体系的中文分类名称；无法确定时留空，不要编造。
+3. secondary_categories 最多输出2个，用于表达交叉需求，例如“海外访问与跨境加速 + 固定IP_高带宽_互联网专线”。
+4. business_action 使用中文：新装、变更、移机、过户、改套餐、拆机、撤单、续约、未知。
+5. user_count、site_count、bandwidth_need、budget 保留客户原文表达，例如“10人”“总部+5个分支”“100M”“每月5000左右”。
+6. 布尔字段只在客户明确表达时输出 true/false；未说明时输出 null。
+7. “5G套餐、5G融合、手机卡”里的 5G 是移动通信制式，不要当作 5000Mbps 带宽。
+8. 只有明确出现固定IP、公网IP、公网地址时，fixed_ip_required=true；普通“专线”不要直接等同固定 IP。
+9. 缺少关键字段时，把字段名写入 missing_fields；缺字段不代表不能识别产品需求类别。
 """
 
 

@@ -42,10 +42,11 @@ class SalesRecommendationRequirementTest(unittest.TestCase):
             "客户上海办公室大概10个人，想先试一个月访问美国 SaaS，预算5000左右。"
         )
 
-        self.assertEqual(result.structured_data.user_count, 10)
+        self.assertEqual(result.structured_data.user_count, "10人")
+        self.assertEqual(result.structured_data.user_count_value, 10)
         self.assertEqual(result.structured_data.bandwidth_est_mbps, 10)
         self.assertEqual(result.structured_data.target_scope, RegionScope.overseas)
-        self.assertEqual(result.structured_data.budget, 5000)
+        self.assertEqual(result.structured_data.budget_amount, 5000)
         self.assertEqual(result.category_decision.primary_category_id, "4")
 
     def test_domestic_networking_category(self) -> None:
@@ -107,9 +108,10 @@ class SalesRecommendationRequirementTest(unittest.TestCase):
             ```"""
         )
 
-        self.assertEqual(demand.user_count, 10)
+        self.assertEqual(demand.user_count, "10人")
+        self.assertEqual(demand.user_count_value, 10)
         self.assertEqual(demand.target_scope, RegionScope.overseas)
-        self.assertIn("海外 SaaS", demand.category_candidate_keywords)
+        self.assertIn("美国 SaaS", demand.category_candidate_keywords)
 
 
 if __name__ == "__main__":
