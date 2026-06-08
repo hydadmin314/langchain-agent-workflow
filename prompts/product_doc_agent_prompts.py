@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from schema.schema import module_output_contract, schema_prompt_contract
+from schema import module_output_contract, schema_prompt_contract
 
 
 ARRAY_EXTRACTION_RULES = """

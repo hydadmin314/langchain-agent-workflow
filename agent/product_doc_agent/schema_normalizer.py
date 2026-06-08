@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from datetime import date, datetime
 from typing import Any
 
-from schema.schema import get_module_json_schema
+from schema import get_module_json_schema
 
 
 APPLICATION_ATTRIBUTE_HINTS = {
