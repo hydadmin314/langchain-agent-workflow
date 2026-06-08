@@ -1,1 +1,9 @@
 .env
+
+# Python runtime artifacts
+__pycache__/
+*.py[cod]
+
+# Local editor and runtime output
+.vscode/
+*.log
