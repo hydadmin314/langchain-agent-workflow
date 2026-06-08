@@ -33,6 +33,13 @@ class SalesRequirementWorkflow:
             demand=structured_data,
             raw_text=request.text,
         )
+        # 分类器是 13 类体系的最终裁决者，回填到需求字段表，方便后续前端和推荐模块直接展示。
+        structured_data.primary_category = category_decision.primary_category_name
+        structured_data.secondary_categories = [
+            item.category_name
+            for item in category_decision.category_matches
+            if item.category_id != category_decision.primary_category_id
+        ][:2]
         return RequirementAnalysisResult(
             request_id=request.request_id,
             structured_data=structured_data,

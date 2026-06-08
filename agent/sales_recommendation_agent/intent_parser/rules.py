@@ -80,9 +80,23 @@ class DemandCategoryClassifier:
     def _build_demand_text(self, demand: CustomerDemand, *, raw_text: str = "") -> str:
         values = [
             raw_text,
-            demand.access_source or "",
-            demand.target_region or "",
-            demand.duration or "",
+            demand.primary_category,
+            *demand.secondary_categories,
+            demand.primary_goal,
+            demand.usage_scene,
+            demand.business_action,
+            demand.site_count,
+            demand.user_count,
+            demand.bandwidth_need,
+            demand.fixed_ip_count or "",
+            demand.concurrent_calls or "",
+            demand.overseas_target,
+            demand.industry_scene,
+            demand.budget,
+            demand.reliability_level,
+            demand.carrier_preference,
+            demand.region,
+            demand.customer_type,
             demand.scenario_type.value,
             *demand.raw_keywords,
             *demand.category_candidate_keywords,
@@ -103,10 +117,10 @@ class DemandCategoryClassifier:
 
     def _build_generic_clarify_questions(self, demand: CustomerDemand) -> list[str]:
         questions_by_field = {
-            "access_source": "客户从哪里访问或使用业务？例如上海办公室、门店、总部或分公司。",
-            "target_region": "客户要访问哪里或办理什么业务？例如国内总部、海外 SaaS、美国服务器、固定电话或 IDC。",
+            "usage_scene": "客户从哪里访问或使用业务？例如上海办公室、门店、总部或分公司。",
+            "primary_goal": "客户最核心想解决什么问题？例如办公上网、海外访问、固定IP、云中继或 IDC。",
             "user_count": "预计多少人、多少终端、多少号码或多少坐席使用？",
-            "duration": "客户希望试用、月付、年付还是签约几年？",
+            "business_action": "客户是新装、变更、移机、过户、改套餐、拆机、撤单还是续约？",
             "budget": "客户大致预算是多少？",
         }
         questions = [questions_by_field[field] for field in demand.missing_fields if field in questions_by_field]

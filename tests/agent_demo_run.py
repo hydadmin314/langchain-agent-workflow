@@ -17,7 +17,9 @@ from agent.sales_recommendation_agent.recommender import (
     CandidateRetriever,
     CandidateRuleFilter,
     CandidateScorer,
+    ClarificationQuestionGenerator,
     RecommendationExplainer,
+    RecommendationReadinessEvaluator,
 )
 from config.llm_config import get_llm
 from langchain_core.messages import HumanMessage
@@ -209,15 +211,31 @@ def print_debug_report(query: str, result: PipelineResult) -> None:
 
     print("1. Intent Parser 结构化结果：")
     structured_data = intent_result.structured_data
-    print(f"- access_source: {structured_data.access_source}")
-    print(f"- target_region: {structured_data.target_region}")
+    print(f"- primary_category: {structured_data.primary_category}")
+    print(f"- secondary_categories: {structured_data.secondary_categories}")
+    print(f"- primary_goal: {structured_data.primary_goal}")
+    print(f"- usage_scene: {structured_data.usage_scene}")
+    print(f"- business_action: {structured_data.business_action}")
+    print(f"- site_count: {structured_data.site_count}")
     print(f"- user_count: {structured_data.user_count}")
-    print(f"- bandwidth_est_mbps: {structured_data.bandwidth_est_mbps}")
+    print(f"- bandwidth_need: {structured_data.bandwidth_need}")
+    print(f"- fixed_ip_required: {structured_data.fixed_ip_required}")
+    print(f"- fixed_ip_count: {structured_data.fixed_ip_count}")
+    print(f"- voice_required: {structured_data.voice_required}")
+    print(f"- concurrent_calls: {structured_data.concurrent_calls}")
+    print(f"- overseas_access: {structured_data.overseas_access}")
+    print(f"- overseas_target: {structured_data.overseas_target}")
+    print(f"- server_or_idc_required: {structured_data.server_or_idc_required}")
+    print(f"- cloud_office_required: {structured_data.cloud_office_required}")
+    print(f"- security_required: {structured_data.security_required}")
+    print(f"- industry_scene: {structured_data.industry_scene}")
+    print(f"- marketing_touch_required: {structured_data.marketing_touch_required}")
     print(f"- budget: {structured_data.budget}")
-    print(f"- requires_fixed_ip: {structured_data.requires_fixed_ip}")
-    print(f"- scenario_type: {structured_data.scenario_type.value}")
+    print(f"- reliability_level: {structured_data.reliability_level}")
+    print(f"- carrier_preference: {structured_data.carrier_preference}")
+    print(f"- region: {structured_data.region}")
+    print(f"- customer_type: {structured_data.customer_type}")
     print(f"- raw_keywords: {structured_data.raw_keywords}")
-    print(f"- category_candidate_keywords: {structured_data.category_candidate_keywords}")
     print(f"- missing_fields: {structured_data.missing_fields}")
     print()
 

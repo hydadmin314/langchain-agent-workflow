@@ -8,30 +8,45 @@ DEMAND_PARSER_SYSTEM_PROMPT = """你负责把销售侧口语化客户需求提�
 
 只允许输出这些字段：
 {
-  "access_source": "",
-  "source_scope": "domestic/overseas/unknown",
-  "target_region": "",
-  "target_scope": "domestic/overseas/unknown",
-  "user_count": null,
-  "bandwidth_est_mbps": 0,
-  "duration": "",
-  "budget": null,
-  "requires_fixed_ip": false,
-  "scenario_type": "overseas_access/domestic_networking/dedicated_ip_or_high_bandwidth/trial_or_poc/unknown",
+  "primary_category": "",
+  "secondary_categories": [],
+  "primary_goal": "",
+  "usage_scene": "",
+  "business_action": "未知",
+  "site_count": "",
+  "user_count": "",
+  "bandwidth_need": "",
+  "fixed_ip_required": null,
+  "fixed_ip_count": null,
+  "voice_required": null,
+  "concurrent_calls": null,
+  "overseas_access": null,
+  "overseas_target": "",
+  "server_or_idc_required": null,
+  "cloud_office_required": null,
+  "security_required": null,
+  "industry_scene": "",
+  "marketing_touch_required": null,
+  "budget": "",
+  "reliability_level": "",
+  "carrier_preference": "",
+  "region": "",
+  "customer_type": "",
   "raw_keywords": [],
-  "category_candidate_keywords": [],
-  "confidence": 0.0,
-  "missing_fields": []
+  "missing_fields": [],
+  "confidence": 0.0
 }
 
 抽取规则：
 1. 只抽取客户原话中明确出现或能直接归纳的字段，不要编造产品结论。
-2. category_candidate_keywords 只输出用于 13 类产品需求分类的候选关键词，例如：固定电话、30B+D、云中继、IDC、云电脑、来电名片、门店、固定IP、海外SaaS。
-3. category_candidate_keywords 不能输出分类编号或分类名，只输出客户需求里的业务关键词。
-4. 未明确带宽但提供人数时，按每人 1 Mbps 估算 bandwidth_est_mbps。
-5. “5G套餐、5G融合、手机卡”里的 5G 是移动通信制式，不要当作 5000Mbps 带宽。
-6. 只有明确出现固定IP、公网IP、公网地址时，requires_fixed_ip=true；普通“专线”不要直接等同固定 IP。
-7. 缺少来源、目标、人数、周期、预算等信息时，把字段名写入 missing_fields；缺字段不代表不能识别产品需求类别。
+2. primary_category 和 secondary_categories 输出 13 类产品需求体系的中文分类名称；无法确定时留空，不要编造。
+3. secondary_categories 最多输出2个，用于表达交叉需求，例如“海外访问与跨境加速 + 固定IP_高带宽_互联网专线”。
+4. business_action 使用中文：新装、变更、移机、过户、改套餐、拆机、撤单、续约、未知。
+5. user_count、site_count、bandwidth_need、budget 保留客户原文表达，例如“10人”“总部+5个分支”“100M”“每月5000左右”。
+6. 布尔字段只在客户明确表达时输出 true/false；未说明时输出 null。
+7. “5G套餐、5G融合、手机卡”里的 5G 是移动通信制式，不要当作 5000Mbps 带宽。
+8. 只有明确出现固定IP、公网IP、公网地址时，fixed_ip_required=true；普通“专线”不要直接等同固定 IP。
+9. 缺少关键字段时，把字段名写入 missing_fields；缺字段不代表不能识别产品需求类别。
 """
 
 
@@ -92,6 +107,39 @@ def build_recommendation_explainer_user_prompt(payload: dict[str, Any]) -> str:
         "请基于以下程序推荐结果生成销售推荐说明。\n"
         "注意：只能解释输入里的候选产品；Top1 必须作为首推；不要新增候选；不要估价。\n"
         "如果没有候选产品，只输出追问问题和无法推荐原因。\n\n"
+        f"输入 JSON：\n{json.dumps(payload, ensure_ascii=False, indent=2)}"
+    )
+
+
+CLARIFICATION_QUESTION_SYSTEM_PROMPT = """你是一个政企产品销售助手。
+
+你的任务不是推荐产品，而是根据系统给出的 clarification_plan，生成自然、人性化的追问。
+
+要求：
+1. 只问 clarification_plan 中指定的问题，不要自行扩展很多问题。
+2. 一次最多问 max_questions 个问题。
+3. 问法要像销售顾问，不要像表格、问卷或审讯。
+4. 如果 term_explanations 中提供了专业词解释，要用一句简短、人话化说明。
+5. 如果 decision 是 ready_with_assumptions，要表达“可以先按某些假设推荐，但确认后会更准”。
+6. 不要提前推荐具体产品，除非系统明确允许。
+7. 输出中文。
+8. 只输出严格 JSON，不要输出 Markdown、解释文本或代码块。
+
+JSON 结构必须是：
+{
+  "message": "",
+  "questions": [],
+  "fields": []
+}
+"""
+
+
+def build_clarification_question_user_prompt(payload: dict[str, Any]) -> str:
+    """将结构化追问计划转换为自然的客户沟通问题。"""
+
+    return (
+        "请根据下面的 readiness 结果生成一段自然追问。\n"
+        "注意：不要推荐产品，只问 clarification_plan 中指定的问题。\n\n"
         f"输入 JSON：\n{json.dumps(payload, ensure_ascii=False, indent=2)}"
     )
 
@@ -393,6 +441,7 @@ def _to_json_text(value: Any) -> str:
 __all__ = [
     "DEMAND_PARSER_SYSTEM_PROMPT",
     "RECOMMENDATION_EXPLAINER_SYSTEM_PROMPT",
+    "CLARIFICATION_QUESTION_SYSTEM_PROMPT",
     "SALES_BUSINESS_TAGS",
     "SALES_INTERACTION_SYSTEM_PROMPT",
     "BUSINESS_TAG_GUIDANCE_PROMPT",
@@ -401,6 +450,7 @@ __all__ = [
     "SALES_DEMO_ACCEPTANCE_PROMPT",
     "build_demand_parser_user_prompt",
     "build_recommendation_explainer_user_prompt",
+    "build_clarification_question_user_prompt",
     "build_business_tag_guidance_prompt",
     "build_interaction_state_prompt",
     "build_sales_demo_acceptance_prompt",
