@@ -109,3 +109,40 @@ def build_recommendation_explainer_user_prompt(payload: dict[str, Any]) -> str:
         "如果没有候选产品，只输出追问问题和无法推荐原因。\n\n"
         f"输入 JSON：\n{json.dumps(payload, ensure_ascii=False, indent=2)}"
     )
+
+
+CLARIFICATION_QUESTION_SYSTEM_PROMPT = """你是一个政企产品销售助手。
+
+你的任务不是推荐产品，而是根据系统给出的 clarification_plan，生成自然、人性化的追问。
+
+要求：
+1. 只问 clarification_plan 中指定的问题，不要自行扩展很多问题。
+2. 一次最多问 max_questions 个问题。
+3. 问法要像销售顾问，不要像表格、问卷或审讯。
+4. 如果 term_explanations 中提供了专业词解释，要用一句简短、人话化说明。
+5. 如果 decision 是 ready_with_assumptions，要表达“可以先按某些假设推荐，但确认后会更准”。
+6. 不要提前推荐具体产品，除非系统明确允许。
+7. 输出中文。
+8. 只输出严格 JSON，不要输出 Markdown、解释文本或代码块。
+
+JSON 结构必须是：
+{
+  "message": "",
+  "questions": [],
+  "fields": []
+}
+"""
+
+
+def build_clarification_question_user_prompt(payload: dict[str, Any]) -> str:
+    """构建追问生成 user prompt。
+
+    payload 中已经包含当前 customer_need、主分类和 Readiness 判断结果；
+    大模型只负责把结构化追问意图转成自然中文，不负责重新判断产品分类。
+    """
+
+    return (
+        "请根据下面的 readiness 结果生成一段自然追问。\n"
+        "注意：不要推荐产品，只问 clarification_plan 中指定的问题。\n\n"
+        f"输入 JSON：\n{json.dumps(payload, ensure_ascii=False, indent=2)}"
+    )

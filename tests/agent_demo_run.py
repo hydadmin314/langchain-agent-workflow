@@ -15,7 +15,9 @@ from agent.sales_recommendation_agent.recommender import (
     CandidateRetriever,
     CandidateRuleFilter,
     CandidateScorer,
+    ClarificationQuestionGenerator,
     RecommendationExplainer,
+    RecommendationReadinessEvaluator,
 )
 
 
@@ -41,6 +43,53 @@ def main() -> None:
     # 7. Comparator 对 Top N 候选做结构化对比
     # 8. LLM Recommendation Explainer 读取对比结果，生成销售可读推荐说明
     intent_result = SalesRequirementWorkflow().analyze(args.query)
+    readiness_result = RecommendationReadinessEvaluator().evaluate(
+        demand=intent_result.structured_data,
+        category_decision=intent_result.category_decision,
+    )
+    clarification_result = ClarificationQuestionGenerator().generate(
+        query=args.query,
+        demand=intent_result.structured_data,
+        category_decision=intent_result.category_decision,
+        readiness_result=readiness_result,
+    )
+
+    # 最低推荐条件不满足时，本轮先追问，不进入产品召回。
+    # 这样可以避免需求还没框定就输出不稳定的推荐结果。
+    if readiness_result.decision == "ask_clarification":
+        if args.json:
+            print(
+                json.dumps(
+                    {
+                        "query": args.query,
+                        "intent": intent_result.model_dump(mode="json"),
+                        "readiness": readiness_result.model_dump(mode="json"),
+                        "clarification": clarification_result.model_dump(mode="json"),
+                        "product_load": None,
+                        "retrieval": None,
+                        "filter": None,
+                        "score": None,
+                        "comparison": None,
+                        "explanation": None,
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                )
+            )
+            return
+
+        print("客户需求：")
+        print(args.query)
+        print()
+        print("1. Recommendation Readiness Evaluator 判断：")
+        print(f"- decision: {readiness_result.decision}")
+        print(f"- reason: {readiness_result.reason}")
+        print(f"- missing_conditions: {readiness_result.missing_conditions}")
+        print()
+        print("2. LLM Clarification Question Generator 追问：")
+        print(f"- {clarification_result.message}")
+        return
+
     product_result = ProductRepository(args.published_root).load_result()
     retrieval_result = CandidateRetriever(default_top_k=args.top_k).retrieve(
         demand=intent_result.structured_data,
@@ -81,6 +130,8 @@ def main() -> None:
                 {
                     "query": args.query,
                     "intent": intent_result.model_dump(mode="json"),
+                    "readiness": readiness_result.model_dump(mode="json"),
+                    "clarification": clarification_result.model_dump(mode="json"),
                     "product_load": {
                         "product_count": product_result.product_count,
                         "error_count": product_result.error_count,
@@ -113,9 +164,16 @@ def main() -> None:
     print(f"- user_count: {structured_data.user_count}")
     print(f"- bandwidth_need: {structured_data.bandwidth_need}")
     print(f"- fixed_ip_required: {structured_data.fixed_ip_required}")
+    print(f"- fixed_ip_count: {structured_data.fixed_ip_count}")
     print(f"- voice_required: {structured_data.voice_required}")
+    print(f"- concurrent_calls: {structured_data.concurrent_calls}")
     print(f"- overseas_access: {structured_data.overseas_access}")
     print(f"- overseas_target: {structured_data.overseas_target}")
+    print(f"- server_or_idc_required: {structured_data.server_or_idc_required}")
+    print(f"- cloud_office_required: {structured_data.cloud_office_required}")
+    print(f"- security_required: {structured_data.security_required}")
+    print(f"- industry_scene: {structured_data.industry_scene}")
+    print(f"- marketing_touch_required: {structured_data.marketing_touch_required}")
     print(f"- budget: {structured_data.budget}")
     print(f"- reliability_level: {structured_data.reliability_level}")
     print(f"- carrier_preference: {structured_data.carrier_preference}")
