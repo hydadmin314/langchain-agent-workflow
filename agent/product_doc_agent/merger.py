@@ -3,7 +3,7 @@ from __future__ import annotations
 from copy import deepcopy
 from typing import Any
 
-from schema.schema import TOP_LEVEL_LIST_KEYS, make_empty_product_document
+from schema import TOP_LEVEL_LIST_KEYS, make_empty_product_document
 
 
 class ProductDocumentMerger:
