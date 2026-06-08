@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>销售推荐 Demo 展示台</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Sales Recommendation Agent</p>
+          <h1>销售推荐 Demo 展示台</h1>
+          <p class="subtitle">6 轮需求澄清、业务场景识别、候选方案推荐</p>
+        </div>
+        <div class="top-actions">
+          <span class="backend-status" id="backendStatus">检测后端中</span>
+          <button class="ghost-button" id="resetButton" type="button">重置</button>
+          <button class="primary-button" id="startButton" type="button">开始演示</button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="control-panel" aria-label="演示设置">
+          <div class="field-block">
+            <label for="queryInput">初始客户问题</label>
+            <textarea id="queryInput" rows="5"></textarea>
+          </div>
+
+          <div class="setting-grid">
+            <label class="field-block" for="maxRoundsInput">
+              <span>最大轮数</span>
+              <input id="maxRoundsInput" type="number" min="1" max="6" value="6" />
+            </label>
+            <label class="field-block" for="minRoundsInput">
+              <span>最少回答前轮数</span>
+              <input id="minRoundsInput" type="number" min="1" max="6" value="6" />
+            </label>
+          </div>
+
+          <div class="scenario-strip" id="scenarioStrip" aria-label="示例问题"></div>
+
+          <section class="case-summary" id="caseSummary" aria-label="案例验收目标"></section>
+
+          <div class="state-box">
+            <div>
+              <span>当前轮次</span>
+              <strong id="roundState">0 / 6</strong>
+            </div>
+            <div>
+              <span>交互场景</span>
+              <strong id="sceneState">待识别</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="chat-panel" aria-label="交互过程">
+          <div class="panel-head">
+            <div>
+              <h2>需求交互</h2>
+              <p id="statusLine">输入初始问题后开始演示</p>
+            </div>
+            <div class="progress-pill" id="progressPill">准备中</div>
+          </div>
+
+          <div class="chat-stream" id="chatStream" aria-live="polite"></div>
+
+          <form class="composer" id="replyForm">
+            <textarea id="replyInput" rows="3" placeholder="输入销售/客户补充信息"></textarea>
+            <div class="composer-actions">
+              <button class="ghost-button" id="sampleReplyButton" type="button">填入参考回答</button>
+              <button class="primary-button" id="replyButton" type="submit">提交补充</button>
+            </div>
+          </form>
+        </section>
+
+        <aside class="insight-panel" aria-label="需求理解和推荐结果">
+          <section class="plain-section">
+            <div class="section-head">
+              <h2>需求理解</h2>
+              <span id="candidateCount">候选 0</span>
+            </div>
+            <dl class="fact-list" id="factList"></dl>
+          </section>
+
+          <section class="plain-section">
+            <div class="section-head">
+              <div>
+                <h2>产品排序</h2>
+                <p class="section-note" id="rankingNote">完成后端分析后展示 Top 3</p>
+              </div>
+              <span id="rankingCount">0 个</span>
+            </div>
+            <div class="ranking-list" id="rankingList">
+              <div class="empty-state">暂无真实排序结果</div>
+            </div>
+          </section>
+
+          <section class="plain-section">
+            <div class="section-head">
+              <h2>推荐结果</h2>
+              <button class="ghost-button compact" id="copyAnswerButton" type="button">复制</button>
+            </div>
+            <div class="answer-box" id="answerBox">完成交互后展示最终推荐。</div>
+          </section>
+        </aside>
+      </main>
+
+      <section class="comparison-panel" id="comparisonPanel" aria-label="产品对比">
+        <div class="comparison-head">
+          <div>
+            <p class="eyebrow">Backend Scorer / Comparator</p>
+            <h2>候选产品对比</h2>
+          </div>
+          <div class="pipeline-strip" id="pipelineStrip"></div>
+        </div>
+        <div class="comparison-content" id="comparisonContent">
+          <div class="empty-state">开始演示后，这里会展示真实后端的打分、排序和产品对比。</div>
+        </div>
+      </section>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script>
+      window.SALES_DEMO_API_ENDPOINT = "/api/sales-demo/turn";
+    </script>
+    <script src="./demo_cases.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
