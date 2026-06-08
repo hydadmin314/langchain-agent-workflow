@@ -21,6 +21,15 @@ from agent.sales_recommendation_agent.recommender.models import (
 )
 from agent.sales_recommendation_agent.recommender.comparator import CandidateComparator
 from agent.sales_recommendation_agent.recommender.explainer import RecommendationExplainer
+from agent.sales_recommendation_agent.recommender.readiness import (
+    ClarificationIntent,
+    ClarificationPlan,
+    ClarificationQuestionGenerator,
+    ClarificationQuestionResult,
+    RecommendationReadinessEvaluator,
+    ReadinessResult,
+    TermExplanation,
+)
 from agent.sales_recommendation_agent.recommender.retriever import CandidateRetriever
 from agent.sales_recommendation_agent.recommender.rule_filter import CandidateRuleFilter
 from agent.sales_recommendation_agent.recommender.scorer import CandidateScorer
@@ -33,6 +42,10 @@ __all__ = [
     "CandidateRetriever",
     "CandidateScorer",
     "CandidateScoreResult",
+    "ClarificationIntent",
+    "ClarificationPlan",
+    "ClarificationQuestionGenerator",
+    "ClarificationQuestionResult",
     "ComparedProduct",
     "ComparisonDimension",
     "ComparisonResult",
@@ -48,6 +61,9 @@ __all__ = [
     "RecommendationExplainer",
     "RecommendationExplanationResult",
     "RecommendationProductExplanation",
+    "RecommendationReadinessEvaluator",
+    "ReadinessResult",
     "ScoredCandidate",
     "ScoreReason",
+    "TermExplanation",
 ]
