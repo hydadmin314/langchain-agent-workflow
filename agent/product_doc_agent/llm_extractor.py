@@ -25,7 +25,7 @@ from prompts.product_doc_agent_prompts import (
     build_module_rework_prompt,
     build_self_check_prompt,
 )
-from schema.schema import get_module_json_schema
+from schema import get_module_json_schema
 from utils.logger import logger
 
 

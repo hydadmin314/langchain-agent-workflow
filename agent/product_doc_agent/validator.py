@@ -4,7 +4,7 @@ import re
 from datetime import date, datetime
 from typing import Any
 
-from schema.schema import PRODUCT_DOCUMENT_JSON_SCHEMA
+from schema import PRODUCT_DOCUMENT_JSON_SCHEMA
 
 
 EVIDENCE_LIST_KEYS = {
