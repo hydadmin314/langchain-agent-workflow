@@ -12,7 +12,7 @@
         <div>
           <p class="eyebrow">Sales Recommendation Agent</p>
           <h1>销售推荐 Demo 展示台</h1>
-          <p class="subtitle">6 轮需求澄清、业务场景识别、候选方案推荐</p>
+          <p class="subtitle">多轮需求记忆、推荐就绪判断、候选产品评分与方案对比</p>
         </div>
         <div class="top-actions">
           <span class="backend-status" id="backendStatus">检测后端中</span>
@@ -28,16 +28,10 @@
             <textarea id="queryInput" rows="5"></textarea>
           </div>
 
-          <div class="setting-grid">
-            <label class="field-block" for="maxRoundsInput">
-              <span>最大轮数</span>
-              <input id="maxRoundsInput" type="number" min="1" max="6" value="6" />
-            </label>
-            <label class="field-block" for="minRoundsInput">
-              <span>最少回答前轮数</span>
-              <input id="minRoundsInput" type="number" min="1" max="6" value="6" />
-            </label>
-          </div>
+          <section class="interaction-policy" aria-label="交互策略">
+            <strong>智能需求澄清</strong>
+            <span>信息充分时立即推荐；需求模糊时逐轮确认，最多交互 6 轮。</span>
+          </section>
 
           <div class="scenario-strip" id="scenarioStrip" aria-label="示例问题"></div>
 
@@ -51,6 +45,10 @@
             <div>
               <span>交互场景</span>
               <strong id="sceneState">待识别</strong>
+            </div>
+            <div>
+              <span>模型调用</span>
+              <strong id="modelModeState">检测中</strong>
             </div>
           </div>
         </section>
@@ -82,6 +80,22 @@
               <span id="candidateCount">候选 0</span>
             </div>
             <dl class="fact-list" id="factList"></dl>
+            <div class="need-profile" id="needProfile"></div>
+          </section>
+
+          <section class="plain-section readiness-section">
+            <div class="section-head">
+              <div>
+                <h2>推荐就绪度</h2>
+                <p class="section-note">由后端按当前业务分类判断最低推荐条件</p>
+              </div>
+              <span class="readiness-badge pending" id="readinessBadge">待分析</span>
+            </div>
+            <p class="readiness-reason" id="readinessReason">开始对话后展示判断依据。</p>
+            <div class="status-group" id="changedFields"></div>
+            <div class="status-group correction" id="guardrailList" hidden></div>
+            <div class="status-group" id="assumptionList"></div>
+            <div class="status-group conflict-group" id="conflictList"></div>
           </section>
 
           <section class="plain-section">

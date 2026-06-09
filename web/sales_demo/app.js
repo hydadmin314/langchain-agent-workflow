@@ -1,5 +1,6 @@
 (function () {
   const DEFAULT_QUERY = "餐饮门店5个人用，主要收银、外卖平台、监控和日常上网，预算有限，想要稳定宽带";
+  const EXPECTED_RUNTIME_VERSION = "sales-demo-single-v5";
   const DEMO_CASES = Array.isArray(window.SALES_DEMO_CASES) ? window.SALES_DEMO_CASES : [];
 
   const QUESTION_TEMPLATES = {
@@ -66,8 +67,9 @@
     finished: false,
     round: 0,
     maxRounds: 6,
-    minRoundsBeforeAnswer: 6,
+    sessionId: "",
     query: DEFAULT_QUERY,
+    currentUserText: "",
     history: [],
     askedQuestions: [],
     snapshot: null,
@@ -75,6 +77,8 @@
     selectedCaseId: DEMO_CASES[0]?.id || null,
     submitting: false,
     backendConnected: false,
+    backendProblem: "",
+    runtime: {},
   };
 
   const $ = (id) => document.getElementById(id);
@@ -139,6 +143,7 @@
     renderScenarioButtons();
     bindEvents();
     resetDemo(false);
+    detectBackendRuntime();
   }
 
   function bindEvents() {
@@ -196,22 +201,34 @@
     );
   }
 
-  function startDemo() {
+  async function startDemo() {
     const query = $("queryInput").value.trim();
     if (!query) {
       showToast("请先输入客户问题");
+      return;
+    }
+    if (!(await ensureBackendReady())) {
+      appendMessage(
+        "agent",
+        "后端服务未连接",
+        state.backendProblem ||
+          "当前页面无法连接销售推荐后端。请先启动服务，再点击“开始演示”。"
+      );
+      renderStatus("后端服务未连接", "0 / 6");
+      showToast("请先启动销售推荐后端服务");
       return;
     }
     state.started = true;
     state.finished = false;
     state.round = 0;
     state.query = query;
+    state.currentUserText = query;
+    state.sessionId = createSessionId();
     state.history = [];
     state.askedQuestions = [];
     state.submitting = false;
     $("replyButton").disabled = false;
-    state.maxRounds = clampNumber($("maxRoundsInput").value, 1, 6, 6);
-    state.minRoundsBeforeAnswer = clampNumber($("minRoundsInput").value, 1, state.maxRounds, state.maxRounds);
+    state.maxRounds = 6;
     $("chatStream").replaceChildren();
     $("answerBox").classList.remove("ready");
     $("answerBox").textContent = "交互进行中。";
@@ -225,6 +242,8 @@
     state.finished = false;
     state.round = 0;
     state.query = clearQuery ? DEFAULT_QUERY : $("queryInput").value.trim() || DEFAULT_QUERY;
+    state.currentUserText = "";
+    state.sessionId = createSessionId();
     state.history = [];
     state.askedQuestions = [];
     state.submitting = false;
@@ -257,7 +276,7 @@
       $("replyInput").value = "";
       appendMessage("user", "销售/客户补充", reply);
       state.history.push({ user: reply, round: state.round });
-      state.query = `${state.query}\n补充信息：${reply}`;
+      state.currentUserText = reply;
       await runNextTurn();
     } finally {
       state.submitting = false;
@@ -279,20 +298,42 @@
 
   async function runNextTurn() {
     state.round += 1;
-    state.snapshot = await getDemoTurnSnapshot(state.query, state.history);
+    try {
+      state.snapshot = await getDemoTurnSnapshot(state.currentUserText || state.query);
+    } catch (error) {
+      state.round = Math.max(0, state.round - 1);
+      appendMessage(
+        "agent",
+        error.kind === "backend" ? "后端服务未连接" : "大模型调用失败",
+        error.kind === "backend"
+          ? `浏览器无法连接本地销售推荐服务。\n${error.message || ""}`
+          : `本轮没有使用本地规则生成结果。请检查模型服务后重试。\n${error.message || ""}`
+      );
+      renderStatus(
+        error.kind === "backend" ? "后端服务未连接" : "大模型调用失败，可重试",
+        `${state.round} / ${state.maxRounds}`
+      );
+      return;
+    }
+    state.sessionId = state.snapshot.sessionId || state.sessionId;
+    state.maxRounds = state.snapshot.maxTurns || 6;
     renderSidePanel();
     renderBackendResults(state.snapshot);
 
-    const shouldAnswer = state.round >= state.maxRounds || state.round >= state.minRoundsBeforeAnswer;
-    if (shouldAnswer) {
+    if (state.snapshot.terminal) {
       finishDemo();
       return;
     }
 
-    const turn = nextTurn(state.snapshot, state.askedQuestions);
-    state.askedQuestions.push(...turn.questions.map((item) => item.text));
-    appendQuestionMessage(turn);
-    renderStatus(`第 ${state.round} 轮，等待补充`, `${state.round} / ${state.maxRounds}`);
+    if (state.snapshot.action === "clarify" || state.snapshot.status === "ask_clarification") {
+      const turn = backendQuestionTurn(state.snapshot) || nextTurn(state.snapshot, state.askedQuestions);
+      state.askedQuestions.push(...turn.questions.map((item) => item.text));
+      appendQuestionMessage(turn);
+      renderStatus(`第 ${state.round} 轮，等待补充`, `${state.round} / ${state.maxRounds}`);
+      return;
+    }
+
+    finishDemo();
   }
 
   function fillSampleReply() {
@@ -310,33 +351,57 @@
     $("replyInput").focus();
   }
 
-  async function getDemoTurnSnapshot(query, history) {
+  async function getDemoTurnSnapshot(userText) {
     if (window.SALES_DEMO_API_ENDPOINT) {
       try {
+        setBackendStatus("loading", state.runtime);
+        renderStatus("大模型正在理解需求", `${state.round} / ${state.maxRounds}`);
         const response = await fetch(window.SALES_DEMO_API_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            query,
-            history,
-            round: state.round,
-            max_rounds: state.maxRounds,
-            min_rounds_before_answer: state.minRoundsBeforeAnswer,
+            session_id: state.sessionId,
+            user_text: userText,
+            max_turns: 6,
           }),
         });
         if (response.ok) {
           const payload = await response.json();
-          setBackendStatus(true);
+          assertRuntimeVersion(payload.runtime);
+          setBackendStatus("connected", payload.runtime);
           return payload;
         }
         const errorPayload = await response.json().catch(() => ({}));
-        throw new Error(errorPayload.error || `HTTP ${response.status}`);
+        const requestError = new Error(errorPayload.error || `HTTP ${response.status}`);
+        requestError.code = errorPayload.code || "";
+        requestError.runtime = errorPayload.runtime || {};
+        throw requestError;
       } catch (error) {
-        console.warn("Sales demo API unavailable, fallback to local preview.", error);
-        setBackendStatus(false);
+        console.warn("Sales demo LLM request failed.", error);
+        setBackendStatus("offline");
+        const staleRuntime = error.code === "stale_runtime";
+        const backendUnavailable =
+          error instanceof TypeError ||
+          /Failed to fetch|NetworkError|Load failed/i.test(error.message || "");
+        const normalizedError = new Error(
+          staleRuntime
+            ? error.message
+            : backendUnavailable
+            ? "无法连接本地后端，请确认服务端口已启动。"
+            : error.message || "请检查模型服务配置"
+        );
+        normalizedError.kind = staleRuntime || backendUnavailable ? "backend" : "llm";
+        showToast(
+          staleRuntime
+            ? "后端仍是旧版本，请重启服务"
+            : backendUnavailable
+            ? "本地后端未连接"
+            : `大模型调用失败：${normalizedError.message}`
+        );
+        throw normalizedError;
       }
     }
-    return analyzeDemand(query);
+    return analyzeDemand(state.query);
   }
 
   function analyzeDemand(query) {
@@ -344,6 +409,8 @@
     const scene = detectScene(text);
     const knownFacts = extractFacts(query);
     return {
+      source: "local",
+      status: "ask_clarification",
       scene,
       primaryCategory: scene.primaryCategory,
       interactionCategory: scene.interactionCategory,
@@ -351,6 +418,14 @@
       knownFacts,
       missingFacts: missingFacts(scene.id, knownFacts),
       confidence: scene.confidence,
+      readiness: {
+        decision: "pending",
+        reason: "当前为本地预览模式，启动后端服务可查看真实就绪判断。",
+        assumptions: [],
+        clarificationPlan: [],
+      },
+      changedFields: [],
+      conflicts: [],
     };
   }
 
@@ -414,6 +489,33 @@
     return items.slice(0, 6);
   }
 
+  function backendQuestionTurn(snapshot) {
+    const clarification = snapshot?.clarification;
+    if (!Array.isArray(clarification?.questions) || !clarification.questions.length) return null;
+    return {
+      acknowledgement: buildAcknowledgement(),
+      transition: snapshot.readiness?.reason || "接下来，我想再确认影响方案选择的关键信息。",
+      questions: clarification.questions.map((text, index) => ({
+        text,
+        helper: helperFromPlan(snapshot, clarification.fields?.[index], text),
+      })),
+    };
+  }
+
+  function helperFromPlan(snapshot, field, question) {
+    const plan = snapshot?.readiness?.clarificationPlan || [];
+    const intent = plan.find((item) => item.field === field);
+    const explanations = intent?.termExplanations || [];
+    if (explanations.length) {
+      const explanationAlreadyIncluded = explanations.some(
+        (item) => item.explanation && question.includes(item.explanation)
+      );
+      if (explanationAlreadyIncluded) return "";
+      return explanations.map((item) => `${item.term}：${item.explanation}`).join(" ");
+    }
+    return helperForQuestion(question);
+  }
+
   function nextTurn(snapshot, askedQuestions) {
     if (Array.isArray(snapshot.questions) && snapshot.questions.length) {
       const questions = normalizeQuestionItems(snapshot.questions);
@@ -456,8 +558,9 @@
     appendMessage("agent", "最终推荐", state.finalAnswer);
     $("answerBox").classList.add("ready");
     $("answerBox").replaceChildren(...renderAnswerBlocks(state.finalAnswer));
-    renderStatus("已生成最终推荐", `${state.maxRounds} / ${state.maxRounds}`);
-    showToast("推荐已生成");
+    const statusText = state.snapshot?.status === "no_candidate" ? "当前暂无合适候选" : "已生成最终推荐";
+    renderStatus(statusText, `${state.round} / ${state.maxRounds}`);
+    showToast(state.snapshot?.status === "no_candidate" ? "暂无候选产品" : "推荐已生成");
   }
 
   function buildFinalAnswer(snapshot, query, demoCase) {
@@ -574,12 +677,16 @@
 
   function emptyMessage() {
     return create("div", { className: "message system" }, [
-      create("div", { className: "message-card" }, [messageMeta("演示状态", "未开始"), create("p", { text: "点击开始演示后进入 6 轮需求交互。" })]),
+      create("div", { className: "message-card" }, [
+        messageMeta("演示状态", "未开始"),
+        create("p", { text: "点击开始后智能澄清需求，信息充分时立即推荐，最多交互 6 轮。" }),
+      ]),
     ]);
   }
 
   function renderSidePanel() {
     const snapshot = state.snapshot || analyzeDemand(state.query);
+    const known = snapshot.knownFacts || {};
     $("roundState").textContent = `${state.round} / ${state.maxRounds}`;
     $("sceneState").textContent = snapshot.interactionCategory;
     $("candidateCount").textContent = `候选 ${snapshot.candidateCount}`;
@@ -587,19 +694,230 @@
       ["业务分类", snapshot.primaryCategory],
       ["交互场景", snapshot.interactionCategory],
       ["置信度", `${Math.round(snapshot.confidence * 100)}%`],
-      ["人数/规模", snapshot.knownFacts.users || "待补充"],
-      ["预算", snapshot.knownFacts.budget || "待补充"],
-      ["周期", snapshot.knownFacts.period || "待补充"],
-      ["地点/目标", snapshot.knownFacts.access || "待补充"],
-      ["缺失信息", snapshot.missingFacts.join("、") || "暂无"],
+      ["核心目标", known.goal || "待补充"],
+      ["使用场景", known.scene || "待补充"],
+      ["人数/规模", known.users || "待补充"],
+      ["带宽", known.bandwidth || "待补充"],
+      ["预算", known.budget || "待补充"],
+      ["地点/目标", known.access || "待补充"],
+      ["缺失信息", (snapshot.missingFacts || []).join("、") || "暂无"],
     ];
     $("factList").replaceChildren(...facts.flatMap(([label, value]) => fact(label, value)));
+    renderNeedProfile(snapshot);
+    renderReadiness(snapshot);
   }
 
-  function setBackendStatus(connected) {
+  function renderNeedProfile(snapshot) {
+    const need = snapshot.customerNeed;
+    if (!need) {
+      $("needProfile").replaceChildren();
+      return;
+    }
+    const groups = [
+      {
+        title: "业务范围",
+        items: [
+          ["办理动作", need.business_action],
+          ["地点数量", need.site_count],
+          ["安装区域", need.region],
+          ["客户类型", need.customer_type],
+        ],
+      },
+      {
+        title: "能力要求",
+        items: [
+          ["固定公网 IP", formatNeedValue(need.fixed_ip_required)],
+          ["语音/固定电话", formatNeedValue(need.voice_required)],
+          ["海外访问", formatNeedValue(need.overseas_access)],
+          ["稳定性", need.reliability_level],
+        ],
+      },
+    ];
+    $("needProfile").replaceChildren(
+      ...groups.map((group) =>
+        create("section", { className: "profile-group" }, [
+          create("h3", { text: group.title }),
+          create(
+            "div",
+            { className: "profile-tags" },
+            group.items
+              .filter(([, value]) => value && value !== "未知" && value !== "待确认")
+              .map(([label, value]) =>
+                create("span", { className: "profile-tag", text: `${label}：${value}` })
+              )
+          ),
+        ])
+      )
+    );
+  }
+
+  function renderReadiness(snapshot) {
+    const readiness = snapshot.readiness || {};
+    const decision = readiness.decision || "pending";
+    const display = {
+      ask_clarification: ["需要补充", "clarify"],
+      ready_with_assumptions: ["可先推荐", "assumption"],
+      ready: ["信息充分", "ready"],
+      pending: ["待分析", "pending"],
+    }[decision] || ["待分析", "pending"];
+    const badge = $("readinessBadge");
+    badge.textContent = display[0];
+    badge.className = `readiness-badge ${display[1]}`;
+    $("readinessReason").textContent = readiness.reason || "开始对话后展示判断依据。";
+
+    renderStatusGroup(
+      $("changedFields"),
+      "本轮已记录",
+      (snapshot.changedFields || []).map((item) => item.label),
+      "本轮暂未新增结构化信息",
+      "positive"
+    );
+    renderGuardrails(snapshot.guardrails || []);
+    renderStatusGroup(
+      $("assumptionList"),
+      "当前推荐假设",
+      readiness.assumptions || [],
+      decision === "ready" ? "当前不需要使用默认假设" : "暂无默认假设",
+      "assumption"
+    );
+
+    const conflicts = (snapshot.conflicts || []).map(
+      (item) => `${item.label}：原记录“${item.oldValue}”，本轮识别为“${item.newValue}”`
+    );
+    renderStatusGroup(
+      $("conflictList"),
+      "需要确认的信息冲突",
+      conflicts,
+      "未发现前后矛盾",
+      "conflict"
+    );
+  }
+
+  function renderGuardrails(values) {
+    const container = $("guardrailList");
+    container.hidden = !values.length;
+    if (!values.length) {
+      container.replaceChildren();
+      return;
+    }
+    renderStatusGroup(container, "本轮规则校正", values, "", "correction");
+  }
+
+  function renderStatusGroup(container, title, values, emptyText, tone) {
+    container.className = `status-group ${tone} ${values.length ? "" : "is-empty"}`.trim();
+    container.replaceChildren(
+      create("h3", { text: title }),
+      create(
+        "ul",
+        {},
+        (values.length ? values : [emptyText]).map((value) => create("li", { text: value }))
+      )
+    );
+  }
+
+  function formatNeedValue(value) {
+    if (value === true) return "需要";
+    if (value === false) return "不需要";
+    return "待确认";
+  }
+
+  async function detectBackendRuntime() {
+    try {
+      const response = await fetch("/api/sales-demo/status", { cache: "no-store" });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json();
+      assertRuntimeVersion(payload.runtime);
+      state.backendProblem = "";
+      setBackendStatus("connected", payload.runtime);
+    } catch (error) {
+      if (error.code === "stale_runtime") {
+        state.backendProblem = error.message;
+        setBackendStatus("stale", error.runtime);
+      } else {
+        setBackendStatus("offline");
+      }
+    }
+  }
+
+  async function ensureBackendReady() {
+    try {
+      const response = await fetch("/api/sales-demo/status", {
+        cache: "no-store",
+        signal: window.AbortSignal?.timeout
+          ? window.AbortSignal.timeout(3000)
+          : undefined,
+      });
+      if (!response.ok) return false;
+      const payload = await response.json();
+      assertRuntimeVersion(payload.runtime);
+      state.backendProblem = "";
+      setBackendStatus("connected", payload.runtime);
+      return true;
+    } catch (error) {
+      if (error.code === "stale_runtime") {
+        state.backendProblem = error.message;
+        setBackendStatus("stale", error.runtime);
+      } else {
+        state.backendProblem = "无法连接本地后端，请确认服务已经启动。";
+        setBackendStatus("offline");
+      }
+      return false;
+    }
+  }
+
+  function assertRuntimeVersion(runtime = {}) {
+    if (runtime.version === EXPECTED_RUNTIME_VERSION) return;
+    const error = new Error(
+      `当前后端仍是旧进程（${runtime.version || "无版本信息"}），请关闭旧服务并重新启动。`
+    );
+    error.code = "stale_runtime";
+    error.runtime = runtime;
+    throw error;
+  }
+
+  function setBackendStatus(mode, runtime = {}) {
+    const connected = mode === "connected" || mode === "loading";
     state.backendConnected = connected;
+    if (runtime && Object.keys(runtime).length) state.runtime = runtime;
     const status = $("backendStatus");
-    status.textContent = connected ? "真实后端已连接" : "本地预览模式";
+    if (mode === "loading") {
+      status.textContent =
+        runtime?.mode === "single"
+          ? "单次大模型分析中"
+          : runtime?.llmEnabled
+            ? "大模型分析中"
+            : "后端分析中";
+    } else if (connected && runtime?.llmEnabled) {
+      const completedStages = runtime.completedStages || [];
+      if (runtime.mode === "single") {
+        status.textContent = completedStages.length
+          ? "单次大模型已完成"
+          : `单次大模型 · ${runtime.model || "LLM"}`;
+      } else {
+        status.textContent = completedStages.length
+          ? `大模型已完成 · ${completedStages[completedStages.length - 1]}`
+          : `大模型已连接 · ${runtime.model || "LLM"}`;
+      }
+    } else if (mode === "stale") {
+      status.textContent = "后端版本过旧，请重启";
+    } else {
+      status.textContent = connected ? "规则后端已连接" : "本地预览模式";
+    }
+    const modelMode = $("modelModeState");
+    if (modelMode) {
+      modelMode.textContent =
+        runtime?.mode === "single"
+          ? "1 次 / 轮"
+          : runtime?.mode === "double"
+            ? "2 次 / 轮"
+            : connected
+              ? "本地规则"
+              : "未连接";
+    }
+    status.title = runtime?.llmEnabled
+      ? `模型：${runtime.model || "LLM"}；每轮调用 ${runtime.modelCallsPerTurn || "-"} 次${runtime.completedStages?.length ? `；已完成：${runtime.completedStages.join("、")}` : ""}`
+      : "";
+    status.classList.toggle("loading", mode === "loading");
     status.classList.toggle("connected", connected);
     status.classList.toggle("offline", !connected);
   }
@@ -625,6 +943,12 @@
     renderRanking(snapshot.ranking, snapshot.scoreScale || 100);
     renderPipeline(snapshot.pipelineStats || {});
     renderComparison(snapshot.ranking, snapshot.comparisonDimensions || []);
+    if (snapshot.timings?.total) {
+      $("rankingNote").textContent =
+        `本地 ${snapshot.timings.local} 秒 + 模型 ${snapshot.timings.model} 秒，共 ${snapshot.timings.total} 秒`;
+    } else if (snapshot.elapsedSeconds) {
+      $("rankingNote").textContent = `模型与流程耗时 ${snapshot.elapsedSeconds} 秒`;
+    }
   }
 
   function renderRanking(ranking, scoreScale) {
@@ -871,12 +1195,6 @@
     setTimeout(() => toast.classList.remove("show"), 1800);
   }
 
-  function clampNumber(value, min, max, fallback) {
-    const number = Number.parseInt(value, 10);
-    if (!Number.isFinite(number)) return fallback;
-    return Math.max(min, Math.min(max, number));
-  }
-
   function hasAny(text, keywords) {
     const normalizedText = String(text || "").toLowerCase();
     return keywords.some((keyword) => normalizedText.includes(String(keyword).toLowerCase()));
@@ -884,6 +1202,11 @@
 
   function currentTime() {
     return new Date().toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit" });
+  }
+
+  function createSessionId() {
+    if (window.crypto?.randomUUID) return window.crypto.randomUUID();
+    return `sales-demo-${Date.now()}-${Math.random().toString(16).slice(2)}`;
   }
 
   init();

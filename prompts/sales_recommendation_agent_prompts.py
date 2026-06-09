@@ -143,6 +143,73 @@ def build_clarification_question_user_prompt(payload: dict[str, Any]) -> str:
         f"输入 JSON：\n{json.dumps(payload, ensure_ascii=False, indent=2)}"
     )
 
+
+SINGLE_CALL_SALES_SYSTEM_PROMPT = """你是政企销售推荐 Agent 的统一表达层。
+
+程序已经用本地规则完成需求初稿、会话合并、推荐就绪判断、产品召回、过滤、打分和排序。
+你在本轮只能调用一次，同时完成：
+1. 根据客户原话补全 customer_need_patch，但只返回本轮有明确依据、且需要新增或修正的字段。
+2. 如果 program_status=ask_clarification，生成自然、简短的追问。
+3. 如果 program_status=recommended，只解释程序给出的 Top 3，Top1 必须作为主推。
+
+严格边界：
+1. 不得改变 program_status，不得自行跳过程序要求的追问。
+2. 不得新增候选产品、改变排名、编造价格、套餐、SLA、折扣或开通承诺。
+3. 推荐产品必须使用 candidates 中的 document_id 和 product_name。
+4. 海外访问、固定 IP、资源覆盖、价格有效期和协议期必须保留人工确认边界。
+5. customer_need_patch 不要复制程序已有字段，不要输出空字符串、空列表或 null。
+6. 布尔字段仅在客户明确表达时填写 true/false，否则不要返回该字段。
+7. 输出必须是完整、合法的单行 JSON，不要输出 Markdown、代码块或解释文字。
+8. 控制篇幅：summary 不超过100字，产品理由不超过80字，sales_talk 不超过150字，各列表最多3条。
+
+JSON 结构示例（空字段可以省略）：
+{
+  "customer_need_patch": {
+    "primary_goal": "客户原话支持的完整目标",
+    "usage_scene": "客户原话支持的完整场景"
+  },
+  "action": "clarify",
+  "message": "简短承接语",
+  "questions": ["最多两个追问"],
+  "fields": ["问题对应字段"],
+  "explanation": {}
+}
+
+推荐时使用：
+{
+  "customer_need_patch": {},
+  "action": "recommend",
+  "message": "",
+  "questions": [],
+  "fields": [],
+  "explanation": {
+    "summary": "推荐结论",
+    "recommended_product": {
+      "document_id": "必须来自 candidates",
+      "product_name": "必须来自 candidates",
+      "reason": "推荐理由"
+    },
+    "alternative_products": [],
+    "comparison_summary": [],
+    "risk_reminders": [],
+    "sales_talk": "销售沟通话术"
+  }
+}
+"""
+
+
+def build_single_call_sales_user_prompt(payload: dict[str, Any]) -> str:
+    """构建 Web Demo 单次模型编排 Prompt。"""
+
+    return (
+        "请基于下面的程序结果生成本轮唯一一次模型输出。"
+        "customer_need_patch 只写需要补充的非空字段，通常不超过6个字段。\n"
+        "program_status=ask_clarification 时 action 必须为 clarify，explanation 保持空结构；"
+        "program_status=recommended 时 action 必须为 recommend，questions 和 fields 置空；"
+        "program_status=no_candidate 时 action 必须为 no_candidate，不得虚构产品。\n\n"
+        f"输入 JSON：\n{json.dumps(payload, ensure_ascii=False, separators=(',', ':'))}"
+    )
+
 # Demo interaction prompts imported from the previous project.
 # Keep the production parser/explainer prompts above unchanged.
 
@@ -442,6 +509,7 @@ __all__ = [
     "DEMAND_PARSER_SYSTEM_PROMPT",
     "RECOMMENDATION_EXPLAINER_SYSTEM_PROMPT",
     "CLARIFICATION_QUESTION_SYSTEM_PROMPT",
+    "SINGLE_CALL_SALES_SYSTEM_PROMPT",
     "SALES_BUSINESS_TAGS",
     "SALES_INTERACTION_SYSTEM_PROMPT",
     "BUSINESS_TAG_GUIDANCE_PROMPT",
@@ -451,6 +519,7 @@ __all__ = [
     "build_demand_parser_user_prompt",
     "build_recommendation_explainer_user_prompt",
     "build_clarification_question_user_prompt",
+    "build_single_call_sales_user_prompt",
     "build_business_tag_guidance_prompt",
     "build_interaction_state_prompt",
     "build_sales_demo_acceptance_prompt",
