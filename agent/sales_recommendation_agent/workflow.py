@@ -12,6 +12,11 @@ from agent.sales_recommendation_agent.intent_parser.models import (
     DemandCategoryMatch,
     RequirementAnalysisResult,
 )
+from agent.sales_recommendation_agent.intent_parser.parsers import (
+    has_domestic_networking_signal,
+    has_explicit_overseas_signal,
+    has_negated_overseas_signal,
+)
 from agent.sales_recommendation_agent.product_repository import ProductLoadResult, ProductRepository
 from agent.sales_recommendation_agent.recommender import (
     CandidateComparator,
@@ -206,22 +211,30 @@ class SalesRecommendationWorkflow:
         - “美国 SaaS/海外系统”这类海外访问信号。
         """
 
-        if re.search(r"(不需要|不要|无需|不用).{0,8}(固定\s*IP|公网\s*IP)", user_text, re.I):
+        if re.search(r"(不需要|不要|无需|不用).{0,8}(固定\s*IP|公网\s*IP|公网地址)", user_text, re.I):
             demand.fixed_ip_required = False
             if demand.primary_goal in {"固定IP", "固定 IP", "公网IP", "公网 IP"}:
                 demand.primary_goal = ""
-        elif re.search(r"(需要|要|必须).{0,8}(固定\s*IP|公网\s*IP)", user_text, re.I):
+        elif re.search(r"(需要|要|必须).{0,8}(固定\s*IP|公网\s*IP|公网地址)", user_text, re.I):
             demand.fixed_ip_required = True
 
         user_count_match = re.search(r"(\d+)\s*(人|个员工|名员工|坐席|终端|账号)", user_text)
         if user_count_match:
             demand.user_count = f"{user_count_match.group(1)}{user_count_match.group(2)}"
 
-        overseas_keywords = ("海外", "国外", "美国", "日本", "新加坡", "香港", "跨境")
-        if any(keyword in user_text for keyword in overseas_keywords) or "SaaS" in user_text:
+        if has_negated_overseas_signal(user_text):
+            demand.overseas_access = False
+            demand.overseas_target = ""
+        elif has_explicit_overseas_signal(user_text):
             demand.overseas_access = True
             if not demand.overseas_target:
-                target_match = re.search(r"(美国|日本|新加坡|香港|海外|国外).{0,12}(SaaS|系统|服务器|网站)?", user_text)
+                target_match = re.search(
+                    r"(海外|国外|境外|跨境|国际|出海|外贸|美国|日本|新加坡|香港|"
+                    r"US|USA|United States|overseas|foreign|international|cross[-\s]?border)"
+                    r"[^，。；,;]{0,20}",
+                    user_text,
+                    re.I,
+                )
                 if target_match:
                     demand.overseas_target = target_match.group(0).strip()
 
@@ -238,28 +251,89 @@ class SalesRecommendationWorkflow:
         主分类应该优先是“海外访问与跨境加速”，而不是被办公宽带或固定 IP 泛化词压过去。
         """
 
-        if not has_overseas_access_signal(user_text=user_text, demand=demand):
-            return
         if category_decision.primary_category_id == "13":
             return
 
-        category_decision.category_matches = promote_category_match(
-            matches=category_decision.category_matches,
-            category_id="4",
-            category_name="海外访问与跨境加速",
-            score=96,
-            reason="命中海外访问强场景信号，提升为主分类。",
+        combined_text = " ".join(
+            [
+                user_text or "",
+                demand.primary_goal or "",
+                demand.usage_scene or "",
+                demand.site_count or "",
+                demand.fixed_ip_count or "",
+                *demand.raw_keywords,
+            ]
         )
-        primary = category_decision.category_matches[0]
-        category_decision.primary_category_id = primary.category_id
-        category_decision.primary_category_name = primary.category_name
-        category_decision.reason = primary.reason
-        demand.primary_category = primary.category_name
-        demand.secondary_categories = [
-            item.category_name
-            for item in category_decision.category_matches
-            if item.category_id != primary.category_id
-        ][:2]
+        has_overseas = has_overseas_access_signal(user_text=user_text, demand=demand)
+        has_domestic_networking = has_domestic_networking_signal(combined_text)
+
+        if has_overseas:
+            demand.overseas_access = True
+            category_decision.category_matches = promote_category_match(
+                matches=category_decision.category_matches,
+                category_id="4",
+                category_name="海外访问与跨境加速",
+                score=96,
+                reason="命中海外访问强场景信号，提升为主分类。",
+                matched_keywords=["海外访问"],
+            )
+            primary = category_decision.category_matches[0]
+            category_decision.primary_category_id = primary.category_id
+            category_decision.primary_category_name = primary.category_name
+            category_decision.reason = primary.reason
+            demand.primary_category = primary.category_name
+            demand.secondary_categories = [
+                item.category_name
+                for item in category_decision.category_matches
+                if item.category_id != primary.category_id
+            ][:2]
+            return
+
+        if has_domestic_networking:
+            category_decision.category_matches = promote_category_match(
+                matches=category_decision.category_matches,
+                category_id="3",
+                category_name="国内组网与点对点专线",
+                score=94,
+                reason="命中国内异地/总部分支互联场景，提升为主分类。",
+                matched_keywords=["国内组网"],
+            )
+            primary = category_decision.category_matches[0]
+            category_decision.primary_category_id = primary.category_id
+            category_decision.primary_category_name = primary.category_name
+            category_decision.reason = primary.reason
+            demand.primary_category = primary.category_name
+            demand.secondary_categories = [
+                item.category_name
+                for item in category_decision.category_matches
+                if item.category_id != primary.category_id
+            ][:2]
+            return
+
+        # 明确固定公网 IP / 公网地址 / 服务器对外访问时，优先进入固定 IP 专线类。
+        if demand.requires_fixed_ip or re.search(r"(固定\s*IP|公网\s*IP|公网地址|固定公网|服务器对外)", combined_text, re.I):
+            category_decision.category_matches = promote_category_match(
+                matches=category_decision.category_matches,
+                category_id="2",
+                category_name="固定IP_高带宽_互联网专线",
+                score=94,
+                reason="命中固定公网 IP 或服务器对外访问场景，提升为主分类。",
+                matched_keywords=["固定公网IP"],
+            )
+            primary = category_decision.category_matches[0]
+            category_decision.primary_category_id = primary.category_id
+            category_decision.primary_category_name = primary.category_name
+            category_decision.reason = primary.reason
+            demand.primary_category = primary.category_name
+            demand.secondary_categories = [
+                item.category_name
+                for item in category_decision.category_matches
+                if item.category_id != primary.category_id
+            ][:2]
+            return
+
+        # 普通办公宽带、门店小微这类泛场景交给 LLM 分类和 taxonomy 得分处理。
+        # 这里不再做关键词提权，避免 workflow 逐渐变成第二套规则分类器。
 
     def _classify_merged_need(
         self,
@@ -409,11 +483,26 @@ def build_programmatic_recommendation_message(comparison_result: ComparisonResul
 
 
 def has_overseas_access_signal(*, user_text: str, demand: CustomerDemand) -> bool:
-    """判断本轮是否有明确海外访问诉求。"""
+    """只在出现明确境外/跨境信号时才认为是海外访问。
 
-    overseas_keywords = ("海外", "国外", "国际", "跨境", "美国", "日本", "新加坡", "香港", "SaaS", "外贸")
-    return demand.overseas_access is True or bool(demand.overseas_target) or any(
-        keyword in user_text for keyword in overseas_keywords
+    这里不能把 overseas_target 非空直接当成海外信号，因为上游模型偶尔会把
+    “国内多点组网”“总部访问分支”误写进 overseas_target。最终判断统一走
+    has_explicit_overseas_signal，避免国内异地访问被错误提升到海外访问类。
+    """
+
+    return has_explicit_overseas_signal(
+        " ".join(
+            [
+                user_text or "",
+                demand.overseas_target or "",
+                demand.primary_goal or "",
+                demand.usage_scene or "",
+                demand.primary_category or "",
+                *demand.secondary_categories,
+                demand.region or "",
+                *demand.raw_keywords,
+            ]
+        )
     )
 
 
@@ -424,6 +513,7 @@ def promote_category_match(
     category_name: str,
     score: float,
     reason: str,
+    matched_keywords: list[str] | None = None,
 ) -> list[DemandCategoryMatch]:
     """把指定分类提升到 matches 首位，保留其它候选分类作为辅助分类。"""
 
@@ -450,7 +540,7 @@ def promote_category_match(
                 category_id=category_id,
                 category_name=category_name,
                 score=score,
-                matched_keywords=["海外访问"],
+                matched_keywords=matched_keywords or [category_name],
                 reason=reason,
             )
         )

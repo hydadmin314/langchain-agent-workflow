@@ -16,6 +16,18 @@ from prompts.sales_recommendation_agent_prompts import (
 )
 
 
+GEO_BOUNDARY_SYSTEM_PROMPT = """地域和跨境判断边界：
+1. 只有客户明确表达海外、国外、境外、跨境、国际、出海、外贸、美国、US、USA、United States、日本、新加坡、香港、海外 SaaS、国外服务器、境外网站等目标时，overseas_access 才能为 true。
+2. 如果客户表达的是总部访问分支、访问异地业务、访问外地系统、跨省访问、多地互联、国内区域互联，应理解为国内异地/国内组网，不要把这类内容写入 overseas_target。
+3. overseas_target 只能填写真实境外目标，例如“美国 SaaS”“US server”“日本网站”；不能填写“国内多点组网”“总部+分支”“异地系统”这类国内组网描述。
+4. 如果不确定目标是否在境外，overseas_access 输出 null，overseas_target 留空，并把需要确认的字段写入 missing_fields。
+5. 例子：“上海总部访问新疆业务”属于国内跨区域访问，不是海外访问；应倾向“国内组网与点对点专线”，overseas_access=false 或 null，overseas_target=""。
+6. 例子：“Shanghai office accesses US SaaS slowly”属于海外访问，overseas_access=true，overseas_target="US SaaS"。
+7. 例子：“内部SaaS系统访问慢，不涉及海外”不是海外访问，overseas_access=false，overseas_target=""。
+8. 例子：“New York branch needs to access Shanghai ERP system”涉及境外地点访问中国系统，属于跨境/海外访问，overseas_access=true，overseas_target="Shanghai ERP system"。
+"""
+
+
 class DemandParser(Protocol):
     """需求解析器协议，方便后续替换为更强的 LLM 或规则实现。"""
 
@@ -50,7 +62,7 @@ class OpenAICompatibleDemandParser:
             **self.build_request_kwargs(raw_text)
         )
         content = response.choices[0].message.content or "{}"
-        return parse_customer_demand_json(content)
+        return normalize_customer_demand_semantics(parse_customer_demand_json(content), raw_text)
 
     def build_request_kwargs(self, raw_text: str) -> dict[str, Any]:
         request_kwargs: dict[str, Any] = {
@@ -58,6 +70,7 @@ class OpenAICompatibleDemandParser:
             "response_format": {"type": "json_object"},
             "messages": [
                 {"role": "system", "content": DEMAND_PARSER_SYSTEM_PROMPT},
+                {"role": "system", "content": GEO_BOUNDARY_SYSTEM_PROMPT},
                 {"role": "user", "content": build_demand_parser_user_prompt(raw_text)},
             ],
             "temperature": self.settings.llm_temperature,
@@ -137,7 +150,7 @@ class HeuristicDemandParser:
         if explicit_bandwidth:
             confidence += 0.05
 
-        return CustomerDemand(
+        demand = CustomerDemand(
             primary_goal=infer_primary_goal(text, category_candidate_keywords) or target_region or "",
             usage_scene=access_source or "",
             business_action=infer_business_action(text) or "未知",
@@ -164,6 +177,7 @@ class HeuristicDemandParser:
             confidence=min(confidence, 0.95),
             missing_fields=missing_fields,
         )
+        return normalize_customer_demand_semantics(demand, raw_text)
 
 
 class ResilientDemandParser:
@@ -178,10 +192,13 @@ class ResilientDemandParser:
             try:
                 demand = self.primary.parse(raw_text)
                 # LLM 偶尔会漏掉人数、预算、区域等显性字段；用本地规则做补漏，不覆盖模型已明确抽出的值。
-                return merge_customer_demand(demand, self.fallback.parse(raw_text))
+                return normalize_customer_demand_semantics(
+                    merge_customer_demand(demand, self.fallback.parse(raw_text), raw_text=raw_text),
+                    raw_text,
+                )
             except (ParserError, ValidationError, json.JSONDecodeError, Exception):
                 pass
-        return self.fallback.parse(raw_text)
+        return normalize_customer_demand_semantics(self.fallback.parse(raw_text), raw_text)
 
 
 def parse_customer_demand_json(content: str) -> CustomerDemand:
@@ -189,36 +206,33 @@ def parse_customer_demand_json(content: str) -> CustomerDemand:
     return CustomerDemand.model_validate(payload)
 
 
-def merge_customer_demand(primary: CustomerDemand, fallback: CustomerDemand) -> CustomerDemand:
+def merge_customer_demand(primary: CustomerDemand, fallback: CustomerDemand, *, raw_text: str = "") -> CustomerDemand:
     """把 LLM 结果和本地规则结果合并。
 
     LLM 负责语义理解；本地规则负责补齐客户原话里非常明确的人数、预算、区域、带宽等字段。
     """
 
     merged = primary.model_copy(deep=True)
-    text_fields = [
-        "primary_goal",
+    deterministic_text_fields = [
         "usage_scene",
-        "business_action",
         "site_count",
         "user_count",
         "bandwidth_need",
-        "overseas_target",
-        "industry_scene",
         "budget",
-        "reliability_level",
-        "carrier_preference",
-        "region",
-        "customer_type",
     ]
-    for field_name in text_fields:
+    for field_name in deterministic_text_fields:
         if not getattr(merged, field_name):
             setattr(merged, field_name, getattr(fallback, field_name))
+
+    # LLM 负责理解自由文本语义；本地规则只在办理动作非常明确时做兜底。
+    # 不再用本地枚举补 primary_goal、region、customer_type、industry_scene，
+    # 避免后续新地名、新行业、新客户类型因为没在词表里而被漏抽或误抽。
+    if is_missing_value(merged.business_action) and not is_missing_value(fallback.business_action):
+        merged.business_action = fallback.business_action
 
     bool_fields = [
         "fixed_ip_required",
         "voice_required",
-        "overseas_access",
         "server_or_idc_required",
         "cloud_office_required",
         "security_required",
@@ -227,6 +241,14 @@ def merge_customer_demand(primary: CustomerDemand, fallback: CustomerDemand) -> 
     for field_name in bool_fields:
         if getattr(merged, field_name) is None:
             setattr(merged, field_name, getattr(fallback, field_name))
+
+    # 海外访问是高风险语义，只有原文存在明确海外/跨境强信号时，才允许本地规则兜底补 true。
+    if (
+        merged.overseas_access is None
+        and fallback.overseas_access is not None
+        and has_explicit_overseas_signal(raw_text)
+    ):
+        merged.overseas_access = fallback.overseas_access
 
     if merged.fixed_ip_count is None:
         merged.fixed_ip_count = fallback.fixed_ip_count
@@ -242,6 +264,74 @@ def merge_customer_demand(primary: CustomerDemand, fallback: CustomerDemand) -> 
     ]
     merged.confidence = max(primary.confidence, fallback.confidence)
     return merged
+
+
+def normalize_customer_demand_semantics(demand: CustomerDemand, raw_text: str) -> CustomerDemand:
+    """清洗需求解析中的高风险语义矛盾。
+
+    大模型负责理解自然语言，但它偶尔会把“国内多点组网”“异地业务系统”等国内场景误填到
+    overseas_target。这里不枚举国内城市，只按“是否存在明确境外语义”做一致性修正。
+    """
+
+    normalized = demand.model_copy(deep=True)
+    overseas_source = " ".join(
+        [
+            raw_text or "",
+            normalized.overseas_target or "",
+            normalized.primary_goal or "",
+            normalized.usage_scene or "",
+            normalized.primary_category or "",
+            *normalized.secondary_categories,
+            normalized.region or "",
+            *normalized.raw_keywords,
+        ]
+    )
+    has_overseas_negation = has_negated_overseas_signal(overseas_source)
+    has_overseas = has_explicit_overseas_signal(overseas_source)
+    has_domestic_networking = has_domestic_networking_signal(
+        " ".join(
+            [
+                raw_text or "",
+                normalized.overseas_target or "",
+                normalized.primary_goal or "",
+                normalized.usage_scene or "",
+                normalized.site_count or "",
+            ]
+        )
+    )
+
+    if has_overseas_negation:
+        normalized.overseas_access = False
+        normalized.overseas_target = ""
+        normalized.secondary_categories = [
+            item for item in normalized.secondary_categories if "海外" not in item and "跨境" not in item
+        ]
+        if normalized.primary_category == "海外访问与跨境加速":
+            normalized.primary_category = ""
+
+    if has_overseas and not has_overseas_negation:
+        normalized.overseas_access = True
+
+    if not has_overseas:
+        normalized.overseas_target = ""
+        if normalized.overseas_access is True:
+            normalized.overseas_access = None
+        normalized.secondary_categories = [
+            item for item in normalized.secondary_categories if "海外" not in item and "跨境" not in item
+        ]
+        if normalized.primary_category == "海外访问与跨境加速":
+            normalized.primary_category = "国内组网与点对点专线" if has_domestic_networking else ""
+
+    if has_domestic_networking and not has_overseas:
+        if not normalized.site_count:
+            normalized.site_count = "总部+分支"
+        if "国内组网与点对点专线" not in normalized.secondary_categories:
+            normalized.secondary_categories = [
+                "国内组网与点对点专线",
+                *normalized.secondary_categories,
+            ][:2]
+
+    return normalized
 
 
 def is_missing_value(value: Any) -> bool:
@@ -594,6 +684,11 @@ def infer_access_source(text: str) -> str | None:
         if len(found) == 1:
             return f"{found[0]}办公室" if "办公室" in text or "办公" in text else found[0]
         return "、".join(found)
+    normalized = text.lower()
+    if re.search(r"\boffice\b", normalized):
+        return "办公室"
+    if re.search(r"\b(store|shop|retail)\b", normalized):
+        return "门店"
     if "国内" in text:
         return "国内办公环境"
     if "门店" in text:
@@ -660,6 +755,93 @@ def extract_keywords(text: str, *, category_candidate_keywords: list[str]) -> li
     if bandwidth:
         keywords.append(f"{bandwidth}M")
     return _dedupe(keywords)
+
+
+def has_explicit_overseas_signal(text: str) -> bool:
+    """判断文本中是否存在明确境外/跨境语义。
+
+    这里不是枚举国内城市，而是只识别“境外访问”强信号；没有这些强信号时，不应进入海外类。
+    """
+
+    if has_negated_overseas_signal(text):
+        return False
+
+    normalized = (text or "").lower()
+    overseas_patterns = (
+        r"海外",
+        r"国外",
+        r"境外",
+        r"跨境",
+        r"国际",
+        r"出海",
+        r"外贸",
+        r"美国",
+        r"日本",
+        r"新加坡",
+        r"香港",
+        r"\bus\b",
+        r"\busa\b",
+        r"united\s+states",
+        r"overseas",
+        r"cross[-\s]?border",
+        r"international",
+        r"foreign",
+        r"global\s+saas",
+        r"海外\s*saas",
+        r"国外.*(server|服务器|网站|系统)",
+        r"境外.*(server|服务器|网站|系统)",
+    )
+    return any(re.search(pattern, normalized, re.I) for pattern in overseas_patterns)
+
+
+def has_negated_overseas_signal(text: str) -> bool:
+    """判断文本是否明确否定海外/跨境诉求。
+
+    这类否定表达优先级高于关键词命中，例如“不涉及海外”不能因为包含“海外”而进入海外类。
+    """
+
+    normalized = text or ""
+    negated_patterns = (
+        r"(不涉及|不访问|不是|没有|无需|不需要|不走|不做).{0,10}(海外|国外|境外|跨境|国际)",
+        r"(海外|国外|境外|跨境|国际).{0,10}(不涉及|不访问|不是|没有|无需|不需要|不走|不做)",
+        r"\b(no|not|without)\b.{0,24}\b(overseas|foreign|cross[-\s]?border|international)\b",
+    )
+    return any(re.search(pattern, normalized, re.I) for pattern in negated_patterns)
+
+
+def has_domestic_networking_signal(text: str) -> bool:
+    """判断文本是否更像国内异地、多点或总部分支互联场景。
+
+    这里不枚举城市名，而是识别“拓扑结构”：
+    - 总部 + 分支/分公司/门店；
+    - 多地/多点/跨省/异地/点对点/内网/互联/组网；
+    - “访问业务/系统/平台”这类异地系统访问表达。
+
+    注意：“门店”本身不是组网信号，单门店办公上网应进入门店或办公宽带类。
+    """
+
+    normalized = text or ""
+    if re.search(r"总部.{0,20}(分支|分公司|门店|异地|外地)|(?:分支|分公司|门店|异地|外地).{0,20}总部", normalized, re.I):
+        return True
+
+    topology_patterns = (
+        r"多地",
+        r"多点",
+        r"异地",
+        r"跨省",
+        r"外地",
+        r"点对点",
+        r"内网",
+        r"站点互联",
+        r"多地互联",
+        r"多点互联",
+        r"分支互联",
+        r"专线互联",
+        r"互联互通",
+        r"组网",
+        r"访问.{0,12}(业务|系统|平台)",
+    )
+    return any(re.search(pattern, normalized, re.I) for pattern in topology_patterns)
 
 
 def normalize_number_text(value: str) -> str:

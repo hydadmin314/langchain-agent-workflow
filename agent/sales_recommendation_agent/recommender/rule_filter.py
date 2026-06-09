@@ -28,8 +28,6 @@ PROCESS_IDENTITY_KEYWORDS = (
     "销户",
     "付款方式",
     "账单",
-    "材料",
-    "手续",
     "流程",
     "受理单",
 )
@@ -165,18 +163,14 @@ class CandidateRuleFilter:
             # 这里只看标题、路径、文档类型等身份字段，不看正文条款。
             # 普通套餐合同里也可能出现“拆机/变更/违约”，不能因此当成办理流程文档。
             identity_text = build_product_identity_text(product)
-            matched_text = " ".join(candidate.matched_keywords)
-            if not contains_any(identity_text, PROCESS_IDENTITY_KEYWORDS) and not contains_any(
-                matched_text,
-                PROCESS_IDENTITY_KEYWORDS,
-            ):
+            if not contains_any(identity_text, PROCESS_IDENTITY_KEYWORDS):
                 reasons.append(
                     FilterReason(
                         code="service_process_mismatch",
                         severity="error",
                         message="当前需求是办理/变更/续约/拆机类流程，但该候选缺少流程或手续相关证据。",
                         evidence=short_evidence(
-                            f"{identity_text} {matched_text}",
+                            identity_text,
                             PROCESS_IDENTITY_KEYWORDS,
                         ),
                     )

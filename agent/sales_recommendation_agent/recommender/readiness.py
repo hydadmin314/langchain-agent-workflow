@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field, ValidationError
 
 from agent.sales_recommendation_agent.intent_parser.config import SalesRecommendationSettings
 from agent.sales_recommendation_agent.intent_parser.models import CustomerDemand, DemandCategoryDecision
-from agent.sales_recommendation_agent.intent_parser.parsers import extract_json_object
+from agent.sales_recommendation_agent.intent_parser.parsers import extract_json_object, has_explicit_overseas_signal
 from prompts.sales_recommendation_agent_prompts import (
     CLARIFICATION_QUESTION_SYSTEM_PROMPT,
     build_clarification_question_user_prompt,
@@ -461,6 +461,35 @@ class RecommendationReadinessEvaluator:
                     ]
                 ),
                 reason="当前无法匹配到明确的 13 类主分类，需要先确认客户主要需求。",
+            )
+
+        if category_decision.primary_category_id == "4" and not has_explicit_overseas_signal(
+            " ".join(
+                [
+                    demand.primary_goal or "",
+                    demand.usage_scene or "",
+                    demand.overseas_target or "",
+                    demand.region or "",
+                    *demand.raw_keywords,
+                ]
+            )
+        ):
+            return ReadinessResult(
+                decision="ask_clarification",
+                missing_conditions=["overseas_target"],
+                clarification_plan=ClarificationPlan(
+                    intents=[
+                        ClarificationIntent(
+                            field="overseas_target",
+                            priority="high",
+                            intent="确认访问目标是否在境外",
+                            why="当前主分类为海外访问，但需求字段里没有明确境外目标，可能是国内异地或总部分支访问。",
+                            example_options=["国内异地系统", "海外 SaaS", "国外服务器", "还不确定"],
+                        )
+                    ]
+                ),
+                reason="海外访问类缺少明确境外目标，需先确认是国内异地访问还是海外/跨境访问。",
+                product_lock_hints=rule.product_lock_hints,
             )
 
         missing_conditions = self._collect_missing_conditions(demand, rule)
