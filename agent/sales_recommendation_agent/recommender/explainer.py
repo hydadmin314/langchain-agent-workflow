@@ -13,6 +13,7 @@ from agent.sales_recommendation_agent.recommender.models import (
     ComparisonResult,
     RecommendationExplanationResult,
 )
+from agent.sales_recommendation_agent.recommender.readiness import ReadinessResult
 from prompts.sales_recommendation_agent_prompts import (
     RECOMMENDATION_EXPLAINER_SYSTEM_PROMPT,
     build_recommendation_explainer_user_prompt,
@@ -46,6 +47,7 @@ class RecommendationExplainer:
         demand: CustomerDemand,
         category_decision: DemandCategoryDecision,
         comparison_result: ComparisonResult,
+        readiness_result: ReadinessResult | None = None,
     ) -> RecommendationExplanationResult:
         """生成销售可读推荐说明。"""
 
@@ -54,6 +56,7 @@ class RecommendationExplainer:
             demand=demand,
             category_decision=category_decision,
             comparison_result=comparison_result,
+            readiness_result=readiness_result,
         )
         prompt = build_recommendation_explainer_user_prompt(payload)
         response_text = self._invoke_llm(prompt)
@@ -117,10 +120,11 @@ def build_explainer_payload(
     demand: CustomerDemand,
     category_decision: DemandCategoryDecision,
     comparison_result: ComparisonResult,
+    readiness_result: ReadinessResult | None = None,
 ) -> dict[str, Any]:
     """把完整对象压缩成 LLM 需要看的推荐说明上下文。"""
 
-    return {
+    payload = {
         "query": query,
         "demand": {
             "primary_category": demand.primary_category,
@@ -173,6 +177,16 @@ def build_explainer_payload(
             ],
         },
     }
+    if readiness_result is not None:
+        payload["readiness"] = {
+            "decision": readiness_result.decision,
+            "assumptions": readiness_result.assumptions,
+            "clarification_intents": [
+                intent.model_dump(mode="json")
+                for intent in readiness_result.clarification_plan.intents
+            ],
+        }
+    return payload
 
 
 def build_product_payload(product: ComparedProduct) -> dict[str, Any]:
