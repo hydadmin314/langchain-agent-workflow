@@ -286,7 +286,7 @@ class SalesCandidateRetrieverTest(unittest.TestCase):
         self.assertEqual(result.removed_count, 1)
         self.assertEqual(result.removed_candidates[0].filter_reasons[0].code, "service_process_mismatch")
 
-    def test_rule_filter_keeps_service_process_candidate_when_retrieval_matched_process_keyword(self) -> None:
+    def test_rule_filter_removes_service_process_candidate_when_only_body_matched_process_keyword(self) -> None:
         demand = CustomerDemand()
         category_decision = DemandCategoryDecision(primary_category_id="13", recommendation_mode="service_process")
         retrieval_result = CandidateRetrievalResult(
@@ -300,6 +300,38 @@ class SalesCandidateRetrieverTest(unittest.TestCase):
                         document_status="active",
                         filename="套餐申请登记表.docx",
                         category_path="电信政企/精品专线",
+                    ),
+                    retrieval_score=20,
+                    matched_keywords=["拆机", "变更"],
+                )
+            ],
+        )
+
+        result = CandidateRuleFilter().apply(
+            demand=demand,
+            category_decision=category_decision,
+            retrieval_result=retrieval_result,
+        )
+
+        self.assertEqual(result.kept_count, 0)
+        self.assertEqual(result.removed_count, 1)
+        self.assertEqual(result.removed_candidates[0].filter_reasons[0].code, "service_process_mismatch")
+
+    def test_rule_filter_keeps_service_process_candidate_when_identity_is_process_document(self) -> None:
+        demand = CustomerDemand()
+        category_decision = DemandCategoryDecision(primary_category_id="13", recommendation_mode="service_process")
+        retrieval_result = CandidateRetrievalResult(
+            total_products=1,
+            matched_count=1,
+            candidates=[
+                RetrievedCandidate(
+                    product=ProductCandidate(
+                        document_id="doc_change_process",
+                        product_name="业务变更受理单",
+                        document_status="active",
+                        filename="业务变更受理单.docx",
+                        document_type="受理单",
+                        category_path="电信政企/业务变更流程",
                     ),
                     retrieval_score=20,
                     matched_keywords=["拆机", "变更"],
