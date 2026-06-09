@@ -111,11 +111,16 @@ def build_readiness_rules() -> dict[str, ReadinessRule]:
         term="固定公网 IP",
         explanation="固定不变的公网地址，常用于服务器对外访问、远程连接或固定出口。",
     )
+    bandwidth_explanation = TermExplanation(
+        term="带宽",
+        explanation="可以理解为网络通道大小。客户不确定时，可先按人数、应用类型和是否有视频会议/大文件/服务器访问来估算。",
+    )
 
     return {
         "企业上网与办公宽带": ReadinessRule(
             required_any=[["usage_scene", "user_count"]],
             assumable={
+                "bandwidth_need": "客户未明确带宽，暂按人数和办公场景做初步推荐，推荐结果需提示后续确认 50M/100M/200M 等档位。",
                 "fixed_ip_required": "暂按不需要固定公网 IP 处理。",
                 "voice_required": "暂按不需要语音/固定电话能力处理。",
             },
@@ -133,6 +138,14 @@ def build_readiness_rules() -> dict[str, ReadinessRule]:
                     intent="确认使用规模",
                     why="人数会影响套餐档位、带宽规模和后续预算匹配。",
                     example_options=["10人以内", "10-50人", "50人以上"],
+                ),
+                "bandwidth_need": ClarificationIntent(
+                    field="bandwidth_need",
+                    priority="medium",
+                    intent="确认期望带宽或让客户按场景估算",
+                    why="带宽会影响套餐档位、价格和体验；如果客户不知道，可以按人数和应用来给区间建议。",
+                    example_options=["50M", "100M", "200M", "客户不确定，按人数建议"],
+                    term_explanations=[bandwidth_explanation],
                 ),
                 "fixed_ip_required": ClarificationIntent(
                     field="fixed_ip_required",
@@ -154,6 +167,9 @@ def build_readiness_rules() -> dict[str, ReadinessRule]:
         ),
         "固定IP_高带宽_互联网专线": ReadinessRule(
             required_any=[["fixed_ip_required", "server_or_idc_required", "primary_goal"]],
+            assumable={
+                "bandwidth_need": "客户未明确带宽，暂按固定公网 IP/服务器访问方向做初步推荐，需后续确认 100M/200M/500M/1G 等档位。",
+            },
             clarification_intents={
                 "fixed_ip_required": ClarificationIntent(
                     field="fixed_ip_required",
@@ -173,16 +189,20 @@ def build_readiness_rules() -> dict[str, ReadinessRule]:
                 "bandwidth_need": ClarificationIntent(
                     field="bandwidth_need",
                     priority="medium",
-                    intent="确认带宽规模",
-                    why="带宽会影响套餐档位、价格区间和资源确认。",
-                    example_options=["100M", "200M", "500M", "1G"],
+                    intent="确认专线带宽规模",
+                    why="带宽会影响套餐档位、价格区间和资源确认；如果客户不知道，可先按服务器访问量、并发和预算给建议。",
+                    example_options=["100M", "200M", "500M", "1G", "客户不确定，按服务器/并发估算"],
+                    term_explanations=[bandwidth_explanation],
                 ),
             },
             product_lock_hints=["IPMAN", "BGP&IPMAN", "精品专线"],
         ),
         "国内组网与点对点专线": ReadinessRule(
             required_any=[["site_count", "usage_scene"]],
-            assumable={"server_or_idc_required": "暂按不涉及服务器或 IDC 场景处理。"},
+            assumable={
+                "bandwidth_need": "客户未明确组网带宽，暂按站点数和业务重要性做初步推荐，需后续确认每个站点大致带宽。",
+                "server_or_idc_required": "暂按不涉及服务器或 IDC 场景处理。",
+            },
             clarification_intents={
                 "site_count": ClarificationIntent(
                     field="site_count",
@@ -198,12 +218,21 @@ def build_readiness_rules() -> dict[str, ReadinessRule]:
                     why="需要判断是纯内网互联、互联网访问，还是重要业务传输。",
                     example_options=["纯内网互联", "多门店互联", "重要业务传输"],
                 ),
+                "bandwidth_need": ClarificationIntent(
+                    field="bandwidth_need",
+                    priority="medium",
+                    intent="确认每个站点的大致带宽",
+                    why="点对点或多点组网的带宽会影响专线类型、价格和资源确认；客户不确定时，可按业务系统重要性和并发人数估算。",
+                    example_options=["每点50M", "每点100M", "每点200M以上", "客户不确定，按业务系统估算"],
+                    term_explanations=[bandwidth_explanation],
+                ),
             },
             product_lock_hints=["MPLS-VPN", "SD-WAN", "MSTP", "IPRAN", "OTN"],
         ),
         "海外访问与跨境加速": ReadinessRule(
             required_any=[["overseas_target", "primary_goal"], ["usage_scene", "site_count"]],
             assumable={
+                "bandwidth_need": "客户未明确带宽，暂按访问人数、海外目标和体验问题做初步推荐；海外访问还需关注时延、丢包和线路质量。",
                 "fixed_ip_required": "暂按不需要固定公网 IP 处理。",
                 "site_count": "暂按单个办公地点访问处理。",
             },
@@ -237,6 +266,14 @@ def build_readiness_rules() -> dict[str, ReadinessRule]:
                     why="多地访问海外 SaaS 时，可能需要评估 SD-WAN 或组网方案。",
                     example_options=["单点", "多点", "总部+分支"],
                 ),
+                "bandwidth_need": ClarificationIntent(
+                    field="bandwidth_need",
+                    priority="medium",
+                    intent="确认海外访问的带宽或体验要求",
+                    why="海外访问不只看带宽，还要看目标应用、时延、丢包和线路质量；客户不确定时，可先按人数和应用类型建议区间。",
+                    example_options=["50M-100M", "100M-200M", "200M以上", "客户不确定，按访问人数和应用建议"],
+                    term_explanations=[bandwidth_explanation],
+                ),
                 "fixed_ip_required": ClarificationIntent(
                     field="fixed_ip_required",
                     priority="high",
@@ -251,6 +288,7 @@ def build_readiness_rules() -> dict[str, ReadinessRule]:
         "门店_商铺_小微经营": ReadinessRule(
             required_any=[["usage_scene", "industry_scene"]],
             assumable={
+                "bandwidth_need": "客户未明确带宽，暂按门店人数、收银/WiFi/视频等场景做初步推荐，需后续确认档位。",
                 "voice_required": "暂按不需要语音处理。",
                 "fixed_ip_required": "暂按不需要固定公网 IP 处理。",
             },
@@ -268,6 +306,14 @@ def build_readiness_rules() -> dict[str, ReadinessRule]:
                     intent="确认是否有行业经营场景",
                     why="收银、WiFi、云宽、5G 融合等需求会影响旺铺宽带、开店宝等产品选择。",
                     example_options=["收银", "门店 WiFi", "5G 融合", "云宽"],
+                ),
+                "bandwidth_need": ClarificationIntent(
+                    field="bandwidth_need",
+                    priority="medium",
+                    intent="确认门店网络带宽",
+                    why="门店带宽通常和员工/访客 WiFi、收银、监控、云应用有关；客户不确定时，可以按门店规模建议。",
+                    example_options=["50M", "100M", "200M", "客户不确定，按门店规模建议"],
+                    term_explanations=[bandwidth_explanation],
                 ),
                 "voice_required": ClarificationIntent(
                     field="voice_required",
