@@ -427,6 +427,7 @@ class SalesRecommendationWorkflow:
                     demand=state.customer_need,
                     category_decision=state.category_decision,
                     comparison_result=comparison_result,
+                    readiness_result=readiness,
                 )
             except Exception as exc:
                 errors.append(f"推荐说明生成失败：{exc}")
