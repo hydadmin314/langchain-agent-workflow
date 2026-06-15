@@ -1,5 +1,5 @@
 (function () {
-  const DEFAULT_QUERY = "餐饮门店5个人用，主要收银、外卖平台、监控和日常上网，预算有限，想要稳定宽带";
+  const DEFAULT_QUERY = "客户准备开一个经营场所，目前只说想先把网络规划起来";
   const EXPECTED_RUNTIME_VERSION = "sales-demo-single-v5";
   const DEMO_CASES = Array.isArray(window.SALES_DEMO_CASES) ? window.SALES_DEMO_CASES : [];
 
@@ -100,6 +100,7 @@
     let animationFrameId = null;
     let delayTimerId = null;
     let activeContainer = null;
+    const PIXELS_PER_SECOND = 140;
 
     function cancel() {
       if (delayTimerId !== null) {
@@ -113,26 +114,38 @@
       activeContainer = null;
     }
 
-    function toBottom(container) {
+    function toBottom(container, delay = 140) {
       cancel();
       activeContainer = container;
       delayTimerId = setTimeout(() => {
         delayTimerId = null;
+        if (!activeContainer) return;
+        const start = activeContainer.scrollTop;
         const target = Math.max(0, activeContainer.scrollHeight - activeContainer.clientHeight);
-        const step = () => {
+        const distance = Math.max(0, target - start);
+        if (distance < 2) {
+          activeContainer = null;
+          return;
+        }
+        const duration = Math.min(4600, Math.max(900, (distance / PIXELS_PER_SECOND) * 1000));
+        const startedAt = performance.now();
+        const step = (now) => {
           if (!activeContainer) return;
-          const distance = target - activeContainer.scrollTop;
-          if (Math.abs(distance) < 2) {
+          const progress = Math.min(1, (now - startedAt) / duration);
+          const eased = progress < 0.5
+            ? 2 * progress * progress
+            : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+          activeContainer.scrollTop = start + distance * eased;
+          if (progress >= 1) {
             activeContainer.scrollTop = target;
             animationFrameId = null;
             activeContainer = null;
             return;
           }
-          activeContainer.scrollTop += distance * 0.16;
           animationFrameId = requestAnimationFrame(step);
         };
-        step();
-      }, 90);
+        animationFrameId = requestAnimationFrame(step);
+      }, delay);
     }
 
     return { cancel, toBottom };
@@ -150,7 +163,7 @@
     $("startButton").addEventListener("click", startDemo);
     $("resetButton").addEventListener("click", () => resetDemo(true));
     $("replyForm").addEventListener("submit", submitReply);
-    $("replyInput").addEventListener("keydown", handleReplyKeydown);
+    $("queryInput").addEventListener("keydown", handleReplyKeydown);
     $("sampleReplyButton").addEventListener("click", fillSampleReply);
     $("copyAnswerButton").addEventListener("click", copyAnswer);
     $("queryInput").addEventListener("input", syncSelectedCaseFromQuery);
@@ -227,13 +240,14 @@
     state.history = [];
     state.askedQuestions = [];
     state.submitting = false;
-    $("replyButton").disabled = false;
     state.maxRounds = 6;
     $("chatStream").replaceChildren();
     $("answerBox").classList.remove("ready");
     $("answerBox").textContent = "交互进行中。";
     clearRanking();
     appendMessage("system", "演示开始", `初始需求：${state.query}`);
+    $("queryInput").value = "";
+    syncQuestionInputMode();
     runNextTurn();
   }
 
@@ -248,24 +262,28 @@
     state.askedQuestions = [];
     state.submitting = false;
     slowScroller.cancel();
-    $("replyButton").disabled = false;
     state.snapshot = analyzeDemand(state.query);
     state.finalAnswer = "";
     if (clearQuery) $("queryInput").value = DEFAULT_QUERY;
-    $("replyInput").value = "";
+    $("queryInput").disabled = false;
     $("chatStream").replaceChildren(emptyMessage());
     $("answerBox").classList.remove("ready");
     $("answerBox").textContent = "完成交互后展示最终推荐。";
     clearRanking();
     renderSidePanel();
     renderScenarioButtons();
+    syncQuestionInputMode();
     renderStatus("输入初始问题后开始演示", "准备中");
   }
 
   async function submitReply(event) {
     event.preventDefault();
-    if (!state.started || state.finished || state.submitting) return;
-    const reply = $("replyInput").value.trim();
+    if (!state.started) {
+      await startDemo();
+      return;
+    }
+    if (state.finished || state.submitting) return;
+    const reply = $("queryInput").value.trim();
     if (!reply) {
       showToast("请输入补充信息");
       return;
@@ -273,7 +291,7 @@
     state.submitting = true;
     $("replyButton").disabled = true;
     try {
-      $("replyInput").value = "";
+      $("queryInput").value = "";
       appendMessage("user", "销售/客户补充", reply);
       state.history.push({ user: reply, round: state.round });
       state.currentUserText = reply;
@@ -281,14 +299,18 @@
     } finally {
       state.submitting = false;
       $("replyButton").disabled = state.finished;
-      if (!state.finished) $("replyInput").focus();
+      if (!state.finished) $("queryInput").focus();
     }
   }
 
   function handleReplyKeydown(event) {
     if (event.key !== "Enter" || event.shiftKey || event.isComposing || event.keyCode === 229) return;
     event.preventDefault();
-    if (!state.started || state.finished || state.submitting) return;
+    if (state.finished || state.submitting) return;
+    if (!state.started) {
+      startDemo();
+      return;
+    }
     if (typeof $("replyForm").requestSubmit === "function") {
       $("replyForm").requestSubmit();
     } else {
@@ -298,16 +320,22 @@
 
   async function runNextTurn() {
     state.round += 1;
+    const thinkingStartedAt = performance.now();
+    const thinkingNode = appendThinkingMessage();
     try {
       state.snapshot = await getDemoTurnSnapshot(state.currentUserText || state.query);
     } catch (error) {
+      await keepThinkingVisible(thinkingStartedAt);
       state.round = Math.max(0, state.round - 1);
-      appendMessage(
-        "agent",
-        error.kind === "backend" ? "后端服务未连接" : "大模型调用失败",
-        error.kind === "backend"
-          ? `浏览器无法连接本地销售推荐服务。\n${error.message || ""}`
-          : `本轮没有使用本地规则生成结果。请检查模型服务后重试。\n${error.message || ""}`
+      replaceThinkingMessage(
+        thinkingNode,
+        buildMessageNode(
+          "agent",
+          error.kind === "backend" ? "后端服务未连接" : "大模型调用失败",
+          error.kind === "backend"
+            ? `浏览器无法连接本地销售推荐服务。\n${error.message || ""}`
+            : `本轮没有使用本地规则生成结果。请检查模型服务后重试。\n${error.message || ""}`
+        )
       );
       renderStatus(
         error.kind === "backend" ? "后端服务未连接" : "大模型调用失败，可重试",
@@ -315,25 +343,37 @@
       );
       return;
     }
+    await keepThinkingVisible(thinkingStartedAt);
     state.sessionId = state.snapshot.sessionId || state.sessionId;
     state.maxRounds = state.snapshot.maxTurns || 6;
     renderSidePanel();
     renderBackendResults(state.snapshot);
 
+    if (shouldContinueStandardDemo(state.snapshot)) {
+      const turn = nextTurn(state.snapshot, state.askedQuestions);
+      state.askedQuestions.push(...turn.questions.map((item) => item.text));
+      replaceThinkingMessage(thinkingNode, buildQuestionMessage(turn));
+      renderStatus(
+        `第 ${state.round} 轮，继续补充关键需求`,
+        `${state.round} / ${state.maxRounds}`
+      );
+      return;
+    }
+
     if (state.snapshot.terminal) {
-      finishDemo();
+      finishDemo(thinkingNode);
       return;
     }
 
     if (state.snapshot.action === "clarify" || state.snapshot.status === "ask_clarification") {
       const turn = backendQuestionTurn(state.snapshot) || nextTurn(state.snapshot, state.askedQuestions);
       state.askedQuestions.push(...turn.questions.map((item) => item.text));
-      appendQuestionMessage(turn);
+      replaceThinkingMessage(thinkingNode, buildQuestionMessage(turn));
       renderStatus(`第 ${state.round} 轮，等待补充`, `${state.round} / ${state.maxRounds}`);
       return;
     }
 
-    finishDemo();
+    finishDemo(thinkingNode);
   }
 
   function fillSampleReply() {
@@ -347,8 +387,17 @@
       showToast("当前轮次没有参考回答");
       return;
     }
-    $("replyInput").value = round.sampleReply;
-    $("replyInput").focus();
+    $("queryInput").value = round.sampleReply;
+    $("queryInput").focus();
+  }
+
+  function shouldContinueStandardDemo(snapshot) {
+    const demoCase = selectedCase();
+    const minimumRounds = Number(demoCase?.minimumRounds || 0);
+    if (!demoCase || minimumRounds <= 0 || state.round >= minimumRounds) return false;
+    if (!snapshot?.terminal) return false;
+    const nextRound = demoCase.rounds?.[state.round - 1];
+    return Boolean(nextRound?.questions?.length && nextRound?.sampleReply);
   }
 
   async function getDemoTurnSnapshot(userText) {
@@ -549,13 +598,20 @@
     };
   }
 
-  function finishDemo() {
+  function finishDemo(thinkingNode = null) {
     state.finished = true;
     $("replyButton").disabled = true;
+    $("queryInput").disabled = true;
+    syncQuestionInputMode();
     state.finalAnswer =
       state.snapshot?.recommendation?.answerText ||
       buildFinalAnswer(state.snapshot, state.query, selectedCase());
-    appendMessage("agent", "最终推荐", state.finalAnswer);
+    const finalNode = buildMessageNode("agent", "最终推荐", state.finalAnswer);
+    if (thinkingNode?.isConnected) {
+      replaceThinkingMessage(thinkingNode, finalNode);
+    } else {
+      appendMessageNode(finalNode);
+    }
     $("answerBox").classList.add("ready");
     $("answerBox").replaceChildren(...renderAnswerBlocks(state.finalAnswer));
     const statusText = state.snapshot?.status === "no_candidate" ? "当前暂无合适候选" : "已生成最终推荐";
@@ -636,7 +692,7 @@
     });
   }
 
-  function appendQuestionMessage(turn) {
+  function buildQuestionMessage(turn) {
     const content = [
       turn.acknowledgement ? create("p", { className: "acknowledgement", text: turn.acknowledgement }) : null,
       turn.transition ? create("p", { className: "transition", text: turn.transition }) : null,
@@ -659,16 +715,80 @@
         ...content,
       ]),
     ]);
-    $("chatStream").appendChild(node);
-    slowScroller.toBottom($("chatStream"));
+    return node;
   }
 
   function appendMessage(type, title, body) {
-    const node = create("div", { className: `message ${type}` }, [
+    const node = buildMessageNode(type, title, body);
+    appendMessageNode(node);
+    return node;
+  }
+
+  function buildMessageNode(type, title, body) {
+    return create("div", { className: `message ${type}` }, [
       create("div", { className: "message-card" }, [messageMeta(title, currentTime()), create("p", { text: body })]),
     ]);
+  }
+
+  function appendMessageNode(node, { animate = true, delay = 140 } = {}) {
     $("chatStream").appendChild(node);
-    slowScroller.toBottom($("chatStream"));
+    revealMessage(node, animate);
+    slowScroller.toBottom($("chatStream"), delay);
+  }
+
+  function appendThinkingMessage() {
+    const node = create("div", {
+      className: "message agent thinking-message",
+      role: "status",
+      "aria-label": "智能体正在思考",
+    }, [
+      create("div", { className: "message-card" }, [
+        messageMeta("智能体", `第 ${state.round} 轮`),
+        create("div", { className: "thinking-line" }, [
+          create("span", { text: "正在理解需求并整理答案" }),
+          create("span", { className: "thinking-dots", "aria-hidden": "true" }, [
+            create("i"),
+            create("i"),
+            create("i"),
+          ]),
+        ]),
+      ]),
+    ]);
+    appendMessageNode(node, { delay: 80 });
+    return node;
+  }
+
+  function replaceThinkingMessage(thinkingNode, resultNode) {
+    const container = $("chatStream");
+    const previousScrollTop = container.scrollTop;
+    if (thinkingNode?.isConnected) {
+      thinkingNode.replaceWith(resultNode);
+    } else {
+      container.appendChild(resultNode);
+    }
+    // Replacing a short loading card with a long answer can make the browser
+    // preserve the bottom edge. Restore the old position and let our scroller
+    // reveal the new answer at a controlled pace.
+    void resultNode.offsetHeight;
+    container.scrollTop = previousScrollTop;
+    revealMessage(resultNode, true);
+    requestAnimationFrame(() => {
+      container.scrollTop = previousScrollTop;
+      slowScroller.toBottom(container, 180);
+    });
+  }
+
+  function revealMessage(node, animate) {
+    if (!animate || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    node.classList.remove("message-enter");
+    requestAnimationFrame(() => node.classList.add("message-enter"));
+  }
+
+  async function keepThinkingVisible(startedAt, minimumMs = 650) {
+    const remaining = minimumMs - (performance.now() - startedAt);
+    if (remaining > 0) {
+      await new Promise((resolve) => setTimeout(resolve, remaining));
+    }
   }
 
   function messageMeta(left, right) {
@@ -1159,6 +1279,7 @@
   }
 
   function syncSelectedCaseFromQuery() {
+    if (state.started) return;
     const query = $("queryInput").value.trim();
     const matched = DEMO_CASES.find((item) => item.query === query);
     state.selectedCaseId = matched?.id || null;
@@ -1166,6 +1287,26 @@
     state.snapshot = analyzeDemand(state.query);
     renderScenarioButtons();
     renderSidePanel();
+  }
+
+  function syncQuestionInputMode() {
+    const input = $("queryInput");
+    const startButton = $("startButton");
+    const sampleButton = $("sampleReplyButton");
+    const replyButton = $("replyButton");
+    const label = $("queryInputLabel");
+    const isReplyMode = state.started && !state.finished;
+
+    label.textContent = isReplyMode ? "补充客户信息" : state.finished ? "本轮演示已完成" : "客户问题";
+    input.placeholder = isReplyMode
+      ? "输入销售或客户补充信息，按 Enter 提交"
+      : state.finished
+        ? "点击重置后开始新的演示"
+        : "输入客户的初始需求，按 Enter 开始";
+    startButton.hidden = state.started;
+    sampleButton.hidden = !isReplyMode;
+    replyButton.hidden = !isReplyMode;
+    sampleButton.textContent = "推荐回复";
   }
 
   function fact(label, value) {

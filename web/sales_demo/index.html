@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>销售推荐 Demo 展示台</title>
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=20260609-5" />
   </head>
   <body>
     <div class="app-shell">
@@ -17,42 +17,10 @@
         <div class="top-actions">
           <span class="backend-status" id="backendStatus">检测后端中</span>
           <button class="ghost-button" id="resetButton" type="button">重置</button>
-          <button class="primary-button" id="startButton" type="button">开始演示</button>
         </div>
       </header>
 
       <main class="workspace">
-        <section class="control-panel" aria-label="演示设置">
-          <div class="field-block">
-            <label for="queryInput">初始客户问题</label>
-            <textarea id="queryInput" rows="5"></textarea>
-          </div>
-
-          <section class="interaction-policy" aria-label="交互策略">
-            <strong>智能需求澄清</strong>
-            <span>信息充分时立即推荐；需求模糊时逐轮确认，最多交互 6 轮。</span>
-          </section>
-
-          <div class="scenario-strip" id="scenarioStrip" aria-label="示例问题"></div>
-
-          <section class="case-summary" id="caseSummary" aria-label="案例验收目标"></section>
-
-          <div class="state-box">
-            <div>
-              <span>当前轮次</span>
-              <strong id="roundState">0 / 6</strong>
-            </div>
-            <div>
-              <span>交互场景</span>
-              <strong id="sceneState">待识别</strong>
-            </div>
-            <div>
-              <span>模型调用</span>
-              <strong id="modelModeState">检测中</strong>
-            </div>
-          </div>
-        </section>
-
         <section class="chat-panel" aria-label="交互过程">
           <div class="panel-head">
             <div>
@@ -64,13 +32,51 @@
 
           <div class="chat-stream" id="chatStream" aria-live="polite"></div>
 
-          <form class="composer" id="replyForm">
-            <textarea id="replyInput" rows="3" placeholder="输入销售/客户补充信息"></textarea>
-            <div class="composer-actions">
-              <button class="ghost-button" id="sampleReplyButton" type="button">填入参考回答</button>
-              <button class="primary-button" id="replyButton" type="submit">提交补充</button>
+          <section class="question-dock" aria-label="演示问题设置">
+            <div class="question-dock-head">
+              <div>
+                <strong>常用演示问题</strong>
+                <span>点击后填入下方问题框</span>
+              </div>
+              <section class="interaction-policy" aria-label="交互策略">
+                <strong>智能澄清</strong>
+                <span>信息充分立即推荐，需求模糊最多交互 6 轮</span>
+              </section>
             </div>
-          </form>
+
+            <div class="scenario-strip" id="scenarioStrip" aria-label="示例问题"></div>
+
+            <form class="question-entry-row" id="replyForm">
+              <div class="field-block">
+                <label for="queryInput" id="queryInputLabel">客户问题</label>
+                <textarea id="queryInput" rows="2" placeholder="输入客户的初始需求"></textarea>
+              </div>
+              <div class="question-entry-actions">
+                <button class="primary-button start-demo-button" id="startButton" type="button">开始演示</button>
+                <button class="ghost-button" id="sampleReplyButton" type="button" hidden>推荐回复</button>
+                <button class="primary-button" id="replyButton" type="submit" hidden>提交补充</button>
+              </div>
+            </form>
+
+            <div class="control-summary" aria-hidden="true">
+              <section class="case-summary" id="caseSummary" aria-label="案例验收目标"></section>
+              <div class="state-box">
+                <div>
+                  <span>当前轮次</span>
+                  <strong id="roundState">0 / 6</strong>
+                </div>
+                <div>
+                  <span>交互场景</span>
+                  <strong id="sceneState">待识别</strong>
+                </div>
+                <div>
+                  <span>模型调用</span>
+                  <strong id="modelModeState">检测中</strong>
+                </div>
+              </div>
+            </div>
+          </section>
+
         </section>
 
         <aside class="insight-panel" aria-label="需求理解和推荐结果">
@@ -139,7 +145,7 @@
     <script>
       window.SALES_DEMO_API_ENDPOINT = "/api/sales-demo/turn";
     </script>
-    <script src="./demo_cases.js"></script>
-    <script src="./app.js"></script>
+    <script src="./demo_cases.js?v=20260609-5"></script>
+    <script src="./app.js?v=20260609-5"></script>
   </body>
 </html>

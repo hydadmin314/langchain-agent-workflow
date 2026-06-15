@@ -62,7 +62,7 @@ typing-inspection==0.4.2
 typing_extensions==4.15.0
 urllib3==2.6.3
 uuid_utils==0.14.1
-win32_setctime==1.2.0
+win32_setctime==1.2.0; sys_platform == "win32"
 xxhash==3.7.0
 yarl==1.23.0
 zstandard==0.25.0

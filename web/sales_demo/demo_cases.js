@@ -3,7 +3,8 @@ window.SALES_DEMO_CASES = [
     id: "store",
     title: "餐饮门店稳定宽带",
     type: "产品推荐",
-    query: "餐饮门店5个人用，主要收银、外卖平台、监控和日常上网，预算有限，想要稳定宽带",
+    minimumRounds: 3,
+    query: "客户准备开一个经营场所，目前只说想先把网络规划起来",
     expected: {
       category: "5_门店_商铺_小微经营",
       primaryProduct: "智云随选商企云宽基础版",
@@ -15,7 +16,7 @@ window.SALES_DEMO_CASES = [
       {
         topic: "门店范围",
         questions: ["这是单门店还是多门店，门店大致地址或所在区域在哪里？"],
-        sampleReply: "单门店，在上海杨浦区。",
+        sampleReply: "主要想解决门店日常经营上网，收银、外卖和监控都会使用。",
       },
       {
         topic: "营业连续性",
@@ -43,7 +44,8 @@ window.SALES_DEMO_CASES = [
     id: "voice",
     title: "30坐席呼叫中心",
     type: "产品推荐",
-    query: "客户有呼叫中心，30个坐席电话，需要总机、中继线和来电转接",
+    minimumRounds: 3,
+    query: "客户觉得现在对外联系不太方便，想先了解企业通信怎么规划",
     expected: {
       category: "6_固定电话_语音中继_呼叫业务",
       primaryProduct: "中国电信号百集团云中继",
@@ -55,7 +57,7 @@ window.SALES_DEMO_CASES = [
       {
         topic: "建设方式",
         questions: ["这是新建呼叫中心，还是已有总机、PBX或号码需要迁移？"],
-        sampleReply: "新建呼叫中心，没有旧总机，但希望使用统一总机号码。",
+        sampleReply: "主要想改善企业客服电话，可能需要总机和坐席能力。",
       },
       {
         topic: "坐席并发",
@@ -88,7 +90,8 @@ window.SALES_DEMO_CASES = [
     id: "overseas",
     title: "海外 SaaS 访问优化",
     type: "产品推荐",
-    query: "上海办公室10人访问美国 SaaS 很慢，预算5000左右，希望提升访问速度",
+    minimumRounds: 3,
+    query: "客户反馈使用某些外部系统体验不好，但还没说明具体应用和地点",
     expected: {
       category: "4_海外访问_跨境业务",
       primaryProduct: "海外访问优化或跨境专线候选",
@@ -100,7 +103,7 @@ window.SALES_DEMO_CASES = [
       {
         topic: "目标应用",
         questions: ["美国 SaaS 具体是什么应用，主要访问哪个国家或地区？"],
-        sampleReply: "主要访问美国的CRM和在线设计平台。",
+        sampleReply: "主要是办公室访问海外 SaaS 较慢，具体应用和地区还在确认。",
       },
       {
         topic: "访问规模",
@@ -133,7 +136,8 @@ window.SALES_DEMO_CASES = [
     id: "networking",
     title: "总部与分公司组网",
     type: "产品对比",
-    query: "上海总部访问新疆子公司业务慢，需要提高访问速率并保障稳定",
+    minimumRounds: 3,
+    query: "客户有几处业务地点，想先了解网络应该怎么规划",
     expected: {
       category: "3_专线_组网_多点互联",
       primaryProduct: "智能专线",
@@ -145,7 +149,7 @@ window.SALES_DEMO_CASES = [
       {
         topic: "站点信息",
         questions: ["需要互联的站点有几个，分别在哪些城市或地址？"],
-        sampleReply: "目前两个站点，上海总部和新疆乌鲁木齐子公司。",
+        sampleReply: "主要想让总部和几个分支稳定互联，准确站点数量还在统计。",
       },
       {
         topic: "组网模式",
@@ -173,7 +177,8 @@ window.SALES_DEMO_CASES = [
     id: "fixed_ip",
     title: "企业服务器固定公网IP",
     type: "产品对比",
-    query: "企业官网和服务器需要对外访问，20人办公，需要固定公网IP和稳定带宽",
+    minimumRounds: 3,
+    query: "客户准备上线一个业务系统，想先了解需要什么网络条件",
     expected: {
       category: "2_固定IP_高带宽_互联网专线",
       primaryProduct: "具备固定公网IP证据的互联网专线",
@@ -185,7 +190,7 @@ window.SALES_DEMO_CASES = [
       {
         topic: "服务器用途",
         questions: ["服务器承载官网、接口还是其他对外业务？"],
-        sampleReply: "承载企业官网和客户查询接口。",
+        sampleReply: "系统需要提供外部访问，可能需要固定公网 IP，数量还没确认。",
       },
       {
         topic: "公网IP",
@@ -218,7 +223,8 @@ window.SALES_DEMO_CASES = [
     id: "pricing",
     title: "指定套餐资费查询",
     type: "资费查询",
-    query: "想了解100M企业宽带或商务专线年付多少钱，套餐包含什么",
+    minimumRounds: 3,
+    query: "客户想先了解企业网络通常有哪些收费方式",
     expected: {
       category: "1_企业上网与办公宽带",
       primaryProduct: "有明确100M及年付价格证据的候选",
@@ -230,7 +236,7 @@ window.SALES_DEMO_CASES = [
       {
         topic: "办理地区",
         questions: ["客户办理地址或所在城市在哪里？"],
-        sampleReply: "办理地址在上海浦东新区。",
+        sampleReply: "主要想比较企业宽带的年付和月付，具体带宽还没确定。",
       },
       {
         topic: "带宽口径",
@@ -263,7 +269,8 @@ window.SALES_DEMO_CASES = [
     id: "service_process",
     title: "宽带移机办理材料",
     type: "办理流程",
-    query: "公司办公室要搬迁，现有宽带需要移机，想知道办理流程和需要哪些材料",
+    minimumRounds: 3,
+    query: "客户现有网络业务可能需要调整，但还没说具体要办理什么",
     expected: {
       category: "13_办理变更_续约_拆机_撤单",
       primaryProduct: "办理流程与材料说明",
@@ -275,7 +282,7 @@ window.SALES_DEMO_CASES = [
       {
         topic: "办理类型",
         questions: ["确认是同城移机、跨区移机，还是原址拆机后新装？"],
-        sampleReply: "上海市内跨区搬迁，希望办理移机。",
+        sampleReply: "主要是办公室准备搬迁，想确认现有宽带能否办理移机。",
       },
       {
         topic: "原业务信息",
@@ -303,7 +310,8 @@ window.SALES_DEMO_CASES = [
     id: "clarify",
     title: "模糊网络方案咨询",
     type: "需求澄清",
-    query: "客户想了解一下网络方案",
+    minimumRounds: 3,
+    query: "客户只说最近网络使用不太顺畅，想先听听可以怎么改善",
     expected: {
       category: "clarify_required",
       primaryProduct: "信息不足时不推荐具体产品",
@@ -315,7 +323,7 @@ window.SALES_DEMO_CASES = [
       {
         topic: "业务目标",
         questions: ["客户主要想解决上网、组网、海外访问、语音电话还是云和IDC问题？"],
-        sampleReply: "主要是上海办公室访问新疆子公司的内部系统。",
+        sampleReply: "主要是异地办公室访问内部业务系统较慢，具体站点还没统计。",
       },
       {
         topic: "来源目标",

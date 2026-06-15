@@ -141,12 +141,12 @@ h1 {
 
 .workspace {
   display: grid;
-  grid-template-columns: 320px minmax(0, 1fr) 360px;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  grid-template-areas: "chat insights";
   gap: 14px;
   align-items: start;
 }
 
-.control-panel,
 .chat-panel,
 .insight-panel,
 .plain-section {
@@ -156,27 +156,27 @@ h1 {
   box-shadow: var(--shadow);
 }
 
-.control-panel,
 .chat-panel,
 .insight-panel {
   min-height: 520px;
 }
 
-.control-panel,
 .insight-panel {
   position: sticky;
   top: 16px;
 }
 
-.control-panel {
-  padding: 14px;
-}
-
 .chat-panel {
+  grid-area: chat;
   display: grid;
-  grid-template-rows: auto minmax(420px, calc(100vh - 250px)) auto;
+  grid-template-rows: auto minmax(360px, calc(100vh - 310px)) auto;
+  min-width: 0;
   min-height: calc(100vh - 112px);
   overflow: hidden;
+}
+
+.insight-panel {
+  grid-area: insights;
 }
 
 .panel-head,
@@ -305,25 +305,53 @@ h2 {
 }
 
 .interaction-policy {
-  display: grid;
-  gap: 4px;
-  margin-bottom: 12px;
-  padding: 12px 14px;
-  border: 1px solid #b9ddd8;
-  border-left: 4px solid var(--teal);
-  border-radius: 6px;
-  background: #f2faf8;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
 
 .interaction-policy strong {
   color: #0d5f5d;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .interaction-policy span {
   color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.question-dock {
+  min-width: 0;
+  padding: 10px 12px;
+  border-top: 1px solid var(--line);
+  background: #f8fafc;
+}
+
+.question-dock-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 7px;
+}
+
+.question-dock-head > div {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.question-dock-head > div strong {
   font-size: 13px;
-  line-height: 1.6;
+}
+
+.question-dock-head > div span {
+  color: var(--muted);
+  font-size: 11px;
 }
 
 .field-block label,
@@ -368,17 +396,23 @@ button:focus-visible {
 }
 
 .scenario-strip {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   gap: 8px;
-  margin: 2px 0 14px;
+  overflow-x: auto;
+  margin: 0;
+  padding: 1px 1px 7px;
+  scrollbar-width: thin;
 }
 
 .scenario-button {
-  min-height: 58px;
+  flex: 0 0 142px;
+  min-height: 50px;
   border: 1px solid var(--line);
   border-radius: 6px;
-  padding: 8px 10px;
+  padding: 7px 9px;
   background: #fff;
   color: var(--ink);
   text-align: left;
@@ -397,19 +431,51 @@ button:focus-visible {
 }
 
 .scenario-button strong {
-  font-size: 13px;
-  line-height: 1.4;
+  font-size: 12px;
+  line-height: 1.35;
 }
 
 .scenario-button span {
-  margin-top: 4px;
+  margin-top: 2px;
   color: var(--muted);
   font-size: 11px;
 }
 
+.question-entry-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 230px;
+  gap: 10px;
+  align-items: end;
+}
+
+.question-entry-row .field-block {
+  margin: 0;
+}
+
+.question-entry-row textarea {
+  min-height: 58px;
+  max-height: 92px;
+  resize: vertical;
+}
+
+.start-demo-button {
+  min-height: 58px;
+  grid-column: 1 / -1;
+}
+
+.question-entry-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+
+.question-entry-actions button {
+  width: 100%;
+}
+
 .case-summary {
-  margin-bottom: 14px;
-  padding: 12px;
+  margin: 0;
+  padding: 12px 14px;
   border: 1px solid #d6e5ef;
   border-radius: 8px;
   background: #f5f9fd;
@@ -440,7 +506,7 @@ button:focus-visible {
 
 .state-box {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 92px minmax(150px, 1fr) 92px;
   gap: 10px;
   padding: 12px;
   border-radius: 8px;
@@ -450,7 +516,13 @@ button:focus-visible {
 .state-box strong {
   display: block;
   margin-top: 4px;
-  font-size: 18px;
+  overflow-wrap: anywhere;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.control-summary {
+  display: none;
 }
 
 .ghost-button,
@@ -507,10 +579,26 @@ button:focus-visible {
 .message {
   max-width: 780px;
   margin-bottom: 12px;
+  transform-origin: bottom center;
 }
 
 .message.user {
   margin-left: auto;
+}
+
+.message-enter {
+  animation: message-rise 0.68s cubic-bezier(0.22, 0.78, 0.28, 1) both;
+}
+
+@keyframes message-rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .message-card {
@@ -532,6 +620,55 @@ button:focus-visible {
 
 .message.system .message-card {
   background: var(--surface-warm);
+}
+
+.thinking-message .message-card {
+  border-style: dashed;
+  background: #f7fbfa;
+}
+
+.thinking-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 24px;
+  color: var(--teal-dark);
+  font-weight: 800;
+}
+
+.thinking-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.thinking-dots i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  animation: thinking-bounce 1.15s ease-in-out infinite;
+}
+
+.thinking-dots i:nth-child(2) {
+  animation-delay: 0.16s;
+}
+
+.thinking-dots i:nth-child(3) {
+  animation-delay: 0.32s;
+}
+
+@keyframes thinking-bounce {
+  0%,
+  60%,
+  100% {
+    opacity: 0.34;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
 }
 
 .message-meta {
@@ -1115,11 +1252,13 @@ button:focus-visible {
 
 @media (max-width: 1180px) {
   .workspace {
-    grid-template-columns: 300px minmax(0, 1fr);
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "chat"
+      "insights";
   }
 
   .insight-panel {
-    grid-column: 1 / -1;
     position: static;
     grid-template-columns: 1fr 1fr;
   }
@@ -1188,15 +1327,33 @@ button:focus-visible {
 
   .chat-panel {
     min-height: 640px;
-    grid-template-rows: auto minmax(360px, 52vh) auto;
+    grid-template-rows: auto minmax(320px, 48vh) auto;
   }
 
   .composer {
     grid-template-columns: 1fr;
   }
 
-  .scenario-strip {
+  .question-dock-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .question-entry-row {
     grid-template-columns: 1fr;
+  }
+
+  .question-entry-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .start-demo-button {
+    min-height: 42px;
+  }
+
+  .scenario-button {
+    flex-basis: 132px;
   }
 
   .message {
@@ -1232,5 +1389,12 @@ button:focus-visible {
 
   .score-details {
     padding-left: 38px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .message-enter,
+  .thinking-dots i {
+    animation: none;
   }
 }
