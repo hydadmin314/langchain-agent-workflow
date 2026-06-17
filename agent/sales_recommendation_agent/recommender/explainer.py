@@ -12,6 +12,7 @@ from agent.sales_recommendation_agent.recommender.models import (
     ComparedProduct,
     ComparisonResult,
     RecommendationExplanationResult,
+    RecommendationProductExplanation,
 )
 from agent.sales_recommendation_agent.recommender.readiness import ReadinessResult
 from prompts.sales_recommendation_agent_prompts import (
@@ -60,7 +61,19 @@ class RecommendationExplainer:
         )
         prompt = build_recommendation_explainer_user_prompt(payload)
         response_text = self._invoke_llm(prompt)
-        result = parse_explanation_result(response_text)
+        try:
+            result = parse_explanation_result(response_text)
+        except RecommendationExplanationError:
+            # 部分 OpenAI-compatible 模型即使指定 json_object，也可能偶发输出少逗号、
+            # 半截 JSON 或夹杂解释文本。推荐说明属于表达层，不能因为格式问题中断主流程；
+            # 这里退回到程序化说明，并保留 readiness 中的追问计划。
+            result = build_fallback_explanation(
+                query=query,
+                demand=demand,
+                category_decision=category_decision,
+                comparison_result=comparison_result,
+                readiness_result=readiness_result,
+            )
         return apply_explanation_safety_guards(
             result=result,
             category_decision=category_decision,
@@ -224,6 +237,115 @@ def parse_explanation_result(content: str) -> RecommendationExplanationResult:
         raise RecommendationExplanationError(f"Failed to parse recommendation explanation: {exc}") from exc
 
 
+def build_fallback_explanation(
+    *,
+    query: str,
+    demand: CustomerDemand,
+    category_decision: DemandCategoryDecision,
+    comparison_result: ComparisonResult,
+    readiness_result: ReadinessResult | None = None,
+) -> RecommendationExplanationResult:
+    """LLM 推荐说明 JSON 解析失败时的程序化兜底。
+
+    兜底只使用程序已经排序好的候选，不新增产品、不改排序、不编造价格。
+    它的目标是保证交互稳定：即使模型输出格式坏了，销售侧仍能看到推荐方向和追问问题。
+    """
+
+    if not comparison_result.products:
+        return RecommendationExplanationResult(
+            summary="当前没有可推荐候选产品，需要先补充产品数据或继续确认需求。",
+            clarifying_questions=build_readiness_questions(readiness_result),
+        )
+
+    top_product = comparison_result.products[0]
+    top_product_label = format_product_label(top_product)
+    alternative_products = [
+        RecommendationProductExplanation(
+            document_id=product.document_id,
+            product_name=product.product_name,
+            reason=f"产品定位：{format_product_location(product)}。作为备选候选，可结合费用、带宽、限制和办理材料继续比较。",
+        )
+        for product in comparison_result.products[1:3]
+    ]
+    clarifying_questions = build_readiness_questions(readiness_result)
+    risk_reminders = list(comparison_result.global_warnings)
+    if category_decision.primary_category_id == "4":
+        risk_reminders.append("海外访问与跨境加速需要进一步确认资源、合规和实际访问效果。")
+    if readiness_result and readiness_result.assumptions:
+        risk_reminders.extend(readiness_result.assumptions)
+
+    summary = (
+        f"根据当前需求“{query}”，已召回并排序候选产品。"
+        f"当前首推候选方向为：{top_product_label}。"
+    )
+    if demand.bandwidth_need:
+        summary += f"客户已提到带宽需求：{demand.bandwidth_need}。"
+    elif any(intent.field == "bandwidth_need" for intent in (readiness_result.clarification_plan.intents if readiness_result else [])):
+        summary += "客户尚未明确带宽，建议后续按人数、业务系统重要性和预算确认档位。"
+
+    return RecommendationExplanationResult(
+        summary=summary,
+        recommended_product=RecommendationProductExplanation(
+            document_id=top_product.document_id,
+            product_name=top_product.product_name,
+            reason=(
+                f"产品定位：{format_product_location(top_product)}。"
+                "该候选由程序排序为 Top1，可作为首选方向继续核对带宽、价格、协议期和办理材料。"
+            ),
+        ),
+        alternative_products=alternative_products,
+        comparison_summary=[
+            f"{product.product_name}：综合得分 {product.final_score}，召回得分 {product.retrieval_score}。"
+            for product in comparison_result.products[:3]
+        ],
+        risk_reminders=dedupe_texts(risk_reminders),
+        clarifying_questions=clarifying_questions,
+        sales_talk=summary,
+        evidence_notes=[
+            "本说明为 LLM 输出格式异常后的程序兜底说明，只解释程序已排序候选，不改变推荐排序。"
+        ],
+    )
+
+
+def format_product_label(product: ComparedProduct) -> str:
+    """生成带产品目录定位的候选名称。"""
+
+    return f"{product.product_name} [{product.category_path}]" if product.category_path else product.product_name
+
+
+def format_product_location(product: ComparedProduct) -> str:
+    """生成用于推荐说明的产品定位描述。"""
+
+    parts = [
+        product.carrier,
+        product.region,
+        product.product_family,
+        product.category_path,
+        product.document_type,
+    ]
+    return " / ".join(part for part in parts if part) or "资料中未提取到明确目录定位"
+
+
+def build_readiness_questions(readiness_result: ReadinessResult | None) -> list[str]:
+    """把 readiness 的追问计划转成兜底问题。"""
+
+    if readiness_result is None:
+        return []
+
+    questions: list[str] = []
+    for intent in readiness_result.clarification_plan.intents[:3]:
+        if intent.field == "bandwidth_need":
+            questions.append(
+                "客户暂时不确定带宽也没关系，可以先确认使用人数、访问的业务系统、是否有视频会议/大文件传输，"
+                "再在 50M、100M、200M、500M 或 1G 等档位里估一个合适区间。"
+            )
+        elif intent.example_options:
+            questions.append(f"{intent.intent}：可选方向包括 {', '.join(intent.example_options[:4])}。")
+        elif intent.intent:
+            questions.append(intent.intent)
+    return dedupe_texts(questions)
+
+
 def apply_explanation_safety_guards(
     *,
     result: RecommendationExplanationResult,
@@ -284,3 +406,12 @@ def append_unique(values: list[str], value: str) -> None:
     normalized = value.strip()
     if normalized and normalized not in values:
         values.append(normalized)
+
+
+def dedupe_texts(values: list[str]) -> list[str]:
+    """去除空文本和重复文本，保持原始顺序。"""
+
+    result: list[str] = []
+    for value in values:
+        append_unique(result, str(value))
+    return result

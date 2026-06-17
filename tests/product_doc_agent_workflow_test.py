@@ -42,7 +42,7 @@ def main() -> None:
         max_concurrency=6,
     )
     try:
-        result = workflow.run(r"data/raw/1 【20260115起】100M智云上海专线基础版688套餐申请登记表 不带语音.docx")
+        result = workflow.run(r"data/raw/联通/1.1 沃专线/1 【铅印版】中国联通互联网专线接入业务（沃专线类）新装申请表.pdf")
     except Exception as exc:
         print("运行失败：", exc)
         print("建议检查：")
