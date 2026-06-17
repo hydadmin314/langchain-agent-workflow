@@ -1,0 +1,88 @@
+{
+  "template_id": "unicom_wo_zhuanxian_v1",
+  "carrier": "中国联通",
+  "document_name": "中国联通互联网专线接入业务（沃专线类）新装申请表",
+  "notes": [
+    "坐标为相对整页图片的比例：[x0, y0, x1, y1]。",
+    "第一页左侧是主要申请表；右侧和第二页先作为协议文本区域保留。"
+  ],
+  "regions": [
+    {
+      "name": "page1_application_form",
+      "page": 1,
+      "kind": "form",
+      "description": "第一页左侧完整申请表",
+      "box": [0.018, 0.075, 0.485, 0.905]
+    },
+    {
+      "name": "page1_header",
+      "page": 1,
+      "kind": "header",
+      "description": "标题、流水号和表单编号",
+      "box": [0.020, 0.065, 0.485, 0.150]
+    },
+    {
+      "name": "customer_information",
+      "page": 1,
+      "kind": "table",
+      "description": "客户资料 Customer Information",
+      "box": [0.020, 0.125, 0.485, 0.235]
+    },
+    {
+      "name": "account_information",
+      "page": 1,
+      "kind": "table",
+      "description": "账户信息 Account Information",
+      "box": [0.020, 0.230, 0.485, 0.335]
+    },
+    {
+      "name": "sales_person_information",
+      "page": 1,
+      "kind": "table",
+      "description": "业务人员信息 Sales Personnel Information",
+      "box": [0.020, 0.330, 0.485, 0.380]
+    },
+    {
+      "name": "service_information",
+      "page": 1,
+      "kind": "table",
+      "description": "业务信息 Service Information",
+      "box": [0.020, 0.375, 0.485, 0.735]
+    },
+    {
+      "name": "fee_and_term",
+      "page": 1,
+      "kind": "table",
+      "description": "资费、期限和付款相关字段",
+      "box": [0.020, 0.720, 0.485, 0.835]
+    },
+    {
+      "name": "signature_area",
+      "page": 1,
+      "kind": "signature",
+      "description": "客户签章、代理商签字、经办人签字和日期",
+      "box": [0.020, 0.825, 0.485, 0.925]
+    },
+    {
+      "name": "page1_agreement",
+      "page": 1,
+      "kind": "agreement_text",
+      "description": "第一页右侧信息安全承诺书",
+      "box": [0.500, 0.075, 0.985, 0.925]
+    },
+    {
+      "name": "page2_agreement_left",
+      "page": 2,
+      "kind": "agreement_text",
+      "description": "第二页左侧服务协议正文",
+      "box": [0.020, 0.065, 0.500, 0.925]
+    },
+    {
+      "name": "page2_agreement_right",
+      "page": 2,
+      "kind": "agreement_text",
+      "description": "第二页右侧服务协议正文和签章区",
+      "box": [0.500, 0.065, 0.985, 0.925]
+    }
+  ]
+}

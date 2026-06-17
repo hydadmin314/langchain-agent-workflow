@@ -1,0 +1,65 @@
+{
+  "document_info": {
+    "document_id": "pkg_086224b46859",
+    "document_type": "application_form",
+    "title": "中国电信股份有限公司上海分公司互联网专线之“精品专线”营销活动申请登记表(2025/B)",
+    "product_name": "精品专线",
+    "product_family": "互联网专线",
+    "carrier": "中国电信",
+    "region": "上海",
+    "version": "2025/B",
+    "effective_from": "",
+    "effective_to": "",
+    "document_status": "active",
+    "filename": "申请表_互联网专线之“精品专线”营销活动申请登记表.docx",
+    "source_path": "E:\\Code\\langchain-agent-workflow-updata\\data\\product_doc_agent\\package_trials\\input\\产品数据\\上网\\电信\\精品专线",
+    "source_file_type": "docx"
+  },
+  "parties_and_application": {
+    "service_provider": {
+      "name": "",
+      "carrier": "",
+      "region": "",
+      "contact_channels": []
+    },
+    "customer": {
+      "name": "",
+      "filled_values": [],
+      "is_blank_form": true
+    },
+    "application_fields": {
+      "required": [],
+      "optional": []
+    },
+    "application_notes": []
+  },
+  "base_package": {
+    "packages": [],
+    "included_items": [],
+    "service_attributes": [],
+    "sla": {}
+  },
+  "optional_packages": [],
+  "fee_and_term_rules": [],
+  "agreement_rules": [],
+  "application_materials": [],
+  "eligibility_and_constraints": [],
+  "supplemental_rules": [],
+  "extraction_meta": {
+    "generated_at": "2026-06-17T16:00:31",
+    "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\product_doc_agent\\package_trials\\input\\产品数据\\上网\\电信\\精品专线",
+    "source_file_hash": "",
+    "method": "package_context_trial",
+    "llm_self_check": {},
+    "validation_issues": [
+      {
+        "severity": "error",
+        "path": "parties_and_application.application_fields",
+        "message": "申请表没有抽取到任何 application_fields"
+      }
+    ],
+    "validation_issue_count": 1,
+    "schema_warnings": [],
+    "review_status": "draft"
+  }
+}

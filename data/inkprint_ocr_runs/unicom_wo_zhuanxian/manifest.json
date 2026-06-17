@@ -1,0 +1,338 @@
+{
+  "source_pdf": "data\\raw\\联通\\1.1 沃专线\\1 【铅印版】中国联通互联网专线接入业务（沃专线类）新装申请表.pdf",
+  "template_regions": 11,
+  "pages": [
+    {
+      "page": 1,
+      "pdf_size": [
+        1191.5999755859375,
+        842.4000244140625
+      ],
+      "image_size": [
+        4965,
+        3510
+      ],
+      "text_chars": 0,
+      "image_objects": 1,
+      "is_scanned_page": true,
+      "rendered_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian\\pages\\page_001.png",
+      "image_metrics": {
+        "mean_gray": 242.88,
+        "std_gray": 28.39,
+        "dark_pixel_ratio": 0.0065,
+        "width": 4965,
+        "height": 3510
+      }
+    },
+    {
+      "page": 2,
+      "pdf_size": [
+        1191.5999755859375,
+        842.4000244140625
+      ],
+      "image_size": [
+        4965,
+        3510
+      ],
+      "text_chars": 0,
+      "image_objects": 1,
+      "is_scanned_page": true,
+      "rendered_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian\\pages\\page_002.png",
+      "image_metrics": {
+        "mean_gray": 217.49,
+        "std_gray": 22.75,
+        "dark_pixel_ratio": 0.0129,
+        "width": 4965,
+        "height": 3510
+      }
+    }
+  ],
+  "regions": [
+    {
+      "name": "page1_application_form",
+      "page": 1,
+      "kind": "form",
+      "description": "第一页左侧完整申请表",
+      "relative_box": [
+        0.018,
+        0.075,
+        0.485,
+        0.905
+      ],
+      "pixel_box": [
+        89,
+        263,
+        2408,
+        3177
+      ],
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian\\regions\\p001_page1_application_form.png",
+      "image_metrics": {
+        "mean_gray": 222.32,
+        "std_gray": 85.23,
+        "dark_pixel_ratio": 0.1281,
+        "width": 2319,
+        "height": 2914
+      }
+    },
+    {
+      "name": "page1_header",
+      "page": 1,
+      "kind": "header",
+      "description": "标题、流水号和表单编号",
+      "relative_box": [
+        0.02,
+        0.065,
+        0.485,
+        0.15
+      ],
+      "pixel_box": [
+        99,
+        228,
+        2408,
+        526
+      ],
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian\\regions\\p001_page1_header.png",
+      "image_metrics": {
+        "mean_gray": 227.15,
+        "std_gray": 79.54,
+        "dark_pixel_ratio": 0.1092,
+        "width": 2309,
+        "height": 298
+      }
+    },
+    {
+      "name": "customer_information",
+      "page": 1,
+      "kind": "table",
+      "description": "客户资料 Customer Information",
+      "relative_box": [
+        0.02,
+        0.125,
+        0.485,
+        0.235
+      ],
+      "pixel_box": [
+        99,
+        439,
+        2408,
+        825
+      ],
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian\\regions\\p001_customer_information.png",
+      "image_metrics": {
+        "mean_gray": 221.33,
+        "std_gray": 86.33,
+        "dark_pixel_ratio": 0.1321,
+        "width": 2309,
+        "height": 386
+      }
+    },
+    {
+      "name": "account_information",
+      "page": 1,
+      "kind": "table",
+      "description": "账户信息 Account Information",
+      "relative_box": [
+        0.02,
+        0.23,
+        0.485,
+        0.335
+      ],
+      "pixel_box": [
+        99,
+        807,
+        2408,
+        1176
+      ],
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian\\regions\\p001_account_information.png",
+      "image_metrics": {
+        "mean_gray": 221.46,
+        "std_gray": 86.18,
+        "dark_pixel_ratio": 0.1315,
+        "width": 2309,
+        "height": 369
+      }
+    },
+    {
+      "name": "sales_person_information",
+      "page": 1,
+      "kind": "table",
+      "description": "业务人员信息 Sales Personnel Information",
+      "relative_box": [
+        0.02,
+        0.33,
+        0.485,
+        0.38
+      ],
+      "pixel_box": [
+        99,
+        1158,
+        2408,
+        1334
+      ],
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian\\regions\\p001_sales_person_information.png",
+      "image_metrics": {
+        "mean_gray": 222.05,
+        "std_gray": 85.53,
+        "dark_pixel_ratio": 0.1292,
+        "width": 2309,
+        "height": 176
+      }
+    },
+    {
+      "name": "service_information",
+      "page": 1,
+      "kind": "table",
+      "description": "业务信息 Service Information",
+      "relative_box": [
+        0.02,
+        0.375,
+        0.485,
+        0.735
+      ],
+      "pixel_box": [
+        99,
+        1316,
+        2408,
+        2580
+      ],
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian\\regions\\p001_service_information.png",
+      "image_metrics": {
+        "mean_gray": 219.61,
+        "std_gray": 88.16,
+        "dark_pixel_ratio": 0.1388,
+        "width": 2309,
+        "height": 1264
+      }
+    },
+    {
+      "name": "fee_and_term",
+      "page": 1,
+      "kind": "table",
+      "description": "资费、期限和付款相关字段",
+      "relative_box": [
+        0.02,
+        0.72,
+        0.485,
+        0.835
+      ],
+      "pixel_box": [
+        99,
+        2527,
+        2408,
+        2931
+      ],
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian\\regions\\p001_fee_and_term.png",
+      "image_metrics": {
+        "mean_gray": 220.02,
+        "std_gray": 87.73,
+        "dark_pixel_ratio": 0.1372,
+        "width": 2309,
+        "height": 404
+      }
+    },
+    {
+      "name": "signature_area",
+      "page": 1,
+      "kind": "signature",
+      "description": "客户签章、代理商签字、经办人签字和日期",
+      "relative_box": [
+        0.02,
+        0.825,
+        0.485,
+        0.925
+      ],
+      "pixel_box": [
+        99,
+        2896,
+        2408,
+        3247
+      ],
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian\\regions\\p001_signature_area.png",
+      "image_metrics": {
+        "mean_gray": 236.11,
+        "std_gray": 66.79,
+        "dark_pixel_ratio": 0.0741,
+        "width": 2309,
+        "height": 351
+      }
+    },
+    {
+      "name": "page1_agreement",
+      "page": 1,
+      "kind": "agreement_text",
+      "description": "第一页右侧信息安全承诺书",
+      "relative_box": [
+        0.5,
+        0.075,
+        0.985,
+        0.925
+      ],
+      "pixel_box": [
+        2482,
+        263,
+        4891,
+        3247
+      ],
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian\\regions\\p001_page1_agreement.png",
+      "image_metrics": {
+        "mean_gray": 227.81,
+        "std_gray": 78.71,
+        "dark_pixel_ratio": 0.1066,
+        "width": 2409,
+        "height": 2984
+      }
+    },
+    {
+      "name": "page2_agreement_left",
+      "page": 2,
+      "kind": "agreement_text",
+      "description": "第二页左侧服务协议正文",
+      "relative_box": [
+        0.02,
+        0.065,
+        0.5,
+        0.925
+      ],
+      "pixel_box": [
+        99,
+        228,
+        2482,
+        3247
+      ],
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian\\regions\\p002_page2_agreement_left.png",
+      "image_metrics": {
+        "mean_gray": 224.47,
+        "std_gray": 82.78,
+        "dark_pixel_ratio": 0.1197,
+        "width": 2383,
+        "height": 3019
+      }
+    },
+    {
+      "name": "page2_agreement_right",
+      "page": 2,
+      "kind": "agreement_text",
+      "description": "第二页右侧服务协议正文和签章区",
+      "relative_box": [
+        0.5,
+        0.065,
+        0.985,
+        0.925
+      ],
+      "pixel_box": [
+        2482,
+        228,
+        4891,
+        3247
+      ],
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian\\regions\\p002_page2_agreement_right.png",
+      "image_metrics": {
+        "mean_gray": 241.77,
+        "std_gray": 56.56,
+        "dark_pixel_ratio": 0.0519,
+        "width": 2409,
+        "height": 3019
+      }
+    }
+  ]
+}

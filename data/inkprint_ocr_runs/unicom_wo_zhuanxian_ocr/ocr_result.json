@@ -1,0 +1,183 @@
+{
+  "source_pdf": "data\\raw\\联通\\1.1 沃专线\\1 【铅印版】中国联通互联网专线接入业务（沃专线类）新装申请表.pdf",
+  "engine": "paddleocr_init_failed",
+  "regions": [
+    {
+      "name": "page1_application_form",
+      "page": 1,
+      "kind": "form",
+      "description": "第一页左侧完整申请表",
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian_ocr\\regions\\p001_page1_application_form.png",
+      "pixel_box": [
+        89,
+        263,
+        2408,
+        3177
+      ],
+      "text": "",
+      "confidence": 0.0,
+      "lines": []
+    },
+    {
+      "name": "page1_header",
+      "page": 1,
+      "kind": "header",
+      "description": "标题、流水号和表单编号",
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian_ocr\\regions\\p001_page1_header.png",
+      "pixel_box": [
+        99,
+        228,
+        2408,
+        526
+      ],
+      "text": "",
+      "confidence": 0.0,
+      "lines": []
+    },
+    {
+      "name": "customer_information",
+      "page": 1,
+      "kind": "table",
+      "description": "客户资料 Customer Information",
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian_ocr\\regions\\p001_customer_information.png",
+      "pixel_box": [
+        99,
+        439,
+        2408,
+        825
+      ],
+      "text": "",
+      "confidence": 0.0,
+      "lines": []
+    },
+    {
+      "name": "account_information",
+      "page": 1,
+      "kind": "table",
+      "description": "账户信息 Account Information",
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian_ocr\\regions\\p001_account_information.png",
+      "pixel_box": [
+        99,
+        807,
+        2408,
+        1176
+      ],
+      "text": "",
+      "confidence": 0.0,
+      "lines": []
+    },
+    {
+      "name": "sales_person_information",
+      "page": 1,
+      "kind": "table",
+      "description": "业务人员信息 Sales Personnel Information",
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian_ocr\\regions\\p001_sales_person_information.png",
+      "pixel_box": [
+        99,
+        1158,
+        2408,
+        1334
+      ],
+      "text": "",
+      "confidence": 0.0,
+      "lines": []
+    },
+    {
+      "name": "service_information",
+      "page": 1,
+      "kind": "table",
+      "description": "业务信息 Service Information",
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian_ocr\\regions\\p001_service_information.png",
+      "pixel_box": [
+        99,
+        1316,
+        2408,
+        2580
+      ],
+      "text": "",
+      "confidence": 0.0,
+      "lines": []
+    },
+    {
+      "name": "fee_and_term",
+      "page": 1,
+      "kind": "table",
+      "description": "资费、期限和付款相关字段",
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian_ocr\\regions\\p001_fee_and_term.png",
+      "pixel_box": [
+        99,
+        2527,
+        2408,
+        2931
+      ],
+      "text": "",
+      "confidence": 0.0,
+      "lines": []
+    },
+    {
+      "name": "signature_area",
+      "page": 1,
+      "kind": "signature",
+      "description": "客户签章、代理商签字、经办人签字和日期",
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian_ocr\\regions\\p001_signature_area.png",
+      "pixel_box": [
+        99,
+        2896,
+        2408,
+        3247
+      ],
+      "text": "",
+      "confidence": 0.0,
+      "lines": []
+    },
+    {
+      "name": "page1_agreement",
+      "page": 1,
+      "kind": "agreement_text",
+      "description": "第一页右侧信息安全承诺书",
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian_ocr\\regions\\p001_page1_agreement.png",
+      "pixel_box": [
+        2482,
+        263,
+        4891,
+        3247
+      ],
+      "text": "",
+      "confidence": 0.0,
+      "lines": []
+    },
+    {
+      "name": "page2_agreement_left",
+      "page": 2,
+      "kind": "agreement_text",
+      "description": "第二页左侧服务协议正文",
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian_ocr\\regions\\p002_page2_agreement_left.png",
+      "pixel_box": [
+        99,
+        228,
+        2482,
+        3247
+      ],
+      "text": "",
+      "confidence": 0.0,
+      "lines": []
+    },
+    {
+      "name": "page2_agreement_right",
+      "page": 2,
+      "kind": "agreement_text",
+      "description": "第二页右侧服务协议正文和签章区",
+      "image_path": "data\\inkprint_ocr_runs\\unicom_wo_zhuanxian_ocr\\regions\\p002_page2_agreement_right.png",
+      "pixel_box": [
+        2482,
+        228,
+        4891,
+        3247
+      ],
+      "text": "",
+      "confidence": 0.0,
+      "lines": []
+    }
+  ],
+  "engine_error": "{'use_textline_orientation': True, 'lang': 'ch'}: DLL load failed while importing libpaddle: 找不到指定的模块。 | {'use_angle_cls': True, 'lang': 'ch'}: DLL load failed while importing libpaddle: 找不到指定的模块。 | {'lang': 'ch'}: DLL load failed while importing libpaddle: 找不到指定的模块。"
+}
