@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import shutil
+from collections.abc import Collection
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -14,8 +15,14 @@ from agent.product_doc_agent.markdown_context_splitter import (
     build_module_contexts_from_markdown,
     render_module_contexts_debug,
 )
-from agent.product_doc_agent.markdown_renderer import MarkdownRenderer
+from agent.product_doc_agent.markdown_renderer import (
+    DEFAULT_OCR_DIRECT_FILE_TYPES,
+    DEFAULT_OCR_FALLBACK_FILE_TYPES,
+    MarkdownRenderer,
+    normalize_file_types,
+)
 from agent.product_doc_agent.merger import ProductDocumentMerger
+from agent.product_doc_agent.ocr_flow.debug_writer import OCRFlowDebugWriter
 from agent.product_doc_agent.schema_normalizer import ProductDocumentNormalizer
 from agent.product_doc_agent.validator import ProductDocumentValidator
 from utils.logger import logger
@@ -44,13 +51,25 @@ class ProductDocAgentWorkflow:
         max_concurrency: int | None = None,
         enable_self_check: bool = True,
         enable_debug_markdown: bool = True,
+        enable_ocr_flow: bool = True,
+        ocr_page_dpi: int = 160,
+        ocr_markdown_min_chars: int = 50,
+        ocr_direct_file_types: Collection[str] | None = None,
+        ocr_fallback_file_types: Collection[str] | None = None,
     ) -> None:
         self.data_root = Path(data_root)
         self.review_dir = self.data_root / "review"
         self.published_dir = self.data_root / "published"
         self.debug_dir = self.data_root / "debug"
         self.loader = DocumentLoader()
-        self.markdown_renderer = MarkdownRenderer()
+        self.markdown_renderer = MarkdownRenderer(
+            enable_ocr_flow=enable_ocr_flow,
+            ocr_page_dpi=ocr_page_dpi,
+            ocr_markdown_min_chars=ocr_markdown_min_chars,
+            ocr_direct_file_types=ocr_direct_file_types,
+            ocr_fallback_file_types=ocr_fallback_file_types,
+        )
+        self.ocr_debug_writer = OCRFlowDebugWriter(debug_root=self.debug_dir / "ocr")
         self.extractor = ProductDocumentLLMExtractor(
             llm=llm,
             max_context_chars=max_context_chars,
@@ -61,6 +80,14 @@ class ProductDocAgentWorkflow:
         self.validator = ProductDocumentValidator()
         self.enable_self_check = enable_self_check
         self.enable_debug_markdown = enable_debug_markdown
+        self.enable_ocr_flow = enable_ocr_flow
+        self.ocr_markdown_min_chars = max(0, ocr_markdown_min_chars)
+        self.ocr_direct_file_types = normalize_file_types(
+            ocr_direct_file_types or DEFAULT_OCR_DIRECT_FILE_TYPES
+        )
+        self.ocr_fallback_file_types = normalize_file_types(
+            ocr_fallback_file_types or DEFAULT_OCR_FALLBACK_FILE_TYPES
+        )
 
     def run(self, file_path: str | Path) -> WorkflowResult:
         """同步入口，方便测试脚本直接调用。"""
@@ -90,7 +117,8 @@ class ProductDocAgentWorkflow:
         """文档解析 -> Markdown -> 模块切块 -> LLM 抽取 -> 合并 -> 校验。"""
         # 1. 先把原始文档完整转换成 Markdown。
         # 不在这里截断整篇文档，避免靠后的协议、材料、补充规则在切模块前被丢弃。
-        llm_markdown = self.markdown_renderer.render_document(loaded_document)
+        markdown_result = self.markdown_renderer.render_document_result(loaded_document)
+        llm_markdown = markdown_result.markdown
 
         # 2. 再按 schema 模块切出各自上下文，并在 splitter 内按模块预算截断。
         module_contexts = build_module_contexts_from_markdown(
@@ -101,6 +129,7 @@ class ProductDocAgentWorkflow:
         # 调试开关：测试切块质量时保留 True；正式批量抽取时传 enable_debug_markdown=False 即可关闭两个 md 文件输出。
         if self.enable_debug_markdown:
             self.write_debug_markdown(loaded_document, llm_markdown, module_contexts)
+            self.write_markdown_source_debug(loaded_document, markdown_result)
 
         # 3. 并发抽取 9 个模块；模块失败时保留错误并继续生成可审核 JSON。
         module_outputs = await self.extractor.extract_modules_async(
@@ -111,6 +140,7 @@ class ProductDocAgentWorkflow:
         module_errors = module_outputs.get("__module_errors__", [])
         # 4. 初次合并并归一化，得到 self_check 可检查的完整 JSON。
         product_document = self.merge_and_normalize(module_outputs, loaded_document)
+        self.attach_markdown_result(product_document, markdown_result)
 
         if module_errors:
             product_document["extraction_meta"]["schema_warnings"].append("部分模块抽取失败，已跳过 LLM 自检。")
@@ -141,6 +171,7 @@ class ProductDocAgentWorkflow:
             module_outputs.update(rework_outputs)
             module_errors.extend(rework_errors)
             product_document = self.merge_and_normalize(module_outputs, loaded_document)
+            self.attach_markdown_result(product_document, markdown_result)
             if self_check:
                 product_document = self.merger.apply_self_check(product_document, self_check)
             product_document["extraction_meta"].setdefault("llm_self_check", {})[
@@ -169,6 +200,11 @@ class ProductDocAgentWorkflow:
         program_issues.extend(module_error_to_issue(module_error) for module_error in module_errors)
         program_issues.extend(loader_warning_to_issue(warning) for warning in loaded_document.warnings)
         return self.validator.attach_issues(product_document, program_issues)
+
+    def attach_markdown_result(self, product_document: dict[str, Any], markdown_result: Any) -> None:
+        meta = product_document.setdefault("extraction_meta", {})
+        meta["markdown_source"] = markdown_result.source
+        meta["markdown_meta"] = markdown_result.metadata
 
     def merge_and_normalize(
         self,
@@ -213,6 +249,22 @@ class ProductDocAgentWorkflow:
         module_path = self.debug_dir / f"{loaded_document.document_id}_module_contexts.md"
         module_path.write_text(render_module_contexts_debug(module_contexts), encoding="utf-8")
         logger.info(f"LLM markdown debug files written: {full_path}, {module_path}")
+
+    def write_markdown_source_debug(self, loaded_document: LoadedDocument, markdown_result: Any) -> None:
+        if markdown_result.source != "vision_ocr_markdown" or not markdown_result.pages:
+            return
+        metadata = {
+            "source_path": loaded_document.source_path,
+            "markdown_source": markdown_result.source,
+            "markdown_path": str(self.debug_dir / f"{loaded_document.document_id}_llm_markdown.md"),
+            "module_context_path": str(self.debug_dir / f"{loaded_document.document_id}_module_contexts.md"),
+            **markdown_result.metadata,
+        }
+        self.ocr_debug_writer.write(
+            document_id=loaded_document.document_id,
+            pages=markdown_result.pages,
+            metadata=metadata,
+        )
 
     def write_rework_comparison(
         self,

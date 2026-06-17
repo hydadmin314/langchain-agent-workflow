@@ -1,0 +1,20 @@
+{
+  "source_path": "data\\raw\\联通\\1.1 沃专线\\1 【铅印版】中国联通互联网专线接入业务（沃专线类）新装申请表.pdf",
+  "pages": [
+    {
+      "page_number": 1,
+      "width": 2648,
+      "height": 1872,
+      "mime_type": "image/png",
+      "image_path": "data\\product_doc_agent\\debug\\ocr\\doc_ece64b66cabb\\page_001.png"
+    },
+    {
+      "page_number": 2,
+      "width": 2648,
+      "height": 1872,
+      "mime_type": "image/png",
+      "image_path": "data\\product_doc_agent\\debug\\ocr\\doc_ece64b66cabb\\page_002.png"
+    }
+  ],
+  "markdown_path": "data\\product_doc_agent\\debug\\ocr\\doc_ece64b66cabb\\vision_markdown.md"
+}

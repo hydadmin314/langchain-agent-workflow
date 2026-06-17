@@ -13,7 +13,7 @@ from langchain_core.messages import HumanMessage
 
 from agent.product_doc_agent.schema_normalizer import normalize_to_module_schema
 from agent.product_doc_agent.validator import validate_against_schema
-from config.llm_config import get_llm
+from config.llm_config import get_product_doc_text_llm
 from config.settings import (
     PRODUCT_DOC_AGENT_RATE_LIMIT_MAX_ATTEMPTS,
     PRODUCT_DOC_AGENT_RATE_LIMIT_RETRY_SECONDS,
@@ -61,7 +61,7 @@ class ProductDocumentLLMExtractor:
         max_context_chars: int = 60000,
         max_concurrency: int | None = None,
     ) -> None:
-        self.llm = llm or get_llm(temperature=0)
+        self.llm = llm or get_product_doc_text_llm(temperature=0)
         self.max_context_chars = max_context_chars
         self.max_concurrency = max(1, max_concurrency or len(EXTRACTION_MODULES))
         self.rate_limit_max_attempts = max(1, PRODUCT_DOC_AGENT_RATE_LIMIT_MAX_ATTEMPTS)
