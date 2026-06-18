@@ -1,0 +1,228 @@
+[
+  {
+    "rule_type": "restriction",
+    "description": "本活动仅限企业自用，ISP、IDC、CDN经营的客户不适用本套餐，需另行签订协议。",
+    "severity": "high",
+    "applies_to": [
+      "ISP",
+      "IDC",
+      "CDN经营的客户"
+    ],
+    "obligation_party": "customer",
+    "conditions": [
+      "客户为ISP、IDC、CDN经营的客户"
+    ],
+    "consequence": "不适用本套餐，需另行签订协议",
+    "raw_text": "本活动仅限企业自用，ISP、IDC、CDN经营的客户不适用本套餐，需另行签订协议。"
+  },
+  {
+    "rule_type": "restriction",
+    "description": "同一政企客户名下参加本活动办理移动优惠套餐，原套餐月基本费之和应小于等于精品专线业务的签约消费金额。",
+    "severity": "high",
+    "applies_to": [
+      "政企客户"
+    ],
+    "obligation_party": "customer",
+    "conditions": [
+      "同一政企客户名下参加本活动办理移动优惠套餐"
+    ],
+    "consequence": "原套餐月基本费之和应小于等于“精品专线业务的签约消费金额”",
+    "raw_text": "同一政企客户名下参加本活动，仅限新装移动设备号，办理上述5G畅享套餐后，月基本费降至1元/月/号，原套餐月基本费之和应小于等于“精品专线业务的签约消费金额”（元/月）"
+  },
+  {
+    "rule_type": "obligation",
+    "description": "客户注销业务时需归还终端衍生服务中提供的终端设备。",
+    "severity": "medium",
+    "applies_to": [
+      "商云通客户"
+    ],
+    "obligation_party": "customer",
+    "conditions": [
+      "客户注销业务时"
+    ],
+    "consequence": "需归还终端衍生服务中提供的终端设备",
+    "raw_text": "客户注销业务时需归还终端衍生服务中提供的终端设备"
+  },
+  {
+    "rule_type": "restriction",
+    "description": "SLA服务等级-1A仅对基础套餐精品专线特定速率提供。",
+    "severity": "medium",
+    "applies_to": [
+      "精品专线客户"
+    ],
+    "obligation_party": "telecom",
+    "conditions": [
+      "基础套餐精品专线速率为200M/200M，300M/300M或500M/500M，800M/800M"
+    ],
+    "consequence": "提供SLA 1A服务",
+    "raw_text": "本服务仅对基础套餐精品专线200M/200M，300M/300M或500M/500M，800M/800M速率提供。"
+  },
+  {
+    "rule_type": "penalty",
+    "description": "若中国电信上海公司未按照SLA 1A服务标准提供服务的，按照附页《SLA服务内容》所列标准予以赔偿。",
+    "severity": "medium",
+    "applies_to": [
+      "精品专线客户"
+    ],
+    "obligation_party": "telecom",
+    "conditions": [
+      "中国电信上海公司未按照SLA 1A服务标准提供服务"
+    ],
+    "consequence": "按照附页《SLA服务内容》所列标准予以赔偿",
+    "raw_text": "若中国电信上海公司未按照SLA 1A服务标准提供服务的，按照附页《SLA服务内容》所列标准予以赔偿。"
+  },
+  {
+    "rule_type": "obligation",
+    "description": "营销规则期满后，客户不续约办理注销手续时，需归还定制网关并保证完好，不能归还需支付设备费用1000元/台。",
+    "severity": "high",
+    "applies_to": [
+      "精品专线客户"
+    ],
+    "obligation_party": "customer",
+    "conditions": [
+      "营销规则期满后，客户不续约，办理相关产品注销手续"
+    ],
+    "consequence": "需归还中国电信领航者Navigator定制网关并保证完好，不能归还需支付1000元/台",
+    "raw_text": "营销规则期满后，客户不续约的，可以办理相关产品注销手续（需归还中国电信领航者Navigator定制网关（A8-C定制终端）并保证该设备的完好可用，不能归还的，客户需向中国电信上海公司支付该终端设备费用：1000元/台）。"
+  },
+  {
+    "rule_type": "termination",
+    "description": "如客户办理宽带业务注销、过户、停机保号等业务的，视为客户主动退出本营销活动。",
+    "severity": "high",
+    "applies_to": [
+      "精品专线客户"
+    ],
+    "obligation_party": "customer",
+    "conditions": [
+      "客户办理宽带业务注销（拆机）、过户、停机保号等业务"
+    ],
+    "consequence": "视为客户主动退出本营销活动",
+    "raw_text": "如客户办理宽带业务注销（拆机）、过户、停机保号等业务的，视为客户主动退出本营销活动。"
+  },
+  {
+    "rule_type": "penalty",
+    "description": "因客户原因退出本活动或导致本活动提前终止的，客户应结清费用及违约金。",
+    "severity": "high",
+    "applies_to": [
+      "天翼安全大脑可选包客户"
+    ],
+    "obligation_party": "customer",
+    "conditions": [
+      "因客户原因退出本活动或导致本活动提前终止"
+    ],
+    "consequence": "客户应结清之前已使用的费用及违约金",
+    "raw_text": "因客户原因退出本活动或导致本活动提前终止的,客户应结清之前已使用的费用及违约金"
+  },
+  {
+    "rule_type": "penalty",
+    "description": "协议期内，若政企客户提前退出专线业务，移动套餐全部恢复标准资费收取。",
+    "severity": "high",
+    "applies_to": [
+      "政企客户"
+    ],
+    "obligation_party": "customer",
+    "conditions": [
+      "协议期内，政企客户提前退出本活动说明第（一）条项下参加活动的专线业务"
+    ],
+    "consequence": "本活动项下的移动套餐全部恢复对应档次的套餐月基本费标准资费收取费用",
+    "raw_text": "协议期内，若政企客户提前退出本活动说明第（一）条项下参加活动的专线业务，则本活动项下的移动套餐全部恢复对应档次的套餐月基本费标准资费收取费用。"
+  },
+  {
+    "rule_type": "penalty",
+    "description": "协议期内，设备号发生更名、过户、拆机视为自动退出续约活动，移动套餐恢复标准资费。",
+    "severity": "high",
+    "applies_to": [
+      "政企客户"
+    ],
+    "obligation_party": "customer",
+    "conditions": [
+      "协议期内，参加本活动的设备号发生更名、过户、拆机"
+    ],
+    "consequence": "视为自动退出续约活动，该设备号办理的移动套餐恢复对应档次的套餐月基本费标准资费收取费用",
+    "raw_text": "协议期内，参加本活动的设备号发生更名、过户、拆机均视为自动退出续约活动，该设备号办理的移动套餐恢复对应档次的套餐月基本费标准资费收取费用。"
+  },
+  {
+    "rule_type": "prohibition",
+    "description": "客户不得利用服务从事违法行为、违规外呼、诈骗等，否则电信有权终止服务并收回号码。",
+    "severity": "high",
+    "applies_to": [
+      "所有客户"
+    ],
+    "obligation_party": "customer",
+    "conditions": [
+      "客户利用服务从事违法行为、违规外呼行为、外呼骚扰行为、诈骗行为、呼叫频次异常行为等"
+    ],
+    "consequence": "中国电信上海公司有权终止对客户提供服务并收回相应号码及其他管控手段，损失由客户承担",
+    "raw_text": "不得利用中国电信上海公司提供的服务从事违法行为、违规外呼行为、外呼骚扰行为、诈骗行为、呼叫频次异常行为和其他有损中国电信上海公司利益、第三方利益或社会公共利益的行为。客户号码一旦出现上述情形，或被投诉、被举报查证属实的，中国电信上海公司有权终止对客户提供服务并收回相应号码及其他管控手段，由此产生的损失由客户承担。"
+  },
+  {
+    "rule_type": "prohibition",
+    "description": "客户未经同意不得转让商云通业务使用权。",
+    "severity": "medium",
+    "applies_to": [
+      "商云通客户"
+    ],
+    "obligation_party": "customer",
+    "conditions": [
+      "客户未经中国电信上海公司同意转让商云通业务使用权"
+    ],
+    "consequence": "客户将承担其行为所引发的一切责任",
+    "raw_text": "客户未经中国电信上海公司同意不得转让商云通业务使用权，否则，客户将承担其行为所引发的一切责任。"
+  },
+  {
+    "rule_type": "termination",
+    "description": "电信发现客户填写或提供内容与实际不符，有权终止协议。",
+    "severity": "high",
+    "applies_to": [
+      "所有客户"
+    ],
+    "obligation_party": "telecom",
+    "conditions": [
+      "中国电信上海公司发现客户所填写或所提供的内容与实际不符"
+    ],
+    "consequence": "有权终止本服务协议",
+    "raw_text": "中国电信上海公司如发现客户所填写或所提供的内容与实际不符，有权终止本服务协议。"
+  },
+  {
+    "rule_type": "obligation",
+    "description": "商云通网关设备仅用于传真业务的办公场景，发现复接或连接其他终端，电信有权终止服务并回收号码。",
+    "severity": "high",
+    "applies_to": [
+      "商云通客户"
+    ],
+    "obligation_party": "customer",
+    "conditions": [
+      "甲方使用的商云通设备为网关类型，且存在复接设备或连接其他终端的情况"
+    ],
+    "consequence": "中国电信上海公司有权终止对甲方提供服务并回收相应号码，损失由甲方承担",
+    "raw_text": "若甲方使用的商云通设备为网关类型，则应承诺本网关设备仅用于传真业务的办公场景，即本网关设备只接入传真机或模拟电话机。如中国电信上海公司发现本网关存在复接设备或连接其他终端的情况，有权终止对甲方提供服务并回收相应号码，由此产生的损失由甲方承担。"
+  },
+  {
+    "rule_type": "obligation",
+    "description": "商云通使用地点限制于登记的安装地址，发现不符电信有权终止服务并回收号码。",
+    "severity": "high",
+    "applies_to": [
+      "商云通客户"
+    ],
+    "obligation_party": "customer",
+    "conditions": [
+      "中国电信上海公司发现甲方填写地址与实际使用地址不符"
+    ],
+    "consequence": "中国电信上海公司有权终止对甲方提供服务并回收相应号码，损失由甲方承担",
+    "raw_text": "甲方商云通使用地点限制于办理业务时所登记的安装地址，任一安装地址的变更需及时通知中国电信上海公司进行信息修改，若中国电信上海公司发现甲方填写地址与实际使用地址不符，中国电信上海公司有权终止对甲方提供服务并回收相应号码，由此产生的损失由甲方承担。"
+  },
+  {
+    "rule_type": "prohibition",
+    "description": "客户私自经营长话业务或进行长途国际话音转接，电信有权立即终止所有服务。",
+    "severity": "high",
+    "applies_to": [
+      "所有客户"
+    ],
+    "obligation_party": "customer",
+    "conditions": [
+      "业务使用期间，客户私自利用业务服务经营长话业务或进行长途国际话音转接"
+    ],
+    "consequence": "中国电信上海公司有权立即终止提供所有服务，本规则终止",
+    "raw_text": "业务使用期间，客户如私自利用中国电信上海公司所提供的业务服务经营长话业务或进行长途国际话音转接的，一经发现，中国电信上海公司有权立即终止提供所有服务，本规则终止。"
+  }
+]

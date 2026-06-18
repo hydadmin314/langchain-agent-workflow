@@ -20,6 +20,61 @@ MODULE_CONTEXT_CHAR_LIMITS: dict[str, int] = {
     "supplemental_rules": 6000,
 }
 
+NEW_SCHEMA_MODULES = [
+    "application_form_info.document_info",
+    "application_form_info.parties_and_application",
+    "application_form_info.pricing_info",
+    "application_form_info.agreement_rules",
+    "application_form_info.eligibility_and_constraints",
+    "supplementary_info.product_intro",
+    "supplementary_info.product_keywords",
+    "supplementary_info.pricing_info",
+    "supplementary_info.application_materials",
+]
+
+NEW_SCHEMA_MODULE_CONTEXT_CHAR_LIMITS: dict[str, int] = {
+    "application_form_info.document_info": 4000,
+    "application_form_info.parties_and_application": 8000,
+    "application_form_info.pricing_info": 14000,
+    "application_form_info.agreement_rules": 12000,
+    "application_form_info.eligibility_and_constraints": 10000,
+    "supplementary_info.product_intro": 8000,
+    "supplementary_info.product_keywords": 6000,
+    "supplementary_info.pricing_info": 16000,
+    "supplementary_info.application_materials": 10000,
+}
+
+ROLE_TARGET_MODULES: dict[str, list[str]] = {
+    "application_form": [
+        "application_form_info.document_info",
+        "application_form_info.parties_and_application",
+        "application_form_info.pricing_info",
+        "application_form_info.agreement_rules",
+        "application_form_info.eligibility_and_constraints",
+    ],
+    "product_intro": [
+        "supplementary_info.product_intro",
+    ],
+    "product_keywords": [
+        "supplementary_info.product_keywords",
+    ],
+    "pricing_sheet": [
+        "supplementary_info.pricing_info",
+    ],
+    "application_materials": [
+        "supplementary_info.application_materials",
+    ],
+    "unknown": [],
+}
+
+ROLE_ALIASES: dict[str, str] = {
+    "pricing_table": "pricing_sheet",
+    "procedure_hint": "application_materials",
+    "authorization_template": "application_materials",
+    "guarantee_template": "application_materials",
+    "material_template": "application_materials",
+}
+
 
 @dataclass(frozen=True)
 class MarkdownBlock:
@@ -47,14 +102,13 @@ class MarkdownDocumentSlices:
 
 
 def build_module_contexts_from_markdown(markdown: str, *, max_chars: int) -> dict[str, str]:
-    """把 MarkItDown Markdown 切成 9 个 schema 模块各自需要的上下文。
+    """把 MarkItDown Markdown 切成 schema 模块各自需要的上下文。
 
     当前策略尽量保持通用：
     1. 先去掉图片和空表格行，减少无意义 token。
     2. 再按 Markdown 表格行、标题、段落切成小块。
-    3. 如果输入中包含 product_doc_source 注释，则按文件角色做产品包级证据路由。
-    4. base_package 和 optional_packages 仍优先取申请表套餐区，避免越界到后面的营销规则。
-    5. fee_and_term_rules 同时取套餐区、资费表和规则区中所有金额、费用、协议期、违约金相关内容。
+    3. 如果输入中包含 product_doc_source 注释，则按新 schema 的 role -> target_modules 路由。
+    4. 没有角色标记时，保留旧 9 模块单文件切块逻辑，避免影响旧 workflow。
     """
 
     blocks = parse_markdown_blocks(markdown)
@@ -62,7 +116,7 @@ def build_module_contexts_from_markdown(markdown: str, *, max_chars: int) -> dic
     package_mode = has_source_metadata(blocks)
 
     if package_mode:
-        return build_package_module_contexts(blocks, max_chars=max_chars)
+        return build_role_target_module_contexts(blocks, max_chars=max_chars)
 
     contexts = {
         "document_info": render_context(
@@ -169,6 +223,67 @@ def build_package_module_contexts(blocks: list[MarkdownBlock], *, max_chars: int
         )
         for module_name in EXTRACTION_MODULES
     }
+
+
+def build_role_target_module_contexts(blocks: list[MarkdownBlock], *, max_chars: int) -> dict[str, str]:
+    """新 schema 模式：按图片中的 role -> schema module 映射生成上下文。
+
+    这个函数只负责分块验证，不改变旧 schema 的正式抽取模块。
+    输入 Markdown 中需要带 product_doc_source 注释，例如：
+    <!-- product_doc_source: {"doc_role": "application_form", "source_file": "4 申请表.docx"} -->
+    """
+
+    target_modules = resolve_target_modules(blocks)
+    contexts = {
+        module_name: render_new_schema_context(blocks, module_name)
+        for module_name in target_modules
+    }
+
+    return {
+        module_name: limit_markdown_context(
+            contexts.get(module_name, ""),
+            max_chars=min(max_chars, NEW_SCHEMA_MODULE_CONTEXT_CHAR_LIMITS[module_name]),
+        )
+        for module_name in target_modules
+    }
+
+
+def resolve_target_modules(blocks: list[MarkdownBlock]) -> list[str]:
+    """根据输入中的 doc_role，按 ROLE_TARGET_MODULES 得到本次应该抽取的模块。"""
+
+    modules: list[str] = []
+    seen: set[str] = set()
+    roles = [canonical_doc_role(block.doc_role) for block in blocks if block.doc_role]
+    for role in roles:
+        for module_name in ROLE_TARGET_MODULES.get(role, []):
+            if module_name in seen:
+                continue
+            seen.add(module_name)
+            modules.append(module_name)
+    return modules
+
+
+def render_new_schema_context(blocks: list[MarkdownBlock], module_name: str) -> str:
+    """按新 schema 模块挑选证据块。"""
+
+    predicate = NEW_SCHEMA_MODULE_PREDICATES.get(module_name)
+    if predicate is None:
+        selected: list[MarkdownBlock] = []
+    else:
+        selected = filter_blocks(blocks, predicate)
+    selected = prioritize_blocks_for_new_schema_module(module_name, selected)
+    return render_context(selected, include_source_comments=True)
+
+
+def prioritize_blocks_for_new_schema_module(module_name: str, blocks: list[MarkdownBlock]) -> list[MarkdownBlock]:
+    """新 schema 模块内按来源角色排序，降低重复抽和上下文挤占。"""
+
+    role_order = NEW_SCHEMA_MODULE_ROLE_PRIORITY.get(module_name, ())
+    if not role_order:
+        return blocks
+    priority = {role: index for index, role in enumerate(role_order)}
+    fallback = len(role_order)
+    return sorted(blocks, key=lambda block: (priority.get(canonical_doc_role(block.doc_role), fallback), block.index))
 
 
 def render_package_context(
@@ -347,9 +462,20 @@ def render_module_contexts_debug(module_contexts: dict[str, str]) -> str:
     """生成调试文件，便于检查每个模块实际拿到的 Markdown。"""
 
     sections = ["# Product Document Module Contexts", ""]
-    for module_name in EXTRACTION_MODULES:
+    module_order = debug_module_order(module_contexts)
+    for module_name in module_order:
         sections.extend(["", f"## {module_name}", "", module_contexts.get(module_name, "")])
     return "\n".join(sections)
+
+
+def debug_module_order(module_contexts: dict[str, str]) -> list[str]:
+    """debug 输出按新/旧 schema 的固定顺序展示。"""
+
+    if any(module_name in module_contexts for module_name in NEW_SCHEMA_MODULES):
+        ordered = [module_name for module_name in NEW_SCHEMA_MODULES if module_name in module_contexts]
+        extras = [module_name for module_name in module_contexts if module_name not in ordered]
+        return [*ordered, *extras]
+    return EXTRACTION_MODULES
 
 
 def filter_blocks(blocks: list[MarkdownBlock], predicate: Callable[[MarkdownBlock], bool]) -> list[MarkdownBlock]:
@@ -371,7 +497,17 @@ def split_long_rule_block(block: MarkdownBlock) -> list[MarkdownBlock]:
     parts = split_rule_text(text)
     if len(parts) <= 1:
         return [block]
-    return [MarkdownBlock(index=block.index, block_type="paragraph", text=part) for part in parts]
+    return [
+        MarkdownBlock(
+            index=block.index,
+            block_type="paragraph",
+            text=part,
+            source_file=block.source_file,
+            source_path=block.source_path,
+            doc_role=block.doc_role,
+        )
+        for part in parts
+    ]
 
 
 def split_rule_text(text: str) -> list[str]:
@@ -501,7 +637,13 @@ def has_source_metadata(blocks: list[MarkdownBlock]) -> bool:
 
 
 def has_role(block: MarkdownBlock, *roles: str) -> bool:
-    return block.doc_role in roles
+    canonical_roles = {canonical_doc_role(role) for role in roles}
+    return canonical_doc_role(block.doc_role) in canonical_roles
+
+
+def canonical_doc_role(role: str) -> str:
+    normalized = normalize_for_match(role)
+    return ROLE_ALIASES.get(normalized, normalized or "unknown")
 
 
 def is_package_start_block(block: MarkdownBlock) -> bool:
@@ -641,6 +783,364 @@ def is_supplemental_context(block: MarkdownBlock) -> bool:
     if has_role(block, "procedure_hint", "risk_notice"):
         return contains_any(block.text, (*PROCEDURE_TERMS, *RISK_TERMS))
     return is_supplemental_section_start(block)
+
+
+def is_application_form_document_info_context(block: MarkdownBlock) -> bool:
+    if not has_role(block, "application_form"):
+        return False
+    return is_document_identity_block(block)
+
+
+def is_document_identity_block(block: MarkdownBlock) -> bool:
+    """只保留真正用于 document_info 的标题、公司、版本、文档编号等短文本。
+
+    不能用“电信/生效/产品”等宽泛关键词，否则可选包、填表说明和协议条款会串入
+    application_form_info.document_info。
+    """
+
+    text = str(block.text or "").strip()
+    if not text:
+        return False
+    if block.block_type == "table_row":
+        return False
+    if re.match(r"^\s*\d+[.、．）)]", text):
+        return False
+    if contains_any(text, ("本规则作为", "补充协议", "客户签署", "条款相冲突")):
+        return False
+    if "营销活动规则" in normalize_for_match(text):
+        return False
+    # 规则正文、填表说明、可选包说明通常很长；document_info 只需要页眉和标题附近短文本。
+    if len(text) > 260:
+        return False
+
+    normalized = normalize_for_match(text)
+    if re.search(r"[A-Z]{2,}[A-Z0-9/]*/[A-Z0-9-]*\d{4}", text):
+        return True
+    if re.search(r"\(\s*20\d{2}\s*/\s*[A-Z]\s*\)", text):
+        return True
+    if "申请登记表" in normalized or "申请表" in normalized:
+        return True
+    if normalized in {
+        normalize_for_match("中国电信股份有限公司上海分公司"),
+        normalize_for_match("中国电信上海公司"),
+    }:
+        return True
+    if text.startswith("**") and text.endswith("**") and contains_any(text, ("中国电信", "精品专线", "互联网专线")):
+        return True
+    return False
+
+
+def is_application_form_parties_context(block: MarkdownBlock) -> bool:
+    if not has_role(block, "application_form"):
+        return False
+    return is_application_party_or_field_block(block)
+
+
+def is_application_party_or_field_block(block: MarkdownBlock) -> bool:
+    """只保留代理商/客户/办理字段，不把套餐、可选包、协议规则串进来。"""
+
+    text = str(block.text or "").strip()
+    if not text:
+        return False
+
+    if is_non_party_business_block(text):
+        return False
+
+    # 申请表里的客户/办理信息基本都在表格行里，且是字段标签或候选项。
+    if block.block_type == "table_row":
+        return contains_any(text, APPLICATION_FIELD_LABEL_TERMS)
+
+    # 非表格文本只收很短的代理商/销售人员/客户字段说明。
+    if len(text) > 180:
+        return False
+    return contains_any(text, AGENT_CUSTOMER_SHORT_TERMS)
+
+
+def is_non_party_business_block(text: str) -> bool:
+    """排除套餐、资费、可选包、协议、限制等非 parties_and_application 内容。"""
+
+    if len(text) > 650:
+        return True
+    return contains_any(
+        text,
+        (
+            "基础套餐",
+            "套餐资费",
+            "速率",
+            "费用",
+            "元/月",
+            "元/年",
+            "元/2年",
+            "可选增值",
+            "可选产品",
+            "可选包",
+            "增值服务",
+            "天翼安全大脑",
+            "移动业务",
+            "商云通",
+            "SLA服务",
+            "服务等级",
+            "填表说明",
+            "营销活动规则",
+            "本规则",
+            "协议期",
+            "违约金",
+            "欠费",
+            "拆机",
+            "注销",
+            "终止",
+            "赔偿",
+            "不得参加",
+            "不适用本套餐",
+        ),
+    )
+
+
+def is_application_form_pricing_context(block: MarkdownBlock) -> bool:
+    if not has_role(block, "application_form"):
+        return False
+    return is_application_form_pricing_block(block)
+
+
+def is_application_form_pricing_block(block: MarkdownBlock) -> bool:
+    """只保留产品套餐费用目录需要的证据。
+
+    pricing_info 对应 one_time_fees/base_package_prices/addon_prices/
+    fee_and_term_rules/discount_policy。普通客户字段、填表说明、合规承诺和
+    无费用含义的协议条款不进入该模块。
+    """
+
+    text = str(block.text or "").strip()
+    if not text:
+        return False
+    if is_non_pricing_application_block(text):
+        return False
+
+    if block.block_type == "table_row":
+        return is_pricing_table_row(text)
+
+    return is_pricing_rule_text(text)
+
+
+def is_pricing_table_row(text: str) -> bool:
+    """申请表表格中的套餐、增值、一次性费用、折扣/条件行。"""
+
+    if is_application_field_only_row(text):
+        return False
+    if starts_with_any_label(text, ("填表说明", "填写说明")):
+        return False
+
+    table_anchors = (
+        "基础套餐申请信息",
+        "基础套餐",
+        "套餐内包含内容",
+        "付费升级",
+        "可选增值服务",
+        "可选产品",
+        "增值服务",
+        "天翼安全大脑",
+        "移动业务",
+        "商云通",
+        "新装优惠",
+        "一次性接入费",
+        "SLA服务",
+        "服务等级",
+        "套餐类型",
+    )
+    if contains_any(text, table_anchors):
+        return True
+    return has_money_amount(text) and contains_any(
+        text,
+        (
+            "套餐",
+            "资费",
+            "费用",
+            "月付",
+            "年付",
+            "2年付",
+            "增值",
+            "升级",
+            "接入费",
+            "违约金",
+            "折扣",
+        ),
+    )
+
+
+def is_pricing_rule_text(text: str) -> bool:
+    """协议/规则正文中真正描述费用、期限、折扣、违约金的条款。"""
+
+    if len(text) > 1200 and not contains_any(text, ("违约金", "一次性费用", "首月资费", "标准月基本费")):
+        return False
+    if is_legal_or_security_rule_without_fee(text):
+        return False
+    return contains_any(
+        text,
+        (
+            "协议期",
+            "首月资费",
+            "按天折算",
+            "付费周期",
+            "月付套餐",
+            "年付套餐",
+            "两年付套餐",
+            "自动延展",
+            "标准资费",
+            "标准月基本费",
+            "可选包月基本费",
+            "一次性费用",
+            "违约金",
+            "补交",
+            "补足",
+            "退款",
+            "欠费",
+            "停机期间",
+            "收取",
+            "减免",
+        ),
+    ) and (
+        has_money_amount(text)
+        or contains_any(text, ("协议期", "首月资费", "按天折算", "付费周期", "违约金", "标准月基本费"))
+    )
+
+
+def is_non_pricing_application_block(text: str) -> bool:
+    """排除明显不是产品套餐费用的申请字段或说明。"""
+
+    if starts_with_any_label(
+        text,
+        (
+            "安装地址",
+            "邮编",
+            "企业全称",
+            "企业代码",
+            "企业规模",
+            "计算机数量",
+            "联系人",
+            "身份证号码",
+            "联系电话",
+            "联系人职务",
+            "资料邮寄地址",
+            "付款方式",
+            "代理商",
+            "单位所属行业分类",
+            "联系人信息",
+            "网络信息安全责任人",
+        ),
+    ):
+        return True
+    # 这类“速率: ____ □M □G □K”是申请字段，不是套餐价格行。
+    if starts_with_any_label(text, ("速率",)) and not has_money_amount(text):
+        return True
+    return False
+
+
+def is_application_field_only_row(text: str) -> bool:
+    """判断表格行是否只是申请填写字段。"""
+
+    if has_money_amount(text):
+        return False
+    return starts_with_any_label(
+        text,
+        (
+            "企业全称",
+            "企业代码",
+            "企业规模",
+            "计算机数量",
+            "安装地址",
+            "联系人",
+            "资料邮寄地址",
+            "付款方式",
+            "代理商",
+            "单位所属行业分类",
+            "邮编",
+            "速率",
+            "联系人信息",
+            "网络信息安全责任人",
+        ),
+    )
+
+
+def is_legal_or_security_rule_without_fee(text: str) -> bool:
+    """没有费用含义的备案、网络安全、数据安全、合规承诺不进 pricing_info。"""
+
+    if has_money_amount(text) or contains_any(text, ("违约金", "费用", "资费", "月基本费", "收取")):
+        return False
+    return contains_any(
+        text,
+        (
+            "网络安全",
+            "数据安全",
+            "个人信息",
+            "备案",
+            "80、8080",
+            "443端口",
+            "违法",
+            "违规",
+            "骚扰",
+            "诈骗",
+            "保密",
+            "境内存储",
+            "不得向境外提供",
+            "合法权益",
+            "危害国家安全",
+        ),
+    )
+
+
+def has_money_amount(text: str) -> bool:
+    return bool(re.search(r"\d+(?:\.\d+)?\s*元", text))
+
+
+def starts_with_any_label(text: str, labels: tuple[str, ...]) -> bool:
+    stripped = normalize_for_match(text).lstrip("|*#")
+    return any(stripped.startswith(normalize_for_match(label)) for label in labels)
+
+
+def is_application_form_agreement_context(block: MarkdownBlock) -> bool:
+    if not has_role(block, "application_form"):
+        return False
+    return contains_any(block.text, AGREEMENT_TERMS)
+
+
+def is_application_form_constraint_context(block: MarkdownBlock) -> bool:
+    if not has_role(block, "application_form"):
+        return False
+    return contains_any(block.text, (*CONSTRAINT_TERMS, *RISK_TERMS))
+
+
+def is_product_intro_schema_context(block: MarkdownBlock) -> bool:
+    if not has_role(block, "product_intro"):
+        return False
+    return True
+
+
+def is_product_keywords_schema_context(block: MarkdownBlock) -> bool:
+    if not has_role(block, "product_keywords"):
+        return False
+    return True
+
+
+def is_pricing_sheet_schema_context(block: MarkdownBlock) -> bool:
+    if not has_role(block, "pricing_sheet"):
+        return False
+    return contains_any(
+        block.text,
+        (
+            *BASE_PACKAGE_TERMS,
+            *OPTIONAL_PACKAGE_TERMS,
+            *FEE_TERMS,
+            *BUSINESS_FEE_TERMS,
+            *ONE_TIME_FEE_TERMS,
+            *PRICING_SCHEMA_TERMS,
+        ),
+    )
+
+
+def is_application_materials_schema_context(block: MarkdownBlock) -> bool:
+    if not has_role(block, "application_materials"):
+        return False
+    return contains_any(block.text, (*MATERIAL_TERMS, *PROCEDURE_TERMS, *RISK_TERMS, *CONSTRAINT_TERMS))
 
 
 def clean_parts(parts: list[str]) -> list[str]:
@@ -836,6 +1336,45 @@ PARTIES_TERMS = (
     "服务商",
 )
 
+APPLICATION_FIELD_LABEL_TERMS = (
+    "企业全称",
+    "企业代码",
+    "统一社会信用代码",
+    "企业所属行业",
+    "所属行业",
+    "企业规模",
+    "计算机数量",
+    "安装地址",
+    "邮编",
+    "联系人",
+    "联系人职务",
+    "经办人",
+    "身份证号码",
+    "联系电话",
+    "联系地址",
+    "e-mail",
+    "email",
+    "传真",
+    "资料邮寄地址",
+    "付款方式",
+    "托收",
+    "银行账号",
+    "现金",
+    "代理商",
+    "销售",
+    "业务人员",
+)
+
+AGENT_CUSTOMER_SHORT_TERMS = (
+    "代理商",
+    "销售",
+    "业务人员",
+    "客户名称",
+    "客户信息",
+    "联系人",
+    "联系电话",
+)
+
 PRODUCT_INTRO_TERMS = (
     "产品介绍",
     "产品定义",
@@ -868,6 +1407,32 @@ ONE_TIME_FEE_TERMS = (
     "移机",
     "调测费",
     "安装费",
+)
+
+PRICING_SCHEMA_TERMS = (
+    "基础套餐资费",
+    "套餐资费",
+    "套餐价格",
+    "产品套餐费用",
+    "一次性费用",
+    "增值包",
+    "权益包",
+    "升级项",
+    "升级",
+    "折扣政策",
+    "折扣率",
+    "折后",
+    "标准价",
+    "授权",
+    "减免",
+    "续约",
+    "退款",
+    "欠费",
+    "公式",
+    "首月",
+    "按天折算",
+    "计费周期",
+    "付费周期",
 )
 
 PROCEDURE_TERMS = (
@@ -958,4 +1523,28 @@ MODULE_ROLE_PRIORITY: dict[str, tuple[str, ...]] = {
         "internal_process",
         "material_template",
     ),
+}
+
+NEW_SCHEMA_MODULE_ROLE_PRIORITY: dict[str, tuple[str, ...]] = {
+    "application_form_info.document_info": ("application_form",),
+    "application_form_info.parties_and_application": ("application_form",),
+    "application_form_info.pricing_info": ("application_form",),
+    "application_form_info.agreement_rules": ("application_form",),
+    "application_form_info.eligibility_and_constraints": ("application_form",),
+    "supplementary_info.product_intro": ("product_intro",),
+    "supplementary_info.product_keywords": ("product_keywords",),
+    "supplementary_info.pricing_info": ("pricing_sheet",),
+    "supplementary_info.application_materials": ("application_materials",),
+}
+
+NEW_SCHEMA_MODULE_PREDICATES: dict[str, Callable[[MarkdownBlock], bool]] = {
+    "application_form_info.document_info": is_application_form_document_info_context,
+    "application_form_info.parties_and_application": is_application_form_parties_context,
+    "application_form_info.pricing_info": is_application_form_pricing_context,
+    "application_form_info.agreement_rules": is_application_form_agreement_context,
+    "application_form_info.eligibility_and_constraints": is_application_form_constraint_context,
+    "supplementary_info.product_intro": is_product_intro_schema_context,
+    "supplementary_info.product_keywords": is_product_keywords_schema_context,
+    "supplementary_info.pricing_info": is_pricing_sheet_schema_context,
+    "supplementary_info.application_materials": is_application_materials_schema_context,
 }
