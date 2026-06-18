@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 
-SUPPORTED_FILE_TYPES = {"txt", "docx", "xlsx", "pdf", "jpg", "jpeg", "png", "webp", "bmp", "tif", "tiff"}
+SUPPORTED_FILE_TYPES = {"txt", "docx", "xlsx", "pdf", "jpg", "jpeg", "png"}
 PENDING_FILE_TYPES = {"doc", "xls", "ppt", "pptx"}
 
 

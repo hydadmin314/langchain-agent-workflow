@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -33,6 +34,7 @@ PRODUCT_DOC_OCR_LLM_MAX_RETRIES = int(_env_or("PRODUCT_DOC_OCR_LLM_MAX_RETRIES",
 # Product document extraction
 PRODUCT_DOC_AGENT_RATE_LIMIT_MAX_ATTEMPTS = int(os.getenv("PRODUCT_DOC_AGENT_RATE_LIMIT_MAX_ATTEMPTS", "2"))
 PRODUCT_DOC_AGENT_RATE_LIMIT_RETRY_SECONDS = float(os.getenv("PRODUCT_DOC_AGENT_RATE_LIMIT_RETRY_SECONDS", "8"))
+PRODUCT_DOC_RAW_ROOT = Path(os.getenv("PRODUCT_DOC_RAW_ROOT", str(Path("data") / "raw")))
 
 # Agent
 AGENT_MAX_ITERATIONS = int(os.getenv("AGENT_MAX_ITERATIONS", 5))

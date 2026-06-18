@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import shutil
+import tempfile
 from collections.abc import Collection
 from dataclasses import dataclass
 from pathlib import Path
@@ -9,10 +10,13 @@ from typing import Any
 
 from langchain_core.language_models.chat_models import BaseChatModel
 
+from config.settings import PRODUCT_DOC_RAW_ROOT
+from agent.product_doc_agent.document_classifier import UNKNOWN, classify_document
 from agent.product_doc_agent.document_loader import DocumentLoader, LoadedDocument
 from agent.product_doc_agent.llm_extractor import EXTRACTION_MODULES, ProductDocumentLLMExtractor, run_async_from_sync
 from agent.product_doc_agent.markdown_context_splitter import (
     build_module_contexts_from_markdown,
+    render_product_module_contexts_debug,
     render_module_contexts_debug,
 )
 from agent.product_doc_agent.markdown_renderer import (
@@ -39,6 +43,16 @@ class WorkflowResult:
     block_count: int
 
 
+@dataclass(frozen=True)
+class ProductFolderWorkflowResult:
+    product_id: str
+    review_path: Path
+    source_folder: Path
+    document_count: int
+    module_count: int
+    debug_context_path: Path | None = None
+
+
 class ProductDocAgentWorkflow:
     """产品文档结构化抽取主流程。"""
 
@@ -56,8 +70,12 @@ class ProductDocAgentWorkflow:
         ocr_markdown_min_chars: int = 50,
         ocr_direct_file_types: Collection[str] | None = None,
         ocr_fallback_file_types: Collection[str] | None = None,
+        enable_post_processing: bool = False,
+        raw_root: str | Path | None = None,
+        enable_doc_conversion: bool = True,
     ) -> None:
         self.data_root = Path(data_root)
+        self.raw_root = Path(raw_root or PRODUCT_DOC_RAW_ROOT).resolve()
         self.review_dir = self.data_root / "review"
         self.published_dir = self.data_root / "published"
         self.debug_dir = self.data_root / "debug"
@@ -79,8 +97,10 @@ class ProductDocAgentWorkflow:
         self.normalizer = ProductDocumentNormalizer()
         self.validator = ProductDocumentValidator()
         self.enable_self_check = enable_self_check
+        self.enable_post_processing = enable_post_processing
         self.enable_debug_markdown = enable_debug_markdown
         self.enable_ocr_flow = enable_ocr_flow
+        self.enable_doc_conversion = enable_doc_conversion
         self.ocr_markdown_min_chars = max(0, ocr_markdown_min_chars)
         self.ocr_direct_file_types = normalize_file_types(
             ocr_direct_file_types or DEFAULT_OCR_DIRECT_FILE_TYPES
@@ -119,11 +139,17 @@ class ProductDocAgentWorkflow:
         # 不在这里截断整篇文档，避免靠后的协议、材料、补充规则在切模块前被丢弃。
         markdown_result = self.markdown_renderer.render_document_result(loaded_document)
         llm_markdown = markdown_result.markdown
+        document_classification = classify_document(loaded_document.source_path)
+        target_modules = list(document_classification.target_modules)
+        if document_classification.role == UNKNOWN or not target_modules:
+            raise ValueError(f"暂不支持的文档类型，无法构建抽取上下文：{loaded_document.filename}")
 
         # 2. 再按 schema 模块切出各自上下文，并在 splitter 内按模块预算截断。
         module_contexts = build_module_contexts_from_markdown(
             llm_markdown,
             max_chars=self.extractor.max_context_chars,
+            modules=target_modules,
+            document_role=document_classification.role,
         )
 
         # 调试开关：测试切块质量时保留 True；正式批量抽取时传 enable_debug_markdown=False 即可关闭两个 md 文件输出。
@@ -134,21 +160,24 @@ class ProductDocAgentWorkflow:
         # 3. 并发抽取 9 个模块；模块失败时保留错误并继续生成可审核 JSON。
         module_outputs = await self.extractor.extract_modules_async(
             module_contexts,
-            modules=EXTRACTION_MODULES,
+            modules=target_modules,
             continue_on_error=True,
         )
         module_errors = module_outputs.get("__module_errors__", [])
-        # 4. 初次合并并归一化，得到 self_check 可检查的完整 JSON。
-        product_document = self.merge_and_normalize(module_outputs, loaded_document)
+        # 4. 初次合并。当前 schema 改造阶段先不做全局归一化和程序校验，便于观察 LLM 原始抽取质量。
+        product_document = self.merge_module_outputs(module_outputs, loaded_document)
         self.attach_markdown_result(product_document, markdown_result)
 
         if module_errors:
-            product_document["extraction_meta"]["schema_warnings"].append("部分模块抽取失败，已跳过 LLM 自检。")
+            append_validation_issues(
+                product_document,
+                [module_error_to_issue(module_error) for module_error in module_errors],
+            )
 
         # 5. self_check 只负责语义质量检查；如果它要求返工，再回到对应模块 Markdown 重抽。
         self_check: dict[str, Any] = {}
         rework_requests: dict[str, str] = {}
-        if self.enable_self_check and not module_errors:
+        if self.enable_post_processing and self.enable_self_check and not module_errors:
             self_check = await self.extractor.self_check_async(product_document)
             rework_requests.update(collect_rework_requests(self_check))
             filtered_requests = filter_rework_requests(rework_requests, self_check)
@@ -170,19 +199,21 @@ class ProductDocAgentWorkflow:
             rework_errors = rework_outputs.pop("__module_errors__", [])
             module_outputs.update(rework_outputs)
             module_errors.extend(rework_errors)
-            product_document = self.merge_and_normalize(module_outputs, loaded_document)
+            product_document = self.merge_module_outputs(module_outputs, loaded_document)
             self.attach_markdown_result(product_document, markdown_result)
             if self_check:
                 product_document = self.merger.apply_self_check(product_document, self_check)
-            product_document["extraction_meta"].setdefault("llm_self_check", {})[
-                "rework_applied_modules"
-            ] = sorted(rework_outputs)
-            product_document["extraction_meta"].setdefault("llm_self_check", {})[
-                "rework_requests"
-            ] = [
-                {"module": module_name, "reason": reason}
-                for module_name, reason in sorted(rework_requests.items())
-            ]
+            append_validation_issues(
+                product_document,
+                [
+                    {
+                        "severity": "info",
+                        "path": f"llm_rework.{module_name}",
+                        "message": reason,
+                    }
+                    for module_name, reason in sorted(rework_requests.items())
+                ],
+            )
             if self.enable_debug_markdown:
                 self.write_rework_comparison(
                     loaded_document,
@@ -195,36 +226,185 @@ class ProductDocAgentWorkflow:
         elif self_check:
             product_document = self.merger.apply_self_check(product_document, self_check)
 
+        if not self.enable_post_processing:
+            return product_document
+
+        normalization_result = self.normalizer.normalize_product_document(product_document)
+        product_document = normalization_result.product_document
+        append_validation_issues(product_document, normalization_result.issues)
+
         # 7. 最终只做一次程序校验，作为写入 review JSON 前的确定性底线。
         program_issues = self.validator.validate(product_document)
         program_issues.extend(module_error_to_issue(module_error) for module_error in module_errors)
         program_issues.extend(loader_warning_to_issue(warning) for warning in loaded_document.warnings)
         return self.validator.attach_issues(product_document, program_issues)
 
-    def attach_markdown_result(self, product_document: dict[str, Any], markdown_result: Any) -> None:
-        meta = product_document.setdefault("extraction_meta", {})
-        meta["markdown_source"] = markdown_result.source
-        meta["markdown_meta"] = markdown_result.metadata
+    async def run_product_folder_async(self, folder_path: str | Path) -> ProductFolderWorkflowResult:
+        """产品目录级入口：分类文件、切块、按模块抽取并合并为一个新 schema JSON。"""
 
+        folder = Path(folder_path).resolve()
+        document_items: list[dict[str, Any]] = []
+        module_outputs_list: list[dict[str, Any]] = []
+        module_count = 0
+
+        for path in sorted(item for item in folder.iterdir() if item.is_file()):
+            classification = classify_document(path)
+            if classification.role == UNKNOWN or not classification.target_modules:
+                continue
+            item: dict[str, Any] = {
+                "filename": path.name,
+                "source_file": str(path),
+                "role": classification.role,
+                "normalized_name": classification.normalized_name,
+                "target_modules": list(classification.target_modules),
+            }
+            try:
+                render_path = self.prepare_source_for_render(path)
+                if render_path != path:
+                    item["converted_source_file"] = str(render_path)
+                loaded_document = await self.loader.load_async(render_path)
+                markdown_result = self.markdown_renderer.render_document_result(loaded_document)
+                module_contexts = build_module_contexts_from_markdown(
+                    markdown_result.markdown,
+                    max_chars=self.extractor.max_context_chars,
+                    modules=classification.target_modules,
+                    document_role=classification.role,
+                )
+                item["markdown_chars"] = len(markdown_result.markdown)
+                item["module_contexts"] = module_contexts
+                module_outputs = await self.extractor.extract_modules_async(
+                    module_contexts,
+                    modules=list(classification.target_modules),
+                    continue_on_error=True,
+                )
+                module_outputs["__module_source_files__"] = {
+                    module_name: str(path)
+                    for module_name in classification.target_modules
+                }
+                item["module_outputs"] = module_outputs
+                module_outputs_list.append(module_outputs)
+                module_count += len([key for key in module_outputs if not key.startswith("__")])
+            except Exception as exc:
+                item["error"] = f"{exc.__class__.__name__}: {exc}"
+            document_items.append(item)
+
+        debug_context_path = None
+        if self.enable_debug_markdown:
+            debug_context_path = self.write_product_module_contexts_debug(folder, document_items)
+
+        product_document = self.merger.merge_many(
+            module_outputs_list,
+            document_metadata={
+                "source_folder": str(folder),
+            },
+        )
+        append_validation_issues(product_document, collect_product_folder_issues(document_items))
+        if self.enable_post_processing:
+            normalization_result = self.normalizer.normalize_product_document(product_document)
+            product_document = normalization_result.product_document
+            append_validation_issues(product_document, normalization_result.issues)
+            product_document = self.validator.attach_issues(
+                product_document,
+                self.validator.validate(product_document),
+            )
+        product_id = build_product_folder_id(folder)
+        review_path = self.write_review_json(product_document, product_id)
+        return ProductFolderWorkflowResult(
+            product_id=product_id,
+            review_path=review_path,
+            source_folder=folder,
+            document_count=len(document_items),
+            module_count=module_count,
+            debug_context_path=debug_context_path,
+        )
+
+    def run_product_folder(self, folder_path: str | Path) -> ProductFolderWorkflowResult:
+        """同步产品目录级入口，方便测试脚本直接调用。"""
+
+        return run_async_from_sync(self.run_product_folder_async(folder_path))
+
+    def prepare_source_for_render(self, source_path: Path) -> Path:
+        """准备实际进入 MarkdownRenderer 的文件；老 .doc 先转成 .docx。"""
+
+        if source_path.suffix.lower() != ".doc":
+            return source_path
+        if not self.enable_doc_conversion:
+            raise RuntimeError("老 Word .doc 文件需要开启 enable_doc_conversion 后才能转换抽取。")
+        return self.convert_doc_to_docx(source_path)
+
+    def convert_doc_to_docx(self, source_path: Path) -> Path:
+        """用本机 Microsoft Word COM 转换 .doc，只保留 converted_docx 结果。"""
+
+        output_path = self.converted_docx_path(source_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        if output_path.exists() and output_path.stat().st_mtime >= source_path.stat().st_mtime:
+            return output_path
+
+        try:
+            import pythoncom
+            import win32com.client
+        except ImportError as exc:
+            raise RuntimeError("缺少 Word COM 依赖，请先安装 pywin32：pip install pywin32") from exc
+
+        word = None
+        document = None
+        pythoncom.CoInitialize()
+        try:
+            with tempfile.TemporaryDirectory(prefix="product_doc_agent_doc_") as temp_dir:
+                work_doc_path = copy_doc_to_ascii_temp(source_path, Path(temp_dir))
+                word = win32com.client.DispatchEx("Word.Application")
+                word.Visible = False
+                word.DisplayAlerts = 0
+                document = word.Documents.Open(str(work_doc_path), ReadOnly=True, AddToRecentFiles=False)
+                # FileFormat=16 表示 wdFormatXMLDocument，即 .docx。
+                document.SaveAs2(str(output_path), FileFormat=16)
+            return output_path
+        finally:
+            if document is not None:
+                document.Close(False)
+            if word is not None:
+                word.Quit()
+            pythoncom.CoUninitialize()
+
+    def converted_docx_path(self, source_path: Path) -> Path:
+        """按 PRODUCT_DOC_RAW_ROOT 的相对目录保存转换结果。"""
+
+        try:
+            relative_path = source_path.resolve().relative_to(self.raw_root)
+        except ValueError:
+            relative_path = Path(safe_debug_name(source_path.with_suffix(""))).with_suffix(source_path.suffix)
+        return (self.data_root / "converted_docx" / relative_path.with_suffix(".docx")).resolve()
+
+    def attach_markdown_result(self, product_document: dict[str, Any], markdown_result: Any) -> None:
+        """正式 JSON 不写 Markdown 调试信息；调试产物只保存在 debug 目录。"""
+
+    def merge_module_outputs(
+        self,
+        module_outputs: dict[str, Any],
+        loaded_document: LoadedDocument,
+    ) -> dict[str, Any]:
+        """合并模块结果；当前阶段不做全局归一化和校验。"""
+
+        return self.merger.merge(
+            module_outputs,
+            document_metadata=loaded_document_metadata(loaded_document),
+        )
+        
     def merge_and_normalize(
         self,
         module_outputs: dict[str, Any],
         loaded_document: LoadedDocument,
     ) -> dict[str, Any]:
-        """合并模块结果并执行归一化；初抽和返工后都走同一条路径。"""
+        """兼容旧调用：合并模块结果并执行归一化。"""
 
-        product_document = self.merger.merge(
-            module_outputs,
-            document_metadata=loaded_document_metadata(loaded_document),
-        )
+        product_document = self.merge_module_outputs(module_outputs, loaded_document)
         normalization_result = self.normalizer.normalize_product_document(product_document)
         product_document = normalization_result.product_document
         exposed_issues = [
             issue for issue in normalization_result.issues if issue.get("expose_to_review") is True
         ]
         if exposed_issues:
-            schema_warnings = product_document["extraction_meta"].setdefault("schema_warnings", [])
-            schema_warnings.extend(issue.get("message", str(issue)) for issue in exposed_issues)
+            append_validation_issues(product_document, exposed_issues)
         return product_document
 
     def write_review_json(self, product_document: dict[str, Any], document_id: str) -> Path:
@@ -265,6 +445,28 @@ class ProductDocAgentWorkflow:
             pages=markdown_result.pages,
             metadata=metadata,
         )
+
+    def write_product_module_contexts_debug(
+        self,
+        product_folder: str | Path,
+        document_items: list[dict[str, Any]],
+    ) -> Path:
+        """保存产品目录级切块 Markdown，后续目录级抽取流程复用这个 debug 产物。"""
+
+        product_folder = Path(product_folder)
+        debug_dir = self.debug_dir / "context_splitter_by_product"
+        debug_dir.mkdir(parents=True, exist_ok=True)
+        filename = f"{safe_debug_name(product_folder)}_module_contexts.md"
+        path = debug_dir / filename
+        path.write_text(
+            render_product_module_contexts_debug(
+                product_folder=product_folder,
+                document_items=document_items,
+            ),
+            encoding="utf-8",
+        )
+        logger.info(f"Product module contexts debug file written: {path}")
+        return path
 
     def write_rework_comparison(
         self,
@@ -312,6 +514,35 @@ def loaded_document_metadata(loaded_document: LoadedDocument) -> dict[str, Any]:
     }
 
 
+def safe_debug_name(path: Path) -> str:
+    """把产品目录路径转成适合 debug 文件名的短名称。"""
+
+    raw_name = "_".join(part for part in path.parts[-3:]) or path.name or "product"
+    safe_name = "".join(char if char.isalnum() or char in "-_." else "_" for char in raw_name)
+    return safe_name[:120] or "product"
+
+
+def build_product_folder_id(folder: Path) -> str:
+    """根据产品目录路径生成稳定的 review JSON 文件名。"""
+
+    import hashlib
+
+    digest = hashlib.sha1(str(folder.resolve()).encode("utf-8", errors="ignore")).hexdigest()[:12]
+    return f"product_{digest}"
+
+
+def copy_doc_to_ascii_temp(source_path: Path, temp_dir: Path) -> Path:
+    """把 .doc 复制到纯英文临时路径，降低 Word COM 打开中文路径失败的概率。"""
+
+    import hashlib
+
+    digest = hashlib.sha1(str(source_path.resolve()).encode("utf-8", errors="ignore")).hexdigest()[:16]
+    temp_dir.mkdir(parents=True, exist_ok=True)
+    work_doc_path = temp_dir / f"source_{digest}.doc"
+    shutil.copy2(source_path, work_doc_path)
+    return work_doc_path
+
+
 def module_error_to_issue(module_error: dict[str, Any]) -> dict[str, str]:
     """把模块失败信息转成统一校验问题。"""
 
@@ -320,6 +551,40 @@ def module_error_to_issue(module_error: dict[str, Any]) -> dict[str, str]:
         "path": f"llm_module.{module_error.get('module', '')}",
         "message": str(module_error.get("error", "模块抽取失败")),
     }
+
+
+def collect_product_folder_issues(document_items: list[dict[str, Any]]) -> list[dict[str, str]]:
+    """汇总产品目录级处理错误，统一写入 extraction_meta.validation_issues。"""
+
+    issues: list[dict[str, str]] = []
+    for item in document_items:
+        if item.get("error"):
+            issues.append(
+                {
+                    "severity": "error",
+                    "path": f"document.{item.get('filename', '')}",
+                    "message": str(item.get("error", "")),
+                }
+            )
+        module_outputs = item.get("module_outputs", {})
+        if isinstance(module_outputs, dict):
+            issues.extend(
+                module_error_to_issue(module_error)
+                for module_error in module_outputs.get("__module_errors__", [])
+                if isinstance(module_error, dict)
+            )
+    return issues
+
+
+def append_validation_issues(product_document: dict[str, Any], issues: list[dict[str, Any]]) -> None:
+    """追加校验问题并同步维护 validation_issue_count。"""
+
+    if not issues:
+        return
+    meta = product_document.setdefault("extraction_meta", {})
+    validation_issues = meta.setdefault("validation_issues", [])
+    validation_issues.extend(issues)
+    meta["validation_issue_count"] = len(validation_issues)
 
 
 def loader_warning_to_issue(warning: str) -> dict[str, str]:

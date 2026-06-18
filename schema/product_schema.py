@@ -6,584 +6,439 @@ import json
 from typing import Any
 
 
-SCHEMA_VERSION = "1.0"
+SCHEMA_VERSION = "2.0"
 SCHEMA_NAME = "product_document_extraction"
+
+# 顶层结构按产品资料包组织：申请表信息 + 补充资料信息 + 抽取元数据。
 TOP_LEVEL_SCHEMA_KEYS = [
-    "document_info",
-    "parties_and_application",
-    "base_package",
-    "optional_packages",
-    "fee_and_term_rules",
-    "agreement_rules",
-    "application_materials",
-    "eligibility_and_constraints",
-    "supplemental_rules",
+    "application_form_info",
+    "supplementary_info",
     "extraction_meta",
 ]
-TOP_LEVEL_LIST_KEYS = [
-    "optional_packages",
-    "fee_and_term_rules",
-    "agreement_rules",
-    "application_materials",
-    "eligibility_and_constraints",
-    "supplemental_rules",
+
+# 新 schema 顶层没有 list 字段；保留常量是为了兼容旧 merger 的导入。
+TOP_LEVEL_LIST_KEYS: list[str] = []
+
+APPLICATION_FORM_MODULES = [
+    "application_form_info.document_info",
+    "application_form_info.parties_and_application",
+    "application_form_info.pricing_info",
+    "application_form_info.agreement_rules",
+    "application_form_info.eligibility_and_constraints",
 ]
 
+SUPPLEMENTARY_MODULES = [
+    "supplementary_info.product_intro",
+    "supplementary_info.product_keywords",
+    "supplementary_info.pricing_info",
+    "supplementary_info.application_materials",
+]
 
-def _location_schema() -> dict[str, Any]:
+EXTRACTION_MODULES = [*APPLICATION_FORM_MODULES, *SUPPLEMENTARY_MODULES]
+
+
+def string_schema(description: str) -> dict[str, Any]:
+    return {"type": "string", "description": description}
+
+
+def nullable_number_schema(description: str) -> dict[str, Any]:
+    return {"type": ["number", "null"], "description": description}
+
+
+def nullable_boolean_schema(description: str) -> dict[str, Any]:
+    return {"type": ["boolean", "null"], "description": description}
+
+
+def string_array_schema(description: str) -> dict[str, Any]:
+    return {"type": "array", "items": {"type": "string"}, "description": description}
+
+
+def object_schema(properties: dict[str, Any], description: str, *, required: list[str] | None = None) -> dict[str, Any]:
     return {
         "type": "object",
-        "description": "来源位置，如页码、段落、表格、行列、sheet 名称等。",
-        "properties": {
-            "page": {"type": ["integer", "null"]},
-            "paragraph_index": {"type": ["integer", "null"]},
-            "table_index": {"type": ["integer", "null"]},
-            "row_index": {"type": ["integer", "null"]},
-            "column_index": {"type": ["integer", "null"]},
-            "sheet_name": {"type": "string"},
-            "path": {"type": "string"},
-        },
-        "additionalProperties": True,
+        "description": description,
+        "properties": properties,
+        "required": required or list(properties),
+        "additionalProperties": False,
     }
 
 
-def _evidence_fields() -> dict[str, Any]:
+def array_schema(item_schema: dict[str, Any], description: str) -> dict[str, Any]:
     return {
-        "source_evidence": {
-            "type": "string",
-            "description": "来源证据，从原文中截取的依据。关键字段必须尽量填写。",
-        },
-        "source_location": _location_schema(),
-        "confidence": {
-            "type": "number",
-            "minimum": 0,
-            "maximum": 1,
-            "description": "抽取置信度，0 到 1 之间。",
-        },
+        "type": "array",
+        "description": description,
+        "items": item_schema,
     }
 
 
-APPLICATION_FIELD_SCHEMA: dict[str, Any] = {
-    "type": "object",
-    "description": "申请表字段，包括必填字段和选填字段。",
-    "properties": {
-        "label": {"type": "string", "description": "原始字段名。"},
-        "field_key": {"type": "string", "description": "标准化字段名，便于系统使用。"},
+APPLICATION_FIELD_SCHEMA = object_schema(
+    {
+        "label": string_schema("原始字段名。"),
+        "field_key": string_schema("标准化字段名，便于系统使用。"),
         "required": {"type": "boolean", "description": "是否必填。"},
-        "value": {"type": ["string", "number", "boolean", "null"], "description": "已填写值，空白表为空。"},
-        "options": {"type": "array", "items": {"type": "string"}, "description": "候选项，如企业规模、接口标准。"},
-        "value_type": {
-            "type": "string",
-            "description": "字段类型，如 text、single_select、multi_select、date、number、phone。",
-        },
-        **_evidence_fields(),
+        "value": {"type": ["string", "number", "boolean", "null"], "description": "已填写值；空白表为空字符串或 null。"},
+        "options": string_array_schema("候选项，如企业规模、接口标准。"),
+        "value_type": string_schema("字段类型，如 text、single_select、multi_select。"),
+        "raw_text": string_schema("原文。"),
     },
-    "required": ["label", "field_key", "required", "value", "options", "value_type", "source_evidence", "source_location", "confidence"],
-    "additionalProperties": False,
-}
+    "申请表字段。",
+)
 
-
-PACKAGE_ITEM_SCHEMA: dict[str, Any] = {
-    "type": "object",
-    "description": "基础套餐中的一个可售卖套餐或资费档位。",
-    "properties": {
-        "package_name": {"type": "string", "description": "套餐名称。"},
-        "package_code": {"type": "string", "description": "套餐编号或产品编码。"},
-        "speed": {"type": "string", "description": "原始速率描述。"},
-        "upstream_speed": {"type": "string", "description": "上行速率。"},
-        "downstream_speed": {"type": "string", "description": "下行速率。"},
-        "bandwidth_unit": {"type": "string", "description": "带宽单位。"},
-        "has_voice": {"type": ["boolean", "null"], "description": "是否带语音，无法判断时为 null。"},
-        "price": {"type": ["number", "null"], "description": "套餐价格。"},
-        "currency": {"type": "string", "description": "币种，默认 CNY。"},
-        "billing_period": {"type": "string", "description": "计费周期，如月、年、2年。"},
-        "contract_period": {"type": "string", "description": "协议期。"},
-        "quantity_limit": {"type": "string", "description": "数量限制。"},
-        "applicable_conditions": {"type": "array", "items": {"type": "string"}, "description": "适用条件。"},
-        **_evidence_fields(),
+PRICING_INFO_SCHEMA = object_schema(
+    {
+        "source_type": string_schema("来源类型：application_form 或 pricing_sheet。"),
+        "source_file": string_schema("来源文件。"),
+        "one_time_fees": array_schema(
+            object_schema(
+                {
+                    "name": string_schema("费用名称，如初装费、一次性接入费、安装费、接入费、施工费、升降速费。"),
+                    "amount": nullable_number_schema("金额。"),
+                    "currency": string_schema("币种，默认 CNY。"),
+                    "unit": string_schema("单位，如元/次、元/线/次。"),
+                    "applicable_to": string_array_schema("适用对象，如月付用户、年付用户、国内 MSTP。"),
+                    "conditions": string_array_schema("适用条件，如有资源、无资源、新装、升降速。"),
+                    "description": string_schema("说明。"),
+                    "raw_text": string_schema("原文。"),
+                },
+                "一次性费用。",
+            ),
+            "一次性费用。",
+        ),
+        "base_package_prices": array_schema(
+            object_schema(
+                {
+                    "name": string_schema("套餐名称。"),
+                    "speed": string_schema("原始速率描述，如 100M/100M、1G。"),
+                    "upstream_speed": string_schema("上行速率。"),
+                    "downstream_speed": string_schema("下行速率。"),
+                    "bandwidth_unit": string_schema("带宽单位：M、G。"),
+                    "has_voice": nullable_boolean_schema("是否带语音。"),
+                    "price": nullable_number_schema("价格。"),
+                    "currency": string_schema("币种，默认 CNY。"),
+                    "unit": string_schema("价格单位，如元/月、元/年、元/2年。"),
+                    "billing_period": string_schema("计费周期，如月付、年付、2年付。"),
+                    "contract_period": string_schema("协议期。"),
+                    "included_items": string_array_schema("包含内容，如 5 个 IP、定制网关、SLA 服务。"),
+                    "conditions": string_array_schema("适用条件。"),
+                    "description": string_schema("说明。"),
+                    "raw_text": string_schema("原文。"),
+                },
+                "基础套餐资费。",
+            ),
+            "基础套餐资费。",
+        ),
+        "addon_prices": array_schema(
+            object_schema(
+                {
+                    "name": string_schema("增值项名称，如天翼安全大脑、移动业务、升级 13 个 IPv4。"),
+                    "category": string_schema("分类，如免费可选包、收费可选包、权益包、升级项。"),
+                    "spec": string_schema("规格，如专线版 300M、13 个 IPv4、5 个国际精品 IP。"),
+                    "price": nullable_number_schema("价格。"),
+                    "currency": string_schema("币种，默认 CNY。"),
+                    "unit": string_schema("价格单位，如元/月/线、元/月/号。"),
+                    "billing_period": string_schema("计费周期。"),
+                    "contract_period": string_schema("协议期。"),
+                    "included_items": string_array_schema("包含内容。"),
+                    "required_with": string_array_schema("依赖项，如必须同时选择某基础套餐。"),
+                    "conditions": string_array_schema("适用条件或限制。"),
+                    "description": string_schema("说明。"),
+                    "raw_text": string_schema("原文。"),
+                },
+                "增值包、权益包、升级项资费。",
+            ),
+            "增值包、权益包、升级项资费。",
+        ),
+        "fee_and_term_rules": array_schema(
+            object_schema(
+                {
+                    "name": string_schema("规则名称。"),
+                    "category": string_schema("规则分类，如协议期、首月折算、续约、违约金、欠费、退款。"),
+                    "applicable_to": string_array_schema("适用对象。"),
+                    "amount": nullable_number_schema("涉及固定金额，没有则为空。"),
+                    "currency": string_schema("币种，默认 CNY。"),
+                    "unit": string_schema("金额单位。"),
+                    "period": string_schema("涉及期限，如 12 个月、24 个月、30 日、60 日。"),
+                    "formula": string_schema("计算公式，如违约金公式。"),
+                    "conditions": string_array_schema("触发条件。"),
+                    "description": string_schema("规则说明。"),
+                    "raw_text": string_schema("原文。"),
+                },
+                "费用与期限规则。",
+            ),
+            "费用与期限规则。",
+        ),
+        "discount_policy": array_schema(
+            object_schema(
+                {
+                    "name": string_schema("折扣名称，如授权 5 折、月付 8 折、年付包。"),
+                    "category": string_schema("折扣分类，如比例折扣、包年价、减免。"),
+                    "applicable_to": string_array_schema("适用对象。"),
+                    "standard_price": nullable_number_schema("标准价。"),
+                    "discount_rate": nullable_number_schema("折扣率。"),
+                    "discounted_price": nullable_number_schema("折后价。"),
+                    "currency": string_schema("币种，默认 CNY。"),
+                    "unit": string_schema("单位。"),
+                    "conditions": string_array_schema("折扣条件。"),
+                    "description": string_schema("说明。"),
+                    "raw_text": string_schema("原文。"),
+                },
+                "折扣政策。",
+            ),
+            "折扣政策；申请表没有可为空数组。",
+        ),
     },
-    "required": [
-        "package_name",
-        "package_code",
-        "speed",
-        "upstream_speed",
-        "downstream_speed",
-        "bandwidth_unit",
-        "has_voice",
-        "price",
-        "currency",
-        "billing_period",
-        "contract_period",
-        "quantity_limit",
-        "applicable_conditions",
-        "source_evidence",
-        "source_location",
-        "confidence",
-    ],
-    "additionalProperties": False,
-}
+    "统一资费目录，申请表和资费表共用。",
+)
 
-
-OPTIONAL_PACKAGE_SCHEMA: dict[str, Any] = {
-    "type": "object",
-    "description": "增值免费可选包、权益包、增值收费可选包。",
-    "properties": {
-        "package_type": {
-            "type": "string",
-            "description": "可选包类型，如 free_optional_package、paid_optional_package、benefit_package。",
-        },
-        "name": {"type": "string", "description": "可选包名称。"},
-        "category": {"type": "string", "description": "原始分类。"},
-        "description": {"type": "string", "description": "详细说明。"},
-        "fee_summary": {"type": "string", "description": "费用摘要。"},
-        "price_items": {"type": "array", "items": {"type": "object", "additionalProperties": True}, "description": "价格明细。"},
-        "options": {"type": "array", "items": {"type": "string"}, "description": "可选项。"},
-        "required_with": {"type": "array", "items": {"type": "string"}, "description": "必须同时订购的产品或条件。"},
-        "incompatible_with": {"type": "array", "items": {"type": "string"}, "description": "不兼容项。"},
-        "applicable_conditions": {"type": "array", "items": {"type": "string"}, "description": "适用条件。"},
-        **_evidence_fields(),
+AGREEMENT_RULE_SCHEMA = object_schema(
+    {
+        "rule_type": string_schema("规则类型，如 restriction、termination、after_sales。"),
+        "description": string_schema("规则内容。"),
+        "severity": string_schema("重要程度。"),
+        "applies_to": string_array_schema("适用对象。"),
+        "obligation_party": string_schema("责任主体，如客户、服务商、双方。"),
+        "conditions": string_array_schema("触发条件。"),
+        "consequence": string_schema("违反后的后果或处理方式。"),
+        "raw_text": string_schema("原文条款。"),
     },
-    "required": [
-        "package_type",
-        "name",
-        "category",
-        "description",
-        "fee_summary",
-        "price_items",
-        "options",
-        "required_with",
-        "incompatible_with",
-        "applicable_conditions",
-        "source_evidence",
-        "source_location",
-        "confidence",
-    ],
-    "additionalProperties": False,
-}
+    "协议条款、限制、违约、售后规则。",
+)
 
-
-FEE_RULE_SCHEMA: dict[str, Any] = {
-    "type": "object",
-    "description": "费用与期限规则。",
-    "properties": {
-        "rule_type": {"type": "string", "description": "规则类型，如安装费、协议期、折扣、违约金。"},
-        "name": {"type": "string", "description": "规则名称。"},
-        "description": {"type": "string", "description": "规则说明。"},
-        "amount": {"type": ["number", "null"], "description": "金额。"},
-        "currency": {"type": "string", "description": "币种。"},
-        "billing_period": {"type": "string", "description": "计费周期。"},
-        "contract_period": {"type": "string", "description": "协议期。"},
-        "conditions": {"type": "array", "items": {"type": "string"}, "description": "触发条件或适用条件。"},
-        "applies_to": {"type": "array", "items": {"type": "string"}, "description": "适用对象。"},
-        **_evidence_fields(),
+ELIGIBILITY_CONSTRAINT_SCHEMA = object_schema(
+    {
+        "name": string_schema("规则名称，便于业务人员识别。"),
+        "description": string_schema("规则说明，用自然语言完整描述。"),
+        "condition": string_schema("触发条件，如客户为外地公司、IP 数量 >=16、欠费 2 个月以上。"),
+        "result": string_schema("触发结果，如需补材料、需签承诺书、需支付押金。"),
+        "applies_to": string_array_schema("适用对象，如产品、套餐、客户类型、办理动作、区域、业务场景。"),
+        "severity": string_schema("重要程度：low、medium、high、critical。"),
+        "raw_text": string_schema("原文。"),
     },
-    "required": [
-        "rule_type",
-        "name",
-        "description",
-        "amount",
-        "currency",
-        "billing_period",
-        "contract_period",
-        "conditions",
-        "applies_to",
-        "source_evidence",
-        "source_location",
-        "confidence",
-    ],
-    "additionalProperties": False,
-}
+    "准入条件与限制规则。",
+)
 
-
-AGREEMENT_RULE_SCHEMA: dict[str, Any] = {
-    "type": "object",
-    "description": "协议条款、限制、违约、售后规则。",
-    "properties": {
-        "rule_type": {"type": "string", "description": "规则类型，如 restriction、termination、after_sales。"},
-        "title": {"type": "string", "description": "规则标题。"},
-        "description": {"type": "string", "description": "规则内容。"},
-        "severity": {"type": "string", "description": "重要程度。"},
-        "applies_to": {"type": "array", "items": {"type": "string"}, "description": "适用对象。"},
-        "obligation_party": {"type": "string", "description": "责任主体，如客户、服务商、双方。"},
-        "conditions": {"type": "array", "items": {"type": "string"}, "description": "触发条件。"},
-        "consequence": {"type": "string", "description": "违反后的后果或处理方式。"},
-        **_evidence_fields(),
-    },
-    "required": [
-        "rule_type",
-        "title",
-        "description",
-        "severity",
-        "applies_to",
-        "obligation_party",
-        "conditions",
-        "consequence",
-        "source_evidence",
-        "source_location",
-        "confidence",
-    ],
-    "additionalProperties": False,
-}
-
-
-APPLICATION_MATERIAL_SCHEMA: dict[str, Any] = {
-    "type": "object",
-    "description": "办理材料清单。",
-    "properties": {
-        "material_name": {"type": "string", "description": "材料名称，如营业执照复印件、授权委托书、经办人身份证、担保书、申请表、拓扑图。"},
-        "material_type": {
-            "type": "string",
-            "description": "材料类型，如 license、id_card、authorization、form、guarantee、contract、topology、commitment、other。",
-        },
+APPLICATION_MATERIAL_SCHEMA = object_schema(
+    {
+        "material_type": string_schema("材料类型，如表单、证件、合同、授权书、担保书、承诺书。"),
+        "name": string_schema("材料名称。"),
+        "description": string_schema("材料说明。"),
         "required": {"type": "boolean", "description": "是否必需。"},
-        "applies_to": {"type": "array", "items": {"type": "string"}, "description": "适用对象，如上海公司、外地公司、存量客户、新装、变更、拆机。"},
-        "condition": {"type": "string", "description": "触发条件。"},
-        "copies": {"type": "string", "description": "份数要求。"},
-        "format": {"type": "string", "description": "材料形式，如 original、copy、scan、electronic、printed、photo。"},
-        "seal_required": {"type": "boolean", "description": "是否需要盖章。"},
-        "seal_type": {"type": "string", "description": "盖章类型，如公章、合同章、骑缝章、不可盖合同章。"},
+        "applicable_to": string_array_schema("适用对象，如上海公司、外地公司、存量用户、商机冲突。"),
+        "conditions": string_array_schema("触发条件。"),
         "signature_required": {"type": "boolean", "description": "是否需要签字。"},
-        "signature_party": {"type": "string", "description": "签字主体，如经办人、法人、客户负责人、授权代表、服务商。"},
-        "date_required": {"type": "boolean", "description": "是否需要填写日期。"},
-        "template_required": {"type": "boolean", "description": "是否必须使用指定模板。"},
-        "template_document": {"type": "string", "description": "对应模板文件。"},
-        "notes": {"type": "string", "description": "其他说明。"},
-        **_evidence_fields(),
+        "seal_required": {"type": "boolean", "description": "是否需要盖章。"},
+        "copy_required": {"type": "boolean", "description": "是否复印件。"},
+        "original_required": {"type": "boolean", "description": "是否原件。"},
+        "pages_or_locations": string_array_schema("签字/盖章页码或位置。"),
+        "handling_notes": string_array_schema("办理注意事项，如机打、不可手写、不可盖合同章。"),
+        "related_constraints": string_array_schema("可关联到准入限制，如外地公司需担保。"),
+        "raw_text": string_schema("原文。"),
+        "source_file": string_schema("来源文件。"),
     },
-    "required": [
-        "material_name",
-        "material_type",
-        "required",
-        "applies_to",
-        "condition",
-        "copies",
-        "format",
-        "seal_required",
-        "seal_type",
-        "signature_required",
-        "signature_party",
-        "date_required",
-        "template_required",
-        "template_document",
-        "notes",
-        "source_evidence",
-        "source_location",
-        "confidence",
-    ],
-    "additionalProperties": False,
-}
+    "申请资料手续信息。",
+)
 
-
-ELIGIBILITY_CONSTRAINT_SCHEMA: dict[str, Any] = {
-    "type": "object",
-    "description": "准入条件与限制规则。",
-    "properties": {
-        "constraint_type": {
-            "type": "string",
-            "description": "规则类型：eligibility、required_condition、exclusion、compliance、recommendation_blocker。",
-        },
-        "name": {"type": "string", "description": "规则名称。"},
-        "description": {"type": "string", "description": "规则说明。"},
-        "condition": {"type": "string", "description": "触发条件。"},
-        "result": {"type": "string", "description": "触发结果。"},
-        "blocks_recommendation": {"type": "boolean", "description": "是否阻止推荐。"},
-        "applies_to": {"type": "array", "items": {"type": "string"}, "description": "适用对象。"},
-        "rule_source": {"type": "string", "description": "规则来源类别：path、document、contract、manual、system。"},
-        "normalized_logic": {"type": "object", "description": "结构化条件表达式。", "additionalProperties": True},
-        "related_materials": {"type": "array", "items": {"type": "string"}, "description": "关联材料。"},
-        "related_fee_rules": {"type": "array", "items": {"type": "string"}, "description": "关联费用规则。"},
-        "valid_from": {"type": "string", "description": "规则生效日期。"},
-        "valid_to": {"type": "string", "description": "规则失效日期。"},
-        **_evidence_fields(),
+DOCUMENT_INFO_SCHEMA = object_schema(
+    {
+        "document_id": string_schema("文档唯一 ID。"),
+        "source_file": string_schema("原始文件路径或文件名。"),
+        "product_name": string_schema("产品或套餐名称。"),
+        "carrier": string_schema("运营商或服务归属，如中国电信股份有限公司上海分公司。"),
+        "version": string_schema("文档版本号，如 2025/B。"),
+        "effective_date": {"type": ["string", "null"], "description": "生效日期，如有明确日期则填写。"},
+        "document_status": {"type": ["string", "null"], "description": "文档状态：active、inactive、null。"},
     },
-    "required": [
-        "constraint_type",
-        "name",
-        "description",
-        "condition",
-        "result",
-        "blocks_recommendation",
-        "applies_to",
-        "rule_source",
-        "normalized_logic",
-        "related_materials",
-        "related_fee_rules",
-        "valid_from",
-        "valid_to",
-        "source_evidence",
-        "source_location",
-        "confidence",
-    ],
-    "additionalProperties": False,
-}
+    "文档基本信息。",
+)
 
-
-SUPPLEMENTAL_RULE_SCHEMA: dict[str, Any] = {
-    "type": "object",
-    "description": "来自其它文件的补充规则。",
-    "properties": {
-        "source_type": {"type": "string", "description": "来源类型，如附件、附录、承诺书、备案表、SLA附页。"},
-        "name": {"type": "string", "description": "补充材料名称。"},
-        "description": {"type": "string", "description": "补充说明。"},
-        "fields": {"type": "array", "items": APPLICATION_FIELD_SCHEMA, "description": "表单字段。"},
-        "required_fields": {"type": "array", "items": {"type": "string"}, "description": "必填字段。"},
-        "columns": {"type": "array", "items": {"type": "string"}, "description": "表格列名。"},
-        "rules": {"type": "array", "items": {"type": "object", "additionalProperties": True}, "description": "补充材料中抽取出的规则。"},
-        **_evidence_fields(),
+PARTIES_AND_APPLICATION_SCHEMA = object_schema(
+    {
+        "agent": object_schema(
+            {
+                "agent_name": string_schema("代理商名称。"),
+                "sales_name": string_schema("代理商业务人员姓名。"),
+                "sales_contact": string_schema("代理商业务人员联系方式。"),
+            },
+            "代理商信息。",
+        ),
+        "customer": object_schema(
+            {
+                "name": string_schema("客户名称，空白表为空。"),
+                "filled_values": string_array_schema("已填写的客户信息。"),
+                "is_blank_form": {"type": "boolean", "description": "是否为空白申请表。"},
+            },
+            "客户信息。",
+        ),
+        "application_fields": object_schema(
+            {
+                "required": array_schema(APPLICATION_FIELD_SCHEMA, "必填字段。"),
+                "optional": array_schema(APPLICATION_FIELD_SCHEMA, "选填字段。"),
+            },
+            "申请字段。",
+        ),
+        "application_notes": string_array_schema("填写说明、办理说明、注意事项。"),
     },
-    "required": [
-        "source_type",
-        "name",
-        "description",
-        "fields",
-        "required_fields",
-        "columns",
-        "rules",
-        "source_evidence",
-        "source_location",
-        "confidence",
-    ],
-    "additionalProperties": False,
-}
+    "代理商、客户与办理信息。",
+)
 
+PRODUCT_INTRO_SCHEMA = object_schema(
+    {
+        "product_name": string_schema("产品名称。"),
+        "full_description": string_schema("产品介绍正文。"),
+        "application_scenarios": string_schema("应用场景，例如总部办公、视频会议、ERP 访问、企业专网、票务系统。"),
+    },
+    "产品介绍信息。",
+)
+
+PRODUCT_KEYWORDS_SCHEMA = object_schema(
+    {
+        "raw_keywords": string_schema("从关键词文件抽取到的关键词数组或原文关键词。"),
+    },
+    "产品关键词。",
+)
 
 PRODUCT_DOCUMENT_JSON_SCHEMA: dict[str, Any] = {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": f"https://local/{SCHEMA_NAME}/v{SCHEMA_VERSION}.schema.json",
-    "title": "业务产品套餐文档结构化抽取结果",
+    "title": SCHEMA_NAME,
     "type": "object",
-    "description": "用于大模型从业务产品文档中抽取可审核、可追溯的结构化中间态数据。",
     "properties": {
-        "document_info": {
-            "type": "object",
-            "description": "文档基本信息：这份文件是谁的、什么产品、什么类型、哪个版本、什么时候生效、原始路径在哪里。",
-            "properties": {
-                "document_id": {"type": "string", "description": "文档唯一 ID。"},
-                "document_type": {"type": "string", "description": "文档类型，如申请表、营销规则、服务协议、资费表、附件。"},
-                "title": {"type": "string", "description": "文档原始标题。"},
-                "product_name": {"type": "string", "description": "产品或套餐名称。"},
-                "product_family": {"type": "string", "description": "产品族，用于归类，如精品专线、小微业务。"},
-                "carrier": {"type": "string", "description": "运营商或服务归属，如电信、联通、移动、其他。"},
-                "region": {"type": "string", "description": "适用区域。"},
-                "version": {"type": "string", "description": "文档版本号。"},
-                "effective_from": {"type": "string", "description": "生效日期。"},
-                "effective_to": {"type": "string", "description": "失效日期或截止日期。"},
-                "document_status": {"type": "string", "enum": ["active", "inactive", ""], "description": "文档状态。"},
-                "filename": {"type": "string", "description": "原始文件名。"},
-                "source_path": {"type": "string", "description": "原始文件路径。"},
-                "source_file_type": {"type": "string", "description": "文件类型，如 docx、pdf、xlsx。"},
+        "application_form_info": object_schema(
+            {
+                "document_info": DOCUMENT_INFO_SCHEMA,
+                "parties_and_application": PARTIES_AND_APPLICATION_SCHEMA,
+                "pricing_info": PRICING_INFO_SCHEMA,
+                "agreement_rules": array_schema(AGREEMENT_RULE_SCHEMA, "协议条款、限制、违约、售后规则。"),
+                "eligibility_and_constraints": array_schema(ELIGIBILITY_CONSTRAINT_SCHEMA, "准入条件与限制规则。"),
             },
-            "required": [
-                "document_id",
-                "document_type",
-                "title",
-                "product_name",
-                "product_family",
-                "carrier",
-                "region",
-                "version",
-                "effective_from",
-                "effective_to",
-                "document_status",
-                "filename",
-                "source_path",
-                "source_file_type",
-            ],
-            "additionalProperties": False,
-        },
-        "parties_and_application": {
-            "type": "object",
-            "description": "服务商、客户与办理信息。",
-            "properties": {
-                "service_provider": {
-                    "type": "object",
-                    "properties": {
-                        "name": {"type": "string", "description": "服务商名称。"},
-                        "carrier": {"type": "string", "description": "服务商所属运营商。"},
-                        "region": {"type": "string", "description": "服务区域。"},
-                        "contact_channels": {"type": "array", "items": {"type": "string"}, "description": "联系电话、热线、办理渠道等。"},
-                    },
-                    "required": ["name", "carrier", "region", "contact_channels"],
-                    "additionalProperties": False,
-                },
-                "customer": {
-                    "type": "object",
-                    "properties": {
-                        "name": {"type": "string", "description": "客户名称，空白表为空。"},
-                        "filled_values": {"type": "array", "items": {"type": "object", "additionalProperties": True}, "description": "已填写的客户信息。"},
-                        "is_blank_form": {"type": "boolean", "description": "是否为空白申请表。"},
-                    },
-                    "required": ["name", "filled_values", "is_blank_form"],
-                    "additionalProperties": False,
-                },
-                "application_fields": {
-                    "type": "object",
-                    "properties": {
-                        "required": {"type": "array", "items": APPLICATION_FIELD_SCHEMA, "description": "必填字段。"},
-                        "optional": {"type": "array", "items": APPLICATION_FIELD_SCHEMA, "description": "选填字段。"},
-                    },
-                    "required": ["required", "optional"],
-                    "additionalProperties": False,
-                },
-                "application_notes": {"type": "array", "items": {"type": "string"}, "description": "填写说明、办理说明、注意事项。"},
+            "申请表基本信息，来源申请表文档。",
+        ),
+        "supplementary_info": object_schema(
+            {
+                "product_intro": PRODUCT_INTRO_SCHEMA,
+                "product_keywords": PRODUCT_KEYWORDS_SCHEMA,
+                "pricing_info": PRICING_INFO_SCHEMA,
+                "application_materials": array_schema(APPLICATION_MATERIAL_SCHEMA, "申请资料手续信息。"),
             },
-            "required": ["service_provider", "customer", "application_fields", "application_notes"],
-            "additionalProperties": False,
-        },
-        "base_package": {
-            "type": "object",
-            "description": "基础套餐信息。",
-            "properties": {
-                "packages": {"type": "array", "items": PACKAGE_ITEM_SCHEMA},
-                "included_items": {"type": "array", "items": {"type": "object", "additionalProperties": True}, "description": "套餐内包含的服务、权益、设备、资源。"},
-                "service_attributes": {"type": "array", "items": {"type": "object", "additionalProperties": True}, "description": "基础业务属性，如接口标准、套餐类型、SLA等级。"},
-                "sla": {"type": "object", "description": "服务等级、网络保障、赔付规则。", "additionalProperties": True},
-            },
-            "required": ["packages", "included_items", "service_attributes", "sla"],
-            "additionalProperties": False,
-        },
-        "optional_packages": {"type": "array", "items": OPTIONAL_PACKAGE_SCHEMA},
-        "fee_and_term_rules": {"type": "array", "items": FEE_RULE_SCHEMA},
-        "agreement_rules": {"type": "array", "items": AGREEMENT_RULE_SCHEMA},
-        "application_materials": {"type": "array", "items": APPLICATION_MATERIAL_SCHEMA},
-        "eligibility_and_constraints": {"type": "array", "items": ELIGIBILITY_CONSTRAINT_SCHEMA},
-        "supplemental_rules": {"type": "array", "items": SUPPLEMENTAL_RULE_SCHEMA},
-        "extraction_meta": {
-            "type": "object",
-            "description": "抽取元信息。",
-            "properties": {
-                "generated_at": {"type": "string", "description": "生成时间。"},
-                "source_file": {"type": "string", "description": "来源文件。"},
-                "source_file_hash": {"type": "string", "description": "文件哈希，用于版本追踪。"},
-                "method": {"type": "string", "description": "抽取方法。"},
-                "llm_self_check": {"type": "object", "description": "大模型自检结果。", "additionalProperties": True},
-                "validation_issues": {"type": "array", "items": {"type": "object", "additionalProperties": True}, "description": "校验问题列表。"},
+            "额外补充信息，来源产品介绍、关键词、资费表、申请手续提示。",
+        ),
+        "extraction_meta": object_schema(
+            {
+                "generated_at": string_schema("生成时间。"),
+                "source_file": string_schema("来源文件。"),
+                "method": string_schema("抽取方法。"),
+                "validation_issues": {"type": "array", "items": {"type": "object", "additionalProperties": True}, "description": "校验问题。"},
                 "validation_issue_count": {"type": "integer", "minimum": 0, "description": "校验问题数量。"},
-                "schema_warnings": {"type": "array", "items": {"type": "string"}, "description": "schema 结构告警。"},
-                "review_status": {
-                    "type": "string",
-                    "enum": ["draft", "reviewed", "published", "rejected", ""],
-                    "description": "审核状态。",
-                },
             },
-            "required": [
-                "generated_at",
-                "source_file",
-                "source_file_hash",
-                "method",
-                "llm_self_check",
-                "validation_issues",
-                "validation_issue_count",
-                "schema_warnings",
-                "review_status",
-            ],
-            "additionalProperties": False,
-        },
+            "抽取元数据。",
+        ),
     },
     "required": TOP_LEVEL_SCHEMA_KEYS,
     "additionalProperties": False,
 }
 
+MODULE_SCHEMAS: dict[str, dict[str, Any]] = {
+    "application_form_info.document_info": DOCUMENT_INFO_SCHEMA,
+    "application_form_info.parties_and_application": PARTIES_AND_APPLICATION_SCHEMA,
+    "application_form_info.pricing_info": PRICING_INFO_SCHEMA,
+    "application_form_info.agreement_rules": PRODUCT_DOCUMENT_JSON_SCHEMA["properties"]["application_form_info"]["properties"]["agreement_rules"],
+    "application_form_info.eligibility_and_constraints": PRODUCT_DOCUMENT_JSON_SCHEMA["properties"]["application_form_info"]["properties"]["eligibility_and_constraints"],
+    "supplementary_info.product_intro": PRODUCT_INTRO_SCHEMA,
+    "supplementary_info.product_keywords": PRODUCT_KEYWORDS_SCHEMA,
+    "supplementary_info.pricing_info": PRICING_INFO_SCHEMA,
+    "supplementary_info.application_materials": PRODUCT_DOCUMENT_JSON_SCHEMA["properties"]["supplementary_info"]["properties"]["application_materials"],
+}
 
 EMPTY_PRODUCT_DOCUMENT: dict[str, Any] = {
-    "document_info": {
-        "document_id": "",
-        "document_type": "",
-        "title": "",
-        "product_name": "",
-        "product_family": "",
-        "carrier": "",
-        "region": "",
-        "version": "",
-        "effective_from": "",
-        "effective_to": "",
-        "document_status": "",
-        "filename": "",
-        "source_path": "",
-        "source_file_type": "",
-    },
-    "parties_and_application": {
-        "service_provider": {
-            "name": "",
+    "application_form_info": {
+        "document_info": {
+            "document_id": "",
+            "source_file": "",
+            "product_name": "",
             "carrier": "",
-            "region": "",
-            "contact_channels": [],
+            "version": "",
+            "effective_date": None,
+            "document_status": None,
         },
-        "customer": {
-            "name": "",
-            "filled_values": [],
-            "is_blank_form": True,
+        "parties_and_application": {
+            "agent": {"agent_name": "", "sales_name": "", "sales_contact": ""},
+            "customer": {"name": "", "filled_values": [], "is_blank_form": True},
+            "application_fields": {"required": [], "optional": []},
+            "application_notes": [],
         },
-        "application_fields": {
-            "required": [],
-            "optional": [],
+        "pricing_info": {
+            "source_type": "application_form",
+            "source_file": "",
+            "one_time_fees": [],
+            "base_package_prices": [],
+            "addon_prices": [],
+            "fee_and_term_rules": [],
+            "discount_policy": [],
         },
-        "application_notes": [],
+        "agreement_rules": [],
+        "eligibility_and_constraints": [],
     },
-    "base_package": {
-        "packages": [],
-        "included_items": [],
-        "service_attributes": [],
-        "sla": {},
+    "supplementary_info": {
+        "product_intro": {"product_name": "", "full_description": "", "application_scenarios": ""},
+        "product_keywords": {"raw_keywords": ""},
+        "pricing_info": {
+            "source_type": "pricing_sheet",
+            "source_file": "",
+            "one_time_fees": [],
+            "base_package_prices": [],
+            "addon_prices": [],
+            "fee_and_term_rules": [],
+            "discount_policy": [],
+        },
+        "application_materials": [],
     },
-    "optional_packages": [],
-    "fee_and_term_rules": [],
-    "agreement_rules": [],
-    "application_materials": [],
-    "eligibility_and_constraints": [],
-    "supplemental_rules": [],
     "extraction_meta": {
         "generated_at": "",
         "source_file": "",
-        "source_file_hash": "",
         "method": "",
-        "llm_self_check": {},
         "validation_issues": [],
         "validation_issue_count": 0,
-        "schema_warnings": [],
-        "review_status": "draft",
     },
 }
 
 
 def make_empty_product_document(*, generated_at: str | None = None) -> dict[str, Any]:
-    """Return a fresh empty extraction document following this schema."""
+    """生成一份符合新 schema 的空产品资料包。"""
+
     data = deepcopy(EMPTY_PRODUCT_DOCUMENT)
     data["extraction_meta"]["generated_at"] = generated_at or datetime.now().isoformat(timespec="seconds")
     return data
 
 
 def get_product_document_json_schema() -> dict[str, Any]:
-    """Return a deep copy of the JSON Schema for LLM structured output or validation."""
+    """返回完整产品资料包 JSON Schema。"""
+
     return deepcopy(PRODUCT_DOCUMENT_JSON_SCHEMA)
 
 
 def get_module_json_schema(module_name: str) -> dict[str, Any]:
-    """Return the JSON Schema fragment expected from one LLM extraction module."""
-    properties = PRODUCT_DOCUMENT_JSON_SCHEMA["properties"]
-    if module_name not in properties:
+    """按点路径返回单个抽取模块的 JSON Schema。"""
+
+    if module_name not in MODULE_SCHEMAS:
         raise KeyError(f"Unknown product document module: {module_name}")
-    return deepcopy(properties[module_name])
+    return deepcopy(MODULE_SCHEMAS[module_name])
 
 
 def get_module_output_template(module_name: str) -> Any:
-    """Return an empty JSON template for the exact module-level LLM output."""
-    if module_name not in PRODUCT_DOCUMENT_JSON_SCHEMA["properties"]:
-        raise KeyError(f"Unknown product document module: {module_name}")
-    schema = PRODUCT_DOCUMENT_JSON_SCHEMA["properties"][module_name]
-    return _example_from_schema(schema)
+    """返回单个模块期望的空输出模板。"""
+
+    return _example_from_schema(get_module_json_schema(module_name))
 
 
 def module_output_contract(module_name: str) -> str:
-    """Prompt-ready contract for one module, including exact field names."""
+    """生成可放入提示词的模块输出契约。"""
+
     template = get_module_output_template(module_name)
     return "\n".join(
         [
             "本模块必须严格使用下面 JSON 模板中的字段名和层级。",
-            "禁止新增模板以外的字段名；禁止把字段改成同义词，例如 name 不能替代 package_name，billing_cycle 不能替代 billing_period。",
-            "对象中模板出现的字段都必须保留；没有抽到值也要按空值规则填充。",
-            "confidence 字段必须是 0 到 1 之间的数字，不能填 null；低置信度也要填 0.3、0.5 等数字。",
-            "数组字段如果没有内容填 []；如果有多条业务事实，数组中输出多个同结构对象。",
+            "禁止新增模板以外的字段名；没有抽到值也要按空值规则填充。",
+            "字符串字段无法确定时填空字符串，数字字段无法确定时填 null，布尔字段无法确定时填 false 或 null，数组字段没有内容时填 []。",
+            "输出必须是当前模块本身，不要额外包一层模块名。",
             "本模块输出模板：",
             json.dumps(template, ensure_ascii=False, separators=(",", ":")),
         ]
@@ -591,76 +446,33 @@ def module_output_contract(module_name: str) -> str:
 
 
 def schema_prompt_contract() -> str:
-    """Short contract text that can be inserted into an LLM extraction prompt."""
+    """生成全局 schema 约束说明，供提示词复用。"""
+
     return (
-        "你必须只输出一个 JSON 对象，结构必须符合 product_document_extraction schema。"
-        "顶层只能包含 document_info、parties_and_application、base_package、optional_packages、fee_and_term_rules、"
-        "agreement_rules、application_materials、eligibility_and_constraints、supplemental_rules、extraction_meta。"
-        "无法确定的字符串字段填空字符串，无法确定的普通数字填 null，无法确定的布尔值填 null；"
-        "但 confidence 字段永远不能填 null，必须填 0 到 1 的数字。"
-        "数组字段没有内容时填 []，对象字段没有内容时填 {}。"
-        "所有数组字段都允许并且应当承载多条记录：例如有三四个权益包时，必须在 optional_packages 中输出三四个对象；"
-        "有多条费用、协议、材料、准入限制或补充规则时，也必须逐条放入对应列表，不能合并成一条长文本。"
-        "凡是从原文抽出的关键业务字段，都必须填写 source_evidence、source_location 和 confidence。"
-        "不要把可选包权益误填为基础套餐字段；保留原文证据，避免猜测。"
+        "你必须只输出合法 JSON，结构必须符合 product_document_extraction schema。"
+        "当前 schema 顶层只有 application_form_info、supplementary_info、extraction_meta。"
+        "申请表文件只抽 application_form_info 下的模块；产品介绍、关键词、资费表、申请手续提示只抽 supplementary_info 下的对应模块。"
+        "所有数组字段都是多记录容器，原文出现多条业务事实时必须拆成多条对象，不要合并成长文本。"
+        "raw_text 必须保留可追溯原文，不能编造原文没有的信息。"
     )
 
 
-def _example_from_schema(schema: dict[str, Any]) -> Any:
-    schema_type = schema.get("type")
-    if isinstance(schema_type, list):
-        non_null_types = [item for item in schema_type if item != "null"]
-        if not non_null_types:
-            return None
-        if "boolean" in non_null_types:
-            return None
-        if "number" in non_null_types or "integer" in non_null_types:
-            return None
-        schema_type = non_null_types[0]
-
-    if schema_type == "object":
-        properties = schema.get("properties", {})
-        return {key: _example_from_schema(value) for key, value in properties.items()}
-    if schema_type == "array":
-        item_schema = schema.get("items", {})
-        if isinstance(item_schema, dict) and item_schema.get("type") == "object":
-            return [_example_from_schema(item_schema)]
-        return []
-    if schema_type == "string":
-        return ""
-    if schema_type == "number":
-        return 0.0
-    if schema_type == "integer":
-        return 0
-    if schema_type == "boolean":
-        return False
-    return None
-
-
 def validate_product_document(data: dict[str, Any]) -> list[dict[str, str]]:
-    """Lightweight structural validation without external dependencies.
+    """轻量结构校验；完整业务校验后续在 validator 中逐步迁移。"""
 
-    This is not a full JSON Schema validator. It catches missing top-level keys,
-    common type mistakes, and extraction_meta count mismatches.
-    """
     issues: list[dict[str, str]] = []
     if not isinstance(data, dict):
         return [{"severity": "error", "path": "$", "message": "data must be a JSON object"}]
 
     expected_keys = set(TOP_LEVEL_SCHEMA_KEYS)
-    actual_keys = set(data.keys())
+    actual_keys = set(data)
     for key in TOP_LEVEL_SCHEMA_KEYS:
         if key not in data:
             issues.append({"severity": "error", "path": key, "message": "missing required top-level key"})
     for key in sorted(actual_keys - expected_keys):
         issues.append({"severity": "error", "path": key, "message": "unexpected top-level key"})
 
-    for key in TOP_LEVEL_LIST_KEYS:
-        if key in data and not isinstance(data[key], list):
-            issues.append({"severity": "error", "path": key, "message": "must be a list"})
-
-    object_keys = ["document_info", "parties_and_application", "base_package", "extraction_meta"]
-    for key in object_keys:
+    for key in ("application_form_info", "supplementary_info", "extraction_meta"):
         if key in data and not isinstance(data[key], dict):
             issues.append({"severity": "error", "path": key, "message": "must be an object"})
 
@@ -678,3 +490,33 @@ def validate_product_document(data: dict[str, Any]) -> list[dict[str, str]]:
             )
 
     return issues
+
+
+def _example_from_schema(schema: dict[str, Any]) -> Any:
+    schema_type = schema.get("type")
+    if isinstance(schema_type, list):
+        non_null_types = [item for item in schema_type if item != "null"]
+        if not non_null_types:
+            return None
+        if "boolean" in non_null_types:
+            return None
+        if "number" in non_null_types or "integer" in non_null_types:
+            return None
+        schema_type = non_null_types[0]
+
+    if schema_type == "object":
+        return {key: _example_from_schema(value) for key, value in schema.get("properties", {}).items()}
+    if schema_type == "array":
+        item_schema = schema.get("items", {})
+        if isinstance(item_schema, dict) and item_schema.get("type") == "object":
+            return [_example_from_schema(item_schema)]
+        return []
+    if schema_type == "string":
+        return ""
+    if schema_type == "number":
+        return None
+    if schema_type == "integer":
+        return 0
+    if schema_type == "boolean":
+        return False
+    return None
