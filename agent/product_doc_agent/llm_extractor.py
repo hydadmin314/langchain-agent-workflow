@@ -11,6 +11,7 @@ from typing import Any
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.messages import HumanMessage
 
+from agent.product_doc_agent.document_classifier import classify_document
 from agent.product_doc_agent.schema_normalizer import normalize_to_module_schema
 from agent.product_doc_agent.validator import validate_against_schema
 from config.llm_config import get_product_doc_text_llm
@@ -26,22 +27,21 @@ from prompts.product_doc_agent_prompts import (
     build_self_check_prompt,
 )
 from schema import get_module_json_schema
+from schema.product_schema import EXTRACTION_MODULES as PRODUCT_SCHEMA_EXTRACTION_MODULES
 from utils.logger import logger
 
 
-EXTRACTION_MODULES = [
-    "document_info",
-    "parties_and_application",
-    "base_package",
-    "optional_packages",
-    "fee_and_term_rules",
-    "agreement_rules",
-    "application_materials",
-    "eligibility_and_constraints",
-    "supplemental_rules",
-]
+# 新 schema 使用点路径模块名，便于区分申请表信息和补充资料信息。
+EXTRACTION_MODULES = list(PRODUCT_SCHEMA_EXTRACTION_MODULES)
 
-COMPACT_FIRST_MODULES = {"parties_and_application"}
+# 申请表字段较多，默认先用紧凑提示词，降低超时概率。
+COMPACT_FIRST_MODULES = {"application_form_info.parties_and_application"}
+
+
+def modules_for_document(file_path: str) -> list[str]:
+    """根据文件名分类结果，返回该文档应该抽取的新 schema 模块。"""
+
+    return list(classify_document(file_path).target_modules)
 
 
 class LLMExtractionError(RuntimeError):
@@ -475,7 +475,7 @@ def build_primary_module_prompt(module_name: str, context: str, *, max_context_c
 
 
 RETRY_CONTEXT_KEYWORDS: dict[str, tuple[str, ...]] = {
-    "eligibility_and_constraints": (
+    "application_form_info.eligibility_and_constraints": (
         "仅限",
         "不适用",
         "不能",
@@ -497,8 +497,9 @@ RETRY_CONTEXT_KEYWORDS: dict[str, tuple[str, ...]] = {
         "违规",
         "承诺",
     ),
-    "optional_packages": ("可选", "权益", "增值", "固话", "商云通", "移动业务", "升速", "订购", "申请线数"),
-    "base_package": ("基础套餐", "套餐类型", "接口标准", "速率", "上行", "下行", "月", "年", "语音"),
+    "application_form_info.pricing_info": ("资费", "套餐", "价格", "月付", "年付", "协议期", "语音", "增值", "权益", "折扣"),
+    "supplementary_info.pricing_info": ("资费", "套餐", "价格", "月付", "年付", "协议期", "语音", "增值", "权益", "折扣"),
+    "supplementary_info.application_materials": ("材料", "申请手续", "签字", "盖章", "复印件", "原件", "授权", "担保"),
 }
 
 
@@ -595,9 +596,8 @@ def build_llm_request_error(
 def empty_module_output(module_name: str) -> Any:
     """模块失败时生成空输出，保证主流程可继续。"""
 
-    if module_name in {"document_info", "parties_and_application", "base_package"}:
-        return {}
-    return []
+    schema = get_module_json_schema(module_name)
+    return {} if schema.get("type") == "object" else []
 
 
 def validate_module_output(module_name: str, result: Any) -> list[dict[str, Any]]:
