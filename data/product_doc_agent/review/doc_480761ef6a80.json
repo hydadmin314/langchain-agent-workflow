@@ -1,0 +1,515 @@
+{
+  "application_form_info": {
+    "document_info": {
+      "document_id": "doc_480761ef6a80",
+      "source_file": "E:\\GitHub\\产品\\组网\\联通\\本地国内MPLS-VPN\\4 申请表_【铅印版】中国联通MPLS-VPN业务新装申请单.pdf",
+      "product_name": "MPLS-VPN 业务",
+      "carrier": "中国联通",
+      "version": "",
+      "effective_date": "",
+      "document_status": null
+    },
+    "parties_and_application": {
+      "agent": {
+        "agent_name": "",
+        "sales_name": "",
+        "sales_contact": ""
+      },
+      "customer": {
+        "name": "",
+        "filled_values": [],
+        "is_blank_form": true
+      },
+      "application_fields": {
+        "required": [
+          {
+            "label": "客户名称",
+            "field_key": "customer_name",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": ""
+          },
+          {
+            "label": "客户证件类型",
+            "field_key": "customer_id_type",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": ""
+          },
+          {
+            "label": "客户证件号码",
+            "field_key": "customer_id_number",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": ""
+          },
+          {
+            "label": "经办人姓名",
+            "field_key": "handler_name",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": ""
+          },
+          {
+            "label": "联系电话",
+            "field_key": "contact_phone",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": ""
+          },
+          {
+            "label": "经办人证件类型",
+            "field_key": "handler_id_type",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": ""
+          },
+          {
+            "label": "经办人证件号码",
+            "field_key": "handler_id_number",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": ""
+          },
+          {
+            "label": "账单地址",
+            "field_key": "billing_address",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": ""
+          },
+          {
+            "label": "收件人",
+            "field_key": "recipient",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": ""
+          },
+          {
+            "label": "收件人联系电话",
+            "field_key": "recipient_phone",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": ""
+          },
+          {
+            "label": "客户经理",
+            "field_key": "account_manager",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": ""
+          },
+          {
+            "label": "填单人员",
+            "field_key": "form_filler",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": ""
+          },
+          {
+            "label": "归属部门",
+            "field_key": "department",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": ""
+          },
+          {
+            "label": "现场联系人名称 On-site Contact",
+            "field_key": "on_site_contact_name",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": ""
+          },
+          {
+            "label": "手机 Mobile",
+            "field_key": "mobile_phone",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": ""
+          }
+        ],
+        "optional": [
+          {
+            "label": "客户证件地址",
+            "field_key": "customer_address",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": ""
+          },
+          {
+            "label": "区",
+            "field_key": "district",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": ""
+          },
+          {
+            "label": "邮编",
+            "field_key": "zip_code",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": ""
+          },
+          {
+            "label": "电子邮件",
+            "field_key": "email",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": ""
+          },
+          {
+            "label": "现场联系人电话 On-site Telephone",
+            "field_key": "on_site_contact_phone",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": ""
+          }
+        ]
+      },
+      "application_notes": [
+        "请客户填写，*项内容客户必须填写"
+      ]
+    },
+    "pricing_info": {
+      "source_type": "application_form",
+      "source_file": "E:\\GitHub\\产品\\组网\\联通\\本地国内MPLS-VPN\\4 申请表_【铅印版】中国联通MPLS-VPN业务新装申请单.pdf",
+      "one_time_fees": [
+        {
+          "name": "预付款",
+          "amount": null,
+          "currency": "元",
+          "unit": "",
+          "applicable_to": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "预付款：________元"
+        }
+      ],
+      "base_package_prices": [
+        {
+          "name": "端口月使用费",
+          "speed": "",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "",
+          "has_voice": false,
+          "price": null,
+          "currency": "￥",
+          "unit": "",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "端口月使用费 ￥________元/"
+        },
+        {
+          "name": "本地接入电路月使用费",
+          "speed": "",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "",
+          "has_voice": false,
+          "price": null,
+          "currency": "￥",
+          "unit": "",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "本地接入电路月使用费 ￥________元/"
+        }
+      ],
+      "addon_prices": [],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "agreement_rules": [
+      {
+        "rule_type": "restriction",
+        "description": "甲方应遵守国家相关的法律、法规，不得利用租用乙方的服务从事损害国家网络信息安全的行为",
+        "severity": "high",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "违反规定从事损害国家网络信息安全的行为"
+        ],
+        "consequence": "乙方有权立即终止对甲方的服务，由此造成的一切损失由甲方承担；乙方有权立即停止提供服务并追回拖欠费用，一切后果由甲方承担，乙方保留追究权利",
+        "raw_text": "甲方应遵守国家相关的法律、法规，不得利用租用乙方的服务从事损害国家网络信息安全的行为，若甲方有违反此条规定的行为发生，乙方有权立即终止对甲方的服务，由此造成的一切损失由甲方承担；否则，乙方有权立即停止向甲方提供服务并追回所有拖欠费用，由此造成的一切后果均由甲方承担，同时乙方保留对甲方进行追究的权利。"
+      },
+      {
+        "rule_type": "penalty",
+        "description": "甲方逾期未支付通信费用，需补缴并按日加收违约金",
+        "severity": "medium",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "乙方",
+        "conditions": [
+          "逾期未支付通信费用"
+        ],
+        "consequence": "补缴费用，按照所欠费用每日加收3‰的违约金",
+        "raw_text": "遵照《中华人民共和国电信条例》的规定，甲方逾期未支付通信费用，乙方有权要求其补缴费用，并按照所欠费用每日加收3‰的违约金。"
+      },
+      {
+        "rule_type": "suspension",
+        "description": "甲方逾期未支付通信费用超过30日，乙方有权暂停服务",
+        "severity": "high",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "乙方",
+        "conditions": [
+          "逾期未支付通信费用超过30日"
+        ],
+        "consequence": "暂停服务",
+        "raw_text": "甲方逾期未支付通信费用超过30日，乙方有权暂停服务。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "甲方逾期未支付通信费用超过90日，乙方有权终止服务并追缴欠费违约金",
+        "severity": "high",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "乙方",
+        "conditions": [
+          "逾期未支付通信费用超过90日"
+        ],
+        "consequence": "终止服务，依法追缴欠费和违约金",
+        "raw_text": "甲方逾期未支付通信费用超过90日的，乙方有权终止服务，并有权依法追缴欠费和违约金。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "乙方有权自主决定延期停机，且不因延期停机免除甲方缴费义务",
+        "severity": "medium",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "乙方",
+        "conditions": [
+          "乙方未在法定或约定期限内行使停机权利"
+        ],
+        "consequence": "乙方有权依据实际停机的时间，主张甲方欠费期间的全部通信费及违约金，甲方不得以乙方有权停机而未予停机作为拒绝支付通信费的理由",
+        "raw_text": "乙方亦有权决定不在前述时间点（但不少于前述时间）行使暂停服务或终止服务（以下合称：停机）的权利；如乙方（未在前述时间点行使停机的权利，乙方有权依据实际停机的时间，主张甲方欠费期间的全部通信费及违约金，甲方不得以乙方有权停机而未予停机作为拒绝支付通信费的理由；"
+      },
+      {
+        "rule_type": "termination",
+        "description": "甲方终止协议须提前30天书面申请，末月不足一月按实际天数折算费用",
+        "severity": "medium",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "甲方申请终止协议"
+        ],
+        "consequence": "需提前30天书面提出申请，当月月度使用费用按照月使用费*实际使用天数/当期计费周期天数进行计算",
+        "raw_text": "如果甲方终止该协议，须提前30天书面提出协议终止申请，若甲方最后一月使用业务计费期不足一个月，当月月度使用费用按照：月使用费*实际使用天数/当期计费周期天数进行计算。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "促销期签约享受折扣的客户在合同期内不得申请终止服务或降速",
+        "severity": "high",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "在促销期签订的合同享受折扣和/或优惠，并已承诺合同期限"
+        ],
+        "consequence": "合同期限内原则上可以申请移机，但不得申请终止服务、降低速率等可能导致原合同签订金额下降的服务",
+        "raw_text": "如果甲方是在乙方促销期签订的合同享受折扣和/或优惠，并已承诺合同期限，甲方在合同期限内原则上可以申请移机，但不得申请终止服务、降低速率等可能导致原合同签订金额下降的服务。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "双方对协议具体内容负有保密责任，未经书面同意不得向第三方披露",
+        "severity": "medium",
+        "applies_to": [
+          "甲乙双方"
+        ],
+        "obligation_party": "双方",
+        "conditions": [],
+        "consequence": "",
+        "raw_text": "甲乙双方对本协议的具体内容负有保密责任。未经对方事先书面同意，任何一方不得将双方的合作及本协议的具体内容披露给任何第三方。"
+      },
+      {
+        "rule_type": "penalty",
+        "description": "违约方需承担守约方维权产生的合理费用及律师费",
+        "severity": "high",
+        "applies_to": [
+          "甲乙双方"
+        ],
+        "obligation_party": "违约方",
+        "conditions": [
+          "一方违约且需通过司法或行政程序强制执行"
+        ],
+        "consequence": "守约方有权获得补偿，胜诉方有权被判定获得合理和必要的诉讼费用的赔偿，包括合理的律师费",
+        "raw_text": "如果一方违约，遵守协议的一方应有权通过有关司法程序或有关政府部门的行政程序获得补偿。如果有需要通过法院或行政程序强制执行本协议的任何条款，胜诉方应有权被判定获得合理和必要的诉讼费用的赔偿，包括合理的律师费。"
+      },
+      {
+        "rule_type": "dispute_resolution",
+        "description": "因本协议发生的争议应首先通过友好协商解决",
+        "severity": "low",
+        "applies_to": [
+          "甲乙双方"
+        ],
+        "obligation_party": "双方",
+        "conditions": [
+          "因本协议而发生的争议"
+        ],
+        "consequence": "优先通过友好协商解决",
+        "raw_text": "因本协议而发生的争议，双方应首先通过友好协商解决争议。"
+      },
+      {
+        "rule_type": "effectiveness",
+        "description": "本协议自双方签字盖章之日起生效",
+        "severity": "low",
+        "applies_to": [
+          "甲乙双方"
+        ],
+        "obligation_party": "双方",
+        "conditions": [
+          "双方签字盖章"
+        ],
+        "consequence": "协议生效",
+        "raw_text": "本协议自双方签字盖章之日起生效。"
+      }
+    ],
+    "eligibility_and_constraints": [
+      {
+        "name": "业务转让/出租限制",
+        "description": "甲方在未取得乙方同意的情况下，禁止转让、出售或出租中国联通MPLS-VPN业务。",
+        "condition": "甲方拟进行业务转让、出售或出租操作时",
+        "result": "交易或出租行为需经乙方事先同意，否则不得执行",
+        "applies_to": [
+          "MPLS-VPN业务",
+          "甲方"
+        ],
+        "severity": "high",
+        "raw_text": "甲方未经乙方同意不得转让或出售/出租中国联通MPLS-VPN业务。"
+      },
+      {
+        "name": "合作内容与协议保密限制",
+        "description": "任何一方在未获得对方事先书面同意的情况下，不得向第三方披露双方合作情况及本协议具体内容。",
+        "condition": "任何一方拟对外披露合作细节或协议内容时",
+        "result": "披露行为被禁止，需取得对方事先书面同意",
+        "applies_to": [
+          "甲方",
+          "乙方",
+          "合作协议"
+        ],
+        "severity": "high",
+        "raw_text": "未经对方事先书面同意，任何一方不得将双方的合作及本协议的具体内容披露给任何第三方。"
+      },
+      {
+        "name": "不可抗力免责条款",
+        "description": "因不可抗力导致线路中断或系统无法正常工作，进而造成甲方通信中断及损失的，乙方不承担赔偿责任。",
+        "condition": "发生不可抗力事件导致线路中断或系统故障",
+        "result": "乙方免除相关损失赔偿责任",
+        "applies_to": [
+          "乙方",
+          "通信服务",
+          "不可抗力事件"
+        ],
+        "severity": "medium",
+        "raw_text": "十四、因不可抗力造成的线路中断或无法保证系统正常工作，而导致甲方通信中断而造成的损失，乙方不承担任何责任。"
+      },
+      {
+        "name": "不可抗力事件定义",
+        "description": "明确界定不可抗力事件的范围，包括严重自然灾害、政府行为及第三方电路故障等。",
+        "condition": "判定是否属于不可抗力事件时",
+        "result": "符合该定义的事件将被认定为不可抗力，适用相关免责或减损规则",
+        "applies_to": [
+          "合同双方",
+          "不可抗力认定"
+        ],
+        "severity": "low",
+        "raw_text": "“不可抗力事件”包括严重自然灾害、政府行为、第三方电路故障等不可抗拒的事件。"
+      },
+      {
+        "name": "损失减损义务",
+        "description": "发生不可抗力事件后，甲乙双方均有义务采取合理措施尽力减少由此造成的损失。",
+        "condition": "发生不可抗力事件并造成潜在损失时",
+        "result": "双方须履行减损义务，否则可能承担扩大的损失责任",
+        "applies_to": [
+          "甲方",
+          "乙方",
+          "不可抗力事件"
+        ],
+        "severity": "medium",
+        "raw_text": "甲乙双方应努力减小不可抗力造成的损失。"
+      }
+    ]
+  },
+  "supplementary_info": {
+    "product_intro": {
+      "product_name": "",
+      "full_description": "",
+      "application_scenarios": ""
+    },
+    "product_keywords": {
+      "raw_keywords": ""
+    },
+    "pricing_info": {
+      "source_type": "pricing_sheet",
+      "source_file": "",
+      "one_time_fees": [],
+      "base_package_prices": [],
+      "addon_prices": [],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "application_materials": []
+  },
+  "extraction_meta": {
+    "generated_at": "2026-06-24T17:35:03",
+    "source_file": "E:\\GitHub\\产品\\组网\\联通\\本地国内MPLS-VPN\\4 申请表_【铅印版】中国联通MPLS-VPN业务新装申请单.pdf",
+    "method": "llm_schema_module_extraction_no_normalization",
+    "validation_issues": [],
+    "validation_issue_count": 0
+  }
+}

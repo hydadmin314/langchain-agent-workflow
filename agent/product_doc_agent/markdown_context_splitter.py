@@ -63,8 +63,17 @@ PRICING_TERMS = (
     "资费",
     "价格",
     "费用",
+    "订单金额",
+    "成交价",
+    "Deal Price",
     "月付",
     "年付",
+    "月租费",
+    "使用费",
+    "电路使用费",
+    "IP 地址月租费",
+    "域名服务费",
+    "预付款",
     "一次性",
     "初装费",
     "接入费",
@@ -245,13 +254,37 @@ def is_document_info_block(block: MarkdownBlock) -> bool:
 def is_pricing_section_start(block: MarkdownBlock) -> bool:
     """识别申请表中套餐/资费区起点；客户和代理商字段必须在这个边界前结束。"""
 
-    return contains_any(block.text, ("基础套餐申请信息", "套餐申请信息", "产品套餐费用信息", "资费信息"))
+    return contains_any(
+        block.text,
+        (
+            "基础套餐申请信息",
+            "套餐申请信息",
+            "产品套餐费用信息",
+            "资费信息",
+            "订单金额",
+            "成交价",
+            "Deal Price",
+        ),
+    )
 
 
 def is_form_notes_section_start(block: MarkdownBlock) -> bool:
     """识别填表说明/办理说明起点；套餐资费区必须在这个边界前结束。"""
 
-    return contains_any(block.text, ("填表说明", "填写说明", "办理说明", "注意事项", "业务服务协议", "客户承诺"))
+    return contains_any(
+        block.text,
+        (
+            "填表说明",
+            "填写说明",
+            "办理说明",
+            "注意事项",
+            "业务服务协议",
+            "服务协议",
+            "协议书",
+            "客户承诺",
+            "## Page 2",
+        ),
+    )
 
 
 def is_agreement_context_block(block: MarkdownBlock) -> bool:
@@ -298,12 +331,29 @@ def slice_blocks(blocks: list[MarkdownBlock], start: int | None, end: int | None
 def select_document_info_blocks(markdown: str) -> list[MarkdownBlock]:
     """文档基本信息优先取第一条有效标题，避免 MarkItDown 把标题和表格粘成大块。"""
 
-    for line in normalize_markdown(markdown).splitlines():
+    lines = normalize_markdown(markdown).splitlines()
+    for line in lines:
+        text = line.strip()
+        if text.startswith("#") and not is_page_marker(text):
+            return [MarkdownBlock(index=0, block_type="heading", text=text)]
+
+    for line in lines:
         text = line.strip().strip("|").strip()
-        if not text or is_markdown_separator_row(line) or is_empty_table_row(line):
+        if (
+            not text
+            or is_page_marker(text)
+            or is_markdown_separator_row(line)
+            or is_empty_table_row(line)
+        ):
             continue
         return [MarkdownBlock(index=0, block_type="heading", text=text)]
     return []
+
+
+def is_page_marker(text: str) -> bool:
+    """跳过 OCR/MarkItDown 生成的页码标题，避免把 Page 1 当成文档名称。"""
+
+    return bool(re.fullmatch(r"#{0,6}\s*Page\s+\d+\s*", text, flags=re.IGNORECASE))
 
 
 def parse_markdown_blocks(markdown: str) -> list[MarkdownBlock]:

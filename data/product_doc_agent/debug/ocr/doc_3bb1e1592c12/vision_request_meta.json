@@ -1,0 +1,27 @@
+{
+  "source_path": "E:\\GitHub\\产品\\上网\\联通业务\\沃专线\\4 申请表_中国联通互联网专线接入业务（沃专线类）新装申请表.pdf",
+  "markdown_source": "vision_ocr_markdown",
+  "markdown_path": "data\\product_doc_agent\\debug\\doc_3bb1e1592c12_llm_markdown.md",
+  "module_context_path": "data\\product_doc_agent\\debug\\doc_3bb1e1592c12_module_contexts.md",
+  "markdown_length": 5908,
+  "markitdown_markdown_length": 0,
+  "file_type": "pdf",
+  "page_count": 2,
+  "ocr_markdown_min_chars": 50,
+  "pages": [
+    {
+      "page_number": 1,
+      "width": 2648,
+      "height": 1872,
+      "mime_type": "image/png",
+      "image_path": "data\\product_doc_agent\\debug\\ocr\\doc_3bb1e1592c12\\page_001.png"
+    },
+    {
+      "page_number": 2,
+      "width": 2648,
+      "height": 1872,
+      "mime_type": "image/png",
+      "image_path": "data\\product_doc_agent\\debug\\ocr\\doc_3bb1e1592c12\\page_002.png"
+    }
+  ]
+}

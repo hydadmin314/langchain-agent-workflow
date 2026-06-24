@@ -1,0 +1,649 @@
+{
+  "application_form_info": {
+    "document_info": {
+      "document_id": "doc_3bb1e1592c12",
+      "source_file": "E:\\GitHub\\产品\\上网\\联通业务\\沃专线\\4 申请表_中国联通互联网专线接入业务（沃专线类）新装申请表.pdf",
+      "product_name": "互联网专线接入业务（沃专线类）",
+      "carrier": "中国联通",
+      "version": "",
+      "effective_date": "",
+      "document_status": null
+    },
+    "parties_and_application": {
+      "agent": {
+        "agent_name": "",
+        "sales_name": "",
+        "sales_contact": ""
+      },
+      "customer": {
+        "name": "",
+        "filled_values": [],
+        "is_blank_form": true
+      },
+      "application_fields": {
+        "required": [
+          {
+            "label": "客户名称",
+            "field_key": "客户名称",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "*客户名称"
+          },
+          {
+            "label": "客户证件类型",
+            "field_key": "客户证件类型",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "*客户证件类型"
+          },
+          {
+            "label": "客户证件号码",
+            "field_key": "客户证件号码",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "*客户证件号码"
+          },
+          {
+            "label": "经办人姓名",
+            "field_key": "经办人姓名",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "*经办人姓名"
+          },
+          {
+            "label": "联系电话",
+            "field_key": "联系电话",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "*联系电话"
+          },
+          {
+            "label": "经办人证件类型",
+            "field_key": "经办人证件类型",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "*经办人证件类型"
+          },
+          {
+            "label": "经办人证件号码",
+            "field_key": "经办人证件号码",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "*经办人证件号码"
+          },
+          {
+            "label": "账单地址",
+            "field_key": "账单地址",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "*账单地址"
+          },
+          {
+            "label": "邮编",
+            "field_key": "邮编",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "*邮编"
+          },
+          {
+            "label": "收件人",
+            "field_key": "收件人",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "*收件人"
+          },
+          {
+            "label": "收件人联系电话",
+            "field_key": "收件人联系电话",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "*收件人联系电话"
+          },
+          {
+            "label": "客户经理",
+            "field_key": "客户经理",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "*客户经理"
+          },
+          {
+            "label": "填单人员",
+            "field_key": "填单人员",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "*填单人员"
+          },
+          {
+            "label": "归属部门",
+            "field_key": "归属部门",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "*归属部门"
+          },
+          {
+            "label": "现场联系人电话 On-site Telephone",
+            "field_key": "现场联系人电话",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "*现场联系人电话 On-site Telephone"
+          }
+        ],
+        "optional": [
+          {
+            "label": "客户证件地址",
+            "field_key": "客户证件地址",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "客户证件地址"
+          },
+          {
+            "label": "区",
+            "field_key": "区",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "区"
+          },
+          {
+            "label": "电子邮件",
+            "field_key": "电子邮件",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "电子邮件"
+          },
+          {
+            "label": "客户自带",
+            "field_key": "客户自带",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "□客户自带"
+          },
+          {
+            "label": "IPv4 地址 IPv4 Address",
+            "field_key": "IPv4地址",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "IPv4 地址 IPv4 Address"
+          },
+          {
+            "label": "接入端口号 Access Port Number",
+            "field_key": "接入端口号",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "接入端口号 Access Port Number"
+          }
+        ]
+      },
+      "application_notes": [
+        "*号为必填项"
+      ]
+    },
+    "pricing_info": {
+      "source_type": "application_form",
+      "source_file": "E:\\GitHub\\产品\\上网\\联通业务\\沃专线\\4 申请表_中国联通互联网专线接入业务（沃专线类）新装申请表.pdf",
+      "one_time_fees": [
+        {
+          "name": "一次性费用",
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "applicable_to": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "| | 一次性费用 ￥ 元 | 一次性费用 ￥ 元 | |"
+        }
+      ],
+      "base_package_prices": [
+        {
+          "name": "数据基本月租费",
+          "speed": "",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "",
+          "has_voice": null,
+          "price": null,
+          "currency": "",
+          "unit": "",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "| | 数据基本月租费 ￥ 元/ | 数据基本月租费 ￥ 元/ | |"
+        },
+        {
+          "name": "接入电路使用费",
+          "speed": "",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "",
+          "has_voice": null,
+          "price": null,
+          "currency": "",
+          "unit": "",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "| | 接入电路使用费￥ 元/ | 接入电路使用费￥ 元/ | |"
+        }
+      ],
+      "addon_prices": [
+        {
+          "name": "IP 地址月租费",
+          "category": "",
+          "spec": "",
+          "price": null,
+          "currency": "",
+          "unit": "",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "| | IP 地址月租费 ￥ 元/ | IP 地址月租费 ￥ 元/ | |"
+        },
+        {
+          "name": "域名服务费",
+          "category": "",
+          "spec": "",
+          "price": null,
+          "currency": "",
+          "unit": "",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "| | 域名服务费 ￥ 元/ | 域名服务费 ￥ 元/ | |"
+        }
+      ],
+      "fee_and_term_rules": [
+        {
+          "name": "预付款",
+          "category": "预付款",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "",
+          "formula": "",
+          "conditions": [],
+          "description": "",
+          "raw_text": "| | 预付款： 元 | 预付款： 元 | |"
+        }
+      ],
+      "discount_policy": []
+    },
+    "agreement_rules": [
+      {
+        "rule_type": "restriction",
+        "description": "客户信息必须填写准确、真实、有效，并接受及遵守背面协议书各项条款",
+        "severity": "",
+        "applies_to": [
+          "客户"
+        ],
+        "obligation_party": "客户",
+        "conditions": [],
+        "consequence": "",
+        "raw_text": "所有客户信息必须填写准确、真实、有效，并愿意接受及遵守背面协议书之各项条款。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "甲方应遵守国家相关法律法规，不得利用服务从事损害国家网络信息安全的行为",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "违反国家法律法规",
+          "从事损害国家网络信息安全的行为"
+        ],
+        "consequence": "乙方有权立即终止对甲方的服务，由此造成的一切损失由甲方承担",
+        "raw_text": "甲方应遵守国家相关的法律、法规，不得利用租用乙方的服务从事损害国家网络信息安全的行为，若甲方有违反此条规定的行为发生，乙方有权立即终止对甲方的服务，由此造成的一切损失由甲方承担；"
+      },
+      {
+        "rule_type": "termination",
+        "description": "乙方有权立即停止服务并追回拖欠费用，甲方需按标准资费支付自开通日至发现行为之日的月租之和作为违约金",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "违反法律法规或损害网络安全"
+        ],
+        "consequence": "乙方立即停止服务，追回拖欠费用，甲方承担一切后果并按月租之和支付违约金",
+        "raw_text": "否则，乙方有权立即停止向甲方提供服务并追回所有拖欠费用，由此造成的一切后果均由甲方承担，同时，甲方应当向乙方按照中国联通互联网专线接入业务（沃专线类）标准资费支付自开通之日到发现上述行为之日的月租之和作为违约金。"
+      },
+      {
+        "rule_type": "obligation",
+        "description": "协议费用包含月使用费和一次性费用；甲方需在双方盖章签字后十个工作日内将预付款缴入乙方指定账户",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "协议双方盖章签字"
+        ],
+        "consequence": "",
+        "raw_text": "七、本协议费用包括月使用费和一次性费用，其中，月使用费包括网络使用费、接入电路通信费和IP地址费；\n\n自本协议双方盖章签字之日起十个工作日内，甲方应将预付款（包括首账期月使用费及一次性费用）缴入乙方指定账户（如下所附）。"
+      },
+      {
+        "rule_type": "penalty",
+        "description": "甲方逾期未支付通信费用，需补缴费用并按日加收3‰违约金",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "逾期未支付通信费用"
+        ],
+        "consequence": "乙方要求补缴费用，按所欠费用每日加收3‰的违约金",
+        "raw_text": "遵照《中华人民共和国电信条例》的规定，甲方逾期未支付通信费用，乙方有权要求其补缴费用，并按照所欠费用每日加收3‰的违约金。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "甲方逾期欠费超过30日，乙方有权暂停服务",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "乙方",
+        "conditions": [
+          "逾期未支付通信费用超过30日"
+        ],
+        "consequence": "乙方有权暂停服务",
+        "raw_text": "甲方逾期未支付通信费用超过30日，乙方有权暂停服务。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "甲方逾期欠费超过90日，乙方有权终止服务并依法追缴欠费和违约金",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "乙方",
+        "conditions": [
+          "逾期未支付通信费用超过90日"
+        ],
+        "consequence": "乙方有权终止服务，并有权依法追缴欠费和违约金",
+        "raw_text": "甲方逾期未支付通信费用超过90日的，乙方有权终止服务，并有权依法追缴欠费和违约金。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "乙方有权决定延迟行使停机权利；若未按时停机，仍可按实际停机时间主张全部欠费及违约金，甲方不得以此拒付",
+        "severity": "",
+        "applies_to": [
+          "甲方",
+          "乙方"
+        ],
+        "obligation_party": "双方",
+        "conditions": [
+          "乙方未在法定时间点行使停机权利"
+        ],
+        "consequence": "乙方有权依据实际停机时间主张全部通信费及违约金，甲方不得拒绝支付",
+        "raw_text": "乙方亦有权决定不在前述时间点（但不少于前述时间）行使暂停服务或终止服务（以下合称：停机）的权利；\n\n如乙方（未在前述时间点行使停机的权利，乙方有权依据实际停机的时间，主张甲方欠费期间的全部通信费及违约金，甲方不得以乙方有权停机而未予停机作为拒绝支付通信费的理由；"
+      },
+      {
+        "rule_type": "termination",
+        "description": "甲方终止协议须提前30天书面提出申请",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "甲方拟终止协议"
+        ],
+        "consequence": "",
+        "raw_text": "九、如果甲方终止该协议，须提前30天书面提出协议终止申请。"
+      },
+      {
+        "rule_type": "pricing",
+        "description": "协议终止当月的月度使用费按全月使用费收取",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "甲方协议终止当月"
+        ],
+        "consequence": "",
+        "raw_text": "甲方协议终止当月的月度使用费按照全月使用费收取。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "享受折扣/优惠且承诺合同期限的甲方，期内可申请移机，但不得申请终止、停机保号、变更付费方式或降低付费率等导致合同金额下降的服务",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "签约享受折扣/优惠",
+          "已承诺合同期限",
+          "合同期限内"
+        ],
+        "consequence": "",
+        "raw_text": "如果甲方签约享受了乙方提供的折扣和/或优惠（包括促销和预付方式），并已承诺合同期限，甲方在合同期限内原则上可以申请移机，但不得申请终止服务、停机保号、变更付费方式、降低付费率等可能导致原合同签订金额下降的服务【注：“合同期限”自业务开通当月开始，至到期自然月最后一天终止】。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "经营IDC/ISP/CDN等业务需提供增值电信业务许可证；不得擅自改变用途，变更用途需书面告知乙方",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "用于经营IDC、ISP、CDN等业务",
+          "擅自改变使用用途",
+          "变更使用用途未书面告知"
+        ],
+        "consequence": "乙方有权终止协议，并对此不承担任何责任",
+        "raw_text": "十、甲方用于经营IDC、ISP、CDN等业务时需提供增值电信业务经营许可证（附经营范围、年检情况记录表），甲方不得擅自改变使用用途，甲方变更使用用途时，应及时以书面方式告知乙方，否则乙方有权终止协议，并对此不承担任何责任。"
+      },
+      {
+        "rule_type": "obligation",
+        "description": "甲乙双方对协议具体内容负有保密责任，未经事先书面同意不得向第三方披露合作内容及协议细节",
+        "severity": "",
+        "applies_to": [
+          "甲方",
+          "乙方"
+        ],
+        "obligation_party": "双方",
+        "conditions": [],
+        "consequence": "",
+        "raw_text": "十三、甲乙双方对本协议的具体内容负有保密责任。\n\n未经对方事先书面同意，任何一方不得将双方的合作及本协议的具体内容披露给任何第三方。"
+      },
+      {
+        "rule_type": "after_sales",
+        "description": "守约方有权通过司法或行政程序获得补偿；强制执行胜诉方有权获得合理必要的诉讼费及律师费赔偿",
+        "severity": "",
+        "applies_to": [
+          "甲方",
+          "乙方"
+        ],
+        "obligation_party": "双方",
+        "conditions": [
+          "一方违约",
+          "需要通过法院或行政程序强制执行"
+        ],
+        "consequence": "守约方获得补偿；胜诉方获得合理必要的诉讼费用及律师费赔偿",
+        "raw_text": "如果一方违约，遵守协议的一方应有权通过有关司法程序或有关政府部门的行政程序获得补偿。\n\n如果有需要通过法院或行政程序强制执行本协议的任何条款，胜诉方应有权被判定获得合理和必要的诉讼费用的赔偿，包括合理的律师费。"
+      },
+      {
+        "rule_type": "after_sales",
+        "description": "因协议发生的争议应首先通过友好协商解决",
+        "severity": "",
+        "applies_to": [
+          "甲方",
+          "乙方"
+        ],
+        "obligation_party": "双方",
+        "conditions": [
+          "因本协议发生争议"
+        ],
+        "consequence": "",
+        "raw_text": "十七、因本协议而发生的争议，双方应首先通过友好协商解决争议。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "本协议自双方签字盖章之日起生效",
+        "severity": "",
+        "applies_to": [
+          "甲方",
+          "乙方"
+        ],
+        "obligation_party": "双方",
+        "conditions": [
+          "双方签字盖章"
+        ],
+        "consequence": "",
+        "raw_text": "十八、本协议自双方签字盖章之日起生效。"
+      }
+    ],
+    "eligibility_and_constraints": [
+      {
+        "name": "业务转让/出租限制",
+        "description": "甲方在未取得乙方同意的情况下，禁止转让、出售或出租该互联网专线接入业务。",
+        "condition": "甲方拟转让、出售或出租业务",
+        "result": "不得操作（需经乙方同意）",
+        "applies_to": [
+          "互联网专线接入业务",
+          "甲方"
+        ],
+        "severity": "high",
+        "raw_text": "甲方未经乙方同意不得转让或出售/出租中国联通互联网专线接入业务。"
+      },
+      {
+        "name": "IDC/ISP/CDN经营资质要求",
+        "description": "甲方若使用该业务经营IDC、ISP、CDN等业务，必须提供有效的增值电信业务经营许可证及相关附件。",
+        "condition": "甲方用于经营IDC、ISP、CDN等业务",
+        "result": "需提供增值电信业务经营许可证（附经营范围、年检情况记录表）",
+        "applies_to": [
+          "IDC业务",
+          "ISP业务",
+          "CDN业务",
+          "甲方"
+        ],
+        "severity": "critical",
+        "raw_text": "甲方用于经营IDC、ISP、CDN等业务时需提供增值电信业务经营许可证（附经营范围、年检情况记录表）"
+      },
+      {
+        "name": "业务用途变更限制",
+        "description": "甲方不得擅自改变业务使用用途，如需变更须及时书面告知乙方。",
+        "condition": "甲方变更使用用途",
+        "result": "应及时以书面方式告知乙方",
+        "applies_to": [
+          "互联网专线接入业务",
+          "甲方"
+        ],
+        "severity": "medium",
+        "raw_text": "甲方不得擅自改变使用用途，甲方变更使用用途时，应及时以书面方式告知乙方"
+      },
+      {
+        "name": "擅自改变用途违约责任",
+        "description": "若甲方未按要求书面告知用途变更或擅自改变用途，乙方有权终止协议且不承担责任。",
+        "condition": "甲方擅自改变使用用途或未书面告知变更",
+        "result": "乙方有权终止协议，并对此不承担任何责任",
+        "applies_to": [
+          "互联网专线接入业务",
+          "甲方",
+          "乙方"
+        ],
+        "severity": "critical",
+        "raw_text": "否则乙方有权终止协议，并对此不承担任何责任。"
+      },
+      {
+        "name": "保密义务",
+        "description": "双方均负有保密义务，未经事先书面同意，不得向第三方披露合作内容及协议细节。",
+        "condition": "拟向第三方披露合作及协议内容",
+        "result": "不得披露（需经对方事先书面同意）",
+        "applies_to": [
+          "甲方",
+          "乙方",
+          "合作协议"
+        ],
+        "severity": "high",
+        "raw_text": "未经对方事先书面同意，任何一方不得将双方的合作及本协议的具体内容披露给任何第三方。"
+      }
+    ]
+  },
+  "supplementary_info": {
+    "product_intro": {
+      "product_name": "",
+      "full_description": "",
+      "application_scenarios": ""
+    },
+    "product_keywords": {
+      "raw_keywords": ""
+    },
+    "pricing_info": {
+      "source_type": "pricing_sheet",
+      "source_file": "",
+      "one_time_fees": [],
+      "base_package_prices": [],
+      "addon_prices": [],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "application_materials": []
+  },
+  "extraction_meta": {
+    "generated_at": "2026-06-24T16:03:00",
+    "source_file": "E:\\GitHub\\产品\\上网\\联通业务\\沃专线\\4 申请表_中国联通互联网专线接入业务（沃专线类）新装申请表.pdf",
+    "method": "llm_schema_module_extraction_no_normalization",
+    "validation_issues": [],
+    "validation_issue_count": 0
+  }
+}

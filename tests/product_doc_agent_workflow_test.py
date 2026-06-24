@@ -42,7 +42,7 @@ def main() -> None:
         max_concurrency=6,
     )
     try:
-        result = workflow.run(r"data/raw/联通/1.1 沃专线/1 【铅印版】中国联通互联网专线接入业务（沃专线类）新装申请表.pdf")
+        result = workflow.run(r"E:\GitHub\产品\组网\联通\本地国内MPLS-VPN\4 申请表_【铅印版】中国联通MPLS-VPN业务新装申请单.pdf")
     except Exception as exc:
         print("运行失败：", exc)
         print("建议检查：")

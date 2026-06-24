@@ -1,0 +1,27 @@
+{
+  "source_path": "E:\\GitHub\\产品\\组网\\联通\\本地国内MPLS-VPN\\4 申请表_【铅印版】中国联通MPLS-VPN业务新装申请单.pdf",
+  "markdown_source": "vision_ocr_markdown",
+  "markdown_path": "data\\product_doc_agent\\debug\\doc_480761ef6a80_llm_markdown.md",
+  "module_context_path": "data\\product_doc_agent\\debug\\doc_480761ef6a80_module_contexts.md",
+  "markdown_length": 5186,
+  "markitdown_markdown_length": 0,
+  "file_type": "pdf",
+  "page_count": 2,
+  "ocr_markdown_min_chars": 50,
+  "pages": [
+    {
+      "page_number": 1,
+      "width": 1324,
+      "height": 1872,
+      "mime_type": "image/png",
+      "image_path": "data\\product_doc_agent\\debug\\ocr\\doc_480761ef6a80\\page_001.png"
+    },
+    {
+      "page_number": 2,
+      "width": 1324,
+      "height": 1872,
+      "mime_type": "image/png",
+      "image_path": "data\\product_doc_agent\\debug\\ocr\\doc_480761ef6a80\\page_002.png"
+    }
+  ]
+}
