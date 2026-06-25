@@ -1,0 +1,1440 @@
+{
+  "application_form_info": {
+    "document_info": {
+      "document_id": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\4 IPMAN业务\\IPMAN\\5 变更_客户申请表.xls",
+      "product_name": "",
+      "carrier": "",
+      "version": "",
+      "effective_date": "",
+      "document_status": ""
+    },
+    "parties_and_application": {
+      "agent": {
+        "agent_name": "",
+        "sales_name": "",
+        "sales_contact": ""
+      },
+      "customer": {
+        "name": "",
+        "filled_values": [],
+        "is_blank_form": true
+      },
+      "application_fields": {
+        "required": [
+          {
+            "label": "客户名称",
+            "field_key": "customer_name",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "客户名称"
+          },
+          {
+            "label": "联系人",
+            "field_key": "contact_person",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "联系人"
+          },
+          {
+            "label": "电话",
+            "field_key": "phone",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "电话"
+          },
+          {
+            "label": "客户地址",
+            "field_key": "customer_address",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "客户地址"
+          },
+          {
+            "label": "IP协议类型",
+            "field_key": "ip_protocol_type",
+            "required": true,
+            "value": null,
+            "options": [
+              "IPv4",
+              "IPv6"
+            ],
+            "value_type": "checkbox",
+            "raw_text": "IPv4______ IPv6______(双栈都需勾选)"
+          },
+          {
+            "label": "代理商名称",
+            "field_key": "agent_name",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "代理商名称"
+          },
+          {
+            "label": "代理商业务人员姓名",
+            "field_key": "agent_sales_name",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "代理商业务人员姓名"
+          },
+          {
+            "label": "业务人员联系方式",
+            "field_key": "agent_sales_contact",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "业务人员联系方式"
+          },
+          {
+            "label": "安装地址",
+            "field_key": "installation_address",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "安装地址"
+          },
+          {
+            "label": "安装联系人",
+            "field_key": "installation_contact_person",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "安装联系人"
+          },
+          {
+            "label": "联系电话",
+            "field_key": "installation_phone",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "联系电话"
+          },
+          {
+            "label": "用户签章",
+            "field_key": "customer_seal",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "用户签章（必须与用户名一致）"
+          }
+        ],
+        "optional": [
+          {
+            "label": "原地址",
+            "field_key": "original_address",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "原地址"
+          },
+          {
+            "label": "传真",
+            "field_key": "fax",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "传真"
+          },
+          {
+            "label": "E-mail",
+            "field_key": "email",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "E-mail"
+          },
+          {
+            "label": "电路维护等级",
+            "field_key": "circuit_maintenance_level",
+            "required": false,
+            "value": null,
+            "options": [
+              "AAA",
+              "AA",
+              "A",
+              "I",
+              "II",
+              "III"
+            ],
+            "value_type": "checkbox",
+            "raw_text": "□AAA □AA □A □I □II □III"
+          },
+          {
+            "label": "客户服务等级",
+            "field_key": "customer_service_level",
+            "required": false,
+            "value": null,
+            "options": [
+              "VIP-SL1",
+              "VIP-SL2",
+              "VIP-SL3"
+            ],
+            "value_type": "checkbox",
+            "raw_text": "□VIP-SL1 □VIP-SL2 □VIP-SL3"
+          },
+          {
+            "label": "付费性质",
+            "field_key": "payment_nature",
+            "required": false,
+            "value": null,
+            "options": [
+              "普通纳费",
+              "协议付费",
+              "免费公务",
+              "纳费公务",
+              "其他"
+            ],
+            "value_type": "checkbox",
+            "raw_text": "□普通纳费 □协议付费 □免费公务 □纳费公务 □其他____"
+          },
+          {
+            "label": "付款方式",
+            "field_key": "payment_method",
+            "required": false,
+            "value": null,
+            "options": [
+              "现金/支票",
+              "托付"
+            ],
+            "value_type": "checkbox",
+            "raw_text": "□现金/支票 □托付"
+          },
+          {
+            "label": "帐务联系人",
+            "field_key": "billing_contact_person",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "帐务联系人"
+          },
+          {
+            "label": "帐务联系电话",
+            "field_key": "billing_phone",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "联系电话"
+          },
+          {
+            "label": "一次性付费方式",
+            "field_key": "one_time_payment_method",
+            "required": false,
+            "value": null,
+            "options": [
+              "前台付费",
+              "帐单收费"
+            ],
+            "value_type": "checkbox",
+            "raw_text": "□前台付费 □帐单收费"
+          },
+          {
+            "label": "互联IP地址变更",
+            "field_key": "interconnection_ip_change",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "■互联IP地址将变更"
+          },
+          {
+            "label": "用户IP地址",
+            "field_key": "user_ip_address_option",
+            "required": false,
+            "value": null,
+            "options": [
+              "携址移机",
+              "不携址移机"
+            ],
+            "value_type": "checkbox",
+            "raw_text": "□携址移机：（用户）原IP地址不变 □不携址移机：（用户）原IP地址变更"
+          },
+          {
+            "label": "物业部门同意",
+            "field_key": "property_consent",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "本物业部门同意该用户使用楼内物业资源"
+          }
+        ]
+      },
+      "application_notes": [
+        "备注：请客户提供两证复印件（机构代码证/工商登记证、经办人身份证）",
+        "移机说明：互联IP地址将变更",
+        "用户IP地址（二选一）：携址移机（用户原IP地址不变），不携址移机（用户原IP地址变更）",
+        "客户须知：数据专线客户应遵守国家的有关法律、法规和通信规章制度，并接受电信部门的监督、检查。"
+      ]
+    },
+    "pricing_info": {
+      "source_type": "application_form",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\4 IPMAN业务\\IPMAN\\5 变更_客户申请表.xls",
+      "one_time_fees": [
+        {
+          "name": "一次性业务费",
+          "amount": null,
+          "currency": "CNY",
+          "unit": "元",
+          "applicable_to": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "一次性业务费 | | | | 元"
+        },
+        {
+          "name": "一次性工程费",
+          "amount": null,
+          "currency": "CNY",
+          "unit": "元",
+          "applicable_to": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "一次性工程费 | | | | 元"
+        }
+      ],
+      "base_package_prices": [
+        {
+          "name": "月使用费合计",
+          "speed": "",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "",
+          "has_voice": null,
+          "price": null,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "月使用费合计 | | | | _____ 元/月"
+        }
+      ],
+      "addon_prices": [],
+      "fee_and_term_rules": [
+        {
+          "name": "付费周期",
+          "category": "",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "",
+          "formula": "",
+          "conditions": [],
+          "description": "□月付 □年付 □其他____",
+          "raw_text": "付费周期： | | | | □月付 □年付 □其他____"
+        },
+        {
+          "name": "一次性付费方式",
+          "category": "",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "",
+          "formula": "",
+          "conditions": [],
+          "description": "□前台付费 □帐单收费",
+          "raw_text": "一次性付费方式 | | | | □前台付费 □帐单收费"
+        },
+        {
+          "name": "月租费付费方",
+          "category": "",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "",
+          "formula": "",
+          "conditions": [],
+          "description": "□本地 □对端 □两端 □其他______",
+          "raw_text": "月租费付费方 | | | | □本地 □对端 □两端 □其他______"
+        },
+        {
+          "name": "一次性费用付费方",
+          "category": "",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "",
+          "formula": "",
+          "conditions": [],
+          "description": "□本地 □对端 □两端 □其他______",
+          "raw_text": "一次性费用付费方 | | | | | □本地 □对端 □两端 □其他______"
+        }
+      ],
+      "discount_policy": []
+    },
+    "agreement_rules": [],
+    "eligibility_and_constraints": []
+  },
+  "supplementary_info": {
+    "product_intro": {
+      "product_name": "IPMAN",
+      "full_description": "IPMAN（IP Metropolitan Area Network，IP 城域网专线），是中国电信面向政企客户推出的城域独享光纤互联网专线，通过点对点光纤直连电信本地 IP 城域核心骨干网，区别于普通共享企业宽带、家用宽带、跨城 MPLS VPN，主打同一城市内高速、低时延、高安全、对称独享带宽、多固定公网 IP，是本地大中型企业顶级互联网接入方案。核心技术架构：1. 接入方式：纯光纤点对点独享，不共享分光资源，客户机房部署光电转换器，出 10/100M/1G/10G 以太网电口，用户端设备投入低；2. 网络通道：直连电信本地城域核心，不走普通公众互联网拥堵链路，部分区域叠加 CN2 精品出口优化国际访问；3. 地址资源：标配多个静态公网固定 IP，最大可扩容至 256 个，支持域名反向解析，可自建对外服务器；4. SLA 服务保障：网络可用性 99.99%，同城时延≤5ms、低抖动、低丢包，7×24 小时政企专属运维。核心优势：1. 极致城域性能 同城分支互联、本地服务器访问时延极低，视频会议、实时数据库、直播推流无卡顿；独享带宽不被其他用户抢占，高峰期无降速。2. 充足公网固定 IP 普通企业宽带仅 1 个 IP，IPMAN 可批量申请多公网 IP，满足官网、邮件服务器、小程序后端、游戏服务器、安防公网接入等多业务对外发布需求。3. 高安全隔离物理，逻辑独立通道，与公众互联网底层隔离，天然抵御端口扫描、广播风暴；政企、金融、政务等涉密业务首选本地互联网专线。4. 全业务透明承载 不限制端口、不屏蔽协议，支持 HTTP/HTTPS/FTP/数据库/视频流/ VoIP/IPsec VPN 等所有上层应用。5. 国际访问优化（可选增值） 搭载 CN2 精品国际出口，访问海外网站、跨境 SaaS、境外服务器丢包与时延大幅优于普通互联网专线。",
+      "application_scenarios": "互联网/数字科技行业：服务器集群对外部署（企业官网、商城、小程序后端、API接口服务器、云本地混合部署）；游戏/直播/传媒文娱（游戏区服、直播推流、短视频素材上传、4K实时演播）；跨境电商、外贸企业（搭配CN2国际精品出口，稳定访问亚马逊、独立站、海外ERP、跨境视频会议，多IP用于多店铺运营）；IDC、算力、软件服务商（本地机房算力节点、私有云对外出口）。政务、公安、事业单位：区级政府、街道办、政务服务中心（多政务系统并行：一网通办、政务内网对外门户、视频信访、政务云访问）；公安、交通、城管、应急管理（全城摄像头视频流回传、应急指挥大屏、实时数据上报）；高校、中小学、职教园区（多校区同城互联、在线教学平台、校园官网、选课系统、图书馆数字资源）。金融、保险、律所：证券营业部、保险分公司、小额贷款、律所事务所（实时行情交易系统、客户线上投保、财务报税系统、远程法务视频）。制造业、工厂、智能制造：大型厂区、工业园区、汽车/电子/化工智造企业（工业物联网传感器数据上传、MES生产管理系统、厂区安防监控、设备远程运维）；能源、水务、燃气集团（管网远程监测、智能抄表、应急调度平台）。医疗、医院、体检中心：三甲医院、连锁医疗机构、体检机构（远程会诊4K高清视频、电子病历云端同步、线上挂号系统、医疗设备数据上传）。商业地产、文旅、物流仓储：商场、酒店、景区、写字楼（全屋WiFi运营、客流统计摄像头、线上购票系统、酒店PMS管理）；大型物流园区、冷链仓储（货车GPS实时定位、仓储WMS管理系统、智能货架传感器数据、快递面单云端打印）。集团总部、大型连锁企业同城多点组网：同一城市内总部+多家分公司、门店（通过IPMAN光纤实现同城高速内网互通+统一互联网出口，搭建企业IPSec VPN，总部统一管控OA、财务、ERP系统）。安防、弱电集成商项目配套：智慧城市项目、园区整体智能化改造（为监控平台、智慧停车、门禁系统提供稳定公网出口，多IP分配给不同子系统独立上线）。"
+    },
+    "product_keywords": {
+      "raw_keywords": "CN2精品国际出口、IP 反向解析、城域独享宽带、上下行等速、静态公网 IP、多固定公网IP、公网地址段、低时延、低抖动、低丢包、城域低延迟、带宽弹性扩容、SLA网络保障、7×24 运维、IP地址最大可扩容至256个"
+    },
+    "pricing_info": {
+      "source_type": "pricing_sheet",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\4 IPMAN业务\\IPMAN\\2 资费.xlsx",
+      "one_time_fees": [
+        {
+          "name": "标准工程费（有资源）",
+          "amount": 7500.0,
+          "currency": "CNY",
+          "unit": "元",
+          "applicable_to": [
+            "有资源"
+          ],
+          "conditions": [
+            "资源情况：有资源"
+          ],
+          "description": "有资源情况下的标准工程费",
+          "raw_text": "有资源 | 7500 | 0"
+        },
+        {
+          "name": "工程费优惠价（有资源）",
+          "amount": 0.0,
+          "currency": "CNY",
+          "unit": "元",
+          "applicable_to": [
+            "有资源"
+          ],
+          "conditions": [
+            "资源情况：有资源"
+          ],
+          "description": "有资源情况下的工程费优惠价",
+          "raw_text": "有资源 | 7500 | 0"
+        },
+        {
+          "name": "标准工程费（无资源）",
+          "amount": 15000.0,
+          "currency": "CNY",
+          "unit": "元",
+          "applicable_to": [
+            "无资源"
+          ],
+          "conditions": [
+            "资源情况：无资源"
+          ],
+          "description": "无资源情况下的标准工程费",
+          "raw_text": "无资源 | 15000 | 0"
+        },
+        {
+          "name": "工程费优惠价（无资源）",
+          "amount": 0.0,
+          "currency": "CNY",
+          "unit": "元",
+          "applicable_to": [
+            "无资源"
+          ],
+          "conditions": [
+            "资源情况：无资源"
+          ],
+          "description": "无资源情况下的工程费优惠价",
+          "raw_text": "无资源 | 15000 | 0"
+        }
+      ],
+      "base_package_prices": [
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "10M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 1976.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 1",
+            "附带IPv6地址数量: /64"
+          ],
+          "conditions": [],
+          "description": "端口速率10M的网络使用费",
+          "raw_text": "10M | 1976 | 1 | /64"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "20M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 3872.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 1",
+            "附带IPv6地址数量: /64"
+          ],
+          "conditions": [],
+          "description": "端口速率20M的网络使用费",
+          "raw_text": "20M | 3872 | 1 | /64"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "30M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 5768.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 1",
+            "附带IPv6地址数量: /64"
+          ],
+          "conditions": [],
+          "description": "端口速率30M的网络使用费",
+          "raw_text": "30M | 5768 | 1 | /64"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "40M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 7664.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 1",
+            "附带IPv6地址数量: /64"
+          ],
+          "conditions": [],
+          "description": "端口速率40M的网络使用费",
+          "raw_text": "40M | 7664 | 1 | /64"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "45M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 8612.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 1",
+            "附带IPv6地址数量: /64"
+          ],
+          "conditions": [],
+          "description": "端口速率45M的网络使用费",
+          "raw_text": "45M | 8612 | 1 | /64"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "50M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 9560.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 1",
+            "附带IPv6地址数量: /64"
+          ],
+          "conditions": [],
+          "description": "端口速率50M的网络使用费",
+          "raw_text": "50M | 9560 | 1 | /64"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "60M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 11436.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 1",
+            "附带IPv6地址数量: /64"
+          ],
+          "conditions": [],
+          "description": "端口速率60M的网络使用费",
+          "raw_text": "60M | 11436 | 1 | /64"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "70M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 13313.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 1",
+            "附带IPv6地址数量: /64"
+          ],
+          "conditions": [],
+          "description": "端口速率70M的网络使用费",
+          "raw_text": "70M | 13313 | 1 | /64"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "80M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 15190.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 1",
+            "附带IPv6地址数量: /64"
+          ],
+          "conditions": [],
+          "description": "端口速率80M的网络使用费",
+          "raw_text": "80M | 15190 | 1 | /64"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "90M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 17067.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 1",
+            "附带IPv6地址数量: /64"
+          ],
+          "conditions": [],
+          "description": "端口速率90M的网络使用费",
+          "raw_text": "90M | 17067 | 1 | /64"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "100M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 18944.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 1",
+            "附带IPv6地址数量: /56"
+          ],
+          "conditions": [],
+          "description": "端口速率100M的网络使用费",
+          "raw_text": "100M | 18944 | 1 | /56"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "150M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 28272.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 1",
+            "附带IPv6地址数量: /56"
+          ],
+          "conditions": [],
+          "description": "端口速率150M的网络使用费",
+          "raw_text": "150M | 28272 | 1 | /56"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "200M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 37600.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 5",
+            "附带IPv6地址数量: /56"
+          ],
+          "conditions": [],
+          "description": "端口速率200M的网络使用费",
+          "raw_text": "200M | 37600 | 5 | /56"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "250M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 46693.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 5",
+            "附带IPv6地址数量: /56"
+          ],
+          "conditions": [],
+          "description": "端口速率250M的网络使用费",
+          "raw_text": "250M | 46693 | 5 | /56"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "300M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 55786.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 5",
+            "附带IPv6地址数量: /56"
+          ],
+          "conditions": [],
+          "description": "端口速率300M的网络使用费",
+          "raw_text": "300M | 55786 | 5 | /56"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "400M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 73973.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 5",
+            "附带IPv6地址数量: /56"
+          ],
+          "conditions": [],
+          "description": "端口速率400M的网络使用费",
+          "raw_text": "400M | 73973 | 5 | /56"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "500M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 92160.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 13",
+            "附带IPv6地址数量: /56"
+          ],
+          "conditions": [],
+          "description": "端口速率500M的网络使用费",
+          "raw_text": "500M | 92160 | 13 | /56"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "600M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 107968.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 13",
+            "附带IPv6地址数量: /56"
+          ],
+          "conditions": [],
+          "description": "端口速率600M的网络使用费",
+          "raw_text": "600M | 107968 | 13 | /56"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "800M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 139584.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 13",
+            "附带IPv6地址数量: /56"
+          ],
+          "conditions": [],
+          "description": "端口速率800M的网络使用费",
+          "raw_text": "800M | 139584 | 13 | /56"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "1G",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "G",
+          "has_voice": null,
+          "price": 171200.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 61",
+            "附带IPv6地址数量: /56"
+          ],
+          "conditions": [],
+          "description": "端口速率1G的网络使用费",
+          "raw_text": "1G | 171200 | 61 | /56"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "1.5G",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "G",
+          "has_voice": null,
+          "price": 244987.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 61",
+            "附带IPv6地址数量: /56"
+          ],
+          "conditions": [],
+          "description": "端口速率1.5G的网络使用费",
+          "raw_text": "1.5G | 244987 | 61 | /56"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "2G",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "G",
+          "has_voice": null,
+          "price": 318774.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 61",
+            "附带IPv6地址数量: /56"
+          ],
+          "conditions": [],
+          "description": "端口速率2G的网络使用费",
+          "raw_text": "2G | 318774 | 61 | /56"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "2.5G",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "G",
+          "has_voice": null,
+          "price": 392560.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 125",
+            "附带IPv6地址数量: /56"
+          ],
+          "conditions": [],
+          "description": "端口速率2.5G的网络使用费",
+          "raw_text": "2.5G | 392560 | 125 | /56"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "3G",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "G",
+          "has_voice": null,
+          "price": 467312.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 125",
+            "附带IPv6地址数量: /56"
+          ],
+          "conditions": [],
+          "description": "端口速率3G的网络使用费",
+          "raw_text": "3G | 467312 | 125 | /56"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "5G",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "G",
+          "has_voice": null,
+          "price": 766320.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 125",
+            "附带IPv6地址数量: /56"
+          ],
+          "conditions": [],
+          "description": "端口速率5G的网络使用费",
+          "raw_text": "5G | 766320 | 125 | /56"
+        },
+        {
+          "name": "IPMAN业务月租费",
+          "speed": "10G",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "G",
+          "has_voice": null,
+          "price": 1513840.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "附带IPv4地址数量: 253",
+            "附带IPv6地址数量: /56"
+          ],
+          "conditions": [],
+          "description": "端口速率10G的网络使用费",
+          "raw_text": "10G | 1513840 | 253 | /56"
+        }
+      ],
+      "addon_prices": [
+        {
+          "name": "付费IPv4地址",
+          "category": "IP地址",
+          "spec": "1个",
+          "price": 50.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [
+            "超出附带IP地址时收取"
+          ],
+          "description": "超出附带IPv4地址时，每增加1个付费IPv4地址的月租费",
+          "raw_text": "付费 IPv4 地址数量 | 资费（元/月） | 1 | 50"
+        },
+        {
+          "name": "付费IPv6地址段/64",
+          "category": "IP地址",
+          "spec": "/64",
+          "price": 50.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [
+            "超出附带IP地址时收取"
+          ],
+          "description": "付费IPv6地址段前缀位数/64的月租费",
+          "raw_text": "/64 | 50"
+        },
+        {
+          "name": "付费IPv6地址段/60",
+          "category": "IP地址",
+          "spec": "/60",
+          "price": 800.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [
+            "超出附带IP地址时收取"
+          ],
+          "description": "付费IPv6地址段前缀位数/60的月租费",
+          "raw_text": "/60 | 800"
+        },
+        {
+          "name": "付费IPv6地址段/56",
+          "category": "IP地址",
+          "spec": "/56",
+          "price": 6400.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [
+            "超出附带IP地址时收取"
+          ],
+          "description": "付费IPv6地址段前缀位数/56的月租费",
+          "raw_text": "/56 | 6400"
+        },
+        {
+          "name": "付费IPv6地址段/52",
+          "category": "IP地址",
+          "spec": "/52",
+          "price": 25600.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [
+            "超出附带IP地址时收取"
+          ],
+          "description": "付费IPv6地址段前缀位数/52的月租费",
+          "raw_text": "/52 | 25600"
+        },
+        {
+          "name": "付费IPv6地址段/48",
+          "category": "IP地址",
+          "spec": "/48",
+          "price": 51200.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [
+            "超出附带IP地址时收取"
+          ],
+          "description": "付费IPv6地址段前缀位数/48的月租费",
+          "raw_text": "/48 | 51200"
+        }
+      ],
+      "fee_and_term_rules": [
+        {
+          "name": "未列明速率资费计算规则",
+          "category": "资费计算",
+          "applicable_to": [
+            "未列明速率的IPMAN业务"
+          ],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "",
+          "formula": "F=F1+（X-X1）（F2-F1）/(X2-X1)",
+          "conditions": [
+            "假设速率为X，其相邻的低端口速率为X1，资费标准为F1，高端口速率为X2，资费标准为F2"
+          ],
+          "description": "未列明速率的资费标准可按照线性插值公式计收",
+          "raw_text": "4、未列明速率的资费标准可按照以下公式计收：假设速率为X，其相邻的低端口速率为X1，资费标准为F1，高端口速率为X2，资费标准为F2，则速率X的收费标准F=F1+（X-X1）（F2-F1）/(X2-X1)。"
+        },
+        {
+          "name": "付费IPv6地址未列明档位资费计算规则",
+          "category": "资费计算",
+          "applicable_to": [
+            "付费IPv6地址"
+          ],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "",
+          "formula": "Y=[X1×Y2 - X2×Y1 - X×(Y2-Y1)]/(X1-X2)",
+          "conditions": [
+            "地址段前缀位数/X，处在已列出档位/X1、/X2 之间（X1>X2），对应收费标准 Y1、Y2（Y2>Y1）"
+          ],
+          "description": "根据实际需求和相关系统支持情况，提供上表中未列出的档位（地址前缀位数须为整数），按照地址前缀位数所临近档位的收费标准，线性计算其对应收费标准",
+          "raw_text": "（2）根据实际需求和相关系统支持情况，提供上表中未列出的档位（地址前缀位数须为整数），按照地址前缀位数所临近档位的收费标准，线性计算其对应收费标准。示例：地址段前缀位数/X，处在已列出档位/X1、/X2 之间（X1>X2），对应收费标准 Y1、Y2（Y2>Y1），则/X 对应的收费标准 Y 的计算公式如下：Y=[X1×Y2 - X2×Y1 - X×(Y2-Y1)]/(X1-X2)"
+        },
+        {
+          "name": "IPMAN不收取接入电路资费",
+          "category": "费用免除",
+          "applicable_to": [
+            "IPMAN"
+          ],
+          "amount": 0.0,
+          "currency": "CNY",
+          "unit": "",
+          "period": "",
+          "formula": "",
+          "conditions": [],
+          "description": "IPMAN不收取接入电路资费",
+          "raw_text": "2、IPMAN不收取接入电路资费；163上网的接入电路资费参照专线上网收费标准。"
+        },
+        {
+          "name": "163上网接入电路资费",
+          "category": "费用规则",
+          "applicable_to": [
+            "163上网"
+          ],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "",
+          "formula": "",
+          "conditions": [],
+          "description": "163上网的接入电路资费参照专线上网收费标准",
+          "raw_text": "2、IPMAN不收取接入电路资费；163上网的接入电路资费参照专线上网收费标准。"
+        }
+      ],
+      "discount_policy": [
+        {
+          "name": "SLA服务等级A上浮",
+          "category": "SLA服务等级",
+          "applicable_to": [
+            "A等级服务"
+          ],
+          "standard_price": null,
+          "discount_rate": null,
+          "discounted_price": null,
+          "currency": "",
+          "unit": "",
+          "conditions": [
+            "A等级服务在标准资费上上浮20%"
+          ],
+          "description": "A等级服务在标准资费上上浮20%",
+          "raw_text": "A等级服务在标准资费上上浮20%"
+        },
+        {
+          "name": "SLA服务等级2A上浮",
+          "category": "SLA服务等级",
+          "applicable_to": [
+            "2A等级服务"
+          ],
+          "standard_price": null,
+          "discount_rate": null,
+          "discounted_price": null,
+          "currency": "",
+          "unit": "",
+          "conditions": [
+            "2A级服务在标准资费上上浮30%"
+          ],
+          "description": "2A级服务在标准资费上上浮30%",
+          "raw_text": "2A级服务在标准资费上上浮30%"
+        },
+        {
+          "name": "SLA服务等级3A上浮",
+          "category": "SLA服务等级",
+          "applicable_to": [
+            "3A等级服务"
+          ],
+          "standard_price": null,
+          "discount_rate": null,
+          "discounted_price": null,
+          "currency": "",
+          "unit": "",
+          "conditions": [
+            "3A级服务在标准资费上上浮50%"
+          ],
+          "description": "3A级服务在标准资费上上浮50%",
+          "raw_text": "3A级服务在标准资费上上浮50%"
+        }
+      ]
+    },
+    "application_materials": [
+      {
+        "material_type": "表单",
+        "name": "IPMAN申请表",
+        "description": "填写IPMAN申请表，电子格式提交；后续填写完整打印，加盖公章",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "电子格式提交",
+          "填写完整打印",
+          "加盖公章"
+        ],
+        "related_constraints": [],
+        "raw_text": "1、填写IPMAN申请表和IP地址报备表，电子格式提交； 1、IPMAN申请表，填写完整打印，加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\4 IPMAN业务\\IPMAN\\4-5 IPMAN申请手续提示.txt"
+      },
+      {
+        "material_type": "表单",
+        "name": "IP地址报备表",
+        "description": "填写IP地址报备表，电子格式提交；后续填写完打印，加盖公章",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "电子格式提交",
+          "填写完打印",
+          "加盖公章"
+        ],
+        "related_constraints": [],
+        "raw_text": "1、填写IPMAN申请表和IP地址报备表，电子格式提交； 2、IP地址报备表，填写完打印，加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\4 IPMAN业务\\IPMAN\\4-5 IPMAN申请手续提示.txt"
+      },
+      {
+        "material_type": "表单",
+        "name": "拓扑图",
+        "description": "IPMAN申请时≥16个IP地址的，需提供拓扑图，加盖公章的扫描件；后续拓扑图加盖公章",
+        "required": false,
+        "applicable_to": [],
+        "conditions": [
+          "IPMAN申请时≥16个IP地址"
+        ],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章的扫描件",
+          "加盖公章"
+        ],
+        "related_constraints": [],
+        "raw_text": "2、IPMAN申请时≥16个IP地址的，需提供拓扑图，加盖公章的扫描件； 3、IPMAN申请时大于等于16个IP地址的，拓扑图加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\4 IPMAN业务\\IPMAN\\4-5 IPMAN申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "营业执照复印件",
+        "description": "营业执照复印件，加盖公章的扫描件；后续营业执照复印件一份，加盖公章",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章的扫描件",
+          "加盖公章"
+        ],
+        "related_constraints": [],
+        "raw_text": "3、营业执照复印件，加盖公章的扫描件， 5、营业执照复印件一份，加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\4 IPMAN业务\\IPMAN\\4-5 IPMAN申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "经办人身份证正反面复印件",
+        "description": "经办人身份证正反面复印件，加盖公章的扫描件；后续经办人身份证正反面复印件五份，加盖公章",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章的扫描件",
+          "五份",
+          "加盖公章"
+        ],
+        "related_constraints": [],
+        "raw_text": "4、经办人身份证正反面复印件，加盖公章的扫描件； 6、经办人身份证正反面复印件五份，加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\4 IPMAN业务\\IPMAN\\4-5 IPMAN申请手续提示.txt"
+      },
+      {
+        "material_type": "表单",
+        "name": "电信光箱号或者参考编号",
+        "description": "提供电信光箱号或者参考编号",
+        "required": false,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": false,
+        "copy_required": false,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "客户最好能提供，无法提供的，电信会上门勘察"
+        ],
+        "related_constraints": [],
+        "raw_text": "5、提供电信光箱号或者参考编号；（客户最好能提供，无法提供的，电信会上门勘察）",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\4 IPMAN业务\\IPMAN\\4-5 IPMAN申请手续提示.txt"
+      },
+      {
+        "material_type": "合同",
+        "name": "电信水印合同",
+        "description": "电信出正式合同后（水印版），一式四份，签字，加盖公章，每份加盖骑缝章",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": true,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [
+          "每份加盖骑缝章"
+        ],
+        "handling_notes": [
+          "一式四份",
+          "签字",
+          "加盖公章",
+          "每份加盖骑缝章"
+        ],
+        "related_constraints": [],
+        "raw_text": "7、电信水印合同，一式四份，签字，加盖公章，每份加盖骑缝章。",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\4 IPMAN业务\\IPMAN\\4-5 IPMAN申请手续提示.txt"
+      },
+      {
+        "material_type": "授权书",
+        "name": "客户代拍授权委托书",
+        "description": "客户代拍授权委托书，填写加盖公章",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "填写加盖公章"
+        ],
+        "related_constraints": [],
+        "raw_text": "4、客户代拍授权委托书，填写加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\4 IPMAN业务\\IPMAN\\4-5 IPMAN申请手续提示.txt"
+      },
+      {
+        "material_type": "承诺书",
+        "name": "承诺函",
+        "description": "如遇到同地址同户名有存量宽带的需要提供《承诺函》，填写好打印盖公章",
+        "required": false,
+        "applicable_to": [],
+        "conditions": [
+          "同地址同户名有存量宽带"
+        ],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "填写好打印盖公章"
+        ],
+        "related_constraints": [],
+        "raw_text": "1、如遇到同地址同户名有存量宽带的需要提供《承诺函》，填写好打印盖公章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\4 IPMAN业务\\IPMAN\\4-5 IPMAN申请手续提示.txt"
+      },
+      {
+        "material_type": "授权书",
+        "name": "商机冲突客户授权书",
+        "description": "如遇到商机冲突，在“商机冲突客户授权书”上盖公章",
+        "required": false,
+        "applicable_to": [],
+        "conditions": [
+          "商机冲突"
+        ],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "盖公章"
+        ],
+        "related_constraints": [],
+        "raw_text": "2、如遇到商机冲突，在“商机冲突客户授权书”上盖公章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\4 IPMAN业务\\IPMAN\\4-5 IPMAN申请手续提示.txt"
+      }
+    ]
+  },
+  "extraction_meta": {
+    "generated_at": "2026-06-23T15:31:03",
+    "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\4 IPMAN业务\\IPMAN",
+    "method": "llm_schema_module_extraction_no_normalization",
+    "validation_issues": [
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[0].speed",
+        "message": "基础套餐缺少速率"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.document_info",
+        "message": "申请表基本信息基本为空，可能是切块或文档转换质量不足"
+      }
+    ],
+    "validation_issue_count": 2
+  }
+}

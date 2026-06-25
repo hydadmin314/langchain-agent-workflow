@@ -31,6 +31,7 @@ class ProductDocDocumentClassifierTest(unittest.TestCase):
 
     def test_keeps_out_of_scope_documents_unknown(self) -> None:
         cases = [
+            "~$1 产品介绍.docx",
             "4-1 外地公司担保书.docx",
             "5 业务变更_套餐及加装包.docx",
             "6 业务变更_移机.docx",

@@ -95,6 +95,99 @@ class ProductDocMarkdownContextSplitterTest(unittest.TestCase):
         self.assertNotIn("ISP、IDC、CDN", contexts["application_form_info.agreement_rules"])
         self.assertIn("ISP、IDC、CDN", contexts["application_form_info.eligibility_and_constraints"])
 
+    def test_application_form_uses_rule_fallback_after_pricing_without_notes_heading(self) -> None:
+        markdown = """
+前评估号： 折扣审批单号： 合同号：
+
+| *速率带宽 Bandwidth | | *路由协议 Router Protocol | □静态 Static □BGP □其它 |
+| --- | --- | --- | --- |
+| | 一次性费用 ¥ 元 | 一次性费用 ¥ 元 | |
+
+(八) 侮辱或者诽谤他人，侵害他人合法权益的；
+
+四、提供网站接入服务的增值电信业务经营者应当遵守下列规定：
+
+(一) 应当向取得相应经营许可证的基础电信业务经营者提供的网络接入等电信资源从事业务经营活动，不得向其他从事网站接入服务的增值电信业务经营者转租所获得的网络接入等电信资源。
+
+如需使用中国联通IP地址进行互联网增值业务经营活动的，必须提供工业和信息化部颁布的相关经营资质、否则不得经营该项业务。
+
+七、本协议费用包括月使用费和一次性费用，其中，月使用费包括网络使用费、接入电路通信费和IP地址费；
+
+遵照《中华人民共和国电信条例》的规定，甲方逾期未支付通信费用，乙方有权要求其补缴费用，并按照所欠费用每日加收3‰的违约金。
+
+甲方逾期未支付通信费用超过30日，乙方有权暂停服务。
+
+甲方逾期未支付通信费用超过90日的，乙方有权终止服务，并有权依法追缴欠费和违约金。
+
+如果甲方签约享受了乙方提供的折扣和/或优惠，并已承诺合同期限，甲方在合同期限内原则上可以申请停机，但不得申请终止服务、停机保号、变更付费方式、降低速率等可能导致原合同签订金额下降的服务。
+
+十、甲方用于经营IDC、ISP、CDN等业务时需提供增值电信业务经营许可证，甲方不得擅自改变使用用途。
+"""
+
+        contexts = build_module_contexts_from_markdown(
+            markdown,
+            max_chars=10000,
+            modules=[
+                "application_form_info.pricing_info",
+                "application_form_info.agreement_rules",
+                "application_form_info.eligibility_and_constraints",
+            ],
+            document_role=APPLICATION_FORM,
+        )
+
+        pricing_context = contexts["application_form_info.pricing_info"]
+        agreement_context = contexts["application_form_info.agreement_rules"]
+        constraint_context = contexts["application_form_info.eligibility_and_constraints"]
+
+        self.assertIn("速率带宽", pricing_context)
+        self.assertIn("一次性费用", pricing_context)
+        self.assertNotIn("逾期未支付通信费用", pricing_context)
+        self.assertNotIn("经营许可证", pricing_context)
+        self.assertIn("逾期未支付通信费用", agreement_context)
+        self.assertIn("违约金", agreement_context)
+        self.assertIn("合同期限", agreement_context)
+        self.assertIn("经营许可证", constraint_context)
+        self.assertIn("IDC、ISP、CDN", constraint_context)
+
+    def test_application_form_moves_ocr_table_agreement_rows_out_of_pricing(self) -> None:
+        markdown = """
+|     | 电路租用范围 | 本地区内 |     | 速率    | **M |
+|     |        |  |     | 一次性费用 | o   |
+|     | 付费类型 |     |     | 缴费期 | 年付  |
+| 一、 乙方同意向甲方提供服务， |     |                    |       | 并根据业务资费标准向甲方收取费用。              |     |     |       |        |                    |     | 结算币种为人民币。 |     |     |
+| 停止向甲方提供服务并追回所有拖欠费用，               |                                 |     |     |             |                              | 由此造成的一切后果均由甲方承担，同时乙方保留对甲 |     |                     |     |     |             |            |     |
+| 方使用业务计费期不足一个月，                    |                                 |     |     | 当月月度使用费用按照： |                              |                          |     | 月使用费*实际使用天数/当期计费周期天 |     |     |             |            |     |
+| 六、 本协议费用包括月使用费和一次性费用，                     |                            |                             |     |         |               | 其中，月使用费包括本端本地线路月使用费、 |                  |                       |                  |                |             |          | 长途线 |
+| 例》的规定，甲方逾期未支付通信费用，乙方有权要求其补缴费用，            |                            |                             |     |         |               |                      |                  |                       |                  | 并按照所欠费用每日加收3%的 |             |          |     |
+| 违约金。                                      | 甲方逾期未支付通信费用超过30日，乙方有权暂停服务。 |                             |     |         |               |                      |                  |                       |                  | 甲方逾期未支付通信费用超过  |             |          |     |
+"""
+
+        contexts = build_module_contexts_from_markdown(
+            markdown,
+            max_chars=10000,
+            modules=[
+                "application_form_info.pricing_info",
+                "application_form_info.agreement_rules",
+                "application_form_info.eligibility_and_constraints",
+            ],
+            document_role=APPLICATION_FORM,
+        )
+
+        pricing_context = contexts["application_form_info.pricing_info"]
+        agreement_context = contexts["application_form_info.agreement_rules"]
+        constraint_context = contexts["application_form_info.eligibility_and_constraints"]
+
+        self.assertIn("电路租用范围", pricing_context)
+        self.assertIn("一次性费用", pricing_context)
+        self.assertIn("缴费期", pricing_context)
+        self.assertNotIn("乙方同意向甲方提供服务", pricing_context)
+        self.assertNotIn("逾期未支付通信费用", pricing_context)
+        self.assertNotIn("违约金", pricing_context)
+        self.assertIn("乙方同意向甲方提供服务", agreement_context)
+        self.assertIn("逾期未支付通信费用", agreement_context)
+        self.assertIn("违约金", agreement_context)
+        self.assertIn("当前文档没有适合该模块", constraint_context)
+
     def test_unknown_role_returns_empty_contexts(self) -> None:
         contexts = build_module_contexts_from_markdown(
             "业务变更文档",

@@ -84,6 +84,15 @@ def classify_document(
 
     source = Path(path)
     filename = source.name
+    if filename.startswith("~$"):
+        return DocumentClassification(
+            source_path=str(source),
+            filename=filename,
+            normalized_name=normalize_document_name(filename),
+            role=UNKNOWN,
+            target_modules=get_target_modules(UNKNOWN),
+        )
+
     normalized_name = normalize_document_name(filename)
 
     for rule in rules:

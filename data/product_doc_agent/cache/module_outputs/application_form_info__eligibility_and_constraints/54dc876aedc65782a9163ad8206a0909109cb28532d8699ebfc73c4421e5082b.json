@@ -1,0 +1,24 @@
+{
+  "schema_version": "product_doc_module_cache_v1",
+  "module_name": "application_form_info.eligibility_and_constraints",
+  "output": [
+    {
+      "name": "",
+      "description": "",
+      "condition": "",
+      "result": "",
+      "applies_to": [],
+      "severity": "",
+      "raw_text": "| *邮编: | *是否是ISP: | □是  □否 | NaN | 描述信息: |"
+    },
+    {
+      "name": "",
+      "description": "",
+      "condition": "",
+      "result": "",
+      "applies_to": [],
+      "severity": "",
+      "raw_text": "| *业务服务 | □IDC服务类  □CDN  □VPN □安全防护 □运营商业务自用 □其他业务服务 | NaN | NaN | NaN |"
+    }
+  ]
+}

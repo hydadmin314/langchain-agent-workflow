@@ -1,0 +1,320 @@
+{
+  "application_form_info": {
+    "document_info": {
+      "document_id": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地IPRAN\\2 本地IPRAN标资",
+      "product_name": "",
+      "carrier": "",
+      "version": "",
+      "effective_date": null,
+      "document_status": null
+    },
+    "parties_and_application": {
+      "agent": {
+        "agent_name": "",
+        "sales_name": "",
+        "sales_contact": ""
+      },
+      "customer": {
+        "name": "",
+        "filled_values": [],
+        "is_blank_form": true
+      },
+      "application_fields": {
+        "required": [],
+        "optional": []
+      },
+      "application_notes": []
+    },
+    "pricing_info": {
+      "source_type": "application_form",
+      "source_file": "",
+      "one_time_fees": [],
+      "base_package_prices": [],
+      "addon_prices": [],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "agreement_rules": [],
+    "eligibility_and_constraints": []
+  },
+  "supplementary_info": {
+    "product_intro": {
+      "product_name": "本地IPRAN",
+      "full_description": "依托中国电信IP RAN网络，为客户提供灵活业务接入、灵活带宽、高可靠性及端到端管理的二层以太专线产品。产品类型：普通型：中国电信提供客户站点之间的二层以太专线服务。其组网拓扑可分为点到点(透传客户以太网数据帧)和点到多点（以太网树型业务）；云网融合型：中国电信向客户提供从客户站点到云资源池站点的二层以太专线服务。产品特点：开通速度快：客户无需协调多个厂商开通；扩容成本低：增加一个云，无需物理施工建设；传输有保障：IPRAN二层电路透传，与互联网隔离，杜绝DDOS、黑客入侵；支撑能力强：一点接应。",
+      "application_scenarios": "以多云（公/私/混合云）为主的IT基础架构；行业：党政军、金融、工业制造、新零售、互联网"
+    },
+    "product_keywords": {
+      "raw_keywords": "组网形态,通达范围,性能指标,本地组网,国内组网,线路延时，带宽利用率,是否具备资源,需要多长时间开通,使用人数，应用场景,需要多少带宽,打折,月租费,一次性费用,合同协议期,协议期内拆机违约金,平均故障修复时间"
+    },
+    "pricing_info": {
+      "source_type": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地IPRAN\\2 本地IPRAN标资\\2 资费表.xlsx",
+      "one_time_fees": [],
+      "base_package_prices": [],
+      "addon_prices": [],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "application_materials": [
+      {
+        "material_type": "表单",
+        "name": "客户基本信息表",
+        "description": "",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": false,
+        "copy_required": false,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "无需盖章",
+          "提前确认两端地址"
+        ],
+        "related_constraints": [],
+        "raw_text": "1、客户基本信息表，无需盖章，提前确认两端地址；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地IPRAN\\2 本地IPRAN标资\\4-6 本地IPRAN标资申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "营业执照复印件",
+        "description": "",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章",
+          "扫描件"
+        ],
+        "related_constraints": [],
+        "raw_text": "2、营业执照复印件，加盖公章，扫描件；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地IPRAN\\2 本地IPRAN标资\\4-6 本地IPRAN标资申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "经办人身份证正反面复印件",
+        "description": "",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章",
+          "扫描件"
+        ],
+        "related_constraints": [],
+        "raw_text": "3、经办人身份证正反面复印件，加盖公章，扫描件；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地IPRAN\\2 本地IPRAN标资\\4-6 本地IPRAN标资申请手续提示.txt"
+      },
+      {
+        "material_type": "合同",
+        "name": "电信正式合同水印版",
+        "description": "",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": true,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "客户签字",
+          "加盖公章和骑缝章"
+        ],
+        "related_constraints": [],
+        "raw_text": "1、电信正式合同水印版客户签字、加盖公章和骑缝章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地IPRAN\\2 本地IPRAN标资\\4-6 本地IPRAN标资申请手续提示.txt"
+      },
+      {
+        "material_type": "授权书",
+        "name": "授权委托书",
+        "description": "",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章"
+        ],
+        "related_constraints": [],
+        "raw_text": "（1）授权委托书，加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地IPRAN\\2 本地IPRAN标资\\4-6 本地IPRAN标资申请手续提示.txt"
+      },
+      {
+        "material_type": "表单",
+        "name": "大客户需求表",
+        "description": "",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章"
+        ],
+        "related_constraints": [],
+        "raw_text": "（2）大客户需求表，加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地IPRAN\\2 本地IPRAN标资\\4-6 本地IPRAN标资申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "营业执照复印件",
+        "description": "",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章"
+        ],
+        "related_constraints": [],
+        "raw_text": "（3）营业执照复印件，加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地IPRAN\\2 本地IPRAN标资\\4-6 本地IPRAN标资申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "经办人身份证正反面复印件",
+        "description": "",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章"
+        ],
+        "related_constraints": [],
+        "raw_text": "（4）经办人身份证正反面复印件，加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地IPRAN\\2 本地IPRAN标资\\4-6 本地IPRAN标资申请手续提示.txt"
+      },
+      {
+        "material_type": "担保书",
+        "name": "上海公司电信业务担保书",
+        "description": "",
+        "required": true,
+        "applicable_to": [
+          "外地公司"
+        ],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "盖公章"
+        ],
+        "related_constraints": [
+          "外地公司需担保"
+        ],
+        "raw_text": "（1）上海公司电信业务担保书，盖公章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地IPRAN\\2 本地IPRAN标资\\4-6 本地IPRAN标资申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "担保公司营业执照复印件",
+        "description": "",
+        "required": true,
+        "applicable_to": [
+          "外地公司"
+        ],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "盖公章"
+        ],
+        "related_constraints": [
+          "外地公司需担保"
+        ],
+        "raw_text": "（2）担保公司营业执照复印件，盖公章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地IPRAN\\2 本地IPRAN标资\\4-6 本地IPRAN标资申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "担保公司经办人身份证正反面复印件",
+        "description": "",
+        "required": true,
+        "applicable_to": [
+          "外地公司"
+        ],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "盖公章"
+        ],
+        "related_constraints": [
+          "外地公司需担保"
+        ],
+        "raw_text": "（3）担保公司经办人身份证正反面复印件，盖公章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地IPRAN\\2 本地IPRAN标资\\4-6 本地IPRAN标资申请手续提示.txt"
+      }
+    ]
+  },
+  "extraction_meta": {
+    "generated_at": "2026-06-23T15:52:42",
+    "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地IPRAN\\2 本地IPRAN标资",
+    "method": "llm_schema_module_extraction_no_normalization",
+    "validation_issues": [
+      {
+        "severity": "error",
+        "path": "document.4 申请表_转定用的大客户需求表IPRAN.doc",
+        "message": "RuntimeError: 缺少 Word COM 依赖，请先安装 pywin32：pip install pywin32"
+      },
+      {
+        "severity": "warning",
+        "path": "$.application_form_info.pricing_info.source_file",
+        "message": "缺少来源文件"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.document_info",
+        "message": "申请表基本信息基本为空，可能是切块或文档转换质量不足"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.parties_and_application.application_fields",
+        "message": "申请表没有抽到字段信息"
+      },
+      {
+        "severity": "warning",
+        "path": "supplementary_info.pricing_info",
+        "message": "资费表没有抽到有效资费"
+      }
+    ],
+    "validation_issue_count": 5
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": "product_doc_module_cache_v1",
+  "module_name": "application_form_info.eligibility_and_constraints",
+  "output": [
+    {
+      "name": "遵守国家法律与网络安全义务",
+      "description": "甲方应遵守国家相关的法律、法规，不得利用租用乙方的服务从事损害国家网络信息安全的行为。",
+      "condition": "甲方使用乙方服务期间",
+      "result": "甲方须承担相应法律责任",
+      "applies_to": [
+        "甲方",
+        "中国联通国内数字电路业务"
+      ],
+      "severity": "critical",
+      "raw_text": "甲方应遵守国家相关的法律、法规，不得利用租用乙方的服务从事损害国家网络信息安全的"
+    },
+    {
+      "name": "禁止擅自转让或转售业务",
+      "description": "甲方未经乙方同意不得转让或出售/出租中国联通国内数字电路业务，否则乙方有权立即采取措施。",
+      "condition": "甲方未经乙方同意转让或出售/出租中国联通国内数字电路业务",
+      "result": "乙方有权立即采取措施",
+      "applies_to": [
+        "甲方",
+        "中国联通国内数字电路业务"
+      ],
+      "severity": "high",
+      "raw_text": "甲方未经乙方同意不得转让或出售/出租中国联通国内数字电路业务。否则， 乙方有权立即"
+    },
+    {
+      "name": "不得以未停机为由拒付通信费",
+      "description": "甲方不得以乙方有权停机而未予停机作为拒绝支付通信费的理由。",
+      "condition": "乙方有权停机但未执行停机操作",
+      "result": "甲方仍须支付通信费",
+      "applies_to": [
+        "甲方"
+      ],
+      "severity": "medium",
+      "raw_text": "不得以乙方有权停机而未予停机作为拒绝支付通信费的理由；"
+    },
+    {
+      "name": "停机须依据合同条款办理",
+      "description": "甲方如需停机，应依据本合同第八条办理。",
+      "condition": "甲方需要停机",
+      "result": "须依据合同第八条办理停机手续",
+      "applies_to": [
+        "甲方"
+      ],
+      "severity": "medium",
+      "raw_text": "甲方如需停机，应依据本合同第八条"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": "product_doc_module_cache_v1",
+  "module_name": "application_form_info.agreement_rules",
+  "output": [
+    {
+      "rule_type": "restriction",
+      "description": "ISDN（2B+D）须付清所有欠费并迁转改装为普通固话后方可参加本营销活动。",
+      "severity": "high",
+      "applies_to": [
+        "ISDN用户"
+      ],
+      "obligation_party": "客户",
+      "conditions": [
+        "客户存在欠费",
+        "未迁转改装为普通固话"
+      ],
+      "consequence": "无法参加本营销活动",
+      "raw_text": "4. ISDN（2B+D）须付清所有欠费并迁转改装为普通固话后方可参加本营销活动。"
+    }
+  ]
+}

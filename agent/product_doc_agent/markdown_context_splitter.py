@@ -63,8 +63,17 @@ PRICING_TERMS = (
     "资费",
     "价格",
     "费用",
+    "订单金额",
+    "成交价",
+    "Deal Price",
     "月付",
     "年付",
+    "月租费",
+    "使用费",
+    "电路使用费",
+    "IP 地址月租费",
+    "域名服务费",
+    "预付款",
     "一次性",
     "初装费",
     "接入费",
@@ -80,15 +89,30 @@ PRICING_TERMS = (
     "折扣",
     "协议期",
 )
+PRICING_RULE_EXCLUSION_TERMS = (
+    "乙方同意向甲方提供服务",
+    "本协议费用包括",
+    "逾期未支付通信费用",
+    "暂停服务",
+    "终止服务",
+    "违约金",
+    "自本协议双方盖章签字之日起",
+    "停止向甲方提供服务",
+    "经营许可证",
+    "经营资质",
+    "不得经营",
+)
 AGREEMENT_TERMS = (
     "协议",
     "条款",
     "违约",
+    "违约金",
     "退订",
     "终止",
     "售后",
     "欠费",
     "暂停",
+    "逾期",
     "注销",
     "赔付",
     "SLA",
@@ -97,6 +121,9 @@ AGREEMENT_TERMS = (
     "服务商义务",
     "补充协议",
     "冲突的，以",
+    "本协议费用包括",
+    "乙方同意向甲方提供服务",
+    "停止向甲方提供服务",
 )
 CONSTRAINT_TERMS = (
     "准入",
@@ -113,6 +140,8 @@ CONSTRAINT_TERMS = (
     "IP数量",
     "实名",
     "资质",
+    "经营许可证",
+    "经营资质",
     "需补材料",
     "需提供",
     "不可办理",
@@ -126,16 +155,21 @@ CONSTRAINT_TERMS = (
 AGREEMENT_PRIORITY_TERMS = (
     "协议期",
     "违约",
+    "违约金",
     "退订",
     "终止",
     "欠费",
     "暂停",
+    "逾期",
     "注销",
     "售后",
     "SLA",
     "赔付",
     "补充协议",
     "冲突的，以",
+    "本协议费用包括",
+    "乙方同意向甲方提供服务",
+    "停止向甲方提供服务",
 )
 CONSTRAINT_PRIORITY_TERMS = (
     "仅限",
@@ -147,6 +181,8 @@ CONSTRAINT_PRIORITY_TERMS = (
     "需提供",
     "需补",
     "资质",
+    "经营许可证",
+    "经营资质",
     "实名",
     "ISP",
     "IDC",
@@ -208,10 +244,13 @@ def build_application_form_contexts(markdown: str, modules: Sequence[str], *, ma
     head_blocks = select_document_head(blocks)
     document_info_blocks = select_document_info_blocks(markdown)
     pricing_start_index = first_block_index(blocks, is_pricing_section_start)
+    if pricing_start_index is None:
+        pricing_start_index = first_block_index(blocks, is_pricing_context_block)
     notes_start_index = first_block_index(blocks, is_form_notes_section_start)
+    rule_start_index = first_rule_start_index(blocks, pricing_start_index, notes_start_index)
     form_field_blocks = blocks[:pricing_start_index] if pricing_start_index is not None else blocks
-    pricing_blocks = slice_blocks(blocks, pricing_start_index, notes_start_index)
-    rule_blocks = blocks[notes_start_index:] if notes_start_index is not None else []
+    pricing_blocks = slice_blocks(blocks, pricing_start_index, rule_start_index)
+    rule_blocks = blocks[rule_start_index:] if rule_start_index is not None else []
     contexts = {
         "application_form_info.document_info": render_context(
             document_info_blocks
@@ -220,7 +259,7 @@ def build_application_form_contexts(markdown: str, modules: Sequence[str], *, ma
             [*head_blocks, *filter_blocks(form_field_blocks, lambda block: contains_any(block.text, PARTIES_APPLICATION_TERMS))]
         ),
         "application_form_info.pricing_info": render_context(
-            filter_blocks(pricing_blocks, lambda block: contains_any(block.text, PRICING_TERMS))
+            filter_blocks(pricing_blocks, is_pricing_context_block)
         ),
         "application_form_info.agreement_rules": render_context(
             filter_blocks(rule_blocks, is_agreement_context_block)
@@ -245,13 +284,66 @@ def is_document_info_block(block: MarkdownBlock) -> bool:
 def is_pricing_section_start(block: MarkdownBlock) -> bool:
     """识别申请表中套餐/资费区起点；客户和代理商字段必须在这个边界前结束。"""
 
-    return contains_any(block.text, ("基础套餐申请信息", "套餐申请信息", "产品套餐费用信息", "资费信息"))
+    return contains_any(
+        block.text,
+        (
+            "基础套餐申请信息",
+            "套餐申请信息",
+            "产品套餐费用信息",
+            "资费信息",
+            "订单金额",
+            "成交价",
+            "Deal Price",
+        ),
+    )
 
 
 def is_form_notes_section_start(block: MarkdownBlock) -> bool:
     """识别填表说明/办理说明起点；套餐资费区必须在这个边界前结束。"""
 
-    return contains_any(block.text, ("填表说明", "填写说明", "办理说明", "注意事项", "业务服务协议", "客户承诺"))
+    return contains_any(
+        block.text,
+        (
+            "填表说明",
+            "填写说明",
+            "办理说明",
+            "注意事项",
+            "业务服务协议",
+            "服务协议",
+            "协议书",
+            "客户承诺",
+            "## Page 2",
+        ),
+    )
+
+
+def first_rule_start_index(
+    blocks: list[MarkdownBlock],
+    pricing_start_index: int | None,
+    notes_start_index: int | None,
+) -> int | None:
+    """优先用显式说明标题；没有标题时，从价格区后寻找协议正文起点。"""
+
+    fallback_start = pricing_start_index + 1 if pricing_start_index is not None else 0
+    fallback_index = first_block_index_from(blocks, fallback_start, is_rule_section_fallback_block)
+    candidates = [index for index in (notes_start_index, fallback_index) if index is not None]
+    return min(candidates) if candidates else None
+
+
+def is_pricing_context_block(block: MarkdownBlock) -> bool:
+    """价格字段只收资费行；强协议句式即使含费用/月使用费也不进入价格模块。"""
+
+    text = block.text
+    return contains_any(text, PRICING_TERMS) and not contains_any(text, PRICING_RULE_EXCLUSION_TERMS)
+
+
+def is_rule_section_fallback_block(block: MarkdownBlock) -> bool:
+    """OCR 表格缺少协议标题时，用强规则句式识别协议正文起点。"""
+
+    return contains_any(block.text, PRICING_RULE_EXCLUSION_TERMS) or contains_any(
+        block.text,
+        CONSTRAINT_PRIORITY_TERMS,
+    )
 
 
 def is_agreement_context_block(block: MarkdownBlock) -> bool:
@@ -285,6 +377,19 @@ def first_block_index(blocks: list[MarkdownBlock], predicate: Callable[[Markdown
     return None
 
 
+def first_block_index_from(
+    blocks: list[MarkdownBlock],
+    start_index: int,
+    predicate: Callable[[MarkdownBlock], bool],
+) -> int | None:
+    """从指定位置开始返回第一个命中块；没有命中时返回 None。"""
+
+    for index in range(max(0, start_index), len(blocks)):
+        if predicate(blocks[index]):
+            return index
+    return None
+
+
 def slice_blocks(blocks: list[MarkdownBlock], start: int | None, end: int | None) -> list[MarkdownBlock]:
     """按起止边界切块；边界缺失时使用合理兜底。"""
 
@@ -298,12 +403,29 @@ def slice_blocks(blocks: list[MarkdownBlock], start: int | None, end: int | None
 def select_document_info_blocks(markdown: str) -> list[MarkdownBlock]:
     """文档基本信息优先取第一条有效标题，避免 MarkItDown 把标题和表格粘成大块。"""
 
-    for line in normalize_markdown(markdown).splitlines():
+    lines = normalize_markdown(markdown).splitlines()
+    for line in lines:
+        text = line.strip()
+        if text.startswith("#") and not is_page_marker(text):
+            return [MarkdownBlock(index=0, block_type="heading", text=text)]
+
+    for line in lines:
         text = line.strip().strip("|").strip()
-        if not text or is_markdown_separator_row(line) or is_empty_table_row(line):
+        if (
+            not text
+            or is_page_marker(text)
+            or is_markdown_separator_row(line)
+            or is_empty_table_row(line)
+        ):
             continue
         return [MarkdownBlock(index=0, block_type="heading", text=text)]
     return []
+
+
+def is_page_marker(text: str) -> bool:
+    """跳过 OCR/MarkItDown 生成的页码标题，避免把 Page 1 当成文档名称。"""
+
+    return bool(re.fullmatch(r"#{0,6}\s*Page\s+\d+\s*", text, flags=re.IGNORECASE))
 
 
 def parse_markdown_blocks(markdown: str) -> list[MarkdownBlock]:

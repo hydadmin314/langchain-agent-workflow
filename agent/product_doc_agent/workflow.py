@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import json
 import shutil
 import tempfile
@@ -11,7 +12,7 @@ from typing import Any
 from langchain_core.language_models.chat_models import BaseChatModel
 
 from config.settings import PRODUCT_DOC_RAW_ROOT
-from agent.product_doc_agent.document_classifier import UNKNOWN, classify_document
+from agent.product_doc_agent.document_classifier import DocumentClassification, UNKNOWN, classify_document
 from agent.product_doc_agent.document_loader import DocumentLoader, LoadedDocument
 from agent.product_doc_agent.llm_extractor import EXTRACTION_MODULES, ProductDocumentLLMExtractor, run_async_from_sync
 from agent.product_doc_agent.markdown_context_splitter import (
@@ -63,6 +64,7 @@ class ProductDocAgentWorkflow:
         llm: BaseChatModel | None = None,
         max_context_chars: int = 60000,
         max_concurrency: int | None = None,
+        max_file_concurrency: int = 4,
         enable_self_check: bool = True,
         enable_debug_markdown: bool = True,
         enable_ocr_flow: bool = True,
@@ -93,6 +95,7 @@ class ProductDocAgentWorkflow:
             max_context_chars=max_context_chars,
             max_concurrency=max_concurrency,
         )
+        self.max_file_concurrency = max(1, max_file_concurrency)
         self.merger = ProductDocumentMerger()
         self.normalizer = ProductDocumentNormalizer()
         self.validator = ProductDocumentValidator()
@@ -246,11 +249,20 @@ class ProductDocAgentWorkflow:
         document_items: list[dict[str, Any]] = []
         module_outputs_list: list[dict[str, Any]] = []
         module_count = 0
-
+        classified_files: list[tuple[Path, DocumentClassification]] = []
         for path in sorted(item for item in folder.iterdir() if item.is_file()):
             classification = classify_document(path)
             if classification.role == UNKNOWN or not classification.target_modules:
                 continue
+            classified_files.append((path, classification))
+
+        file_semaphore = asyncio.Semaphore(self.max_file_concurrency)
+        request_semaphore = asyncio.Semaphore(self.extractor.max_concurrency)
+
+        async def process_file(
+            path: Path,
+            classification: DocumentClassification,
+        ) -> tuple[dict[str, Any], dict[str, Any] | None]:
             item: dict[str, Any] = {
                 "filename": path.name,
                 "source_file": str(path),
@@ -258,35 +270,46 @@ class ProductDocAgentWorkflow:
                 "normalized_name": classification.normalized_name,
                 "target_modules": list(classification.target_modules),
             }
-            try:
-                render_path = self.prepare_source_for_render(path)
-                if render_path != path:
-                    item["converted_source_file"] = str(render_path)
-                loaded_document = await self.loader.load_async(render_path)
-                markdown_result = self.markdown_renderer.render_document_result(loaded_document)
-                module_contexts = build_module_contexts_from_markdown(
-                    markdown_result.markdown,
-                    max_chars=self.extractor.max_context_chars,
-                    modules=classification.target_modules,
-                    document_role=classification.role,
-                )
-                item["markdown_chars"] = len(markdown_result.markdown)
-                item["module_contexts"] = module_contexts
-                module_outputs = await self.extractor.extract_modules_async(
-                    module_contexts,
-                    modules=list(classification.target_modules),
-                    continue_on_error=True,
-                )
-                module_outputs["__module_source_files__"] = {
-                    module_name: str(path)
-                    for module_name in classification.target_modules
-                }
-                item["module_outputs"] = module_outputs
-                module_outputs_list.append(module_outputs)
-                module_count += len([key for key in module_outputs if not key.startswith("__")])
-            except Exception as exc:
-                item["error"] = f"{exc.__class__.__name__}: {exc}"
+            async with file_semaphore:
+                try:
+                    render_path = self.prepare_source_for_render(path)
+                    if render_path != path:
+                        item["converted_source_file"] = str(render_path)
+                    loaded_document = await self.loader.load_async(render_path)
+                    markdown_result = self.markdown_renderer.render_document_result(loaded_document)
+                    module_contexts = build_module_contexts_from_markdown(
+                        markdown_result.markdown,
+                        max_chars=self.extractor.max_context_chars,
+                        modules=classification.target_modules,
+                        document_role=classification.role,
+                    )
+                    item["markdown_chars"] = len(markdown_result.markdown)
+                    item["module_contexts"] = module_contexts
+                    module_outputs = await self.extractor.extract_modules_async(
+                        module_contexts,
+                        modules=list(classification.target_modules),
+                        continue_on_error=True,
+                        request_semaphore=request_semaphore,
+                    )
+                    module_outputs["__module_source_files__"] = {
+                        module_name: str(path)
+                        for module_name in classification.target_modules
+                    }
+                    item["module_outputs"] = module_outputs
+                    return item, module_outputs
+                except Exception as exc:
+                    item["error"] = f"{exc.__class__.__name__}: {exc}"
+                    return item, None
+
+        file_results = await asyncio.gather(
+            *(process_file(path, classification) for path, classification in classified_files)
+        )
+        for item, module_outputs in file_results:
             document_items.append(item)
+            if module_outputs is None:
+                continue
+            module_outputs_list.append(module_outputs)
+            module_count += len([key for key in module_outputs if not key.startswith("__")])
 
         debug_context_path = None
         if self.enable_debug_markdown:

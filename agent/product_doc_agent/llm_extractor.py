@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 import asyncio
+import hashlib
 import json
 import re
 import threading
 import time
 from collections.abc import Awaitable, Sequence
+from copy import deepcopy
+from pathlib import Path
 from typing import Any
 
 from langchain_core.language_models.chat_models import BaseChatModel
@@ -16,6 +19,8 @@ from agent.product_doc_agent.schema_normalizer import normalize_to_module_schema
 from agent.product_doc_agent.validator import validate_against_schema
 from config.llm_config import get_product_doc_text_llm
 from config.settings import (
+    PRODUCT_DOC_AGENT_MODULE_CACHE_DIR,
+    PRODUCT_DOC_AGENT_MODULE_CACHE_ENABLED,
     PRODUCT_DOC_AGENT_RATE_LIMIT_MAX_ATTEMPTS,
     PRODUCT_DOC_AGENT_RATE_LIMIT_RETRY_SECONDS,
 )
@@ -36,6 +41,11 @@ EXTRACTION_MODULES = list(PRODUCT_SCHEMA_EXTRACTION_MODULES)
 
 # 申请表字段较多，默认先用紧凑提示词，降低超时概率。
 COMPACT_FIRST_MODULES = {"application_form_info.parties_and_application"}
+CACHEABLE_MODULES = {
+    "application_form_info.agreement_rules",
+    "application_form_info.eligibility_and_constraints",
+}
+MODULE_CACHE_SCHEMA_VERSION = "product_doc_module_cache_v1"
 
 
 def modules_for_document(file_path: str) -> list[str]:
@@ -66,6 +76,8 @@ class ProductDocumentLLMExtractor:
         self.max_concurrency = max(1, max_concurrency or len(EXTRACTION_MODULES))
         self.rate_limit_max_attempts = max(1, PRODUCT_DOC_AGENT_RATE_LIMIT_MAX_ATTEMPTS)
         self.rate_limit_retry_seconds = max(0.0, PRODUCT_DOC_AGENT_RATE_LIMIT_RETRY_SECONDS)
+        self.module_cache_enabled = PRODUCT_DOC_AGENT_MODULE_CACHE_ENABLED
+        self.module_cache_dir = Path(PRODUCT_DOC_AGENT_MODULE_CACHE_DIR)
         self._async_rate_limit_lock = asyncio.Lock()
         self._sync_rate_limit_lock = threading.Lock()
 
@@ -91,11 +103,12 @@ class ProductDocumentLLMExtractor:
         *,
         continue_on_error: bool = False,
         max_concurrency: int | None = None,
+        request_semaphore: asyncio.Semaphore | None = None,
     ) -> dict[str, Any]:
         """并发抽取多个 schema 模块。"""
 
         module_names = list(modules or EXTRACTION_MODULES)
-        semaphore = asyncio.Semaphore(max(1, max_concurrency or self.max_concurrency))
+        semaphore = request_semaphore or asyncio.Semaphore(max(1, max_concurrency or self.max_concurrency))
 
         async def run_one(module_name: str) -> tuple[str, Any, dict[str, str] | None]:
             async with semaphore:
@@ -169,18 +182,37 @@ class ProductDocumentLLMExtractor:
         context = document_context.get(module_name, "") if isinstance(document_context, dict) else document_context
         prompt = build_primary_module_prompt(module_name, context, max_context_chars=self.max_context_chars)
         logger.info(f"start module extraction: {module_name}, prompt_chars={len(prompt)}")
+        started_at = time.perf_counter()
+        cache_key = self._module_cache_key(module_name, prompt)
+        cached_result = self._read_module_cache(module_name, cache_key)
+        if cached_result is not None:
+            elapsed = time.perf_counter() - started_at
+            logger.info(f"module cache hit: {module_name}, elapsed_seconds={elapsed:.1f}")
+            return module_name, cached_result, None
+        if self._is_module_cacheable(module_name):
+            logger.info(f"module cache miss: {module_name}")
 
         try:
             result = await self._ainvoke_json(prompt, expected_module=module_name)
             result = normalize_to_module_schema(module_name, result)
             result = await self._repair_if_needed_async(module_name, result)
+            self._write_module_cache(module_name, cache_key, result)
+            elapsed = time.perf_counter() - started_at
+            logger.info(f"finish module extraction: {module_name}, elapsed_seconds={elapsed:.1f}")
             return module_name, result, None
         except LLMExtractionError as exc:
             retry_result = await self._retry_with_compact_prompt_async(module_name, context, exc)
             if retry_result is not None:
+                elapsed = time.perf_counter() - started_at
+                logger.info(
+                    f"finish module extraction: {module_name}, "
+                    f"elapsed_seconds={elapsed:.1f}, retry=compact"
+                )
                 return module_name, retry_result, None
             if not continue_on_error:
                 raise
+            elapsed = time.perf_counter() - started_at
+            logger.warning(f"fail module extraction: {module_name}, elapsed_seconds={elapsed:.1f}")
             logger.warning(str(exc))
             fallback = getattr(exc, "fallback_result", None)
             result = fallback if fallback is not None else empty_module_output(module_name)
@@ -205,10 +237,13 @@ class ProductDocumentLLMExtractor:
             reason,
         )
         logger.info(f"start module rework: {module_name}, prompt_chars={len(prompt)}")
+        started_at = time.perf_counter()
         try:
             result = await self._ainvoke_json(prompt, expected_module=f"{module_name}.rework")
             result = normalize_to_module_schema(module_name, result)
             result = await self._repair_if_needed_async(module_name, result)
+            elapsed = time.perf_counter() - started_at
+            logger.info(f"finish module rework: {module_name}, elapsed_seconds={elapsed:.1f}")
             return module_name, result, None
         except LLMExtractionError as exc:
             retry_result = await self._retry_rework_with_compact_prompt_async(
@@ -219,9 +254,16 @@ class ProductDocumentLLMExtractor:
                 exc,
             )
             if retry_result is not None:
+                elapsed = time.perf_counter() - started_at
+                logger.info(
+                    f"finish module rework: {module_name}, "
+                    f"elapsed_seconds={elapsed:.1f}, retry=compact"
+                )
                 return module_name, retry_result, None
             if not continue_on_error:
                 raise
+            elapsed = time.perf_counter() - started_at
+            logger.warning(f"fail module rework: {module_name}, elapsed_seconds={elapsed:.1f}")
             logger.warning(str(exc))
             fallback = getattr(exc, "fallback_result", None)
             result = fallback if fallback is not None else previous_output
@@ -361,6 +403,7 @@ class ProductDocumentLLMExtractor:
         return parse_json_response(response, expected_module=expected_module)
 
     async def _ainvoke_json(self, prompt: str, *, expected_module: str) -> Any:
+        started_at = time.perf_counter()
         logger.info(
             "LLM request: "
             f"module={expected_module}, "
@@ -372,6 +415,8 @@ class ProductDocumentLLMExtractor:
             response = await self._ainvoke_with_rate_limit_retry(prompt, expected_module=expected_module)
         except AttributeError:
             return await asyncio.to_thread(self._invoke_json, prompt, expected_module=expected_module)
+        elapsed = time.perf_counter() - started_at
+        logger.info(f"LLM response: module={expected_module}, elapsed_seconds={elapsed:.1f}")
         return parse_json_response(response, expected_module=expected_module)
 
     def _invoke_with_rate_limit_retry(self, prompt: str, *, expected_module: str) -> Any:
@@ -436,6 +481,73 @@ class ProductDocumentLLMExtractor:
 
     def _rate_limit_retry_delay(self, attempt: int) -> float:
         return self.rate_limit_retry_seconds * max(1, attempt)
+
+    def _is_module_cacheable(self, module_name: str) -> bool:
+        return self.module_cache_enabled and module_name in CACHEABLE_MODULES
+
+    def _module_cache_key(self, module_name: str, prompt: str) -> str:
+        if not self._is_module_cacheable(module_name):
+            return ""
+        payload = {
+            "schema_version": MODULE_CACHE_SCHEMA_VERSION,
+            "module_name": module_name,
+            "model": getattr(self.llm, "model_name", None) or getattr(self.llm, "model", None),
+            "base_url": str(getattr(self.llm, "openai_api_base", None) or ""),
+            "extra_body": getattr(self.llm, "extra_body", None),
+            "max_context_chars": self.max_context_chars,
+            "prompt_sha256": hashlib.sha256(prompt.encode("utf-8", errors="ignore")).hexdigest(),
+        }
+        raw = json.dumps(payload, ensure_ascii=False, sort_keys=True, default=str)
+        return hashlib.sha256(raw.encode("utf-8", errors="ignore")).hexdigest()
+
+    def _module_cache_path(self, module_name: str, cache_key: str) -> Path:
+        safe_module = module_name.replace(".", "__")
+        return self.module_cache_dir / safe_module / f"{cache_key}.json"
+
+    def _read_module_cache(self, module_name: str, cache_key: str) -> Any | None:
+        if not self._is_module_cacheable(module_name) or not cache_key:
+            return None
+        path = self._module_cache_path(module_name, cache_key)
+        if not path.exists():
+            return None
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            if payload.get("schema_version") != MODULE_CACHE_SCHEMA_VERSION:
+                return None
+            if payload.get("module_name") != module_name:
+                return None
+            result = normalize_to_module_schema(module_name, payload.get("output"))
+            issues = validate_module_output(module_name, result)
+            if issues:
+                logger.warning(f"module cache invalid: {module_name}, issue_count={len(issues)}")
+                return None
+            return strip_source_file_fields(result)
+        except Exception as exc:
+            logger.warning(f"module cache read failed: {module_name}, error={exc.__class__.__name__}: {exc}")
+            return None
+
+    def _write_module_cache(self, module_name: str, cache_key: str, result: Any) -> None:
+        if not self._is_module_cacheable(module_name) or not cache_key:
+            return
+        result = strip_source_file_fields(result)
+        issues = validate_module_output(module_name, result)
+        if issues:
+            logger.warning(f"module cache skipped: {module_name}, issue_count={len(issues)}")
+            return
+        path = self._module_cache_path(module_name, cache_key)
+        payload = {
+            "schema_version": MODULE_CACHE_SCHEMA_VERSION,
+            "module_name": module_name,
+            "output": result,
+        }
+        try:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            temp_path = path.with_suffix(".tmp")
+            temp_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+            temp_path.replace(path)
+            logger.info(f"module cache written: {module_name}")
+        except Exception as exc:
+            logger.warning(f"module cache write failed: {module_name}, error={exc.__class__.__name__}: {exc}")
 
 def parse_json_response(response: Any, *, expected_module: str) -> Any:
     """从大模型响应中解析 JSON；兼容 ```json 代码块。"""
@@ -570,6 +682,20 @@ def is_rate_limit_error(error: Exception) -> bool:
         marker in error_name or marker in error_text
         for marker in ("ratelimit", "rate limit", "429", "limit_requests", "too many requests")
     )
+
+def strip_source_file_fields(value: Any) -> Any:
+    """缓存只保存业务字段，来源文件由合并阶段按当前文件重新补齐。"""
+
+    if isinstance(value, list):
+        return [strip_source_file_fields(item) for item in value]
+    if isinstance(value, dict):
+        result = deepcopy(value)
+        result.pop("source_file", None)
+        for key, item in list(result.items()):
+            if isinstance(item, (dict, list)):
+                result[key] = strip_source_file_fields(item)
+        return result
+    return value
 
 
 def build_llm_request_error(

@@ -1,0 +1,1855 @@
+{
+  "application_form_info": {
+    "document_info": {
+      "document_id": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\3 精品专线宽带\\精品专线\\4 申请表_互联网专线之“精品专线”营销活动申请登记表.docx",
+      "product_name": "精品专线",
+      "carrier": "中国电信股份有限公司上海分公司",
+      "version": "2025/B",
+      "effective_date": "",
+      "document_status": ""
+    },
+    "parties_and_application": {
+      "agent": {
+        "agent_name": "",
+        "sales_name": "",
+        "sales_contact": ""
+      },
+      "customer": {
+        "name": "",
+        "filled_values": [],
+        "is_blank_form": true
+      },
+      "application_fields": {
+        "required": [
+          {
+            "label": "企业全称",
+            "field_key": "enterprise_full_name",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*企 业 全 称"
+          },
+          {
+            "label": "企业规模",
+            "field_key": "enterprise_scale",
+            "required": true,
+            "value": null,
+            "options": [
+              "10人以下",
+              "10-30人",
+              "31-80人",
+              "81-200人",
+              "200人以上"
+            ],
+            "value_type": "single_choice",
+            "raw_text": "*企 业 规 模 | □10人以下 □10-30人 □31-80人 □81-200人 □200人以上"
+          },
+          {
+            "label": "计算机数量",
+            "field_key": "computer_quantity",
+            "required": true,
+            "value": null,
+            "options": [
+              "5台及以下",
+              "6-15台",
+              "16-40台",
+              "41-100台",
+              "100台以上"
+            ],
+            "value_type": "single_choice",
+            "raw_text": "*计算机数量 | □5台及以下 □6-15台 □16-40台 □41-100台 □100台以上"
+          },
+          {
+            "label": "安装地址",
+            "field_key": "installation_address",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*安 装 地 址"
+          },
+          {
+            "label": "邮编",
+            "field_key": "postal_code",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*邮 编"
+          },
+          {
+            "label": "联系人",
+            "field_key": "contact_person",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*联 系 人"
+          },
+          {
+            "label": "身份证号码",
+            "field_key": "id_number",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*身份证号码"
+          },
+          {
+            "label": "联系电话",
+            "field_key": "contact_phone",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*联系电话"
+          },
+          {
+            "label": "付款方式",
+            "field_key": "payment_method",
+            "required": true,
+            "value": null,
+            "options": [
+              "托收",
+              "现金"
+            ],
+            "value_type": "single_choice",
+            "raw_text": "*付 款 方 式 | * 托 收 银行账号： * 现 金"
+          },
+          {
+            "label": "代理商名称",
+            "field_key": "agent_name",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "**\\*代理商名称**"
+          },
+          {
+            "label": "代理商业务人员姓名",
+            "field_key": "agent_sales_name",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "**\\*代理商业务人员姓名**"
+          },
+          {
+            "label": "代理商业务人员联系方式",
+            "field_key": "agent_sales_contact",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "**\\*代理商业务人员联系方式**"
+          }
+        ],
+        "optional": [
+          {
+            "label": "联系人职务",
+            "field_key": "contact_position",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "联系人职务"
+          },
+          {
+            "label": "E-MAIL",
+            "field_key": "email",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*E-MAIL"
+          },
+          {
+            "label": "传真",
+            "field_key": "fax",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "传 真"
+          }
+        ]
+      },
+      "application_notes": []
+    },
+    "pricing_info": {
+      "source_type": "application_form",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\3 精品专线宽带\\精品专线\\4 申请表_互联网专线之“精品专线”营销活动申请登记表.docx",
+      "one_time_fees": [
+        {
+          "name": "精品专线一次性接入费",
+          "amount": 1300.0,
+          "currency": "CNY",
+          "unit": "线/次",
+          "applicable_to": [
+            "月付方式"
+          ],
+          "conditions": [],
+          "description": "精品专线一次性接入费，月付方式1300元/线/次",
+          "raw_text": "精品专线一次性接入费： □月付方式：1300元/线/次"
+        },
+        {
+          "name": "精品专线一次性接入费",
+          "amount": 650.0,
+          "currency": "CNY",
+          "unit": "线/次",
+          "applicable_to": [
+            "1年付方式"
+          ],
+          "conditions": [],
+          "description": "精品专线一次性接入费，1年付方式650元/线/次",
+          "raw_text": "□1年付方式：650元/线/次"
+        },
+        {
+          "name": "精品专线一次性接入费",
+          "amount": 0.0,
+          "currency": "CNY",
+          "unit": "线/次",
+          "applicable_to": [
+            "2年付方式"
+          ],
+          "conditions": [],
+          "description": "精品专线一次性接入费，2年付方式0元/线/次",
+          "raw_text": "□2年付方式：0元/线/次"
+        },
+        {
+          "name": "免UIM卡一次性费用",
+          "amount": 0.0,
+          "currency": "CNY",
+          "unit": "",
+          "applicable_to": [
+            "新装移动业务"
+          ],
+          "conditions": [],
+          "description": "新装优惠：免UIM卡一次性费用",
+          "raw_text": "新装优惠：免UIM卡一次性费用"
+        }
+      ],
+      "base_package_prices": [
+        {
+          "name": "精品专线",
+          "speed": "50M",
+          "upstream_speed": "50M",
+          "downstream_speed": "50M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 2388.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "5个可用IPv4地址",
+            "/64 IPv6地址"
+          ],
+          "conditions": [],
+          "description": "精品专线50M/50M 月付套餐",
+          "raw_text": "□50M/50M（2388元/月）"
+        },
+        {
+          "name": "精品专线",
+          "speed": "50M",
+          "upstream_speed": "50M",
+          "downstream_speed": "50M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 23880.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "yearly",
+          "contract_period": "1年",
+          "included_items": [
+            "5个可用IPv4地址",
+            "/64 IPv6地址"
+          ],
+          "conditions": [],
+          "description": "精品专线50M/50M 年付套餐",
+          "raw_text": "□50M/50M（23880元/年）"
+        },
+        {
+          "name": "精品专线",
+          "speed": "100M",
+          "upstream_speed": "100M",
+          "downstream_speed": "100M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 3388.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "5个可用IPv4地址",
+            "/64 IPv6地址"
+          ],
+          "conditions": [],
+          "description": "精品专线100M/100M 月付套餐",
+          "raw_text": "□100M/100M（3388元/月）"
+        },
+        {
+          "name": "精品专线",
+          "speed": "100M",
+          "upstream_speed": "100M",
+          "downstream_speed": "100M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 28880.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "yearly",
+          "contract_period": "1年",
+          "included_items": [
+            "5个可用IPv4地址",
+            "/64 IPv6地址"
+          ],
+          "conditions": [],
+          "description": "精品专线100M/100M 年付套餐",
+          "raw_text": "□100M/100M（28880元/年）"
+        },
+        {
+          "name": "精品专线",
+          "speed": "100M",
+          "upstream_speed": "100M",
+          "downstream_speed": "100M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 48000.0,
+          "currency": "CNY",
+          "unit": "元/2年",
+          "billing_period": "2yearly",
+          "contract_period": "2年",
+          "included_items": [
+            "5个可用IPv4地址",
+            "/64 IPv6地址"
+          ],
+          "conditions": [],
+          "description": "精品专线100M/100M 2年付套餐",
+          "raw_text": "□100M/100M(48000元/2年)"
+        },
+        {
+          "name": "精品专线",
+          "speed": "200M",
+          "upstream_speed": "200M",
+          "downstream_speed": "200M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 4888.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "5个可用IPv4地址",
+            "/64 IPv6地址"
+          ],
+          "conditions": [],
+          "description": "精品专线200M/200M 月付套餐",
+          "raw_text": "□200M/200M（4888元/月）"
+        },
+        {
+          "name": "精品专线",
+          "speed": "200M",
+          "upstream_speed": "200M",
+          "downstream_speed": "200M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 48880.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "yearly",
+          "contract_period": "1年",
+          "included_items": [
+            "5个可用IPv4地址",
+            "/64 IPv6地址"
+          ],
+          "conditions": [],
+          "description": "精品专线200M/200M 年付套餐",
+          "raw_text": "□200M/200M（48880元/年）"
+        },
+        {
+          "name": "精品专线",
+          "speed": "300M",
+          "upstream_speed": "300M",
+          "downstream_speed": "300M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 7888.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "5个可用IPv4地址",
+            "/64 IPv6地址"
+          ],
+          "conditions": [],
+          "description": "精品专线300M/300M 月付套餐",
+          "raw_text": "□300M/300M（7888元/月）"
+        },
+        {
+          "name": "精品专线",
+          "speed": "300M",
+          "upstream_speed": "300M",
+          "downstream_speed": "300M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 78880.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "yearly",
+          "contract_period": "1年",
+          "included_items": [
+            "5个可用IPv4地址",
+            "/64 IPv6地址"
+          ],
+          "conditions": [],
+          "description": "精品专线300M/300M 年付套餐",
+          "raw_text": "□300M/300M（78880元/年）"
+        },
+        {
+          "name": "精品专线",
+          "speed": "500M",
+          "upstream_speed": "500M",
+          "downstream_speed": "500M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 12888.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "5个可用IPv4地址",
+            "/64 IPv6地址"
+          ],
+          "conditions": [],
+          "description": "精品专线500M/500M 月付套餐",
+          "raw_text": "□500M/500M（12888元/月）"
+        },
+        {
+          "name": "精品专线",
+          "speed": "500M",
+          "upstream_speed": "500M",
+          "downstream_speed": "500M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 128880.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "yearly",
+          "contract_period": "1年",
+          "included_items": [
+            "5个可用IPv4地址",
+            "/64 IPv6地址"
+          ],
+          "conditions": [],
+          "description": "精品专线500M/500M 年付套餐",
+          "raw_text": "□500M/500M（128880元/年）"
+        },
+        {
+          "name": "精品专线",
+          "speed": "800M",
+          "upstream_speed": "800M",
+          "downstream_speed": "800M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 21888.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "5个可用IPv4地址",
+            "/64 IPv6地址"
+          ],
+          "conditions": [],
+          "description": "精品专线800M/800M 月付套餐",
+          "raw_text": "□800M/800M（21888元/月）"
+        }
+      ],
+      "addon_prices": [
+        {
+          "name": "IPv4地址升级",
+          "category": "IP地址",
+          "spec": "升级到13个固定公网IPv4地址",
+          "price": 300.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "用户可付费申请IPv4地址升级，升级到13个固定公网IPv4地址，费用增加300元/月",
+          "raw_text": "用户可**付费申请IPv4地址升级**： 【**□升级到13个固定公网IPv4地址，费用增加300元/月"
+        },
+        {
+          "name": "IPv4地址升级",
+          "category": "IP地址",
+          "spec": "升级到13个固定公网IPv4地址",
+          "price": 2400.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "yearly",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "如主套餐是选用年付费的，费用增加2400元/年",
+          "raw_text": "如主套餐是选用年付费的，费用增加2400元/年"
+        },
+        {
+          "name": "IPv4地址升级",
+          "category": "IP地址",
+          "spec": "升级到13个固定公网IPv4地址",
+          "price": 4800.0,
+          "currency": "CNY",
+          "unit": "元/2年",
+          "billing_period": "2yearly",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "主套餐选用2年付的，费用增加4800元/2年",
+          "raw_text": "主套餐选用2年付的，费用增加4800元/2年"
+        },
+        {
+          "name": "国际精品网IPv4地址升级",
+          "category": "IP地址",
+          "spec": "5个固定公网IPv4地址升级为国际精品网IPv4地址",
+          "price": 1200.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "5个固定公网IPv4地址，升级为国际方向优化的国际精品网IPv4地址，费用增加1200元/月",
+          "raw_text": "□ 5个固定公网IPv4地址，升级为**国际方向优化的国际精品网IPv4地址，费用增加1200元/月**"
+        },
+        {
+          "name": "国际精品网IPv4地址升级",
+          "category": "IP地址",
+          "spec": "13个固定公网IPv4地址升级为国际精品网IPv4地址",
+          "price": 2000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [
+            "升级到13个固定公网IPv4地址"
+          ],
+          "conditions": [],
+          "description": "13个固定公网IPv4地址，升级为国际方向优化的国际精品网IPv4地址，费用增加2000元/月",
+          "raw_text": "□ 13个固定公网IPv4地址，升级为**国际方向优化的国际精品网IPv4地址**，**费用增加2000元/月**"
+        },
+        {
+          "name": "天翼安全大脑（专线版300M）",
+          "category": "安全服务",
+          "spec": "下行速率300M及以下带宽适用",
+          "price": 600.0,
+          "currency": "CNY",
+          "unit": "月/线",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "上网行为管理",
+            "多线接入",
+            "可视化流量管理",
+            "防火墙",
+            "病毒防护",
+            "IPS",
+            "SSLVPN",
+            "网安联动阻断",
+            "失陷主机定位"
+          ],
+          "required_with": [],
+          "conditions": [],
+          "description": "天翼安全大脑（专线版300M），600元/月/线，下行速率300M及以下带宽适用",
+          "raw_text": "* **天翼安全大脑（专线版300M），600元/月/线，下行速率**300M及以下带宽适用"
+        },
+        {
+          "name": "天翼安全大脑（专线版500M）",
+          "category": "安全服务",
+          "spec": "下行速率500M及以下带宽适用",
+          "price": 1200.0,
+          "currency": "CNY",
+          "unit": "月/线",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "上网行为管理",
+            "多线接入",
+            "可视化流量管理",
+            "防火墙",
+            "病毒防护",
+            "IPS",
+            "SSLVPN",
+            "网安联动阻断",
+            "失陷主机定位"
+          ],
+          "required_with": [],
+          "conditions": [],
+          "description": "天翼安全大脑（专线版500M），1200元/月/线，下行速率500M及以下带宽适用",
+          "raw_text": "* **天翼安全大脑（专线版500M），1200元/月/线，下行速率**500M及以下带宽适用"
+        },
+        {
+          "name": "天翼安全大脑-安全专家增值服务",
+          "category": "安全服务",
+          "spec": "",
+          "price": 300.0,
+          "currency": "CNY",
+          "unit": "月/线",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "安全网关设备5*8小时安全咨询",
+            "设备巡检",
+            "故障响应",
+            "病毒查杀",
+            "现场安全维护服务"
+          ],
+          "required_with": [],
+          "conditions": [],
+          "description": "天翼安全大脑-安全专家增值服务，300元/月/线",
+          "raw_text": "* **天翼安全大脑-安全专家增值服务，300元/月/线**"
+        },
+        {
+          "name": "5G畅享套餐",
+          "category": "移动业务",
+          "spec": "99元档",
+          "price": 1.0,
+          "currency": "CNY",
+          "unit": "月/号",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "手机国内流量20GB/月",
+            "国内通话400分钟/月",
+            "来电显示",
+            "189邮箱"
+          ],
+          "required_with": [],
+          "conditions": [
+            "同一政企客户名下仅限新装移动设备号",
+            "原套餐月基本费之和应小于等于精品专线业务的签约消费金额"
+          ],
+          "description": "5G畅享套餐99元档，月基本费降至1元/月/号",
+          "raw_text": "□申请线数：____线，套餐月基本费价值**99**元/月/线，包含手机国内流量**20**GB/月，国内通话**400**分钟/月"
+        },
+        {
+          "name": "5G畅享套餐",
+          "category": "移动业务",
+          "spec": "129元档",
+          "price": 1.0,
+          "currency": "CNY",
+          "unit": "月/号",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "手机国内流量30GB/月",
+            "国内通话500分钟/月",
+            "来电显示",
+            "189邮箱"
+          ],
+          "required_with": [],
+          "conditions": [
+            "同一政企客户名下仅限新装移动设备号",
+            "原套餐月基本费之和应小于等于精品专线业务的签约消费金额"
+          ],
+          "description": "5G畅享套餐129元档，月基本费降至1元/月/号",
+          "raw_text": "□申请线数：____线，套餐月基本费价值**129**元/月/线，包含手机国内流量**30**GB/月，国内通话**500**分钟/月"
+        },
+        {
+          "name": "5G畅享套餐",
+          "category": "移动业务",
+          "spec": "169元档",
+          "price": 1.0,
+          "currency": "CNY",
+          "unit": "月/号",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "手机国内流量40GB/月",
+            "国内通话800分钟/月",
+            "来电显示",
+            "189邮箱"
+          ],
+          "required_with": [],
+          "conditions": [
+            "同一政企客户名下仅限新装移动设备号",
+            "原套餐月基本费之和应小于等于精品专线业务的签约消费金额"
+          ],
+          "description": "5G畅享套餐169元档，月基本费降至1元/月/号",
+          "raw_text": "□申请线数：____线，套餐月基本费价值**169**元/月/线，包含手机国内流量**40**GB/月，国内通话**800**分钟/月"
+        },
+        {
+          "name": "5G畅享套餐",
+          "category": "移动业务",
+          "spec": "199元档",
+          "price": 1.0,
+          "currency": "CNY",
+          "unit": "月/号",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "手机国内流量60GB/月",
+            "国内通话1000分钟/月",
+            "来电显示",
+            "189邮箱"
+          ],
+          "required_with": [],
+          "conditions": [
+            "同一政企客户名下仅限新装移动设备号",
+            "原套餐月基本费之和应小于等于精品专线业务的签约消费金额"
+          ],
+          "description": "5G畅享套餐199元档，月基本费降至1元/月/号",
+          "raw_text": "□申请线数：____线，套餐月基本费价值**199**元/月/线，包含手机国内流量**60**GB/月，国内通话**1000**分钟/月"
+        },
+        {
+          "name": "商云通",
+          "category": "语音服务",
+          "spec": "0元/月/线",
+          "price": 0.0,
+          "currency": "CNY",
+          "unit": "月/线",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "1个8位商云通电话号码",
+            "国内通话2500分钟/月/线",
+            "终端衍生服务"
+          ],
+          "required_with": [],
+          "conditions": [
+            "仅限新装",
+            "限1线",
+            "客户注销业务时需归还终端衍生服务中提供的终端设备"
+          ],
+          "description": "商云通0元/月/线，申请线数限1线",
+          "raw_text": "□ 0元/月/线，申请线数：限1线"
+        }
+      ],
+      "fee_and_term_rules": [
+        {
+          "name": "国内通话超出后资费",
+          "category": "超出资费",
+          "applicable_to": [
+            "5G畅享套餐"
+          ],
+          "amount": 0.15,
+          "currency": "CNY",
+          "unit": "分钟",
+          "period": "",
+          "formula": "",
+          "conditions": [],
+          "description": "国内通话超出后资费：0.15元/分钟",
+          "raw_text": "国内通话超出后资费：0.15元/分钟"
+        },
+        {
+          "name": "国内短/彩信超出后资费",
+          "category": "超出资费",
+          "applicable_to": [
+            "5G畅享套餐"
+          ],
+          "amount": 0.1,
+          "currency": "CNY",
+          "unit": "条",
+          "period": "",
+          "formula": "",
+          "conditions": [],
+          "description": "国内短/彩信超出后资费：0.1元/条",
+          "raw_text": "国内短/彩信超出后资费：0.1元/条"
+        },
+        {
+          "name": "国内流量超出后资费",
+          "category": "超出资费",
+          "applicable_to": [
+            "5G畅享套餐"
+          ],
+          "amount": 3.0,
+          "currency": "CNY",
+          "unit": "GB",
+          "period": "",
+          "formula": "不满100MB按0.03元/MB收费，达到3元后，100MB（不含）-1GB（含）部分免费使用",
+          "conditions": [],
+          "description": "国内流量超出后资费：3元/GB",
+          "raw_text": "国内流量超出后资费：3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB（不含）-1GB（含）部分，免费使用"
+        },
+        {
+          "name": "商云通国内通话超出后资费",
+          "category": "超出资费",
+          "applicable_to": [
+            "商云通"
+          ],
+          "amount": 0.1,
+          "currency": "CNY",
+          "unit": "分钟/线",
+          "period": "",
+          "formula": "",
+          "conditions": [],
+          "description": "商云通国内通话超出后资费0.1元/分钟/线",
+          "raw_text": "国内通话超出后资费0.1元/分钟/线"
+        },
+        {
+          "name": "SLA服务等级-1A赔偿",
+          "category": "服务保障",
+          "applicable_to": [
+            "200M/200M",
+            "300M/300M",
+            "500M/500M",
+            "800M/800M"
+          ],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "",
+          "formula": "",
+          "conditions": [
+            "未按照SLA 1A服务标准提供服务"
+          ],
+          "description": "若中国电信上海公司未按照SLA 1A服务标准提供服务的，按照附页《SLA服务内容》所列标准予以赔偿",
+          "raw_text": "若中国电信上海公司未按照SLA 1A服务标准提供服务的，按照附页《SLA服务内容》所列标准予以赔偿"
+        }
+      ],
+      "discount_policy": [
+        {
+          "name": "移动业务新装优惠",
+          "category": "新装优惠",
+          "applicable_to": [
+            "5G畅享套餐"
+          ],
+          "standard_price": null,
+          "discount_rate": null,
+          "discounted_price": 1.0,
+          "currency": "CNY",
+          "unit": "月/号",
+          "conditions": [
+            "同一政企客户名下仅限新装移动设备号",
+            "原套餐月基本费之和应小于等于精品专线业务的签约消费金额"
+          ],
+          "description": "办理5G畅享套餐后，月基本费降至1元/月/号",
+          "raw_text": "办理上述5G畅享套餐后，月基本费降至1元/月/号"
+        }
+      ]
+    },
+    "agreement_rules": [
+      {
+        "rule_type": "restriction",
+        "description": "本活动协议期一年，自参加本活动次月1日起算。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "客户",
+        "conditions": [],
+        "consequence": "",
+        "raw_text": "本活动协议期一年，自参加本活动次月1日起算。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "今后办理业务变更或注销手续时,需凭办理实名制登记的证件办理。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "客户",
+        "conditions": [],
+        "consequence": "",
+        "raw_text": "今后办理业务变更或注销手续时,需凭办理实名制登记的证件办理。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "本规则月付套餐和年付套餐协议期为一年，两年付套餐协议期为二年，均自客户所选择的基础套餐内宽带产品完工之次月1日起算，首月资费以套餐月基本费为基数按天折算。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "客户",
+        "conditions": [],
+        "consequence": "",
+        "raw_text": "本规则月付套餐和年付套餐协议期为一年，两年付套餐协议期为二年，均自客户所选择的基础套餐内宽带产品完工之次月1日起算，首月资费以套餐月基本费为基数按天折算。"
+      },
+      {
+        "rule_type": "after_sales",
+        "description": "本规则期满后，为保障客户通信的连续性，在客户未办理业务注销（拆机）手续前，中国电信上海公司不得擅自终止向客户提供通信服务。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [],
+        "consequence": "",
+        "raw_text": "本规则期满后，为保障客户通信的连续性，在客户未办理业务注销（拆机）手续前，中国电信上海公司不得擅自终止向客户提供通信服务。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "营销规则期满后，客户不续约的，可以办理相关产品注销手续（需归还中国电信领航者Navigator定制网关（A8-C定制终端）并保证该设备的完好可用，不能归还的，客户需向中国电信上海公司支付该终端设备费用：1000元/台）。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "客户",
+        "conditions": [
+          "营销规则期满后，客户不续约"
+        ],
+        "consequence": "需归还中国电信领航者Navigator定制网关（A8-C定制终端）并保证该设备的完好可用，不能归还的，客户需向中国电信上海公司支付该终端设备费用：1000元/台",
+        "raw_text": "营销规则期满后，客户不续约的，可以办理相关产品注销手续（需归还中国电信领航者Navigator定制网关（A8-C定制终端）并保证该设备的完好可用，不能归还的，客户需向中国电信上海公司支付该终端设备费用：1000元/台）。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "欠费2个月以上的客户不得参加本次优惠活动。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "客户",
+        "conditions": [
+          "欠费2个月以上"
+        ],
+        "consequence": "不得参加本次优惠活动",
+        "raw_text": "欠费2个月以上的客户不得参加本次优惠活动；"
+      },
+      {
+        "rule_type": "termination",
+        "description": "如客户办理宽带业务注销（拆机）、过户、停机保号等业务的，视为客户主动退出本营销活动。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "客户",
+        "conditions": [
+          "客户办理宽带业务注销（拆机）、过户、停机保号等业务"
+        ],
+        "consequence": "视为客户主动退出本营销活动",
+        "raw_text": "如客户办理宽带业务注销（拆机）、过户、停机保号等业务的，视为客户主动退出本营销活动。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "因客户原因退出本活动或导致本活动提前终止的,客户应结清之前已使用的费用及违约金, 剩余协议期6个月（含）以下的，收取1个月可选包标准月基本费的违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）*2个月可选包标准月基本费。",
+        "severity": "",
+        "applies_to": [
+          "天翼安全大脑可选包"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "因客户原因退出本活动或导致本活动提前终止"
+        ],
+        "consequence": "客户应结清之前已使用的费用及违约金, 剩余协议期6个月（含）以下的，收取1个月可选包标准月基本费的违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）*2个月可选包标准月基本费",
+        "raw_text": "因客户原因退出本活动或导致本活动提前终止的,客户应结清之前已使用的费用及违约金, 剩余协议期6个月（含）以下的，收取1个月可选包标准月基本费的违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）*2个月可选包标准月基本费。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "套餐协议期期满但天翼安全大脑可选包协议期未满的，若客户要求拆除套餐的，天翼安全大脑可选包一并拆除，客户仍需按本条规则支付天翼安全大脑可选包的违约金。",
+        "severity": "",
+        "applies_to": [
+          "天翼安全大脑可选包"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "套餐协议期期满但天翼安全大脑可选包协议期未满，客户要求拆除套餐"
+        ],
+        "consequence": "天翼安全大脑可选包一并拆除，客户仍需支付天翼安全大脑可选包的违约金",
+        "raw_text": "套餐协议期期满但天翼安全大脑可选包协议期未满的，若客户要求拆除套餐的，天翼安全大脑可选包一并拆除，客户仍需按本条规则支付天翼安全大脑可选包的违约金。"
+      },
+      {
+        "rule_type": "after_sales",
+        "description": "协议到期后，为保障客户通信的连续性，在客户未办理业务注销（拆机）手续前，在客户未产生欠费的情况下，中国电信上海公司不得擅自终止向客户提供通信服务。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [
+          "协议到期后，客户未办理业务注销（拆机）手续，客户未产生欠费"
+        ],
+        "consequence": "中国电信上海公司不得擅自终止向客户提供通信服务",
+        "raw_text": "协议到期后，为保障客户通信的连续性，在客户未办理业务注销（拆机）手续前，在客户未产生欠费的情况下，中国电信上海公司不得擅自终止向客户提供通信服务。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "协议期内，若政企客户提前退出本活动说明第（一）条项下参加活动的专线业务，则本活动项下的移动套餐全部恢复对应档次的套餐月基本费标准资费收取费用。",
+        "severity": "",
+        "applies_to": [
+          "移动套餐"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "政企客户提前退出本活动说明第（一）条项下参加活动的专线业务"
+        ],
+        "consequence": "本活动项下的移动套餐全部恢复对应档次的套餐月基本费标准资费收取费用",
+        "raw_text": "协议期内，若政企客户提前退出本活动说明第（一）条项下参加活动的专线业务，则本活动项下的移动套餐全部恢复对应档次的套餐月基本费标准资费收取费用。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "协议期内，参加本活动的设备号发生更名、过户、拆机均视为自动退出续约活动，该设备号办理的移动套餐恢复对应档次的套餐月基本费标准资费收取费用。",
+        "severity": "",
+        "applies_to": [
+          "移动套餐"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "参加本活动的设备号发生更名、过户、拆机"
+        ],
+        "consequence": "视为自动退出续约活动，该设备号办理的移动套餐恢复对应档次的套餐月基本费标准资费收取费用",
+        "raw_text": "协议期内，参加本活动的设备号发生更名、过户、拆机均视为自动退出续约活动，该设备号办理的移动套餐恢复对应档次的套餐月基本费标准资费收取费用。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "客户号码一旦出现上述情形，或被投诉、被举报查证属实的，中国电信上海公司有权终止对客户提供服务并收回相应号码及其他管控手段，由此产生的损失由客户承担。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [
+          "客户号码出现上述情形，或被投诉、被举报查证属实"
+        ],
+        "consequence": "中国电信上海公司有权终止对客户提供服务并收回相应号码及其他管控手段，由此产生的损失由客户承担",
+        "raw_text": "客户号码一旦出现上述情形，或被投诉、被举报查证属实的，中国电信上海公司有权终止对客户提供服务并收回相应号码及其他管控手段，由此产生的损失由客户承担。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "中国电信上海公司如发现客户所填写或所提供的内容与实际不符，有权终止本服务协议。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [
+          "发现客户所填写或所提供的内容与实际不符"
+        ],
+        "consequence": "有权终止本服务协议",
+        "raw_text": "中国电信上海公司如发现客户所填写或所提供的内容与实际不符，有权终止本服务协议。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "如中国电信上海公司发现本网关存在复接设备或连接其他终端的情况，有权终止对甲方提供服务并回收相应号码，由此产生的损失由甲方承担。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [
+          "发现本网关存在复接设备或连接其他终端的情况"
+        ],
+        "consequence": "有权终止对甲方提供服务并回收相应号码，由此产生的损失由甲方承担",
+        "raw_text": "如中国电信上海公司发现本网关存在复接设备或连接其他终端的情况，有权终止对甲方提供服务并回收相应号码，由此产生的损失由甲方承担。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "若中国电信上海公司发现甲方填写地址与实际使用地址不符，中国电信上海公司有权终止对甲方提供服务并回收相应号码，由此产生的损失由甲方承担。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [
+          "发现甲方填写地址与实际使用地址不符"
+        ],
+        "consequence": "有权终止对甲方提供服务并回收相应号码，由此产生的损失由甲方承担",
+        "raw_text": "若中国电信上海公司发现甲方填写地址与实际使用地址不符，中国电信上海公司有权终止对甲方提供服务并回收相应号码，由此产生的损失由甲方承担。"
+      },
+      {
+        "rule_type": "after_sales",
+        "description": "因客户欠费等非中国电信上海公司原因造成宽带停机导致商云通业务无法正常使用的，中国电信上海公司不因此而减免任何费用。",
+        "severity": "",
+        "applies_to": [
+          "商云通业务"
+        ],
+        "obligation_party": "服务商",
+        "conditions": [
+          "因客户欠费等非中国电信上海公司原因造成宽带停机导致商云通业务无法正常使用"
+        ],
+        "consequence": "中国电信上海公司不因此而减免任何费用",
+        "raw_text": "因客户欠费等非中国电信上海公司原因造成宽带停机导致商云通业务无法正常使用的，中国电信上海公司不因此而减免任何费用。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "中国电信上海公司有权视行业管理规定和运营情况变更或解除本服务协议，中国电信上海公司将提前30日告知客户，变更或解除本服务协议。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [
+          "视行业管理规定和运营情况"
+        ],
+        "consequence": "变更或解除本服务协议",
+        "raw_text": "中国电信上海公司有权视行业管理规定和运营情况变更或解除本服务协议，中国电信上海公司将提前30日告知客户，变更或解除本服务协议。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "业务使用期间，客户如私自利用中国电信上海公司所提供的业务服务经营长话业务或进行长途国际话音转接的，一经发现，中国电信上海公司有权立即终止提供所有服务，本规则终止。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [
+          "客户私自利用中国电信上海公司所提供的业务服务经营长话业务或进行长途国际话音转接"
+        ],
+        "consequence": "中国电信上海公司有权立即终止提供所有服务，本规则终止",
+        "raw_text": "业务使用期间，客户如私自利用中国电信上海公司所提供的业务服务经营长话业务或进行长途国际话音转接的，一经发现，中国电信上海公司有权立即终止提供所有服务，本规则终止。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "本规则有效期内，若因客户欠费等属于客户责任的原因全部或部分被停机（暂停提供服务）的，停机期间，中国电信上海公司将继续按月出帐，收取客户所选择的基础套餐月使用费和可选产品月使用费（年付/两年付方式的，停机期间仍将计入年付/两年付费用使用月份），停机之日起满60日，客户仍未缴费或导致停机的原因未消除的，中国电信上海公司有权拆机（终止提供服务），本规则终止。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [
+          "因客户欠费等属于客户责任的原因全部或部分被停机，停机之日起满60日，客户仍未缴费或导致停机的原因未消除"
+        ],
+        "consequence": "中国电信上海公司有权拆机（终止提供服务），本规则终止",
+        "raw_text": "本规则有效期内，若因客户欠费等属于客户责任的原因全部或部分被停机（暂停提供服务）的，停机期间，中国电信上海公司将继续按月出帐，收取客户所选择的基础套餐月使用费和可选产品月使用费（年付/两年付方式的，停机期间仍将计入年付/两年付费用使用月份），停机之日起满60日，客户仍未缴费或导致停机的原因未消除的，中国电信上海公司有权拆机（终止提供服务），本规则终止。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "本规则有效期内,因客户原因退出本活动或导致本活动提前终止的,客户应结清之前已使用的费用及违约金, 剩余协议期6个月（含）以下的，收取1个月套餐标准月基本费的违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）*2个月套餐标准月基本费。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "客户",
+        "conditions": [
+          "因客户原因退出本活动或导致本活动提前终止"
+        ],
+        "consequence": "客户应结清之前已使用的费用及违约金, 剩余协议期6个月（含）以下的，收取1个月套餐标准月基本费的违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）*2个月套餐标准月基本费",
+        "raw_text": "本规则有效期内,因客户原因退出本活动或导致本活动提前终止的,客户应结清之前已使用的费用及违约金, 剩余协议期6个月（含）以下的，收取1个月套餐标准月基本费的违约金，剩余协议期6个月以上的，收取剩余协议期的月份/12（向上取整）*2个月套餐标准月基本费；"
+      },
+      {
+        "rule_type": "termination",
+        "description": "客户应遵循“先备案、后接入”的要求，如出现未备案网站，中国电信上海公司有权停止或终止服务，并不承担任何责任。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [
+          "出现未备案网站"
+        ],
+        "consequence": "中国电信上海公司有权停止或终止服务，并不承担任何责任",
+        "raw_text": "客户应遵循“先备案、后接入”的要求，如出现未备案网站，中国电信上海公司有权停止或终止服务，并不承担任何责任。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "如果合同不生效、无效、被撤销、终止，或其他贵公司认为必要的情况下，本单位承诺按照贵公司的要求对个人信息等数据（包括但不限于原始数据、备份数据、基于所提供的数据产生的衍生数据）予以返还或者删除，且未经贵公司同意不得以任何方式留存履行合同过程中所处理的任何上述数据。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "客户",
+        "conditions": [
+          "合同不生效、无效、被撤销、终止，或其他贵公司认为必要的情况"
+        ],
+        "consequence": "按照贵公司的要求对个人信息等数据予以返还或者删除，且未经贵公司同意不得以任何方式留存",
+        "raw_text": "如果合同不生效、无效、被撤销、终止，或其他贵公司认为必要的情况下，本单位承诺按照贵公司的要求对个人信息等数据（包括但不限于原始数据、备份数据、基于所提供的数据产生的衍生数据）予以返还或者删除，且未经贵公司同意不得以任何方式留存履行合同过程中所处理的任何上述数据。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "否则，导致的一切后果由本单位承担，贵公司有权立即终止合同。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [
+          "未按照法律规定及贵公司要求处理个人基于其主体权利提出的请求"
+        ],
+        "consequence": "导致的一切后果由本单位承担，贵公司有权立即终止合同",
+        "raw_text": "否则，导致的一切后果由本单位承担，贵公司有权立即终止合同。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "不转租、转售业务，否则，贵公司有权在不通知本单位的情况下立即终止合同。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [
+          "转租、转售业务"
+        ],
+        "consequence": "贵公司有权在不通知本单位的情况下立即终止合同",
+        "raw_text": "不转租、转售业务，否则，贵公司有权在不通知本单位的情况下立即终止合同。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "如违反上述承诺，贵公司有权在不通知本单位的情况下立即单方终止合同，所造成的一切后果由本单位承担。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [
+          "违反上述承诺"
+        ],
+        "consequence": "贵公司有权在不通知本单位的情况下立即单方终止合同，所造成的一切后果由本单位承担",
+        "raw_text": "如违反上述承诺，贵公司有权在不通知本单位的情况下立即单方终止合同，所造成的一切后果由本单位承担。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "如因本单位业务使用导致出现涉案、涉诈（包括但不限于电话诈骗、骚扰、虚假呼叫等）情形，或因违规操作引发法律纠纷、行政处罚、用户投诉等，一切法律责任、经济损失及社会影响均由本单位独立承担，贵公司有权立即终止合同并追究违约责任。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [
+          "因本单位业务使用导致出现涉案、涉诈情形，或因违规操作引发法律纠纷、行政处罚、用户投诉等"
+        ],
+        "consequence": "一切法律责任、经济损失及社会影响均由本单位独立承担，贵公司有权立即终止合同并追究违约责任",
+        "raw_text": "如因本单位业务使用导致出现涉案、涉诈（包括但不限于电话诈骗、骚扰、虚假呼叫等）情形，或因违规操作引发法律纠纷、行政处罚、用户投诉等，一切法律责任、经济损失及社会影响均由本单位独立承担，贵公司有权立即终止合同并追究违约责任。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "本单位承诺所提交的所有备案信息真实、完整、准确、有效，当备案信息发生变化时及时在备案系统中更新，如因未及时更新而导致备案信息不准确，贵公司有权依法采取暂停或终止提供服务、断开网络接入等关闭处理措施。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [
+          "因未及时更新而导致备案信息不准确"
+        ],
+        "consequence": "贵公司有权依法采取暂停或终止提供服务、断开网络接入等关闭处理措施",
+        "raw_text": "本单位承诺所提交的所有备案信息真实、完整、准确、有效，当备案信息发生变化时及时在备案系统中更新，如因未及时更新而导致备案信息不准确，贵公司有权依法采取暂停或终止提供服务、断开网络接入等关闭处理措施。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "本单位如出现任何违反上述承诺的情况，包括但不限于违规操作、涉案、涉诈、数据泄露、传播违法信息、侵害他人合法权益等，将承担全部违约责任，包括但不限于：贵公司有权立即暂停或终止服务，且无需承担任何违约责任。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [
+          "出现任何违反上述承诺的情况"
+        ],
+        "consequence": "贵公司有权立即暂停或终止服务，且无需承担任何违约责任",
+        "raw_text": "本单位如出现任何违反上述承诺的情况，包括但不限于违规操作、涉案、涉诈、数据泄露、传播违法信息、侵害他人合法权益等，将承担全部违约责任，包括但不限于：贵公司有权立即暂停或终止服务，且无需承担任何违约责任。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "同时，贵公司有权在不通知本单位的情况下暂停履行合同直至解除合同并不承担任何责任，一切责任后果全部由本单位自行承担。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [],
+        "consequence": "贵公司有权在不通知本单位的情况下暂停履行合同直至解除合同并不承担任何责任，一切责任后果全部由本单位自行承担",
+        "raw_text": "同时，贵公司有权在不通知本单位的情况下暂停履行合同直至解除合同并不承担任何责任，一切责任后果全部由本单位自行承担。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "当通信主管部门、“12321网络不良与垃圾信息举报受理中心”、中国电信10000热线等各类渠道投诉、举报达到或超过[1]件/月时，贵公司有权在不通知本单位的情况下立即终止合同并不承担任何责任，一切责任后果全部由本单位自行承担。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [
+          "各类渠道投诉、举报达到或超过[1]件/月"
+        ],
+        "consequence": "贵公司有权在不通知本单位的情况下立即终止合同并不承担任何责任，一切责任后果全部由本单位自行承担",
+        "raw_text": "当通信主管部门、“12321网络不良与垃圾信息举报受理中心”、中国电信10000热线等各类渠道投诉、举报达到或超过[1]件/月时，贵公司有权在不通知本单位的情况下立即终止合同并不承担任何责任，一切责任后果全部由本单位自行承担。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "若本单位在业务使用过程中被政府主管部门、司法机关认定为涉嫌诈骗、非法经营、传播违法信息等违法犯罪活动，或经贵公司监测发现存在异常呼叫、高频骚扰、涉诈话务等情形，本单位将无条件接受贵公司立即终止服务的处理措施，并承担由此产生的一切法律责任及经济损失。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [
+          "被认定为涉嫌诈骗、非法经营、传播违法信息等违法犯罪活动，或经监测发现存在异常呼叫、高频骚扰、涉诈话务等情形"
+        ],
+        "consequence": "贵公司立即终止服务，本单位承担由此产生的一切法律责任及经济损失",
+        "raw_text": "若本单位在业务使用过程中被政府主管部门、司法机关认定为涉嫌诈骗、非法经营、传播违法信息等违法犯罪活动，或经贵公司监测发现存在异常呼叫、高频骚扰、涉诈话务等情形，本单位将无条件接受贵公司立即终止服务的处理措施，并承担由此产生的一切法律责任及经济损失。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "若违反本承诺书有关条款和国家相关法律法规的，本公司/单位直接承担相应法律责任，造成财产损失的，由本公司/单位直接赔偿。同时，贵单位有权暂停或停止提供相应服务，直至解除双方业务协议。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [
+          "违反本承诺书有关条款和国家相关法律法规"
+        ],
+        "consequence": "贵单位有权暂停或停止提供相应服务，直至解除双方业务协议",
+        "raw_text": "若违反本承诺书有关条款和国家相关法律法规的，本公司/单位直接承担相应法律责任，造成财产损失的，由本公司/单位直接赔偿。同时，贵单位有权暂停或停止提供相应服务，直至解除双方业务协议。"
+      }
+    ],
+    "eligibility_and_constraints": [
+      {
+        "name": "实名制登记要求",
+        "description": "业务办理实行实名制登记制度，今后办理业务变更或注销手续时需凭办理实名制登记的证件办理。",
+        "condition": "办理业务变更或注销手续",
+        "result": "需凭办理实名制登记的证件办理",
+        "applies_to": [
+          "所有业务",
+          "业务变更",
+          "业务注销"
+        ],
+        "severity": "high",
+        "raw_text": "10. **中国电信上海公司业务办理实行实名制登记制度。今后办理业务变更或注销手续时,需凭办理实名制登记的证件办理**。"
+      },
+      {
+        "name": "宽带优惠活动互斥规则",
+        "description": "已参加宽带业务优惠活动且仍在营销规则约束期内的客户，除非退出原活动，否则不得参加本次优惠活动、享受套餐优惠。",
+        "condition": "已参加中国电信上海公司宽带业务优惠活动且仍在营销规则约束期内",
+        "result": "不得参加本次优惠活动、享受套餐优惠，除非退出原活动",
+        "applies_to": [
+          "宽带业务",
+          "优惠活动",
+          "套餐"
+        ],
+        "severity": "high",
+        "raw_text": "已参加中国电信上海公司宽带业务优惠活动的且仍在营销规则约束期内的客户除非退出原活动，否则不得参加本次优惠活动、享受套餐优惠；"
+      },
+      {
+        "name": "可选包产品互斥规则",
+        "description": "已参加可选包中相关产品营销活动且仍在营销规则约束期内的客户，不能选择与该产品有关的可选优惠。",
+        "condition": "已参加中国电信上海公司可选包中相关产品营销活动且仍在营销规则约束期内",
+        "result": "不能选择与该产品有关的可选优惠",
+        "applies_to": [
+          "可选包",
+          "营销活动",
+          "优惠"
+        ],
+        "severity": "medium",
+        "raw_text": "已参加中国电信上海公司可选包中相关产品营销活动的且仍在营销规则约束期内的客户，不能选择与该产品有关的可选优惠。"
+      },
+      {
+        "name": "一线宽带加入基础套餐限制",
+        "description": "仅限一线宽带加入基础套餐。",
+        "condition": "非一线宽带",
+        "result": "不能加入基础套餐",
+        "applies_to": [
+          "基础套餐",
+          "宽带"
+        ],
+        "severity": "medium",
+        "raw_text": "6. 仅限一线宽带加入基础套餐。"
+      },
+      {
+        "name": "企业户名新装设备限制",
+        "description": "仅限企业户名的新装设备号参加本活动。",
+        "condition": "非企业户名的新装设备号",
+        "result": "不能参加本活动",
+        "applies_to": [
+          "新装设备",
+          "活动"
+        ],
+        "severity": "high",
+        "raw_text": "11. 仅限企业户名的新装设备号参加本活动。"
+      },
+      {
+        "name": "移动优惠套餐数量限制",
+        "description": "同一政企客户名下参加本活动办理的移动优惠套餐原套餐月基本费之和应小于等于精品专线业务的签约消费金额月基本费（若为年付，则为签约金额/12个月）。",
+        "condition": "同一政企客户名下移动优惠套餐原套餐月基本费之和大于精品专线业务签约消费金额月基本费",
+        "result": "不能办理超出限制的移动优惠套餐",
+        "applies_to": [
+          "政企客户",
+          "移动优惠套餐",
+          "精品专线业务"
+        ],
+        "severity": "high",
+        "raw_text": "可申请办理移动优惠套餐的数量限制说明：同一政企客户名下参加本活动办理的移动优惠套餐原套餐月基本费之和应小于等于“精品专线业务的签约消费金额月基本费”（元/月）【若为年付，则为签约金额/12个月】。"
+      },
+      {
+        "name": "禁止违法行为与违规外呼",
+        "description": "客户不得利用中国电信上海公司提供的服务从事违法行为、违规外呼行为、外呼骚扰行为、诈骗行为、呼叫频次异常行为和其他有损中国电信上海公司利益、第三方利益或社会公共利益的行为。",
+        "condition": "客户利用服务从事违法、违规外呼、骚扰、诈骗等行为",
+        "result": "承担相应责任",
+        "applies_to": [
+          "所有服务"
+        ],
+        "severity": "critical",
+        "raw_text": "客户保证遵守国家有关法律、法规，**不得利用中国电信上海公司提供的服务从事违法行为、违规外呼行为、外呼骚扰行为、诈骗行为、呼叫频次异常行为和其他有损中国电信上海公司利益、第三方利益或社会公共利益的行为。"
+      },
+      {
+        "name": "商云通业务使用权转让限制",
+        "description": "客户未经中国电信上海公司同意不得转让商云通业务使用权，否则客户将承担其行为所引发的一切责任。",
+        "condition": "未经中国电信上海公司同意转让商云通业务使用权",
+        "result": "客户承担一切责任",
+        "applies_to": [
+          "商云通业务"
+        ],
+        "severity": "high",
+        "raw_text": "客户未经中国电信上海公司同意不得转让商云通业务使用权，否则，客户将承担其行为所引发的一切责任。"
+      },
+      {
+        "name": "固定电话迁转不可逆规则",
+        "description": "客户原有固定电话号码迁转至商云通平台后不支持回退至该号码原有电话属性，即迁转至商云通平台的行为不可逆。",
+        "condition": "固定电话号码迁转至商云通平台",
+        "result": "不支持回退至原有电话属性",
+        "applies_to": [
+          "固定电话",
+          "商云通平台"
+        ],
+        "severity": "high",
+        "raw_text": "23. 客户原有中国电信上海公司**固定电话号码迁转至商云通平台后不支持回退至该号码原有电话属性，即迁转至商云通平台的行为不可逆。"
+      },
+      {
+        "name": "电路仅限企业自用规则",
+        "description": "业务使用期间，客户应按照国家法律、法规的规定及本规则约定使用电路，仅限于企业自用，ISP、IDC、CDN经营客户不适于本套餐（须另行签订协议）。",
+        "condition": "客户为ISP、IDC、CDN经营客户或将电路用于非企业自用",
+        "result": "不适于本套餐，须另行签订协议",
+        "applies_to": [
+          "电路",
+          "套餐",
+          "ISP",
+          "IDC",
+          "CDN"
+        ],
+        "severity": "high",
+        "raw_text": "29. 业务使用期间，**客户应按照国家法律、法规的规定及本规则约定使用电路，仅限于企业自用**，ISP、IDC、CDN经营客户不适于本套餐（须另行签订协议）。"
+      },
+      {
+        "name": "禁止电路经营性活动与转租",
+        "description": "在使用业务过程中不得从事损害中国电信及他人合法权益的活动，不得将电路用于电信业务的经营性活动（无论是否盈利），未经中国电信上海公司书面同意，不得将电路以任何方式提供给第三方使用、不得改变IP地址用途、不得将IP地址转给其他单位使用，也不得用于本规则约定用途以外的其他用途。",
+        "condition": "将电路用于经营性活动、提供给第三方、改变IP地址用途或转给其他单位",
+        "result": "违反规则，承担相应责任",
+        "applies_to": [
+          "电路",
+          "IP地址"
+        ],
+        "severity": "critical",
+        "raw_text": "**在使用业务过程中不得从事损害中国电信及他人合法权益的活动，不得将电路用于电信业务的经营性活动（无论是否盈利），未经中国电信上海公司书面同意，不得将电路以任何方式提供给第三方使用、不得改变IP地址用途、不得将IP地址转给其他单位使用，也不得用于本规则约定用途以外的其他用途。"
+      },
+      {
+        "name": "资质文件审核要求",
+        "description": "客户申请所勾选的业务时，需出示和提供相应业务所必须涉及的相关资质文件原件供中国电信上海公司审核，并提交复印件（加盖客户公章）供留存。",
+        "condition": "申请业务",
+        "result": "需出示和提供资质文件原件审核，提交加盖公章的复印件",
+        "applies_to": [
+          "业务申请"
+        ],
+        "severity": "high",
+        "raw_text": "17. 客户申请所勾选的业务时，需出示和提供相应业务所必须涉及的相关资质文件原件供中国电信上海公司审核，并提交复印件（加盖客户公章）供中国电信上海公司留存。"
+      },
+      {
+        "name": "办理业务所需证件要求",
+        "description": "客户用户应包括经办人有效身份证件、单位证明经办人身份的介绍信、营业执照的复印件（三证合一）、法定代表人/负责人身份证的复印件、《上海市新入网电话用户法律责任告知书》及信息安全承诺书，上述证件需加盖公章。",
+        "condition": "办理业务",
+        "result": "需提供经办人身份证、介绍信、营业执照复印件、法定代表人身份证复印件、法律责任告知书及信息安全承诺书，均需加盖公章",
+        "applies_to": [
+          "业务办理"
+        ],
+        "severity": "high",
+        "raw_text": "客户用户应包括经办人有效身份证件、单位证明经办人身份的介绍信、营业执照的复印件（三证合一）、法定代表人/负责人身份证的复印件、《上海市新入网电话用户法律责任告知书》及信息安全承诺书，上述证件需加盖公章（中国电信上海公司有权根据国家相应法律法规更新客户相关资质和复印件要求，客户应予以配合）。"
+      },
+      {
+        "name": "网络信息安全承诺-规范使用业务",
+        "description": "本单位承诺按照相关规定、政府主管部门要求以及合同约定规范使用业务，不得超出合同约定的范围和用途使用业务，具备所从事业务的全部合法必要的资质条件。",
+        "condition": "超出合同约定范围和用途使用业务或不具备合法必要资质",
+        "result": "违反承诺，承担一切责任",
+        "applies_to": [
+          "所有业务"
+        ],
+        "severity": "critical",
+        "raw_text": "二、本单位承诺按照相关规定、政府主管部门要求以及合同约定规范使用业务，不得超出合同约定的范围和用途使用业务，具备所从事业务的全部合法必要的资质条件。"
+      },
+      {
+        "name": "网络信息安全承诺-实名制要求",
+        "description": "本单位承诺按照用户真实身份信息制度（“实名制”）的要求提供身份信息、使用业务，并保证所提供信息、资料的真实、完整、准确、有效。",
+        "condition": "未按实名制要求提供真实身份信息",
+        "result": "违反承诺，承担一切责任",
+        "applies_to": [
+          "所有业务"
+        ],
+        "severity": "critical",
+        "raw_text": "三、本单位承诺按照用户真实身份信息制度（“实名制”）的要求提供身份信息、使用业务，并保证所提供信息、资料的真实、完整、准确、有效。"
+      },
+      {
+        "name": "网络信息安全承诺-数据委托处理限制",
+        "description": "本单位受贵公司委托处理个人信息和数据的，或与贵公司共同处理个人信息和数据的，承诺按照合同约定处理，不得超出约定的处理目的、处理方式等处理上述数据，严格遵循数据处理时限。未经贵公司同意，不得转委托他人处理上述数据。",
+        "condition": "超出约定处理目的、方式或未经同意转委托他人处理数据",
+        "result": "违反承诺，承担一切责任",
+        "applies_to": [
+          "个人信息",
+          "数据"
+        ],
+        "severity": "critical",
+        "raw_text": "七、本单位受贵公司委托处理个人信息和数据的，或本单位与贵公司共同处理个人信息和数据的，本单位承诺按照与贵公司的合同约定处理，不得超出约定的处理目的、处理方式等处理上述数据，严格遵循数据处理时限。未经贵公司同意,本单位不得转委托他人处理上述数据。"
+      },
+      {
+        "name": "网络信息安全承诺-数据保密与境内存储",
+        "description": "对本单位在合同签订及履行过程中接触或知悉的贵公司和/或贵公司客户的数据和用户个人信息，本单位应当严格保密，不得向其他方提供、披露。对于获得的个人信息等数据，应当依法在境内存储，且不得向境外提供。",
+        "condition": "向其他方提供、披露数据或将数据存储、提供至境外",
+        "result": "违反承诺，承担一切责任",
+        "applies_to": [
+          "个人信息",
+          "数据"
+        ],
+        "severity": "critical",
+        "raw_text": "八、对本单位在合同签订及履行过程中接触或知悉的贵公司和/或贵公司客户的数据和用户个人信息，本单位应当严格保密，不得向其他方提供、披露。对于本单位在合同签订及履行过程中接触和获得的个人信息等数据，应当依法在境内存储，且不得向境外提供。"
+      },
+      {
+        "name": "网络信息安全承诺-禁止有害信息",
+        "description": "该等信息内容应当严格符合相关规定，本单位不得通过通信网络、互联网制作、复制、查阅和传播有害信息，不得散发传播违法、不健康、反动等信息，不得制作、复制、查阅和传播任何违反“九不准”及“六不许”的信息。",
+        "condition": "制作、复制、查阅和传播有害、违法、不健康、反动等信息",
+        "result": "违反承诺，承担一切责任",
+        "applies_to": [
+          "通信网络",
+          "互联网"
+        ],
+        "severity": "critical",
+        "raw_text": "该等信息内容应当严格符合相关规定，本单位不得通过通信网络、互联网制作、复制、查阅和传播有害信息，不得散发传播违法、不健康、反动等信息，不得制作、复制、查阅和传播任何违反下列要求（即“九不准”及“六不许”）的信息。"
+      },
+      {
+        "name": "网络信息安全承诺-禁止个人名义申请",
+        "description": "遵守实名制要求，不以个人名义申请、使用业务，真实落地目的码为本单位实名办理或合规使用的电话号码。",
+        "condition": "以个人名义申请、使用业务",
+        "result": "违反承诺，承担一切责任",
+        "applies_to": [
+          "业务申请",
+          "实名制"
+        ],
+        "severity": "high",
+        "raw_text": "（二）遵守实名制要求，不以个人名义申请、使用业务，真实落地目的码为本单位实名办理或合规使用的电话号码。"
+      },
+      {
+        "name": "网络信息安全承诺-禁止未经同意发送商业信息",
+        "description": "未经用户同意，不得向用户发送商业类电子信息或广告。",
+        "condition": "未经用户同意发送商业类电子信息或广告",
+        "result": "违反承诺，承担一切责任",
+        "applies_to": [
+          "商业信息",
+          "广告"
+        ],
+        "severity": "high",
+        "raw_text": "（三）未经用户同意，不得向用户发送商业类电子信息或广告。"
+      },
+      {
+        "name": "网络信息安全承诺-互联网服务资质要求",
+        "description": "具备从事互联网服务的全部合法必要的资质条件，已履行相关规定要求的手续或已取得有关资质证明文件。在签署合同前，向贵公司提供主体资格文件、资质证明文件的原件供审核，复印件（加盖公章）供留存，并保证所提供资料的真实、完整、准确、有效。",
+        "condition": "不具备互联网服务合法必要资质或未提供相关证明文件",
+        "result": "不能签署合同或违反承诺",
+        "applies_to": [
+          "互联网服务",
+          "合同签署"
+        ],
+        "severity": "critical",
+        "raw_text": "（一）具备从事互联网服务的全部合法必要的资质条件，已履行相关规定要求的手续或已取得有关资质证明文件。在签署合同前，本单位向贵公司提供主体资格文件、资质证明文件的原件供贵公司审核，复印件（加盖公章）供贵公司留存，并保证所提供资料的真实、完整、准确、有效。"
+      },
+      {
+        "name": "网络信息安全承诺-资质变更通知",
+        "description": "在合同有效期/服务期内，如本单位提交的主体资格、资质证明文件所记载内容出现变更，本单位在完成变更后尽快向贵公司提供最新的文件。",
+        "condition": "主体资格、资质证明文件内容出现变更",
+        "result": "需尽快提供最新文件",
+        "applies_to": [
+          "合同有效期",
+          "服务期"
+        ],
+        "severity": "medium",
+        "raw_text": "在合同有效期/服务期内，如本单位提交的主体资格、资质证明文件所记载内容出现变更，本单位在完成变更后尽快向贵公司提供最新的文件。"
+      },
+      {
+        "name": "网络信息安全承诺-最终用户承诺书要求",
+        "description": "本单位承诺与最终用户参照签订此类《网络及信息安全承诺书》，并督促最终用户履行相应责任。",
+        "condition": "存在最终用户",
+        "result": "需与最终用户签订承诺书并督促履行",
+        "applies_to": [
+          "最终用户"
+        ],
+        "severity": "medium",
+        "raw_text": "二十一、本单位承诺与最终用户参照签订此类《网络及信息安全承诺书》，并督促最终用户履行相应责任。"
+      },
+      {
+        "name": "域名和APP备案承诺-法律责任",
+        "description": "若违反本承诺书有关条款和国家相关法律法规的，本公司/单位直接承担相应法律责任，造成财产损失的，由本公司/单位直接赔偿。",
+        "condition": "违反承诺书条款和国家相关法律法规",
+        "result": "直接承担法律责任，赔偿财产损失",
+        "applies_to": [
+          "域名备案",
+          "APP备案"
+        ],
+        "severity": "critical",
+        "raw_text": "3. 若违反本承诺书有关条款和国家相关法律法规的，本公司/单位直接承担相应法律责任，造成财产损失的，由本公司/单位直接赔偿。"
+      },
+      {
+        "name": "IP地址报备与承诺书盖章要求",
+        "description": "《IP地址报备表》、《网络及信息安全承诺书》、《域名和APP应用备案承诺书》是本登记表组成部分，请认真、准确填写并盖章。",
+        "condition": "提交登记表",
+        "result": "需认真准确填写并盖章",
+        "applies_to": [
+          "IP地址报备表",
+          "网络及信息安全承诺书",
+          "域名和APP应用备案承诺书"
+        ],
+        "severity": "high",
+        "raw_text": "5. 《IP地址报备表》、《网络及信息安全承诺书》、《域名和APP应用备案承诺书》是本登记表组成部分，请认真、准确填写并盖章。"
+      },
+      {
+        "name": "资费变更通知规则",
+        "description": "若中国电信上海公司不能向客户提供原资费套餐，有义务提前一个月通知客户，重新签订新的规则。",
+        "condition": "中国电信上海公司不能向客户提供原资费套餐",
+        "result": "提前一个月通知客户，重新签订新的规则",
+        "applies_to": [
+          "资费套餐"
+        ],
+        "severity": "medium",
+        "raw_text": "3. 若中国电信上海公司不能向客户提供原资费套餐，有义务提前一个月通知客户，重新签订新的规则。"
+      }
+    ]
+  },
+  "supplementary_info": {
+    "product_intro": {
+      "product_name": "精品专线宽带",
+      "full_description": "精品专线是上海电信推出的独享光纤上网产品，上下行对称带宽，分配静态公网 IP地址，是一种结合了Ethernet和PON的宽带接入技术，消除了ATM和SDH层，降低了初始成本和运行成本 实现维护简单，成本低、容易扩展 、易于升级。",
+      "application_scenarios": "1. 外资 / 涉外企业办公：海外总部视频会议、跨境 ERP 系统、海外客户平台访问，解决普通宽带国际网络卡顿、丢包问题。 2. 互联网 / 传媒 / 直播企业：自建直播服务器、短视频上传、游戏服务器、对外官网 / 商城运营，对称大带宽保障上行推流稳定。 3. 中大型企业总部办公：全公司近百人同时办公、OA/CRM/SAP 云系统、远程多点视频会议，避免高峰网络拥塞。 4. 需要公网服务器的企业：自建邮件服务器、数据库、监控云平台，固定 IP 支持端口映射、域名备案与反向解析。 5. 跨境贸易、科研院校：访问海外学术平台、跨境报关系统、海外云服务器，精品国际出口优化访问质量。"
+    },
+    "product_keywords": {
+      "raw_keywords": "上下行对称带宽、独享带宽、静态公网 IPv4、固定公网IP地址、IP地址扩容、5个免费可用IP地址、域名反向解析、公网端口开放、带宽弹性扩容、同时使用终端超过50台，人数50到100、开80/8080/443端口、ICP备案、1元手机卡"
+    },
+    "pricing_info": {
+      "source_type": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\3 精品专线宽带\\精品专线\\2 资费表.xlsx",
+      "one_time_fees": [],
+      "base_package_prices": [],
+      "addon_prices": [],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "application_materials": [
+      {
+        "material_type": "表单",
+        "name": "互联网专线之“精品专线”营销活动申请登记表",
+        "description": "",
+        "required": true,
+        "applicable_to": [
+          "上海公司"
+        ],
+        "conditions": [],
+        "signature_required": true,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [
+          "第3页",
+          "第15页"
+        ],
+        "handling_notes": [
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [],
+        "raw_text": "互联网专线之“精品专线”营销活动申请登记表；经办人签字：申请表单内第3页、第15页；登记表首页公章盖在最上方“企业全称”处；所有手续需机打，请勿手写，必须加盖公章，不可盖合同章或其他章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\3 精品专线宽带\\精品专线\\4-2 申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "营业执照复印件",
+        "description": "",
+        "required": true,
+        "applicable_to": [
+          "上海公司"
+        ],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "每页均需加盖完整公章",
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [],
+        "raw_text": "营业执照复印件；表单和证件每页均需加盖完整公章；所有手续需机打，请勿手写，必须加盖公章，不可盖合同章或其他章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\3 精品专线宽带\\精品专线\\4-2 申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "经办人身份证正反面复印件",
+        "description": "",
+        "required": true,
+        "applicable_to": [
+          "上海公司"
+        ],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "每页均需加盖完整公章",
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [],
+        "raw_text": "经办人身份证正反面复印件；表单和证件每页均需加盖完整公章；所有手续需机打，请勿手写，必须加盖公章，不可盖合同章或其他章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\3 精品专线宽带\\精品专线\\4-2 申请手续提示.txt"
+      },
+      {
+        "material_type": "授权书",
+        "name": "入网责任书",
+        "description": "带语音的另外加入网责任书",
+        "required": false,
+        "applicable_to": [
+          "上海公司"
+        ],
+        "conditions": [
+          "带语音"
+        ],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章",
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [],
+        "raw_text": "带语音的另外加入网责任书和授权书各一份，加盖公章；所有手续需机打，请勿手写，必须加盖公章，不可盖合同章或其他章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\3 精品专线宽带\\精品专线\\4-2 申请手续提示.txt"
+      },
+      {
+        "material_type": "授权书",
+        "name": "授权书",
+        "description": "带语音的另外加授权书",
+        "required": false,
+        "applicable_to": [
+          "上海公司"
+        ],
+        "conditions": [
+          "带语音"
+        ],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章",
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [],
+        "raw_text": "带语音的另外加入网责任书和授权书各一份，加盖公章；所有手续需机打，请勿手写，必须加盖公章，不可盖合同章或其他章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\3 精品专线宽带\\精品专线\\4-2 申请手续提示.txt"
+      },
+      {
+        "material_type": "担保书",
+        "name": "上海公司电信业务担保书",
+        "description": "",
+        "required": true,
+        "applicable_to": [
+          "外地公司"
+        ],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "盖公章",
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [
+          "外地公司需担保"
+        ],
+        "raw_text": "上海公司电信业务担保书，盖公章；所有手续需机打，请勿手写，必须加盖公章，不可盖合同章或其他章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\3 精品专线宽带\\精品专线\\4-2 申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "担保公司营业执照复印件",
+        "description": "",
+        "required": true,
+        "applicable_to": [
+          "外地公司"
+        ],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "盖公章",
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [
+          "外地公司需担保"
+        ],
+        "raw_text": "担保公司营业执照复印件，盖公章；所有手续需机打，请勿手写，必须加盖公章，不可盖合同章或其他章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\3 精品专线宽带\\精品专线\\4-2 申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "担保公司经办人身份证正反面复印件",
+        "description": "",
+        "required": true,
+        "applicable_to": [
+          "外地公司"
+        ],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "盖公章",
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [
+          "外地公司需担保"
+        ],
+        "raw_text": "担保公司经办人身份证正反面复印件，盖公章；所有手续需机打，请勿手写，必须加盖公章，不可盖合同章或其他章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\3 精品专线宽带\\精品专线\\4-2 申请手续提示.txt"
+      },
+      {
+        "material_type": "承诺书",
+        "name": "承诺书",
+        "description": "有存量的用户提供",
+        "required": false,
+        "applicable_to": [
+          "存量用户"
+        ],
+        "conditions": [
+          "有存量的用户"
+        ],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "盖公章",
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [],
+        "raw_text": "有存量的用户：提供承诺书，盖公章；所有手续需机打，请勿手写，必须加盖公章，不可盖合同章或其他章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\3 精品专线宽带\\精品专线\\4-2 申请手续提示.txt"
+      },
+      {
+        "material_type": "授权书",
+        "name": "业务委托授权书",
+        "description": "有商机冲突提供",
+        "required": false,
+        "applicable_to": [],
+        "conditions": [
+          "有商机冲突"
+        ],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "盖公章",
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [],
+        "raw_text": "有商机冲突：提供业务委托授权书，盖公章；所有手续需机打，请勿手写，必须加盖公章，不可盖合同章或其他章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\3 精品专线宽带\\精品专线\\4-2 申请手续提示.txt"
+      }
+    ]
+  },
+  "extraction_meta": {
+    "generated_at": "2026-06-23T15:15:08",
+    "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\3 精品专线宽带\\精品专线",
+    "method": "llm_schema_module_extraction_no_normalization",
+    "validation_issues": [
+      {
+        "severity": "warning",
+        "path": "supplementary_info.pricing_info",
+        "message": "资费表没有抽到有效资费"
+      }
+    ],
+    "validation_issue_count": 1
+  }
+}

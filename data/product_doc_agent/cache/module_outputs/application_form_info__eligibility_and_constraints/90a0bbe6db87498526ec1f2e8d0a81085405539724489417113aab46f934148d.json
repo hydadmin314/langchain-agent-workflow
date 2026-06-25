@@ -1,0 +1,53 @@
+{
+  "schema_version": "product_doc_module_cache_v1",
+  "module_name": "application_form_info.eligibility_and_constraints",
+  "output": [
+    {
+      "name": "业务转让限制",
+      "description": "甲方未经乙方同意不得转让或出售/出租中国联通MPLS-VPN业务。",
+      "condition": "甲方拟转让、出售或出租MPLS-VPN业务",
+      "result": "未经乙方同意不得进行转让、出售或出租",
+      "applies_to": [
+        "MPLS-VPN业务",
+        "甲方"
+      ],
+      "severity": "high",
+      "raw_text": "甲方未经乙方同意不得转让或出售/出租中国联通MPLS-VPN业务。"
+    },
+    {
+      "name": "保密义务",
+      "description": "未经对方事先书面同意，任何一方不得将双方的合作及本协议的具体内容披露给任何第三方。",
+      "condition": "任何一方拟向第三方披露合作或协议内容",
+      "result": "须取得对方事先书面同意，否则不得披露",
+      "applies_to": [
+        "甲乙双方",
+        "合作协议"
+      ],
+      "severity": "high",
+      "raw_text": "未经对方事先书面同意，任何一方不得将双方的合作及本协议的具体内容披露给任何第三方。"
+    },
+    {
+      "name": "不可抗力免责",
+      "description": "因不可抗力造成的线路中断或无法保证系统正常工作，而导致甲方通信中断而造成的损失，乙方不承担任何责任。不可抗力事件包括严重自然灾害、政府行为、第三方电路故障等不可抗拒的事件。",
+      "condition": "发生不可抗力事件导致线路中断或系统无法正常工作",
+      "result": "乙方不承担甲方通信中断造成的损失",
+      "applies_to": [
+        "乙方",
+        "MPLS-VPN业务"
+      ],
+      "severity": "medium",
+      "raw_text": "十四、因不可抗力造成的线路中断或无法保证系统正常工作，而导致甲方通信中断而造成的损失，乙方不承担任何责任。\n\n\"不可抗力事件\"包括严重自然灾害、政府行为、第三方电路故障等不可抗拒的事件。"
+    },
+    {
+      "name": "不可抗力减损义务",
+      "description": "甲乙双方应努力减小不可抗力造成的损失。",
+      "condition": "发生不可抗力事件",
+      "result": "双方应努力减小损失",
+      "applies_to": [
+        "甲乙双方"
+      ],
+      "severity": "low",
+      "raw_text": "甲乙双方应努力减小不可抗力造成的损失。"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": "product_doc_module_cache_v1",
+  "module_name": "application_form_info.agreement_rules",
+  "output": [
+    {
+      "rule_type": "restriction",
+      "description": "所有客户信息必须填写准确、真实、有效",
+      "severity": "",
+      "applies_to": [],
+      "obligation_party": "客户",
+      "conditions": [],
+      "consequence": "",
+      "raw_text": "所有客户信息必须填写准确、真实、有效，并愿意接受及遵守背面协议书之各项条款。"
+    },
+    {
+      "rule_type": "restriction",
+      "description": "客户愿意接受及遵守背面协议书之各项条款",
+      "severity": "",
+      "applies_to": [],
+      "obligation_party": "客户",
+      "conditions": [],
+      "consequence": "",
+      "raw_text": "所有客户信息必须填写准确、真实、有效，并愿意接受及遵守背面协议书之各项条款。"
+    }
+  ]
+}

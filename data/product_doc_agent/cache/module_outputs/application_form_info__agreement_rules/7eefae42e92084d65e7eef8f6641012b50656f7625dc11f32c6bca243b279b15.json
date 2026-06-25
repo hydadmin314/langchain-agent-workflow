@@ -1,0 +1,76 @@
+{
+  "schema_version": "product_doc_module_cache_v1",
+  "module_name": "application_form_info.agreement_rules",
+  "output": [
+    {
+      "rule_type": "restriction",
+      "description": "若甲方有违反此条规定的行为发生，乙方有权立即终止对甲方的服务，由此造成的一切损失由甲方承担。",
+      "severity": "",
+      "applies_to": [],
+      "obligation_party": "甲方",
+      "conditions": [
+        "甲方有违反此条规定的行为发生"
+      ],
+      "consequence": "乙方有权立即终止对甲方的服务，由此造成的一切损失由甲方承担。",
+      "raw_text": "若甲方有违反此条规定的行为发生，乙方有权立即终止对甲方的服务，由此造成的一切损失由甲方承担。"
+    },
+    {
+      "rule_type": "termination",
+      "description": "停止向甲方提供服务并追回所有拖欠费用，由此造成的一切后果均由甲方承担，同时乙方保留对甲方的追索权利。",
+      "severity": "",
+      "applies_to": [],
+      "obligation_party": "甲方",
+      "conditions": [],
+      "consequence": "停止向甲方提供服务并追回所有拖欠费用，由此造成的一切后果均由甲方承担，同时乙方保留对甲方的追索权利。",
+      "raw_text": "停止向甲方提供服务并追回所有拖欠费用，由此造成的一切后果均由甲方承担，同时乙方保留对甲"
+    },
+    {
+      "rule_type": "termination",
+      "description": "甲方逾期未支付通信费用，乙方有权要求其补缴费用，并按照所欠费用每日加收3%的违约金。",
+      "severity": "",
+      "applies_to": [],
+      "obligation_party": "甲方",
+      "conditions": [
+        "甲方逾期未支付通信费用"
+      ],
+      "consequence": "乙方有权要求其补缴费用，并按照所欠费用每日加收3%的违约金。",
+      "raw_text": "甲方逾期未支付通信费用，乙方有权要求其补缴费用，并按照所欠费用每日加收3%的违约金。"
+    },
+    {
+      "rule_type": "termination",
+      "description": "甲方逾期未支付通信费用超过30日，乙方有权暂停服务。",
+      "severity": "",
+      "applies_to": [],
+      "obligation_party": "甲方",
+      "conditions": [
+        "甲方逾期未支付通信费用超过30日"
+      ],
+      "consequence": "乙方有权暂停服务。",
+      "raw_text": "甲方逾期未支付通信费用超过30日，乙方有权暂停服务。"
+    },
+    {
+      "rule_type": "termination",
+      "description": "甲方逾期未支付通信费用超过90日的，乙方有权终止服务，并有权依法追缴欠费和违约金。",
+      "severity": "",
+      "applies_to": [],
+      "obligation_party": "甲方",
+      "conditions": [
+        "甲方逾期未支付通信费用超过90日"
+      ],
+      "consequence": "乙方有权终止服务，并有权依法追缴欠费和违约金。",
+      "raw_text": "甲方逾期未支付通信费用超过90日的，乙方有权终止服务，并有权依法追缴欠费和违约金。"
+    },
+    {
+      "rule_type": "termination",
+      "description": "乙方亦有权决定不在前述时间点(但不少于前述时间)行使暂停服务或终止服务(以下合称：停机)的权利；如乙方未在前述时间点行使停机的权利，乙方有权依据实际停机的时间，主张甲方欠费期间的全部通信费及违约金。",
+      "severity": "",
+      "applies_to": [],
+      "obligation_party": "乙方",
+      "conditions": [
+        "乙方未在前述时间点行使停机的权利"
+      ],
+      "consequence": "乙方有权依据实际停机的时间，主张甲方欠费期间的全部通信费及违约金。",
+      "raw_text": "乙方亦有权决定不在前述时间点(但不少于前述时间)行使暂停服务或终止服务(以下合称：停机)的权利；如乙方(未在前述时间点行使停机的权利，乙方有权依据实际停机的时间，主张甲方欠费期间的全部通信费及违约金，甲方"
+    }
+  ]
+}
