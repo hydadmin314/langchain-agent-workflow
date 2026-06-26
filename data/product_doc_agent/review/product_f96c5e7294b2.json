@@ -1,0 +1,1355 @@
+{
+  "application_form_info": {
+    "document_info": {
+      "document_id": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\2 智云上海专线、智云随选商企云宽\\智云随选商企云宽基础版套餐\\4 申请表_-YX017 智云随选商企云宽基础版套餐申请登记表.docx",
+      "product_name": "",
+      "carrier": "中国电信股份有限公司上海分公司",
+      "version": "",
+      "effective_date": "",
+      "document_status": ""
+    },
+    "parties_and_application": {
+      "agent": {
+        "agent_name": "",
+        "sales_name": "",
+        "sales_contact": ""
+      },
+      "customer": {
+        "name": "",
+        "filled_values": [],
+        "is_blank_form": true
+      },
+      "application_fields": {
+        "required": [
+          {
+            "label": "企业全称",
+            "field_key": "company_full_name",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "\\*企 业 全 称"
+          },
+          {
+            "label": "统一社会信用代码",
+            "field_key": "unified_social_credit_code",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "\\*统一社会信用代码"
+          },
+          {
+            "label": "企业所属行业",
+            "field_key": "industry",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "\\*企业所属行业"
+          },
+          {
+            "label": "安装地址",
+            "field_key": "installation_address",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "\\*安 装 地 址"
+          },
+          {
+            "label": "邮编",
+            "field_key": "postal_code",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "\\*邮 编"
+          },
+          {
+            "label": "联系人",
+            "field_key": "contact_person",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "\\*联 系 人"
+          },
+          {
+            "label": "身份证号码",
+            "field_key": "id_number",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "\\*身份证号码"
+          },
+          {
+            "label": "联系电话",
+            "field_key": "contact_phone",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "\\*联系电话"
+          },
+          {
+            "label": "E-MAIL",
+            "field_key": "email",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "\\*E-MAIL"
+          },
+          {
+            "label": "账单地址",
+            "field_key": "billing_address",
+            "required": true,
+            "value": null,
+            "options": [
+              "同公司地址",
+              "其它"
+            ],
+            "value_type": "text",
+            "raw_text": "\\*账 单 地址 | * 同公司地址 * 其它："
+          },
+          {
+            "label": "邮编",
+            "field_key": "billing_postal_code",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "\\*邮 编"
+          },
+          {
+            "label": "付款方式",
+            "field_key": "payment_method",
+            "required": true,
+            "value": null,
+            "options": [
+              "托收",
+              "现金"
+            ],
+            "value_type": "text",
+            "raw_text": "\\*付 款 方 式 | * 托 收 银行账号： | | | □现 金"
+          },
+          {
+            "label": "电信客户经理",
+            "field_key": "telecom_account_manager",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "\\*电信客户经理"
+          },
+          {
+            "label": "邮箱",
+            "field_key": "manager_email",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "\\*邮箱"
+          },
+          {
+            "label": "手机号",
+            "field_key": "manager_phone",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "\\*手机号"
+          }
+        ],
+        "optional": [
+          {
+            "label": "企业规模",
+            "field_key": "company_size",
+            "required": false,
+            "value": null,
+            "options": [
+              "10人以下",
+              "10-30人",
+              "31-80人",
+              "81-200人",
+              "200人以上"
+            ],
+            "value_type": "text",
+            "raw_text": "企 业 规 模 | □10人以下 □10-30人 □31-80人 □81-200人 □200人以上"
+          },
+          {
+            "label": "计算机数量",
+            "field_key": "computer_count",
+            "required": false,
+            "value": null,
+            "options": [
+              "5台及以下",
+              "6-15台",
+              "16-40台",
+              "41-100台",
+              "100台以上"
+            ],
+            "value_type": "text",
+            "raw_text": "计算机数量 | □5台及以下 □6-15台 □16-40台 □41-100台 □100台以上"
+          },
+          {
+            "label": "联系人职务",
+            "field_key": "contact_position",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "联系人职务"
+          },
+          {
+            "label": "传真",
+            "field_key": "fax",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "传 真"
+          }
+        ]
+      },
+      "application_notes": []
+    },
+    "pricing_info": {
+      "source_type": "application_form",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\2 智云上海专线、智云随选商企云宽\\智云随选商企云宽基础版套餐\\4 申请表_-YX017 智云随选商企云宽基础版套餐申请登记表.docx",
+      "one_time_fees": [],
+      "base_package_prices": [
+        {
+          "name": "后付费基础套餐",
+          "speed": "500M",
+          "upstream_speed": "100M",
+          "downstream_speed": "500M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 6880.0,
+          "currency": "CNY",
+          "unit": "线",
+          "billing_period": "年",
+          "contract_period": "",
+          "included_items": [
+            "一线光网覆盖区域(拨号宽带、含FTTH接入方式)",
+            "上网行为管理插件"
+          ],
+          "conditions": [],
+          "description": "套餐资费6880元/年/线，宽带一线上行100M/下行500M，含上网行为管理插件",
+          "raw_text": "套餐资费 | 6880元/年/线，申请线数：____线 宽带一线 | 一线光网覆盖区域(拨号宽带、含FTTH接入方式)上行100M / 下行500M 插件类增值应用 | * 插件服务：上网行为管理插件"
+        }
+      ],
+      "addon_prices": [
+        {
+          "name": "固话(含翼名片)/商云通",
+          "category": "增值免费可选包",
+          "spec": "",
+          "price": 0.0,
+          "currency": "CNY",
+          "unit": "线",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "固话(含翼名片)/商云通（两项总共不超过4线）",
+            "每线固话均含翼名片（来电文本），每月可发送100条来电文本信息",
+            "商云通国内通话2500分钟/月"
+          ],
+          "required_with": [],
+          "conditions": [
+            "{'description': '国内通话超出后资费0.1元/分钟'}"
+          ],
+          "description": "月基本费0元，仅限4线",
+          "raw_text": "固话(含翼名片)/商云通 月基本费0元 （仅限4线） | 固话(含翼名片)/商云通（两项总共不超过4线）： □ 固话，申请线数：____线 每线固话均含翼名片（来电文本），每月可发送100条来电文本信息，（100条文本信息发送完毕后自动关停，次月重新开始计次）。 □ 商云通（需自备商云通话机），申请线数：____线 国内通话2500分钟/月；**国内通话超出后资费0.1元/分钟**。"
+        },
+        {
+          "name": "移动业务",
+          "category": "增值免费可选包",
+          "spec": "",
+          "price": 0.0,
+          "currency": "CNY",
+          "unit": "线",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "国内流量120GB/月",
+            "国内通话1000分钟/月"
+          ],
+          "required_with": [],
+          "conditions": [
+            "{'description': '超出后资费：国内通话0.15元/分钟；国内短/彩信0.1元/条；国内流量3元/GB，不满100MB按0.03元/MB收费，达到3元后100MB-1GB免费，超过1GB按上述原则收费'}"
+          ],
+          "description": "月基本费0元，仅限5线，每张主卡最多可订购2线副卡",
+          "raw_text": "移动业务 月基本费0元 （仅限5线） | □ 订购，申请主卡线数：______线（最多限5线） 每线含国内流量120GB/月、国内通话1000分钟/月 **超出后资费**： 1、国内通话：0.15元/分钟； 2、国内短/彩信：0.1元/条 3、国内流量：3元/GB，即：不满100MB的，按0.03元/MB收费，达到3元后，100MB(不含)—1GB (含)部分，免费使用；超过1GB的，仍按上述原则（即每1GB收费3元）收费，以此类推。 **□是否订购副卡（每张主卡最多可订购2线） 数量：________**"
+        },
+        {
+          "name": "天翼云电脑",
+          "category": "增值免费可选包",
+          "spec": "4vCPU/8G内存/80G系统盘",
+          "price": 0.0,
+          "currency": "CNY",
+          "unit": "线",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "NAT网关规格：小型",
+            "上行共享带宽：1M"
+          ],
+          "required_with": [],
+          "conditions": [],
+          "description": "月基本费0元，仅限1线",
+          "raw_text": "天翼云电脑 月基本费0元 （仅限1线） | * 订购，1线 NAT网关规格：小型；上行共享带宽：1M 产品规格配置：4vCPU/8G内存/80G系统盘 *管理员注册邮箱：________________________________________ *管理员注册手机号码：____________________ * BIZID：____________________(若尚未开通天翼云网账号,则不填写) * 云电脑使用邮箱：____________________ * 云电脑用户名：____________________ (默认YZM001)"
+        },
+        {
+          "name": "翼智播基础产品",
+          "category": "可选包",
+          "spec": "",
+          "price": 210.0,
+          "currency": "CNY",
+          "unit": "账号",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "210元/月/账号",
+          "raw_text": "翼智播基础产品 可选包 | 抖音账号：_________________ * 210元/月/账号 UID：___________________ 邮箱地址：_________________"
+        },
+        {
+          "name": "上行升速200M",
+          "category": "上行升速包",
+          "spec": "上行升速200M",
+          "price": 100.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "上行升速200M，100元/月或1200元/年",
+          "raw_text": "上行升速200M：□ 100元/月 □ 1200元/年"
+        },
+        {
+          "name": "上行升速200M",
+          "category": "上行升速包",
+          "spec": "上行升速200M",
+          "price": 1200.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "上行升速200M，100元/月或1200元/年",
+          "raw_text": "上行升速200M：□ 100元/月 □ 1200元/年"
+        },
+        {
+          "name": "上行升速300M",
+          "category": "上行升速包",
+          "spec": "上行升速300M",
+          "price": 150.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "上行升速300M，150元/月或1800元/年",
+          "raw_text": "上行升速300M：□ 150元/月 □ 1800元/年"
+        },
+        {
+          "name": "上行升速300M",
+          "category": "上行升速包",
+          "spec": "上行升速300M",
+          "price": 1800.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "上行升速300M，150元/月或1800元/年",
+          "raw_text": "上行升速300M：□ 150元/月 □ 1800元/年"
+        },
+        {
+          "name": "上行升速500M",
+          "category": "上行升速包",
+          "spec": "上行升速500M",
+          "price": 200.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "上行升速500M，200元/月或2400元/年",
+          "raw_text": "上行升速500M：□ 200元/月 □ 2400元/年"
+        },
+        {
+          "name": "上行升速500M",
+          "category": "上行升速包",
+          "spec": "上行升速500M",
+          "price": 2400.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "上行升速500M，200元/月或2400元/年",
+          "raw_text": "上行升速500M：□ 200元/月 □ 2400元/年"
+        }
+      ],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "agreement_rules": [
+      {
+        "rule_type": "restriction",
+        "description": "ISDN（2B+D）须付清所有欠费并迁转改装为普通固话后方可参加本营销活动。",
+        "severity": "high",
+        "applies_to": [
+          "ISDN用户"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "客户有ISDN（2B+D）业务",
+          "存在欠费"
+        ],
+        "consequence": "无法参加本营销活动",
+        "raw_text": "4. ISDN（2B+D）须付清所有欠费并迁转改装为普通固话后方可参加本营销活动。"
+      }
+    ],
+    "eligibility_and_constraints": [
+      {
+        "name": "实名制登记制度",
+        "description": "业务办理实行实名制登记制度，办理业务变更或注销手续时需凭办理实名制登记的证件办理。不以个人名义申请、使用业务，真实落地目的码为本单位实名办理或合规使用的电话号码。",
+        "condition": "办理业务变更或注销手续时",
+        "result": "需凭办理实名制登记的证件办理",
+        "applies_to": [
+          "所有业务"
+        ],
+        "severity": "high",
+        "raw_text": "15. 中国电信上海公司业务办理实行实名制登记制度。今后办理业务变更或注销手续时,需凭办理实名制登记的证件办理。不以个人名义申请、使用业务，真实落地目的码为本单位实名办理或合规使用的电话号码。"
+      },
+      {
+        "name": "阅读并遵守相关协议及规则",
+        "description": "客户需认真阅读《中国电信股份有限公司上海分公司业务服务协议》、《中国电信股份有限公司上海分公司智云随选商企云宽高端版套餐营销活动规则》、《网络及信息安全承诺书》及所选可选权益包对应规则内容。",
+        "condition": "申请业务时",
+        "result": "需阅读并遵守相关协议及规则",
+        "applies_to": [
+          "智云随选商企云宽高端版套餐"
+        ],
+        "severity": "medium",
+        "raw_text": "16. **请认真阅读《中国电信股份有限公司上海分公司业务服务协议》、《中国电信股份有限公司上海分公司智云随选商企云宽高端版套餐营销活动规则》、《网络及信息安全承诺书》及所选可选权益包对应规则内容。"
+      },
+      {
+        "name": "不可抗力免责",
+        "description": "因不可抗力而不能提供服务，无需承担任何责任。不可抗力包括：地震、洪水、战争、军事行动、自然灾害、法律和政府政策等不可抗的因素。",
+        "condition": "发生不可抗力事件",
+        "result": "中国电信上海公司无需承担任何责任",
+        "applies_to": [
+          "所有业务"
+        ],
+        "severity": "medium",
+        "raw_text": "六、中国电信上海公司因不可抗力而不能提供服务，无需承担任何责任。不可抗力包括：地震、洪水、战争、军事行动、自然灾害、法律和政府政策等不可抗的因素。"
+      },
+      {
+        "name": "合法使用业务承诺",
+        "description": "客户保证遵守国家有关法律、法规，不得利用中国电信上海公司提供的服务从事违法行为、违规外呼行为、外呼骚扰行为、诈骗行为、呼叫频次异常行为和其他有损中国电信上海公司利益、第三方利益或社会公共利益的行为。",
+        "condition": "使用中国电信上海公司服务期间",
+        "result": "客户需承担一切责任",
+        "applies_to": [
+          "所有业务"
+        ],
+        "severity": "critical",
+        "raw_text": "客户保证遵守国家有关法律、法规，**不得利用中国电信上海公司提供的服务从事违法行为、违规外呼行为、外呼骚扰行为、诈骗行为、呼叫频次异常行为和其他有损中国电信上海公司利益、第三方利益或社会公共利益的行为。"
+      },
+      {
+        "name": "商云通业务使用权转让限制",
+        "description": "客户未经中国电信上海公司同意不得转让商云通业务使用权，否则，客户将承担其行为所引发的一切责任。",
+        "condition": "未经中国电信上海公司同意转让商云通业务使用权",
+        "result": "客户将承担其行为所引发的一切责任",
+        "applies_to": [
+          "商云通业务"
+        ],
+        "severity": "high",
+        "raw_text": "客户未经中国电信上海公司同意不得转让商云通业务使用权，否则，客户将承担其行为所引发的一切责任。"
+      },
+      {
+        "name": "资质文件审核要求",
+        "description": "客户申请所勾选的业务时，需出示和提供相应业务所必须涉及的相关资质文件原件供中国电信上海公司审核，并提交复印件（加盖客户公章）供中国电信上海公司留存。客户用户应包括经办人有效身份证件、单位证明经办人身份的介绍信、营业执照的复印件（三证合一）、法定代表人/负责人身份证的复印件、《上海市新入网电话用户法律责任告知书》及信息安全承诺书，上述证件需加盖公章。",
+        "condition": "申请所勾选的业务时",
+        "result": "需出示和提供相关资质文件原件供审核，并提交加盖公章的复印件留存",
+        "applies_to": [
+          "所有业务"
+        ],
+        "severity": "high",
+        "raw_text": "2. 客户申请所勾选的业务时，需出示和提供相应业务所必须涉及的相关资质文件原件供中国电信上海公司审核，并提交复印件（加盖客户公章）供中国电信上海公司留存。客户用户应包括经办人有效身份证件、单位证明经办人身份的介绍信、营业执照的复印件（三证合一）、法定代表人/负责人身份证的复印件、《上海市新入网电话用户法律责任告知书》及信息安全承诺书，上述证件需加盖公章（中国电信上海公司有权根据国家相应法律法规更新客户相关资质和复印件要求，客户应予以配合）。"
+      },
+      {
+        "name": "固定电话号码迁转不可逆",
+        "description": "客户原有中国电信上海公司固定电话号码迁转至商云通平台后不支持回退至该号码原有电话属性，即迁转至商云通平台的行为不可逆。",
+        "condition": "将固定电话号码迁转至商云通平台",
+        "result": "不支持回退至该号码原有电话属性",
+        "applies_to": [
+          "商云通平台",
+          "固定电话"
+        ],
+        "severity": "high",
+        "raw_text": "8. 客户原有中国电信上海公司**固定电话号码迁转至商云通平台后不支持回退至该号码原有电话属性，即迁转至商云通平台的行为不可逆。"
+      },
+      {
+        "name": "副卡套餐加入限制",
+        "description": "一个副卡套餐仅限一部手机加入。",
+        "condition": "加入副卡套餐时",
+        "result": "仅限一部手机加入",
+        "applies_to": [
+          "副卡套餐"
+        ],
+        "severity": "medium",
+        "raw_text": "2. **一个副卡套餐仅限一部手机加入。"
+      },
+      {
+        "name": "国内业务使用范围限制",
+        "description": "“国内”业务均仅限中国内地（不含港澳台及国际地区）使用。",
+        "condition": "使用“国内”业务时",
+        "result": "仅限中国内地（不含港澳台及国际地区）使用",
+        "applies_to": [
+          "国内业务"
+        ],
+        "severity": "medium",
+        "raw_text": "6. **“国内”业务均仅限中国内地（不含港澳台及国际地区）使用。"
+      },
+      {
+        "name": "免费终端设备损坏赔偿",
+        "description": "客户应当妥善使用中国电信上海公司为其免费提供使用的终端设备,因客户原因造成设备损坏的,客户应承担修复费用,不能修复的,客户向中国电信上海公司赔偿与损坏设备等值的金额。",
+        "condition": "因客户原因造成免费提供的终端设备损坏",
+        "result": "客户应承担修复费用，不能修复的赔偿与损坏设备等值的金额",
+        "applies_to": [
+          "免费提供的终端设备"
+        ],
+        "severity": "medium",
+        "raw_text": "2. **客户应当妥善使用中国电信上海公司为其免费提供使用的终端设备,因客户原因造成设备损坏的,客户应承担修复费用,不能修复的,客户向中国电信上海公司赔偿与损坏设备等值的金额。"
+      },
+      {
+        "name": "企业全光网业务自用限制",
+        "description": "客户申请的企业全光网业务，仅限本企业内部自用，不得以任何方式提供给第三方使用。",
+        "condition": "申请企业全光网业务",
+        "result": "仅限本企业内部自用，不得提供给第三方使用",
+        "applies_to": [
+          "企业全光网业务"
+        ],
+        "severity": "high",
+        "raw_text": "7. 客户申请的企业全光网业务，**仅限本企业内部自用，不得以任何方式提供给第三方使用。"
+      },
+      {
+        "name": "天翼云眼业务商业用途限制",
+        "description": "客户订购天翼云眼业务时应当承诺，不得将该业务用作其他商业用途。",
+        "condition": "订购天翼云眼业务时",
+        "result": "不得将该业务用作其他商业用途",
+        "applies_to": [
+          "天翼云眼业务"
+        ],
+        "severity": "high",
+        "raw_text": "2. 客户订购天翼云眼业务时应当承诺，**不得将该业务用作其他商业用途。"
+      },
+      {
+        "name": "天翼云眼业务使用行为限制",
+        "description": "不得利用中国电信上海公司提供的服务从事违法违规、违背公序良俗、侵害第三方合法权益和有损中国电信上海公司利益的行为；不得未经书面同意转让天翼云眼业务的使用权；不得未经书面同意将服务成果提供给第三方；应基于维护公共安全的目的使用，不得用于其他任何用途；不得超出天翼云眼服务用途使用视频或将视频用作商业用途。",
+        "condition": "使用天翼云眼业务期间",
+        "result": "违规行为将导致服务终止",
+        "applies_to": [
+          "天翼云眼业务"
+        ],
+        "severity": "critical",
+        "raw_text": "（1）不得利用中国电信上海公司提供的服务从事违法违规、违背公序良俗、侵害第三方合法权益和有损中国电信上海公司利益的行为。（2）不得未经中国电信上海公司书面同意，转让天翼云眼业务的使用权；（3）不得未经中国电信上海公司书面同意，将中国电信上海公司提供给客户的图像、分析结果等服务成果提供给第三方；（4）客户应基于维护公共安全的目的使用天翼云眼业务，不得将中国电信上海公司提供的天翼云眼业务服务用于其他任何用途。客户将视频通过其他途径复制、发布、传播、向他人提供，不得超出天翼云眼服务用途使用视频或将视频用作商业用途。"
+      },
+      {
+        "name": "天翼云眼业务自用及违规终止",
+        "description": "客户所申请的天翼云眼业务（含宽带、监控、云回看等）仅限本企业内部自用，不得以任何方式提供给第三方使用，一经发现违规行为，中国电信上海公司有权立即终止提供所有服务，本协议终止。",
+        "condition": "将天翼云眼业务提供给第三方使用",
+        "result": "中国电信上海公司有权立即终止提供所有服务，本协议终止",
+        "applies_to": [
+          "天翼云眼业务"
+        ],
+        "severity": "critical",
+        "raw_text": "3. **客户所申请的天翼云眼业务（含宽带、监控、云回看等）仅限本企业内部自用，不得以任何方式提供给第三方使用，一经发现违规行为，中国电信上海公司有权立即终止提供所有服务，本协议终止。"
+      },
+      {
+        "name": "天翼云眼终端设备损坏赔偿",
+        "description": "不能修复的，客户向中国电信上海公司赔偿与损坏设备等值的金额。",
+        "condition": "终端设备损坏且不能修复",
+        "result": "客户向中国电信上海公司赔偿与损坏设备等值的金额",
+        "applies_to": [
+          "天翼云眼业务终端设备"
+        ],
+        "severity": "medium",
+        "raw_text": "不能修复的，客户向中国电信上海公司赔偿与损坏设备等值的金额。"
+      },
+      {
+        "name": "宽带优惠活动冲突限制",
+        "description": "已参加中国电信上海公司宽带业务优惠活动的且仍在营销规则约束期内的客户除非退出原活动，否则不得参加本次优惠活动、享受套餐优惠；已参加中国电信上海公司可选包中相关产品营销活动的且仍在营销规则约束期内的客户，不能选择与该产品有关的可选优惠。",
+        "condition": "已参加宽带业务优惠活动或可选包相关产品营销活动且仍在约束期内",
+        "result": "不得参加本次优惠活动或不能选择与该产品有关的可选优惠",
+        "applies_to": [
+          "宽带业务优惠活动",
+          "可选包营销活动"
+        ],
+        "severity": "high",
+        "raw_text": "已参加中国电信上海公司宽带业务优惠活动的且仍在营销规则约束期内的客户除非退出原活动，否则不得参加本次优惠活动、享受套餐优惠；已参加中国电信上海公司可选包中相关产品营销活动的且仍在营销规则约束期内的客户，不能选择与该产品有关的可选优惠。"
+      },
+      {
+        "name": "宽带及FTTR全光网业务自用与违规终止",
+        "description": "客户所申请的宽带业务以及FTTR全光网等业务仅限本企业内部自用，客户不得私自利用中国电信上海公司所提供的业务服务经营长话业务或进行长途国际话音转接，也不得以任何方式提供给第三方使用，一经发现违规行为，中国电信上海公司有权立即终止提供所有服务，本规则终止。客户不得通过宽带拨号业务提供互联网信息服务。",
+        "condition": "将宽带业务或FTTR全光网业务提供给第三方使用或违规经营",
+        "result": "中国电信上海公司有权立即终止提供所有服务，本规则终止",
+        "applies_to": [
+          "宽带业务",
+          "FTTR全光网业务"
+        ],
+        "severity": "critical",
+        "raw_text": "十六、**客户所申请的宽带业务以及**FTTR全光网等业务仅限本企业内部自用，客户不得私自利用中国电信上海公司所提供的业务服务经营长话业务或进行长途国际话音转接，也不得以任何方式提供给第三方使用，一经发现违规行为，中国电信上海公司有权立即终止提供所有服务，本规则终止。客户不得通过宽带拨号业务提供互联网信息服务。"
+      },
+      {
+        "name": "宽带及FTTR终端设备损坏赔偿",
+        "description": "客户应当妥善使用中国电信上海公司为其免费提供使用的终端设备,因客户原因造成设备损坏的,客户应承担修复费用,不能修复的,客户向中国电信上海公司赔偿与损坏设备等值的金额。",
+        "condition": "因客户原因造成免费提供的终端设备损坏",
+        "result": "客户应承担修复费用，不能修复的赔偿与损坏设备等值的金额",
+        "applies_to": [
+          "宽带业务终端设备",
+          "FTTR全光网业务终端设备"
+        ],
+        "severity": "medium",
+        "raw_text": "**二十、客户应当妥善使用中国电信上海公司为其免费提供使用的终端设备,因客户原因造成设备损坏的,客户应承担修复费用,不能修复的,客户向中国电信上海公司赔偿与损坏设备等值的金额。"
+      },
+      {
+        "name": "网络及信息安全承诺",
+        "description": "本单位郑重承诺遵守本承诺书，如有违反本承诺书有关条款的行为，本单位承担由此带来的一切责任。",
+        "condition": "签署网络及信息安全承诺书后",
+        "result": "如有违反承担由此带来的一切责任",
+        "applies_to": [
+          "所有业务"
+        ],
+        "severity": "critical",
+        "raw_text": "**网络及信息安全承诺书** 本单位郑重承诺遵守本承诺书，如有违反本承诺书有关条款的行为，本单位承担由此带来的一切责任。"
+      },
+      {
+        "name": "业务使用范围限制",
+        "description": "本单位承诺按照相关规定、政府主管部门要求以及合同/协议约定规范使用业务，不得超出合同约定的范围和用途使用业务，不将业务用于连接境内外的数据中心或业务平台开展电信业务经营活动，具备所从事业务的全部合法必要的资质条件。",
+        "condition": "使用业务期间",
+        "result": "不得超出合同约定的范围和用途使用业务",
+        "applies_to": [
+          "所有业务"
+        ],
+        "severity": "high",
+        "raw_text": "二、本单位承诺按照相关规定、政府主管部门要求以及合同/协议（“合同”）约定规范使用业务，不得超出合同约定的范围和用途使用业务，不将业务用于连接境内外的数据中心或业务平台开展电信业务经营活动，具备所从事业务的全部合法必要的资质条件。"
+      },
+      {
+        "name": "实名制信息真实性承诺",
+        "description": "本单位承诺按照用户真实身份信息制度（“实名制”）的要求提供身份信息、使用业务，并保证所提供信息、资料的真实、完整、准确、有效。",
+        "condition": "提供身份信息、使用业务时",
+        "result": "保证所提供信息、资料的真实、完整、准确、有效",
+        "applies_to": [
+          "所有业务"
+        ],
+        "severity": "high",
+        "raw_text": "三、本单位承诺按照用户真实身份信息制度（“实名制”）的要求提供身份信息、使用业务，并保证所提供信息、资料的真实、完整、准确、有效。"
+      },
+      {
+        "name": "个人信息处理限制",
+        "description": "本单位受贵公司委托处理个人信息等数据的，或本单位与贵公司共同处理个人信息等数据的，本单位承诺按照与贵公司的合同约定处理，不得超出约定的处理目的、处理方式等处理上述数据，严格遵循数据处理时限。",
+        "condition": "处理个人信息等数据时",
+        "result": "不得超出约定的处理目的、处理方式等处理数据",
+        "applies_to": [
+          "所有业务"
+        ],
+        "severity": "high",
+        "raw_text": "八、本单位受贵公司委托处理个人信息等数据的，或本单位与贵公司共同处理个人信息等数据的，本单位承诺按照与贵公司的合同约定处理，不得超出约定的处理目的、处理方式等处理上述数据，严格遵循数据处理时限。"
+      },
+      {
+        "name": "信息内容合规要求",
+        "description": "该等信息内容内容应当严格符合相关规定，不通过网络制作、复制、查阅和传播有害信息，本单位不得通过通信网络、互联网散发传播违法、不健康、反动等信息，不得制作、复制、查阅和传播任何含有违反“九不准”及“六不许”的信息。",
+        "condition": "使用通信网络、互联网时",
+        "result": "不得制作、复制、查阅和传播有害信息",
+        "applies_to": [
+          "所有业务"
+        ],
+        "severity": "critical",
+        "raw_text": "该等信息内容内容应当严格符合相关规定，不通过网络制作、复制、查阅和传播有害信息，本单位不得通过通信网络、互联网散发传播违法、不健康、反动等信息，不得制作、复制、查阅和传播任何含有违反下列要求（即“九不准”及“六不许”）的信息："
+      },
+      {
+        "name": "外呼行为规范",
+        "description": "遵守实名制要求，不以个人名义申请、使用业务，真实落地目的码为本单位实名办理或合规使用的电话号码。未经外呼对象的同意或请求、或者外呼对象明确表示拒绝的，不得向其固定电话、移动电话拨打任何形式的营销电话或发送任何形式的营销信息。未经用户同意，不得向用户发送商业类电子信息或广告。",
+        "condition": "进行外呼或发送营销信息时",
+        "result": "不得未经同意进行营销外呼或发送营销信息",
+        "applies_to": [
+          "所有业务"
+        ],
+        "severity": "high",
+        "raw_text": "（二）遵守实名制要求，不以个人名义申请、使用业务，真实落地目的码为本单位实名办理或合规使用的电话号码。未经外呼对象的同意或请求、或者外呼对象明确表示拒绝的，不得向其固定电话、移动电话拨打任何形式的营销电话或发送任何形式的营销信息。（三）未经用户同意，不得向用户发送商业类电子信息或广告。"
+      },
+      {
+        "name": "互联网服务资质要求",
+        "description": "具备从事互联网服务的全部合法必要的资质条件，已履行相关规定要求的手续或已取得有关资质证明文件。在签署合同前，本单位向贵公司提供主体资格文件、资质证明文件的原件供贵公司审核，复印件（加盖公章）供贵公司留存，并保证所提供资料的真实、完整、准确、有效。",
+        "condition": "签署合同前",
+        "result": "需提供主体资格文件、资质证明文件的原件供审核，复印件加盖公章留存",
+        "applies_to": [
+          "互联网服务"
+        ],
+        "severity": "high",
+        "raw_text": "（一）具备从事互联网服务的全部合法必要的资质条件，已履行相关规定要求的手续或已取得有关资质证明文件。在签署合同前，本单位向贵公司提供主体资格文件、资质证明文件的原件供贵公司审核，复印件（加盖公章）供贵公司留存，并保证所提供资料的真实、完整、准确、有效。"
+      },
+      {
+        "name": "资质文件变更更新要求",
+        "description": "在合同有效期/服务期内，如本单位提交的主体资格、资质证明文件所记载内容出现变更，本单位在完成变更后尽快向贵公司提供最新的文件。前述主体资格文件、资质证明文件包括但不限于营业执照、增值电信业务经营许可证、广告经营许可证、非经营性互联网信息服务备案证明以及贵公司要求提交的其他文件。",
+        "condition": "主体资格、资质证明文件所记载内容出现变更",
+        "result": "需在完成变更后尽快提供最新的文件",
+        "applies_to": [
+          "所有业务"
+        ],
+        "severity": "medium",
+        "raw_text": "在合同有效期/服务期内，如本单位提交的主体资格、资质证明文件所记载内容出现变更，本单位在完成变更后尽快向贵公司提供最新的文件。前述主体资格文件、资质证明文件包括但不限于营业执照、增值电信业务经营许可证、广告经营许可证、非经营性互联网信息服务备案证明以及贵公司要求提交的其他文件。"
+      },
+      {
+        "name": "最终用户承诺书要求",
+        "description": "本单位承诺与最终用户参照签订此类《网络及信息安全承诺书》，并督促最终用户履行相应责任。",
+        "condition": "有最终用户时",
+        "result": "需与最终用户签订《网络及信息安全承诺书》并督促履行",
+        "applies_to": [
+          "所有业务"
+        ],
+        "severity": "medium",
+        "raw_text": "二十、本单位承诺与最终用户参照签订此类《网络及信息安全承诺书》，并督促最终用户履行相应责任。"
+      },
+      {
+        "name": "承诺书生效条件",
+        "description": "本承诺书经本单位签署后，与合同同时生效。",
+        "condition": "本单位签署承诺书后",
+        "result": "与合同同时生效",
+        "applies_to": [
+          "所有业务"
+        ],
+        "severity": "medium",
+        "raw_text": "二十一、本承诺书经本单位签署后，与合同同时生效。"
+      }
+    ]
+  },
+  "supplementary_info": {
+    "product_intro": {
+      "product_name": "智云随选商企云宽基础版套餐",
+      "full_description": "上海电信智云上海云网融合政企宽带主力入门套餐，面向写字楼、产业园中小微企业打造的云网一体商用宽带，替代传统普通办公宽带，兼顾高速上网、便捷上云、轻量化企业数字化增值服务，主打高上行、稳定光纤、云应用随选开通。",
+      "application_scenarios": "初创小微企业办公室（最核心场景）：10–50 人小型公司、联合办公、独立写字楼单间：日常网页、OA、财务系统、企业微信、邮件收发、多人同时云端文档协作，100M 上行支撑全员同步上传报表、设计文件。线下服务门店 / 连锁分店后台：中介门店、教育培训机构、医美、零售连锁：门店监控云端存储、客户系统云端录入、线上课程直播 / 录播上传、多门店统一后台数据同步。轻设计、传媒、图文工作室：平面设计、短视频剪辑、摄影工作室：批量高清素材上传天翼云盘、远程协作改稿、云端渲染轻量化文件，大上行解决素材上传卡顿痛点。园区中小商贸、贸易公司：进出口、货代、咨询公司：多网页后台、报关系统、跨境平台、远程视频会议、多终端同时在线，稳定带宽保障业务系统不掉线。远程办公 / 混合办公企业：员工居家 + 办公室混合办公：稳定访问企业云端服务器、VPN 远程内网、云电脑异地调取办公资料，智云内网降低跨网延迟。配套轻量化智慧安防场景：商铺 / 办公室部署天翼云眼，多路摄像头录像实时云端回存、手机远程查看，套餐配套云回看免单独购买监控宽带。"
+    },
+    "product_keywords": {
+      "raw_keywords": "光纤到房间、Wi-Fi6/Wi-Fi7、企业级主从光网关、人数50人以内、下行500M、初装费0元、协议期2年、0元包送手机卡5张、0元包送固话4线、送主从设备、天翼云电脑赠送一线、天翼云眼赠送一线、免费摄像头"
+    },
+    "pricing_info": {
+      "source_type": "pricing_sheet",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\2 智云上海专线、智云随选商企云宽\\智云随选商企云宽基础版套餐\\2 资费表.xlsx",
+      "one_time_fees": [
+        {
+          "name": "初装费",
+          "amount": 0.0,
+          "currency": "CNY",
+          "unit": "元",
+          "applicable_to": [
+            "年付用户"
+          ],
+          "conditions": [],
+          "description": "年付用户初装费0元",
+          "raw_text": "年付用户 0 0"
+        }
+      ],
+      "base_package_prices": [
+        {
+          "name": "智云随选商企云宽基础版",
+          "speed": "上行100M/下行500M",
+          "upstream_speed": "100M",
+          "downstream_speed": "500M",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 6880.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "端口速率上行100M/下行500M，年付费用6880元/年",
+          "raw_text": "上行100M/下行500M 6880"
+        }
+      ],
+      "addon_prices": [
+        {
+          "name": "FTTR全光网",
+          "category": "增值免费可选包",
+          "spec": "含主设备一台，从设备一台",
+          "price": 0.0,
+          "currency": "CNY",
+          "unit": "元",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [
+            "主设备一台",
+            "从设备一台"
+          ],
+          "required_with": [],
+          "conditions": [],
+          "description": "0元包，含主设备一台，从设备一台",
+          "raw_text": "FTTR全光网 含主设备一台，从设备一台"
+        },
+        {
+          "name": "固话或者商云通",
+          "category": "增值免费可选包",
+          "spec": "最多限4线，国内通话2500分钟/月，国内通话超出后资费0.1元/分钟",
+          "price": 0.0,
+          "currency": "CNY",
+          "unit": "元",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [
+            "国内通话2500分钟/月"
+          ],
+          "required_with": [],
+          "conditions": [
+            "最多限4线",
+            "国内通话超出后资费0.1元/分钟"
+          ],
+          "description": "0元包，最多限4线，国内通话2500分钟/月，超出后0.1元/分钟",
+          "raw_text": "固话或者商云通 最多限4线，国内通话2500分钟/月，国内通话超出后资费0.1元/分钟"
+        },
+        {
+          "name": "移动手机卡",
+          "category": "增值免费可选包",
+          "spec": "最多限5线，每线含国内流量120GB/月、国内通话1000分钟/月",
+          "price": 0.0,
+          "currency": "CNY",
+          "unit": "元",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [
+            "国内流量120GB/月",
+            "国内通话1000分钟/月"
+          ],
+          "required_with": [],
+          "conditions": [
+            "最多限5线",
+            "国内通话超出后0.15元/分钟",
+            "国内短/彩信超出后0.1元/条",
+            "国内流量超出后3元/GB"
+          ],
+          "description": "0元包，最多限5线，每线含国内流量120GB/月、国内通话1000分钟/月，超出后通话0.15元/分钟、短彩信0.1元/条、流量3元/GB",
+          "raw_text": "移动手机卡 最多限5线，每线含国内流量120GB/月、国内通话1000分钟/月 超出后资费： 1、国内通话：0.15元/分钟； 2、国内短/彩信：0.1元/条 3、国内流量：3元/GB"
+        },
+        {
+          "name": "天翼云电脑",
+          "category": "增值免费可选包",
+          "spec": "仅限1线",
+          "price": 0.0,
+          "currency": "CNY",
+          "unit": "元",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [
+            "仅限1线"
+          ],
+          "description": "0元包，仅限1线",
+          "raw_text": "天翼云电脑 仅限1线"
+        },
+        {
+          "name": "天翼云眼",
+          "category": "增值免费可选包",
+          "spec": "仅限1线",
+          "price": 0.0,
+          "currency": "CNY",
+          "unit": "元",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [
+            "仅限1线"
+          ],
+          "description": "0元包，仅限1线",
+          "raw_text": "天翼云眼 仅限1线"
+        },
+        {
+          "name": "翼智播基础产品",
+          "category": "增值收费可选包",
+          "spec": "",
+          "price": 210.0,
+          "currency": "CNY",
+          "unit": "元/月/账号",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "210元/月/账号",
+          "raw_text": "翼智播基础产品 210元/月/账号"
+        },
+        {
+          "name": "上行升速包",
+          "category": "增值收费可选包",
+          "spec": "上行升速至200M",
+          "price": 100.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [
+            "三选一"
+          ],
+          "description": "上行升速至200M，100元/月",
+          "raw_text": "上行升速至200M：100元/月"
+        },
+        {
+          "name": "上行升速包",
+          "category": "增值收费可选包",
+          "spec": "上行升速至200M",
+          "price": 1200.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [
+            "三选一"
+          ],
+          "description": "上行升速至200M，1200元/年",
+          "raw_text": "上行升速至200M：1200元/年"
+        },
+        {
+          "name": "上行升速包",
+          "category": "增值收费可选包",
+          "spec": "上行升速至300M",
+          "price": 150.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [
+            "三选一"
+          ],
+          "description": "上行升速至300M，150元/月",
+          "raw_text": "上行升速至300M：150元/月"
+        },
+        {
+          "name": "上行升速包",
+          "category": "增值收费可选包",
+          "spec": "上行升速至300M",
+          "price": 1800.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [
+            "三选一"
+          ],
+          "description": "上行升速至300M，1800元/年",
+          "raw_text": "上行升速至300M：1800元/年"
+        },
+        {
+          "name": "上行升速包",
+          "category": "增值收费可选包",
+          "spec": "上行升速至500M",
+          "price": 200.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [
+            "三选一"
+          ],
+          "description": "上行升速至500M，200元/月",
+          "raw_text": "上行升速至500M：200元/月"
+        },
+        {
+          "name": "上行升速包",
+          "category": "增值收费可选包",
+          "spec": "上行升速至500M",
+          "price": 2400.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [
+            "三选一"
+          ],
+          "description": "上行升速至500M，2400元/年",
+          "raw_text": "上行升速至500M：2400元/年"
+        }
+      ],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "application_materials": [
+      {
+        "material_type": "表单",
+        "name": "智云随选商企云宽基础版套餐申请登记表",
+        "description": "填写并每一页加盖公章；第一页最上方“企业全称”处盖章，第3页、第15页经办人本人签字、日期",
+        "required": true,
+        "applicable_to": [
+          "上海公司"
+        ],
+        "conditions": [],
+        "signature_required": true,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [
+          "第一页最上方“企业全称”处",
+          "第3页",
+          "第15页"
+        ],
+        "handling_notes": [
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [],
+        "raw_text": "1、智云随选商企云宽基础版套餐申请登记表，填写并每一页加盖公章；申请登记表第一页盖公章处在最上方“企业全称”处，第3页、第15页经办人本人签字、日期；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\2 智云上海专线、智云随选商企云宽\\智云随选商企云宽基础版套餐\\4-3 申请手续提示.txt"
+      },
+      {
+        "material_type": "合同",
+        "name": "入网责任书",
+        "description": "带语音业务时，需要法人名字签字或盖法人章",
+        "required": false,
+        "applicable_to": [
+          "上海公司"
+        ],
+        "conditions": [
+          "带语音业务"
+        ],
+        "signature_required": true,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [],
+        "raw_text": "2、带语音业务的，入网责任书需要法人的名字签字，也可以盖法人章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\2 智云上海专线、智云随选商企云宽\\智云随选商企云宽基础版套餐\\4-3 申请手续提示.txt"
+      },
+      {
+        "material_type": "授权书",
+        "name": "授权委托书",
+        "description": "最后一页委托单位处加盖公章，写上日期",
+        "required": true,
+        "applicable_to": [
+          "上海公司"
+        ],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [
+          "最后一页委托单位处"
+        ],
+        "handling_notes": [
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [],
+        "raw_text": "3、最后一页授权委托书、委托单位处加盖公章，写上日期，",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\2 智云上海专线、智云随选商企云宽\\智云随选商企云宽基础版套餐\\4-3 申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "营业执照复印件",
+        "description": "加盖公章",
+        "required": true,
+        "applicable_to": [
+          "上海公司"
+        ],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [],
+        "raw_text": "4、营业执照复印件，加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\2 智云上海专线、智云随选商企云宽\\智云随选商企云宽基础版套餐\\4-3 申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "经办人身份证正反面复印件",
+        "description": "经办人本人签字、日期，加盖公章",
+        "required": true,
+        "applicable_to": [
+          "上海公司"
+        ],
+        "conditions": [],
+        "signature_required": true,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [],
+        "raw_text": "5、经办人身份证正反面复印件，经办人本人签字、日期，加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\2 智云上海专线、智云随选商企云宽\\智云随选商企云宽基础版套餐\\4-3 申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "法人身份证正反面复印件",
+        "description": "带语音业务时，加盖公章",
+        "required": false,
+        "applicable_to": [
+          "上海公司"
+        ],
+        "conditions": [
+          "带语音业务"
+        ],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [],
+        "raw_text": "6、带语音的需要另外加法人的身份正反面复印件加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\2 智云上海专线、智云随选商企云宽\\智云随选商企云宽基础版套餐\\4-3 申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "使用人身份证正反面复印件",
+        "description": "带语音业务时，加盖公章",
+        "required": false,
+        "applicable_to": [
+          "上海公司"
+        ],
+        "conditions": [
+          "带语音业务"
+        ],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [],
+        "raw_text": "7、带语音的需要另外加使用人的身份证正反面复印件加盖公章。",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\2 智云上海专线、智云随选商企云宽\\智云随选商企云宽基础版套餐\\4-3 申请手续提示.txt"
+      },
+      {
+        "material_type": "合同",
+        "name": "入网责任书",
+        "description": "带语音业务时，加盖公章",
+        "required": false,
+        "applicable_to": [
+          "上海公司"
+        ],
+        "conditions": [
+          "带语音业务"
+        ],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [],
+        "raw_text": "8、带语音的另外加入网责任书和授权书各一份，加盖公章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\2 智云上海专线、智云随选商企云宽\\智云随选商企云宽基础版套餐\\4-3 申请手续提示.txt"
+      },
+      {
+        "material_type": "授权书",
+        "name": "授权书",
+        "description": "带语音业务时，加盖公章",
+        "required": false,
+        "applicable_to": [
+          "上海公司"
+        ],
+        "conditions": [
+          "带语音业务"
+        ],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [],
+        "raw_text": "8、带语音的另外加入网责任书和授权书各一份，加盖公章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\2 智云上海专线、智云随选商企云宽\\智云随选商企云宽基础版套餐\\4-3 申请手续提示.txt"
+      },
+      {
+        "material_type": "担保书",
+        "name": "上海公司电信业务担保书",
+        "description": "外地公司需提供，盖公章",
+        "required": true,
+        "applicable_to": [
+          "外地公司"
+        ],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [
+          "外地公司需担保"
+        ],
+        "raw_text": "（1）上海公司电信业务担保书，盖公章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\2 智云上海专线、智云随选商企云宽\\智云随选商企云宽基础版套餐\\4-3 申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "担保公司营业执照复印件",
+        "description": "外地公司需提供，盖公章",
+        "required": true,
+        "applicable_to": [
+          "外地公司"
+        ],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [
+          "外地公司需担保"
+        ],
+        "raw_text": "（2）担保公司营业执照复印件，盖公章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\2 智云上海专线、智云随选商企云宽\\智云随选商企云宽基础版套餐\\4-3 申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "担保公司经办人身份证正反面复印件",
+        "description": "外地公司需提供，盖公章",
+        "required": true,
+        "applicable_to": [
+          "外地公司"
+        ],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "机打",
+          "不可手写",
+          "必须加盖公章",
+          "不可盖合同章或其他章"
+        ],
+        "related_constraints": [
+          "外地公司需担保"
+        ],
+        "raw_text": "（3）担保公司经办人身份证正反面复印件，盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\2 智云上海专线、智云随选商企云宽\\智云随选商企云宽基础版套餐\\4-3 申请手续提示.txt"
+      }
+    ]
+  },
+  "extraction_meta": {
+    "generated_at": "2026-06-23T14:18:53",
+    "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\电信业务\\2 智云上海专线、智云随选商企云宽\\智云随选商企云宽基础版套餐",
+    "method": "llm_schema_module_extraction_no_normalization",
+    "validation_issues": [
+      {
+        "severity": "warning",
+        "path": "supplementary_info.pricing_info.addon_prices[0].billing_period",
+        "message": "价格不为空时应有计费周期"
+      },
+      {
+        "severity": "warning",
+        "path": "supplementary_info.pricing_info.addon_prices[1].billing_period",
+        "message": "价格不为空时应有计费周期"
+      },
+      {
+        "severity": "warning",
+        "path": "supplementary_info.pricing_info.addon_prices[2].billing_period",
+        "message": "价格不为空时应有计费周期"
+      },
+      {
+        "severity": "warning",
+        "path": "supplementary_info.pricing_info.addon_prices[3].billing_period",
+        "message": "价格不为空时应有计费周期"
+      },
+      {
+        "severity": "warning",
+        "path": "supplementary_info.pricing_info.addon_prices[4].billing_period",
+        "message": "价格不为空时应有计费周期"
+      }
+    ],
+    "validation_issue_count": 5
+  }
+}

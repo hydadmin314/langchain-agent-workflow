@@ -1,0 +1,1387 @@
+{
+  "application_form_info": {
+    "document_info": {
+      "document_id": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\联通\\本地国内MPLS-VPN\\4 申请表_【铅印版】中国联通MPLS-VPN业务新装申请单.pdf",
+      "product_name": "",
+      "carrier": "",
+      "version": "",
+      "effective_date": "",
+      "document_status": ""
+    },
+    "parties_and_application": {
+      "agent": {
+        "agent_name": "",
+        "sales_name": "",
+        "sales_contact": ""
+      },
+      "customer": {
+        "name": "",
+        "filled_values": [],
+        "is_blank_form": true
+      },
+      "application_fields": {
+        "required": [
+          {
+            "label": "客户名称",
+            "field_key": "customer_name",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*客户名称"
+          },
+          {
+            "label": "客户证件类型",
+            "field_key": "customer_cert_type",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*客户证件类型"
+          },
+          {
+            "label": "客户证件号码",
+            "field_key": "customer_cert_number",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*客户证件号码"
+          },
+          {
+            "label": "经办人姓名",
+            "field_key": "agent_name",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*经办人姓名"
+          },
+          {
+            "label": "联系电话",
+            "field_key": "contact_phone",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*联系电话"
+          },
+          {
+            "label": "经办人证件类型",
+            "field_key": "agent_cert_type",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*经办人证件类型"
+          },
+          {
+            "label": "经办人证件号码",
+            "field_key": "agent_cert_number",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*经办人证件号码"
+          },
+          {
+            "label": "账单地址",
+            "field_key": "billing_address",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*账单地址"
+          },
+          {
+            "label": "收件人",
+            "field_key": "recipient",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*收件人"
+          },
+          {
+            "label": "收件人联系电话",
+            "field_key": "recipient_phone",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*收件人联系电话"
+          },
+          {
+            "label": "客户经理",
+            "field_key": "account_manager",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*客户经理"
+          },
+          {
+            "label": "填单人员",
+            "field_key": "form_filler",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*填单人员"
+          },
+          {
+            "label": "归属部门",
+            "field_key": "department",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*归属部门"
+          },
+          {
+            "label": "现场联系人名称",
+            "field_key": "on_site_contact_name",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*现场联系人名称 On-site Contact"
+          },
+          {
+            "label": "手机",
+            "field_key": "mobile",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "*手机 Mobile"
+          }
+        ],
+        "optional": [
+          {
+            "label": "客户证件地址",
+            "field_key": "customer_cert_address",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "客户证件地址"
+          },
+          {
+            "label": "邮编",
+            "field_key": "postal_code",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "邮编"
+          },
+          {
+            "label": "电子邮件",
+            "field_key": "email",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "电子邮件"
+          },
+          {
+            "label": "现场联系人电话",
+            "field_key": "on_site_contact_phone",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "现场联系人电话 On-site Telephone"
+          }
+        ]
+      },
+      "application_notes": []
+    },
+    "pricing_info": {
+      "source_type": "application_form",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\联通\\本地国内MPLS-VPN\\4 申请表_【铅印版】中国联通MPLS-VPN业务新装申请单.pdf",
+      "one_time_fees": [],
+      "base_package_prices": [],
+      "addon_prices": [],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "agreement_rules": [
+      {
+        "rule_type": "restriction",
+        "description": "甲方应遵守国家相关的法律、法规，不得利用租用乙方的服务从事损害国家网络信息安全的行为",
+        "severity": "high",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "甲方有违反此条规定的行为发生"
+        ],
+        "consequence": "乙方有权立即终止对甲方的服务，由此造成的一切损失由甲方承担",
+        "raw_text": "三、甲方应遵守国家相关的法律、法规，不得利用租用乙方的服务从事损害国家网络信息安全的行为，若甲方有违反此条规定的行为发生，乙方有权立即终止对甲方的服务，由此造成的一切损失由甲方承担；"
+      },
+      {
+        "rule_type": "termination",
+        "description": "乙方有权立即停止向甲方提供服务并追回所有拖欠费用",
+        "severity": "high",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "乙方",
+        "conditions": [
+          "甲方拖欠费用"
+        ],
+        "consequence": "乙方有权立即停止向甲方提供服务并追回所有拖欠费用，由此造成的一切后果均由甲方承担，同时乙方保留对甲方进行追究的权利",
+        "raw_text": "否则，乙方有权立即停止向甲方提供服务并追回所有拖欠费用，由此造成的一切后果均由甲方承担，同时乙方保留对甲方进行追究的权利。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "甲方逾期未支付通信费用，乙方有权要求其补缴费用，并按照所欠费用每日加收3‰的违约金",
+        "severity": "high",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "甲方逾期未支付通信费用"
+        ],
+        "consequence": "乙方有权要求其补缴费用，并按照所欠费用每日加收3‰的违约金",
+        "raw_text": "遵照《中华人民共和国电信条例》的规定，甲方逾期未支付通信费用，乙方有权要求其补缴费用，并按照所欠费用每日加收3‰的违约金。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "甲方逾期未支付通信费用超过30日，乙方有权暂停服务",
+        "severity": "high",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "乙方",
+        "conditions": [
+          "甲方逾期未支付通信费用超过30日"
+        ],
+        "consequence": "乙方有权暂停服务",
+        "raw_text": "甲方逾期未支付通信费用超过30日，乙方有权暂停服务。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "甲方逾期未支付通信费用超过90日的，乙方有权终止服务，并有权依法追缴欠费和违约金",
+        "severity": "high",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "乙方",
+        "conditions": [
+          "甲方逾期未支付通信费用超过90日"
+        ],
+        "consequence": "乙方有权终止服务，并有权依法追缴欠费和违约金",
+        "raw_text": "甲方逾期未支付通信费用超过90日的，乙方有权终止服务，并有权依法追缴欠费和违约金。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "乙方有权决定不在前述时间点（但不少于前述时间）行使暂停服务或终止服务的权利；如乙方未在前述时间点行使停机的权利，乙方有权依据实际停机的时间，主张甲方欠费期间的全部通信费及违约金，甲方不得以乙方有权停机而未予停机作为拒绝支付通信费的理由",
+        "severity": "medium",
+        "applies_to": [
+          "乙方"
+        ],
+        "obligation_party": "乙方",
+        "conditions": [
+          "乙方未在前述时间点行使停机的权利"
+        ],
+        "consequence": "乙方有权依据实际停机的时间，主张甲方欠费期间的全部通信费及违约金，甲方不得以乙方有权停机而未予停机作为拒绝支付通信费的理由",
+        "raw_text": "乙方亦有权决定不在前述时间点（但不少于前述时间）行使暂停服务或终止服务（以下合称：停机）的权利；如乙方（未在前述时间点行使停机的权利，乙方有权依据实际停机的时间，主张甲方欠费期间的全部通信费及违约金，甲方不得以乙方有权停机而未予停机作为拒绝支付通信费的理由；"
+      },
+      {
+        "rule_type": "termination",
+        "description": "如果甲方终止该协议，须提前30天书面提出协议终止申请",
+        "severity": "medium",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "甲方终止该协议"
+        ],
+        "consequence": "须提前30天书面提出协议终止申请",
+        "raw_text": "八、如果甲方终止该协议，须提前30天书面提出协议终止申请，若甲方最后一月使用业务计费期不足一个月，当月月度使用费用按照：月使用费*实际使用天数/当期计费周期天数进行计算。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "甲方在合同期限内原则上可以申请移机，但不得申请终止服务、降低速率等可能导致原合同签订金额下降的服务",
+        "severity": "high",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "甲方是在乙方促销期签订的合同享受折扣和/或优惠，并已承诺合同期限"
+        ],
+        "consequence": "不得申请终止服务、降低速率等可能导致原合同签订金额下降的服务",
+        "raw_text": "如果甲方是在乙方促销期签订的合同享受折扣和/或优惠，并已承诺合同期限，甲方在合同期限内原则上可以申请移机，但不得申请终止服务、降低速率等可能导致原合同签订金额下降的服务。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "甲乙双方对本协议的具体内容负有保密责任。未经对方事先书面同意，任何一方不得将双方的合作及本协议的具体内容披露给任何第三方",
+        "severity": "high",
+        "applies_to": [
+          "甲方",
+          "乙方"
+        ],
+        "obligation_party": "双方",
+        "conditions": [
+          "未经对方事先书面同意"
+        ],
+        "consequence": "遵守协议的一方应有权通过有关司法程序或有关政府部门的行政程序获得补偿",
+        "raw_text": "十一、甲乙双方对本协议的具体内容负有保密责任。未经对方事先书面同意，任何一方不得将双方的合作及本协议的具体内容披露给任何第三方。如果一方违约，遵守协议的一方应有权通过有关司法程序或有关政府部门的行政程序获得补偿。"
+      },
+      {
+        "rule_type": "after_sales",
+        "description": "因本协议而发生的争议，双方应首先通过友好协商解决争议",
+        "severity": "medium",
+        "applies_to": [
+          "甲方",
+          "乙方"
+        ],
+        "obligation_party": "双方",
+        "conditions": [
+          "因本协议而发生的争议"
+        ],
+        "consequence": "双方应首先通过友好协商解决争议",
+        "raw_text": "十五、因本协议而发生的争议，双方应首先通过友好协商解决争议。"
+      }
+    ],
+    "eligibility_and_constraints": [
+      {
+        "name": "业务转让限制",
+        "description": "甲方未经乙方同意不得转让或出售/出租中国联通MPLS-VPN业务。",
+        "condition": "甲方拟转让、出售或出租MPLS-VPN业务",
+        "result": "未经乙方同意不得进行转让、出售或出租",
+        "applies_to": [
+          "MPLS-VPN业务",
+          "甲方"
+        ],
+        "severity": "high",
+        "raw_text": "甲方未经乙方同意不得转让或出售/出租中国联通MPLS-VPN业务。"
+      },
+      {
+        "name": "保密义务",
+        "description": "未经对方事先书面同意，任何一方不得将双方的合作及本协议的具体内容披露给任何第三方。",
+        "condition": "任何一方拟向第三方披露合作或协议内容",
+        "result": "须取得对方事先书面同意，否则不得披露",
+        "applies_to": [
+          "甲乙双方",
+          "合作协议"
+        ],
+        "severity": "high",
+        "raw_text": "未经对方事先书面同意，任何一方不得将双方的合作及本协议的具体内容披露给任何第三方。"
+      },
+      {
+        "name": "不可抗力免责",
+        "description": "因不可抗力造成的线路中断或无法保证系统正常工作，而导致甲方通信中断而造成的损失，乙方不承担任何责任。不可抗力事件包括严重自然灾害、政府行为、第三方电路故障等不可抗拒的事件。",
+        "condition": "发生不可抗力事件导致线路中断或系统无法正常工作",
+        "result": "乙方不承担甲方通信中断造成的损失",
+        "applies_to": [
+          "乙方",
+          "MPLS-VPN业务"
+        ],
+        "severity": "medium",
+        "raw_text": "十四、因不可抗力造成的线路中断或无法保证系统正常工作，而导致甲方通信中断而造成的损失，乙方不承担任何责任。 \"不可抗力事件\"包括严重自然灾害、政府行为、第三方电路故障等不可抗拒的事件。"
+      },
+      {
+        "name": "不可抗力减损义务",
+        "description": "甲乙双方应努力减小不可抗力造成的损失。",
+        "condition": "发生不可抗力事件",
+        "result": "双方应努力减小损失",
+        "applies_to": [
+          "甲乙双方"
+        ],
+        "severity": "low",
+        "raw_text": "甲乙双方应努力减小不可抗力造成的损失。"
+      }
+    ]
+  },
+  "supplementary_info": {
+    "product_intro": {
+      "product_name": "MPLS—VPN专线产品（简称MV产品）",
+      "full_description": "MPLS-VPN是一种基于MPLS技术的IP VPN，是在网络路由和交换设备上应用MPLS（Multiprotocol Label Switching，多协议标记交换）技术，简化核心路由器的路由选择方式，利用结合传统路由技术的标记交换实现的IP 虚拟专用网络（IP VPN），可用来构造宽带的Intranet、Extranet，满足多种灵活的业务需求。",
+      "application_scenarios": "在国际、国内有分支机构的集团公司、连锁企业等。涉及的行业有：保险业、家电/家居零售连锁店、大型集团公司、IT 企业、地产公司、国外驻华机构/代表处等。"
+    },
+    "product_keywords": {
+      "raw_keywords": "点对点组网,本地组网,国内组网,线路延时,带宽利用率,是否具备资源,需要多长时间开通,使用人数,应用场景,需要多少带宽,打折,月租费,一次性费用,合同协议期,协议期内拆机违约金"
+    },
+    "pricing_info": {
+      "source_type": "pricing_sheet",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\联通\\本地国内MPLS-VPN\\2 资费表.xlsx",
+      "one_time_fees": [
+        {
+          "name": "申请手续费",
+          "amount": 50.0,
+          "currency": "CNY",
+          "unit": "元/次",
+          "applicable_to": [],
+          "conditions": [],
+          "description": "本地申请手续费",
+          "raw_text": "申请手续费 50"
+        },
+        {
+          "name": "安装调试费",
+          "amount": 550.0,
+          "currency": "CNY",
+          "unit": "元/次",
+          "applicable_to": [],
+          "conditions": [],
+          "description": "本地安装调试费",
+          "raw_text": "安装调试费 550"
+        },
+        {
+          "name": "工料费",
+          "amount": 2400.0,
+          "currency": "CNY",
+          "unit": "元/次",
+          "applicable_to": [],
+          "conditions": [],
+          "description": "本地工料费",
+          "raw_text": "工料费 2400"
+        },
+        {
+          "name": "费用合计",
+          "amount": 3000.0,
+          "currency": "CNY",
+          "unit": "元/次",
+          "applicable_to": [],
+          "conditions": [],
+          "description": "本地一次性费用合计",
+          "raw_text": "费用合计 3000"
+        },
+        {
+          "name": "端口安装调测费",
+          "amount": 500.0,
+          "currency": "CNY",
+          "unit": "元/次",
+          "applicable_to": [],
+          "conditions": [],
+          "description": "端口安装调测费",
+          "raw_text": "端口安装调测费：500元一次"
+        }
+      ],
+      "base_package_prices": [
+        {
+          "name": "本地MPLS-VPN（沃-Link）2M",
+          "speed": "2",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 1500.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "本地MPLS-VPN 2M速率月租费",
+          "raw_text": "2M 1500"
+        },
+        {
+          "name": "本地MPLS-VPN（沃-Link）4M",
+          "speed": "4",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 2025.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "本地MPLS-VPN 4M速率月租费",
+          "raw_text": "4M 2025"
+        },
+        {
+          "name": "本地MPLS-VPN（沃-Link）6M",
+          "speed": "6",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 2550.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "本地MPLS-VPN 6M速率月租费",
+          "raw_text": "6M 2550"
+        },
+        {
+          "name": "本地MPLS-VPN（沃-Link）8M",
+          "speed": "8",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 3075.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "本地MPLS-VPN 8M速率月租费",
+          "raw_text": "8M 3075"
+        },
+        {
+          "name": "本地MPLS-VPN（沃-Link）10M",
+          "speed": "10",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 3600.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "本地MPLS-VPN 10M速率月租费",
+          "raw_text": "10M 3600"
+        },
+        {
+          "name": "本地MPLS-VPN（沃-Link）15M",
+          "speed": "15",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 4875.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "本地MPLS-VPN 15M速率月租费",
+          "raw_text": "15M 4875"
+        },
+        {
+          "name": "本地MPLS-VPN（沃-Link）20M",
+          "speed": "20",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 6150.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "本地MPLS-VPN 20M速率月租费",
+          "raw_text": "20M 6150"
+        },
+        {
+          "name": "本地MPLS-VPN（沃-Link）25M",
+          "speed": "25",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 7425.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "本地MPLS-VPN 25M速率月租费",
+          "raw_text": "25M 7425"
+        },
+        {
+          "name": "本地MPLS-VPN（沃-Link）30M",
+          "speed": "30",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 8700.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "本地MPLS-VPN 30M速率月租费",
+          "raw_text": "30M 8700"
+        },
+        {
+          "name": "本地MPLS-VPN（沃-Link）35M",
+          "speed": "35",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 9900.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "本地MPLS-VPN 35M速率月租费",
+          "raw_text": "35M 9900"
+        },
+        {
+          "name": "本地MPLS-VPN（沃-Link）40M",
+          "speed": "40",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 11100.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "本地MPLS-VPN 40M速率月租费",
+          "raw_text": "40M 11100"
+        },
+        {
+          "name": "本地MPLS-VPN（沃-Link）45M",
+          "speed": "45",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 12000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "本地MPLS-VPN 45M速率月租费",
+          "raw_text": "45M 12000"
+        },
+        {
+          "name": "本地MPLS-VPN（沃-Link）50M",
+          "speed": "50",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 12750.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "本地MPLS-VPN 50M速率月租费",
+          "raw_text": "50M 12750"
+        },
+        {
+          "name": "本地MPLS-VPN（沃-Link）60M",
+          "speed": "60",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 13950.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "本地MPLS-VPN 60M速率月租费",
+          "raw_text": "60M 13950"
+        },
+        {
+          "name": "本地MPLS-VPN（沃-Link）70M",
+          "speed": "70",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 15075.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "本地MPLS-VPN 70M速率月租费",
+          "raw_text": "70M 15075"
+        },
+        {
+          "name": "本地MPLS-VPN（沃-Link）80M",
+          "speed": "80",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 16200.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "本地MPLS-VPN 80M速率月租费",
+          "raw_text": "80M 16200"
+        },
+        {
+          "name": "本地MPLS-VPN（沃-Link）90M",
+          "speed": "90",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 17250.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "本地MPLS-VPN 90M速率月租费",
+          "raw_text": "90M 17250"
+        },
+        {
+          "name": "本地MPLS-VPN（沃-Link）100M",
+          "speed": "100",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 18300.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "本地MPLS-VPN 100M速率月租费",
+          "raw_text": "100M 18300"
+        },
+        {
+          "name": "国内MPLS-VPN 2M 银",
+          "speed": "2",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 6700.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 2M 银级合计月租费",
+          "raw_text": "2M 2000 6700 6200 5700 5200 4700 6700"
+        },
+        {
+          "name": "国内MPLS-VPN 4M 银",
+          "speed": "4",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 10300.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 4M 银级合计月租费",
+          "raw_text": "4M 3300 10000 9000 8800 8000 7000 10300"
+        },
+        {
+          "name": "国内MPLS-VPN 8M 银",
+          "speed": "8",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 17000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 8M 银级合计月租费",
+          "raw_text": "8M 6000 16000 15000 13000 12000 11000 17000"
+        },
+        {
+          "name": "国内MPLS-VPN 10M 银",
+          "speed": "10",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 19700.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 10M 银级合计月租费",
+          "raw_text": "10M 6700 19000 17000 16000 14000 13000 19700"
+        },
+        {
+          "name": "国内MPLS-VPN 20M 银",
+          "speed": "20",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 35600.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 20M 银级合计月租费",
+          "raw_text": "20M 10600 36000 33000 30000 28000 25000 35600"
+        },
+        {
+          "name": "国内MPLS-VPN 30M 银",
+          "speed": "30",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 52400.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 30M 银级合计月租费",
+          "raw_text": "30M 14400 55000 51000 47000 42000 38000 52400"
+        },
+        {
+          "name": "国内MPLS-VPN 34M 银",
+          "speed": "34",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 58000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 34M 银级合计月租费",
+          "raw_text": "34M 16000 60000 55000 51000 46000 42000 58000"
+        },
+        {
+          "name": "国内MPLS-VPN 40M 银",
+          "speed": "40",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 63300.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 40M 银级合计月租费",
+          "raw_text": "40M 17300 66000 61000 56000 51000 46000 63300"
+        },
+        {
+          "name": "国内MPLS-VPN 45M 银",
+          "speed": "45",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 68500.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 45M 银级合计月租费",
+          "raw_text": "45M 18500 72000 66000 61000 55000 50000 68500"
+        },
+        {
+          "name": "国内MPLS-VPN 50M 银",
+          "speed": "50",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 72700.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 50M 银级合计月租费",
+          "raw_text": "50M 19700 76000 70000 64000 59000 53000 72700"
+        },
+        {
+          "name": "国内MPLS-VPN 60M 银",
+          "speed": "60",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 81000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 60M 银级合计月租费",
+          "raw_text": "60M 22000 85000 79000 72000 66000 59000 81000"
+        },
+        {
+          "name": "国内MPLS-VPN 80M 银",
+          "speed": "80",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 97600.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 80M 银级合计月租费",
+          "raw_text": "80M 26600 103000 95000 87000 79000 71000 97600"
+        },
+        {
+          "name": "国内MPLS-VPN 100M 银",
+          "speed": "100",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 114200.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 100M 银级合计月租费",
+          "raw_text": "100M 31200 120000 111000 102000 93000 83000 114200"
+        },
+        {
+          "name": "国内MPLS-VPN 155M 银",
+          "speed": "155",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 161000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 155M 银级合计月租费",
+          "raw_text": "155M 44000 168000 155000 142000 129000 117000 161000"
+        },
+        {
+          "name": "国内MPLS-VPN 200M 银",
+          "speed": "200",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 188600.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 200M 银级合计月租费",
+          "raw_text": "200M 51600 197000 182000 167000 152000 137000 188600"
+        },
+        {
+          "name": "国内MPLS-VPN 300M 银",
+          "speed": "300",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 250500.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 300M 银级合计月租费",
+          "raw_text": "300M 68500 263000 242000 222000 202000 182000 250500"
+        },
+        {
+          "name": "国内MPLS-VPN 450M 银",
+          "speed": "450",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 343900.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 450M 银级合计月租费",
+          "raw_text": "450M 93900 360000 333000 305000 278000 250000 343900"
+        },
+        {
+          "name": "国内MPLS-VPN 500M 银",
+          "speed": "500",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 375300.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 500M 银级合计月租费",
+          "raw_text": "500M 102300 393000 363000 333000 303000 273000 375300"
+        },
+        {
+          "name": "国内MPLS-VPN 600M 银",
+          "speed": "600",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 437200.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 600M 银级合计月租费",
+          "raw_text": "600M 119200 458000 423000 388000 353000 318000 437200"
+        },
+        {
+          "name": "国内MPLS-VPN 622M 银",
+          "speed": "622",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 451000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 622M 银级合计月租费",
+          "raw_text": "622M 123000 472000 436000 400000 364000 328000 451000"
+        },
+        {
+          "name": "国内MPLS-VPN 1G 银",
+          "speed": "1000",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 713400.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 1G 银级合计月租费",
+          "raw_text": "1G 167400 786000 726000 666000 606000 546000 713400"
+        },
+        {
+          "name": "国内MPLS-VPN 2.5G 银",
+          "speed": "2500",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 1260000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 2.5G 银级合计月租费",
+          "raw_text": "2.5G 344000 1310000 1210000 1110000 1017000 916000 1260000"
+        },
+        {
+          "name": "国内MPLS-VPN 10G 银",
+          "speed": "10000",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 4483000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "国内MPLS-VPN 10G 银级合计月租费",
+          "raw_text": "10G 818000 5270000 4870000 4470000 4068000 3665000 4483000"
+        }
+      ],
+      "addon_prices": [
+        {
+          "name": "国内MPLS-VPN 白金",
+          "category": "服务等级",
+          "spec": "白金",
+          "price": null,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "白金级VPN网络端口月使用费，需叠加本地电路接入月使用费",
+          "raw_text": "白金"
+        },
+        {
+          "name": "国内MPLS-VPN 金+",
+          "category": "服务等级",
+          "spec": "金+",
+          "price": null,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "金+级VPN网络端口月使用费，需叠加本地电路接入月使用费",
+          "raw_text": "金+"
+        },
+        {
+          "name": "国内MPLS-VPN 金",
+          "category": "服务等级",
+          "spec": "金",
+          "price": null,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "金级VPN网络端口月使用费，需叠加本地电路接入月使用费",
+          "raw_text": "金"
+        },
+        {
+          "name": "国内MPLS-VPN 银+",
+          "category": "服务等级",
+          "spec": "银+",
+          "price": null,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "银+级VPN网络端口月使用费，需叠加本地电路接入月使用费",
+          "raw_text": "银+"
+        },
+        {
+          "name": "国内MPLS-VPN 银",
+          "category": "服务等级",
+          "spec": "银",
+          "price": null,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "银级VPN网络端口月使用费，需叠加本地电路接入月使用费",
+          "raw_text": "银"
+        }
+      ],
+      "fee_and_term_rules": [
+        {
+          "name": "国内国际一次性费用规则",
+          "category": "一次性费用",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "",
+          "formula": "",
+          "conditions": [],
+          "description": "国内国际一次性费用需实地勘察，报价",
+          "raw_text": "国内国际一次性费用需实地勘察，报价"
+        },
+        {
+          "name": "月租费计算规则",
+          "category": "月租费",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "",
+          "formula": "月租费为银的价格加本地接入费的合计",
+          "conditions": [],
+          "description": "月租费为银的价格加本地接入费的合计",
+          "raw_text": "月租费为银的价格加本地接入费的合计"
+        }
+      ],
+      "discount_policy": []
+    },
+    "application_materials": [
+      {
+        "material_type": "表单",
+        "name": "中国联通MPLS-VPN业务新装申请单",
+        "description": "铅印版，一式五联，填写后经办人本人签字，左右每联都加盖公章，可参考填写模板",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": true,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [
+          "左右每联"
+        ],
+        "handling_notes": [
+          "铅印版",
+          "可参考填写模板"
+        ],
+        "related_constraints": [],
+        "raw_text": "【铅印版】中国联通MPLS-VPN业务新装申请单，一式五联，填写后经办人本人签字，左右每联都加盖公章，可参考填写模板；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\联通\\本地国内MPLS-VPN\\4-4 本地国内MPLS-VPN申请手续提示.txt"
+      },
+      {
+        "material_type": "表单",
+        "name": "中国联通用户隐私政策",
+        "description": "铅印版，一式三联，经办人本人签字，左右每联都加盖公章",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": true,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [
+          "左右每联"
+        ],
+        "handling_notes": [
+          "铅印版"
+        ],
+        "related_constraints": [],
+        "raw_text": "【铅印版】中国联通用户隐私政策，一式三联，经办人本人签字，左右每联都加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\联通\\本地国内MPLS-VPN\\4-4 本地国内MPLS-VPN申请手续提示.txt"
+      },
+      {
+        "material_type": "授权书",
+        "name": "授权委托书",
+        "description": "经办人本人签字，加盖公章",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": true,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [],
+        "handling_notes": [],
+        "related_constraints": [],
+        "raw_text": "授权委托书，经办人本人签字，加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\联通\\本地国内MPLS-VPN\\4-4 本地国内MPLS-VPN申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "营业执照复印件",
+        "description": "加盖公章",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [],
+        "related_constraints": [],
+        "raw_text": "营业执照复印件，加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\联通\\本地国内MPLS-VPN\\4-4 本地国内MPLS-VPN申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "经办人身份证正反面复印件",
+        "description": "经办人本人签字，加盖公章",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": true,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [
+          "正反面"
+        ],
+        "handling_notes": [],
+        "related_constraints": [],
+        "raw_text": "经办人身份证正反面复印件，经办人本人签字，加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\联通\\本地国内MPLS-VPN\\4-4 本地国内MPLS-VPN申请手续提示.txt"
+      }
+    ]
+  },
+  "extraction_meta": {
+    "generated_at": "2026-06-24T17:45:27",
+    "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\联通\\本地国内MPLS-VPN",
+    "method": "llm_schema_module_extraction_no_normalization",
+    "validation_issues": [
+      {
+        "severity": "warning",
+        "path": "application_form_info.document_info",
+        "message": "申请表基本信息基本为空，可能是切块或文档转换质量不足"
+      }
+    ],
+    "validation_issue_count": 1
+  }
+}

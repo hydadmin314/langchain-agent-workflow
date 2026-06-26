@@ -1,0 +1,230 @@
+{
+  "application_form_info": {
+    "document_info": {
+      "document_id": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\联通业务\\沃商务人才、酒店公寓",
+      "product_name": "",
+      "carrier": "",
+      "version": "",
+      "effective_date": null,
+      "document_status": null
+    },
+    "parties_and_application": {
+      "agent": {
+        "agent_name": "",
+        "sales_name": "",
+        "sales_contact": ""
+      },
+      "customer": {
+        "name": "",
+        "filled_values": [],
+        "is_blank_form": true
+      },
+      "application_fields": {
+        "required": [],
+        "optional": []
+      },
+      "application_notes": []
+    },
+    "pricing_info": {
+      "source_type": "application_form",
+      "source_file": "",
+      "one_time_fees": [],
+      "base_package_prices": [],
+      "addon_prices": [],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "agreement_rules": [],
+    "eligibility_and_constraints": []
+  },
+  "supplementary_info": {
+    "product_intro": {
+      "product_name": "沃商务人才/酒店公寓",
+      "full_description": "沃商务人才/酒店公寓是针对人才公寓、酒店公寓、公司厂区宿舍等市场推出的专项企业宽带接入产品。采用光纤到户的模式以经济实惠的价格为该类客户提供企业宽带和互联网电视服务。沃商务人才/酒店公寓一般由政府或企业开发，引进青年人才居住,目标并非注重盈利,而是表达一种“招贤纳士”的姿态,以收取良好的社会效益以及联动的经济吸引力。因此该产品主要面向政府和企业提供的沃商务人才/酒店公寓使用，不面向办公类经营类客户。",
+      "application_scenarios": "（1）面向人才公寓、酒店式公寓、职工宿舍等公寓类市场 （2）采用FTTO+H七级标准地址接入，光纤预先到户 （3）该产品为接入层产品，上联到联通China169骨干网。 （4）批量接入宽带和沃企TV，价格经济实惠"
+    },
+    "product_keywords": {
+      "raw_keywords": "酒店公寓宽带、人才公寓网络、长租公寓光纤、酒店客房一体化、沃企 TV、宾馆 IPTV、民宿专用宽带、宿舍批量宽带、公安网络安全审计、客房独立 WiFi、公寓整栋布线、酒店融合网关、职工宿舍宽带"
+    },
+    "pricing_info": {
+      "source_type": "pricing_sheet",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\联通业务\\沃商务人才、酒店公寓\\2 资费表.xlsx",
+      "one_time_fees": [
+        {
+          "name": "安装费",
+          "amount": 780.0,
+          "currency": "CNY",
+          "unit": "元/次",
+          "applicable_to": [
+            "酒店公寓",
+            "酒店公寓（安审融合版）"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "安装费 780"
+        }
+      ],
+      "base_package_prices": [
+        {
+          "name": "酒店公寓 100M",
+          "speed": "100M",
+          "upstream_speed": "20M",
+          "downstream_speed": "100M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 480.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "年",
+          "included_items": [],
+          "conditions": [
+            "需要年付"
+          ],
+          "description": "",
+          "raw_text": "酒店公寓 100M 上行20M下行100M 480 780 / 需要年付"
+        },
+        {
+          "name": "酒店公寓 200M",
+          "speed": "200M",
+          "upstream_speed": "40M",
+          "downstream_speed": "200M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 960.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "年",
+          "included_items": [],
+          "conditions": [
+            "需要年付"
+          ],
+          "description": "",
+          "raw_text": "200M 上行40M下行200M 960"
+        },
+        {
+          "name": "酒店公寓 300M",
+          "speed": "300M",
+          "upstream_speed": "60M",
+          "downstream_speed": "300M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 1440.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "年",
+          "included_items": [],
+          "conditions": [
+            "需要年付"
+          ],
+          "description": "",
+          "raw_text": "300M 上行60M下行300M 1440"
+        },
+        {
+          "name": "酒店公寓（安审融合版）100M",
+          "speed": "100M",
+          "upstream_speed": "20M",
+          "downstream_speed": "100M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 720.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "年",
+          "included_items": [],
+          "conditions": [
+            "需要年付"
+          ],
+          "description": "",
+          "raw_text": "酒店公寓（安审融合版） 100M 上行20M下行100M 720 780 / 需要年付"
+        },
+        {
+          "name": "酒店公寓（安审融合版）200M",
+          "speed": "200M",
+          "upstream_speed": "40M",
+          "downstream_speed": "200M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 1200.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "年",
+          "included_items": [],
+          "conditions": [
+            "需要年付"
+          ],
+          "description": "",
+          "raw_text": "200M 上行40M下行200M 1200"
+        },
+        {
+          "name": "酒店公寓（安审融合版）300M",
+          "speed": "300M",
+          "upstream_speed": "60M",
+          "downstream_speed": "300M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 1800.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "年",
+          "included_items": [],
+          "conditions": [
+            "需要年付"
+          ],
+          "description": "",
+          "raw_text": "300M 上行60M下行300M 1800"
+        }
+      ],
+      "addon_prices": [],
+      "fee_and_term_rules": [
+        {
+          "name": "年付要求",
+          "category": "支付方式",
+          "applicable_to": [
+            "酒店公寓",
+            "酒店公寓（安审融合版）"
+          ],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "年",
+          "formula": "",
+          "conditions": [],
+          "description": "需要年付",
+          "raw_text": "需要年付"
+        }
+      ],
+      "discount_policy": []
+    },
+    "application_materials": []
+  },
+  "extraction_meta": {
+    "generated_at": "2026-06-24T16:35:28",
+    "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\联通业务\\沃商务人才、酒店公寓",
+    "method": "llm_schema_module_extraction_no_normalization",
+    "validation_issues": [
+      {
+        "severity": "warning",
+        "path": "$.application_form_info.pricing_info.source_file",
+        "message": "缺少来源文件"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.document_info",
+        "message": "申请表基本信息基本为空，可能是切块或文档转换质量不足"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.parties_and_application.application_fields",
+        "message": "申请表没有抽到字段信息"
+      }
+    ],
+    "validation_issue_count": 3
+  }
+}

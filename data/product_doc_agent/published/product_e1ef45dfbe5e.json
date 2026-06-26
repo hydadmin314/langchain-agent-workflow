@@ -1,0 +1,997 @@
+{
+  "application_form_info": {
+    "document_info": {
+      "document_id": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地IPRAN\\1 本地IPRAN套餐\\4 申请表_以太专线（IPRAN）业务申请表.docx",
+      "product_name": "以太专线营销套餐",
+      "carrier": "中国电信股份有限公司上海分公司",
+      "version": "",
+      "effective_date": "",
+      "document_status": ""
+    },
+    "parties_and_application": {
+      "agent": {
+        "agent_name": "",
+        "sales_name": "",
+        "sales_contact": ""
+      },
+      "customer": {
+        "name": "",
+        "filled_values": [],
+        "is_blank_form": true
+      },
+      "application_fields": {
+        "required": [
+          {
+            "label": "企业全称",
+            "field_key": "company_full_name",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": ""
+          },
+          {
+            "label": "甲端安装联系人",
+            "field_key": "side_a_contact_person",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": ""
+          },
+          {
+            "label": "甲端联系电话",
+            "field_key": "side_a_contact_phone",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": ""
+          },
+          {
+            "label": "乙端安装联系人",
+            "field_key": "side_b_contact_person",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": ""
+          },
+          {
+            "label": "乙端联系电话",
+            "field_key": "side_b_contact_phone",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": ""
+          },
+          {
+            "label": "付费周期",
+            "field_key": "payment_cycle",
+            "required": true,
+            "value": null,
+            "options": [
+              "月付",
+              "1年付",
+              "2年付"
+            ],
+            "value_type": "string",
+            "raw_text": "□月付 □1年付 □2年付"
+          },
+          {
+            "label": "付款方式",
+            "field_key": "payment_method",
+            "required": true,
+            "value": null,
+            "options": [
+              "现金/支票",
+              "托收"
+            ],
+            "value_type": "string",
+            "raw_text": "□现金/支票 □托收 银行账号："
+          },
+          {
+            "label": "联系人",
+            "field_key": "contact_person",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": ""
+          },
+          {
+            "label": "身份证号码",
+            "field_key": "id_number",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": ""
+          },
+          {
+            "label": "联系电话",
+            "field_key": "contact_phone",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": ""
+          },
+          {
+            "label": "电路维护服务等级",
+            "field_key": "circuit_maintenance_level",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "默认普通"
+          }
+        ],
+        "optional": [
+          {
+            "label": "甲端E-mail",
+            "field_key": "side_a_email",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": ""
+          },
+          {
+            "label": "乙端E-mail",
+            "field_key": "side_b_email",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": ""
+          },
+          {
+            "label": "联系人职务",
+            "field_key": "contact_position",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": ""
+          },
+          {
+            "label": "E-MAIL",
+            "field_key": "contact_email",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": ""
+          },
+          {
+            "label": "传真",
+            "field_key": "fax",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": ""
+          },
+          {
+            "label": "政企客户差异化服务（SLA）",
+            "field_key": "sla_level",
+            "required": false,
+            "value": null,
+            "options": [
+              "AAA级，可用率指标为99.99% 电路使用费的50%",
+              "AA级：可用率指标为99.95% 电路使用费的30%",
+              "A级：可用率指标为99.9% 电路使用费的20%"
+            ],
+            "value_type": "string",
+            "raw_text": "□ AAA级，可用率指标为99.99% 电路使用费的50% □ AA级：可用率指标为99.95% 电路使用费的30% □ A级：可用率指标为99.9% 电路使用费的20%"
+          }
+        ]
+      },
+      "application_notes": [
+        "请认真、正确填写登记表中的每一项。",
+        "经办人为经企业授权，办理申请参加本营销活动手续的企业内部员工。",
+        "联系人为经企业授权，在业务优惠期间，有权办理相关业务申请/变更手续的企业内部员工，如联系人发生变更，请及时告知中国电信股份有限公司上海分公司的客户经理。",
+        "如有问题请及时致电中国电信股份有限公司上海分公司政企客户热线：10000*9。",
+        "请认真阅读《中国电信股份有限公司上海分公司业务服务协议》、《中国电信股份有限公司上海分公司以太专线套餐营销规则》。",
+        "经办人签字： 单位盖章：  日期： 年 月 日"
+      ]
+    },
+    "pricing_info": {
+      "source_type": "application_form",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地IPRAN\\1 本地IPRAN套餐\\4 申请表_以太专线（IPRAN）业务申请表.docx",
+      "one_time_fees": [],
+      "base_package_prices": [
+        {
+          "name": "4M",
+          "speed": "4",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 11750.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "1年付",
+          "contract_period": "1年",
+          "included_items": [
+            "以太专线产品是指依托于中国电信IPRAN网络，为客户提供灵活业务接入、灵活带宽、高可靠性及端到端管理的二层以太专线产品。主要的业务功能与MSTP业务类似，但更为灵活。",
+            "提供客户站点之间的二层以太专线服务，其组网拓扑可分为：点到点(E-Line)和点到多点（E-Tree）。",
+            "电路维护服务等级默认普通。"
+          ],
+          "conditions": [],
+          "description": "4M 1年付套餐",
+          "raw_text": "□ 4M （11750元/年）"
+        },
+        {
+          "name": "10M",
+          "speed": "10",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 22550.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "1年付",
+          "contract_period": "1年",
+          "included_items": [
+            "以太专线产品是指依托于中国电信IPRAN网络，为客户提供灵活业务接入、灵活带宽、高可靠性及端到端管理的二层以太专线产品。主要的业务功能与MSTP业务类似，但更为灵活。",
+            "提供客户站点之间的二层以太专线服务，其组网拓扑可分为：点到点(E-Line)和点到多点（E-Tree）。",
+            "电路维护服务等级默认普通。"
+          ],
+          "conditions": [],
+          "description": "10M 1年付套餐",
+          "raw_text": "□ 10M （22550元/年）"
+        },
+        {
+          "name": "20M",
+          "speed": "20",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 33350.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "1年付",
+          "contract_period": "1年",
+          "included_items": [
+            "以太专线产品是指依托于中国电信IPRAN网络，为客户提供灵活业务接入、灵活带宽、高可靠性及端到端管理的二层以太专线产品。主要的业务功能与MSTP业务类似，但更为灵活。",
+            "提供客户站点之间的二层以太专线服务，其组网拓扑可分为：点到点(E-Line)和点到多点（E-Tree）。",
+            "电路维护服务等级默认普通。"
+          ],
+          "conditions": [],
+          "description": "20M 1年付套餐",
+          "raw_text": "□ 20M （33350元/年）"
+        },
+        {
+          "name": "50M",
+          "speed": "50",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 65750.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "1年付",
+          "contract_period": "1年",
+          "included_items": [
+            "以太专线产品是指依托于中国电信IPRAN网络，为客户提供灵活业务接入、灵活带宽、高可靠性及端到端管理的二层以太专线产品。主要的业务功能与MSTP业务类似，但更为灵活。",
+            "提供客户站点之间的二层以太专线服务，其组网拓扑可分为：点到点(E-Line)和点到多点（E-Tree）。",
+            "电路维护服务等级默认普通。"
+          ],
+          "conditions": [],
+          "description": "50M 1年付套餐",
+          "raw_text": "□ 50M （65750元/年）"
+        },
+        {
+          "name": "100M",
+          "speed": "100",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 108950.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "1年付",
+          "contract_period": "1年",
+          "included_items": [
+            "以太专线产品是指依托于中国电信IPRAN网络，为客户提供灵活业务接入、灵活带宽、高可靠性及端到端管理的二层以太专线产品。主要的业务功能与MSTP业务类似，但更为灵活。",
+            "提供客户站点之间的二层以太专线服务，其组网拓扑可分为：点到点(E-Line)和点到多点（E-Tree）。",
+            "电路维护服务等级默认普通。"
+          ],
+          "conditions": [],
+          "description": "100M 1年付套餐",
+          "raw_text": "□ 100M（108950元/年）"
+        }
+      ],
+      "addon_prices": [],
+      "fee_and_term_rules": [
+        {
+          "name": "付费周期",
+          "category": "付费方式",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "",
+          "formula": "",
+          "conditions": [],
+          "description": "月付、1年付、2年付",
+          "raw_text": "□月付 □1年付 □2年付"
+        },
+        {
+          "name": "付款方式",
+          "category": "付款方式",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "",
+          "formula": "",
+          "conditions": [],
+          "description": "现金/支票、托收",
+          "raw_text": "□现金/支票 □托收 银行账号："
+        }
+      ],
+      "discount_policy": []
+    },
+    "agreement_rules": [
+      {
+        "rule_type": "restriction",
+        "description": "协议期为一年/二年，自客户在必选套餐内选择的以太专线产品完工之次月1日起算，首月资费按天折算。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "客户",
+        "conditions": [],
+        "consequence": "",
+        "raw_text": "本规则协议期为一年/二年，自客户在必选套餐内选择的以太专线产品完工之次月1日起算，首月资费按天折算。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "协议期到期前30日内，若客户不作资费套餐的变更，则协议期自动延展12个月/24个月（1年/2年），延展次数不限。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "客户",
+        "conditions": [
+          "协议期到期前30日内客户不作资费套餐变更"
+        ],
+        "consequence": "协议期自动延展12个月/24个月",
+        "raw_text": "本规则协议期到期前30日内，若客户不作资费套餐的变更，则本规则协议期自动延展12个月/24个月（1年/2年），延展次数不限；"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "在客户未办理业务注销（拆机）手续前，中国电信上海公司在有条件或能力继续提供服务的情况下，不得擅自终止向客户提供通信服务。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "服务商",
+        "conditions": [
+          "客户未办理业务注销手续",
+          "中国电信上海公司有条件或能力继续提供服务"
+        ],
+        "consequence": "不得擅自终止提供通信服务",
+        "raw_text": "为保障客户通信的连续性，在客户未办理业务注销（拆机）手续前，中国电信上海公司在有条件或能力继续提供服务的情况下，不得擅自终止向客户提供通信服务。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "协议期期满后，客户不续约的，可以办理相关产品注销手续。若有终端设备的，需归还该设备，不能退还的，需支付相应设备费用：U1终端费用，3000元/台。",
+        "severity": "",
+        "applies_to": [
+          "U1终端"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "协议期期满后客户不续约",
+          "有终端设备且不能退还"
+        ],
+        "consequence": "需支付设备费用3000元/台",
+        "raw_text": "协议期期满后，客户不续约的，可以办理相关产品注销手续（若有终端设备的，需归还该设备，不能退还的，需向中国电信上海公司支付相应设备费用：U1终端费用，3000元/台；"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "欠费2个月以上的客户不得参加本次优惠活动。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "客户",
+        "conditions": [
+          "欠费2个月以上"
+        ],
+        "consequence": "不得参加本次优惠活动",
+        "raw_text": "欠费2个月以上的客户不得参加本次优惠活动。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "规则有效期内，客户如私自利用中国电信上海公司所提供的业务服务经营长话业务或进行长途国际话音转接的，一经发现，中国电信上海公司有权立即终止提供所有服务，本规则终止。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "客户",
+        "conditions": [
+          "私自利用业务服务经营长话业务或进行长途国际话音转接"
+        ],
+        "consequence": "立即终止提供所有服务，本规则终止",
+        "raw_text": "规则有效期内，客户如私自利用中国电信上海公司所提供的业务服务经营长话业务或进行长途国际话音转接的，一经发现，中国电信上海公司有权立即终止提供所有服务，本规则终止。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "规则有效期内，若因客户欠费等属于客户责任的原因全部或部分被停机，停机期间，中国电信上海公司将继续按月出帐，收取客户所选择的必选套餐月使用费和可选产品月使用费。停机之日起满60日，客户仍未缴费或导致停机的原因未消除的，中国电信上海公司有权拆机（终止提供服务），本规则终止。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "客户",
+        "conditions": [
+          "因客户欠费等客户责任原因全部或部分被停机",
+          "停机之日起满60日客户仍未缴费或导致停机的原因未消除"
+        ],
+        "consequence": "停机期间继续按月出帐收费；满60日有权拆机终止提供服务，本规则终止",
+        "raw_text": "本规则有效期内，若因客户欠费等属于客户责任的原因全部或部分被停机（暂停提供服务）的，停机期间，中国电信上海公司将继续按月出帐，收取客户所选择的必选套餐月使用费和可选产品月使用费（年付/两年付方式的，停机期间仍将计入年付/两年付费用使用月份），停机之日起满60日，客户仍未缴费或导致停机的原因未消除的，中国电信上海公司有权拆机（终止提供服务），本规则终止。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "协议期内，因客户原因退出本活动或导致本活动提前终止的，客户应结清之前已使用的费用及违约金，并根据所选套餐支付2个月的套餐月基本费作为提前退出违约金。2年付客户根据所选套餐支付4个月的套餐月基本费作为提前违约金。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "客户",
+        "conditions": [
+          "因客户原因退出本活动或导致本活动提前终止"
+        ],
+        "consequence": "结清已使用费用及违约金，并支付2个月套餐月基本费作为违约金（2年付客户支付4个月）",
+        "raw_text": "本规则协议期内,因客户原因退出本活动或导致本活动提前终止的,客户应结清之前已使用的费用及违约金,并根据所选套餐支付2个月的套餐月基本费作为提前退出违约金。2年付客户根据所选套餐支付4个月的套餐月基本费作为提前违约金。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "本规则作为《中国电信股份有限公司上海分公司业务服务协议》的补充协议，上述协议与本规则条款相冲突的，以本规则条款为准。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "双方",
+        "conditions": [
+          "《业务服务协议》与本规则条款相冲突"
+        ],
+        "consequence": "以本规则条款为准",
+        "raw_text": "本规则作为《中国电信股份有限公司上海分公司业务服务协议》的补充协议，上述协议与本规则条款相冲突的，以本规则条款为准。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "《中国电信股份有限公司上海分公司以太专线营销套餐申请表》为本规则的组成部分，以客户签署的《申请登记表》作为确认业务需求、签署本规则及《业务服务协议》的证明。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "客户",
+        "conditions": [],
+        "consequence": "申请表作为确认业务需求和签署协议的证明",
+        "raw_text": "《中国电信股份有限公司上海分公司以太专线营销套餐申请表》（“申请登记表”）为本规则的组成部分，以客户签署的《申请登记表》作为确认业务需求、签署本规则及《中国电信股份有限公司上海分公司业务服务协议》的证明。"
+      }
+    ],
+    "eligibility_and_constraints": [
+      {
+        "name": "原资费套餐变更通知规则",
+        "description": "若中国电信上海公司不能向客户提供原资费套餐，有义务提前一个月通知客户，并重新签订新的规则。",
+        "condition": "中国电信上海公司不能向客户提供原资费套餐",
+        "result": "提前一个月通知客户，重新签订新的规则",
+        "applies_to": [
+          "资费套餐"
+        ],
+        "severity": "medium",
+        "raw_text": "若中国电信上海公司不能向客户提供原资费套餐，有义务提前一个月通知客户，重新签订新的规则。"
+      },
+      {
+        "name": "电路使用合规要求",
+        "description": "客户应按照国家法律、法规的规定及本规则约定使用电路，不得从事损害中国电信及他人合法权益的活动，不得将电路用于电信业务的经营性活动（无论是否盈利），未经中国电信上海公司书面同意，不得将电路以任何方式提供给第三方使用，也不得用于本规则约定用途以外的其他用途。",
+        "condition": "业务使用期间",
+        "result": "须遵守法律法规及规则约定，不得从事损害中国电信及他人合法权益的活动，不得将电路用于经营性活动、提供给第三方或用于约定外用途",
+        "applies_to": [
+          "电路",
+          "客户"
+        ],
+        "severity": "high",
+        "raw_text": "业务使用期间，客户应按照国家法律、法规的规定及本规则约定使用电路，在使用业务过程中不得从事损害中国电信及他人合法权益的活动，不得将电路用于电信业务的经营性活动（无论是否盈利），未经中国电信上海公司书面同意，不得将电路以任何方式提供给第三方使用，也不得用于本规则约定用途以外的其他用途。"
+      },
+      {
+        "name": "每月业务可用时间计算规则",
+        "description": "每月业务可用时间等于每月总时间占比减去每月电路不可用时间。月业务不可用时间为当月中业务中断时长的累计，不包含不可抗力等因素。",
+        "condition": "计算每月业务可用时间",
+        "result": "按公式计算，扣除不可抗力等因素外的业务中断时长",
+        "applies_to": [
+          "电路",
+          "业务可用性"
+        ],
+        "severity": "low",
+        "raw_text": "每月业务可用时间＝每月总时间占比－每月电路不可用时间 月业务不可用时间为当月中业务中断时长的累计，不包含： * 不可抗力等因素。"
+      }
+    ]
+  },
+  "supplementary_info": {
+    "product_intro": {
+      "product_name": "本地IPRAN",
+      "full_description": "依托中国电信IP RAN网络，为客户提供灵活业务接入、灵活带宽、高可靠性及端到端管理的二层以太专线产品。产品类型：普通型：中国电信提供客户站点之间的二层以太专线服务。其组网拓扑可分为点到点(透传客户以太网数据帧)和点到多点（以太网树型业务）；云网融合型：中国电信向客户提供从客户站点到云资源池站点的二层以太专线服务。产品特点：开通速度快：客户无需协调多个厂商开通；扩容成本低：增加一个云，无需物理施工建设；传输有保障：IPRAN二层电路透传，与互联网隔离，杜绝DDOS、黑客入侵；支撑能力强：一点接应。",
+      "application_scenarios": "以多云（公/私/混合云）为主的IT基础架构；行业：党政军、金融、工业制造、新零售、互联网"
+    },
+    "product_keywords": {
+      "raw_keywords": "组网形态,通达范围,性能指标,本地组网,国内组网,线路延时，带宽利用率,是否具备资源,需要多长时间开通,使用人数，应用场景,需要多少带宽,打折,月租费,一次性费用,合同协议期,协议期内拆机违约金,平均故障修复时间"
+    },
+    "pricing_info": {
+      "source_type": "pricing_sheet",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地IPRAN\\1 本地IPRAN套餐\\2 资费表.docx",
+      "one_time_fees": [
+        {
+          "name": "以太专线一次性接入费（月付）",
+          "amount": 1500.0,
+          "currency": "CNY",
+          "unit": "元/线/次",
+          "applicable_to": [
+            "月付方式"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "以太专线一次性接入费： □月付方式：1500元/线/次"
+        },
+        {
+          "name": "以太专线一次性接入费（1年付）",
+          "amount": 750.0,
+          "currency": "CNY",
+          "unit": "元/线/次",
+          "applicable_to": [
+            "1年付方式"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "□1年付方式：750元/线/次"
+        },
+        {
+          "name": "以太专线一次性接入费（2年付）",
+          "amount": 0.0,
+          "currency": "CNY",
+          "unit": "元/线/次",
+          "applicable_to": [
+            "2年付方式"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "□2年付方式：0元/线/次"
+        }
+      ],
+      "base_package_prices": [
+        {
+          "name": "4M 以太专线",
+          "speed": "4",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 1088.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "点到点(E-Line)和点到多点（E-Tree）的二层以太专线服务",
+            "瑞思康达（U1）接入终端"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "□ 4M （1088元/月）"
+        },
+        {
+          "name": "4M 以太专线",
+          "speed": "4",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 11750.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "",
+          "included_items": [
+            "点到点(E-Line)和点到多点（E-Tree）的二层以太专线服务",
+            "瑞思康达（U1）接入终端"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "□ 4M （11750元/年）"
+        },
+        {
+          "name": "4M 以太专线",
+          "speed": "4",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 20890.0,
+          "currency": "CNY",
+          "unit": "元/2年",
+          "billing_period": "2年",
+          "contract_period": "",
+          "included_items": [
+            "点到点(E-Line)和点到多点（E-Tree）的二层以太专线服务",
+            "瑞思康达（U1）接入终端"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "□ 4M （20890元/2年）"
+        },
+        {
+          "name": "10M 以太专线",
+          "speed": "10",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 2088.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "点到点(E-Line)和点到多点（E-Tree）的二层以太专线服务",
+            "瑞思康达（U1）接入终端"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "□ 10M （2088元/月）"
+        },
+        {
+          "name": "10M 以太专线",
+          "speed": "10",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 22550.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "",
+          "included_items": [
+            "点到点(E-Line)和点到多点（E-Tree）的二层以太专线服务",
+            "瑞思康达（U1）接入终端"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "□ 10M （22550元/年）"
+        },
+        {
+          "name": "10M 以太专线",
+          "speed": "10",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 40090.0,
+          "currency": "CNY",
+          "unit": "元/2年",
+          "billing_period": "2年",
+          "contract_period": "",
+          "included_items": [
+            "点到点(E-Line)和点到多点（E-Tree）的二层以太专线服务",
+            "瑞思康达（U1）接入终端"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "□ 10M （40090元/2年）"
+        },
+        {
+          "name": "20M 以太专线",
+          "speed": "20",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 3088.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "点到点(E-Line)和点到多点（E-Tree）的二层以太专线服务",
+            "瑞思康达（U1）接入终端"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "□ 20M （3088元/月）"
+        },
+        {
+          "name": "20M 以太专线",
+          "speed": "20",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 33350.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "",
+          "included_items": [
+            "点到点(E-Line)和点到多点（E-Tree）的二层以太专线服务",
+            "瑞思康达（U1）接入终端"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "□ 20M （33350元/年）"
+        },
+        {
+          "name": "20M 以太专线",
+          "speed": "20",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 59290.0,
+          "currency": "CNY",
+          "unit": "元/2年",
+          "billing_period": "2年",
+          "contract_period": "",
+          "included_items": [
+            "点到点(E-Line)和点到多点（E-Tree）的二层以太专线服务",
+            "瑞思康达（U1）接入终端"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "□ 20M （59290元/2年）"
+        },
+        {
+          "name": "50M 以太专线",
+          "speed": "50",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 6088.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "点到点(E-Line)和点到多点（E-Tree）的二层以太专线服务",
+            "瑞思康达（U1）接入终端"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "□ 50M （6088元/月）"
+        },
+        {
+          "name": "50M 以太专线",
+          "speed": "50",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 65750.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "",
+          "included_items": [
+            "点到点(E-Line)和点到多点（E-Tree）的二层以太专线服务",
+            "瑞思康达（U1）接入终端"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "□ 50M （65750元/年）"
+        },
+        {
+          "name": "50M 以太专线",
+          "speed": "50",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 116890.0,
+          "currency": "CNY",
+          "unit": "元/2年",
+          "billing_period": "2年",
+          "contract_period": "",
+          "included_items": [
+            "点到点(E-Line)和点到多点（E-Tree）的二层以太专线服务",
+            "瑞思康达（U1）接入终端"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "□ 50M （116890元/2年）"
+        },
+        {
+          "name": "100M 以太专线",
+          "speed": "100",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 10088.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "点到点(E-Line)和点到多点（E-Tree）的二层以太专线服务",
+            "瑞思康达（U1）接入终端"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "□ 100M（10088元/月）"
+        },
+        {
+          "name": "100M 以太专线",
+          "speed": "100",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 108950.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "",
+          "included_items": [
+            "点到点(E-Line)和点到多点（E-Tree）的二层以太专线服务",
+            "瑞思康达（U1）接入终端"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "□ 100M（108950元/年）"
+        },
+        {
+          "name": "100M 以太专线",
+          "speed": "100",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 193690.0,
+          "currency": "CNY",
+          "unit": "元/2年",
+          "billing_period": "2年",
+          "contract_period": "",
+          "included_items": [
+            "点到点(E-Line)和点到多点（E-Tree）的二层以太专线服务",
+            "瑞思康达（U1）接入终端"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "□ 100M（193690元/2年）"
+        }
+      ],
+      "addon_prices": [
+        {
+          "name": "政企客户差异化服务（SLA）AAA级",
+          "category": "增值服务",
+          "spec": "可用率指标为99.99%",
+          "price": null,
+          "currency": "CNY",
+          "unit": "电路使用费的50%",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "□ AAA级，可用率指标为99.99% 电路使用费的50%"
+        },
+        {
+          "name": "政企客户差异化服务（SLA）AA级",
+          "category": "增值服务",
+          "spec": "可用率指标为99.95%",
+          "price": null,
+          "currency": "CNY",
+          "unit": "电路使用费的30%",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "□ AA级：可用率指标为99.95% 电路使用费的30%"
+        },
+        {
+          "name": "政企客户差异化服务（SLA）A级",
+          "category": "增值服务",
+          "spec": "可用率指标为99.9%",
+          "price": null,
+          "currency": "CNY",
+          "unit": "电路使用费的20%",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "□ A级：可用率指标为99.9% 电路使用费的20%"
+        }
+      ],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "application_materials": []
+  },
+  "extraction_meta": {
+    "generated_at": "2026-06-23T15:44:23",
+    "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地IPRAN\\1 本地IPRAN套餐",
+    "method": "llm_schema_module_extraction_no_normalization",
+    "validation_issues": [
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.one_time_fees[0]",
+        "message": "与补充资费表重复，按来源优先级保留资费表记录"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.one_time_fees[1]",
+        "message": "与补充资费表重复，按来源优先级保留资费表记录"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.one_time_fees[2]",
+        "message": "与补充资费表重复，按来源优先级保留资费表记录"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[0]",
+        "message": "与补充资费表重复，按来源优先级保留资费表记录"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[2]",
+        "message": "与补充资费表重复，按来源优先级保留资费表记录"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[3]",
+        "message": "与补充资费表重复，按来源优先级保留资费表记录"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[5]",
+        "message": "与补充资费表重复，按来源优先级保留资费表记录"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[6]",
+        "message": "与补充资费表重复，按来源优先级保留资费表记录"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[8]",
+        "message": "与补充资费表重复，按来源优先级保留资费表记录"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[9]",
+        "message": "与补充资费表重复，按来源优先级保留资费表记录"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[11]",
+        "message": "与补充资费表重复，按来源优先级保留资费表记录"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[12]",
+        "message": "与补充资费表重复，按来源优先级保留资费表记录"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[14]",
+        "message": "与补充资费表重复，按来源优先级保留资费表记录"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.addon_prices[0]",
+        "message": "与补充资费表重复，按来源优先级保留资费表记录"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.addon_prices[1]",
+        "message": "与补充资费表重复，按来源优先级保留资费表记录"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.addon_prices[2]",
+        "message": "与补充资费表重复，按来源优先级保留资费表记录"
+      }
+    ],
+    "validation_issue_count": 16
+  }
+}

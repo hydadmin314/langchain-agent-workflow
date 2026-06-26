@@ -1,0 +1,1311 @@
+{
+  "application_form_info": {
+    "document_info": {
+      "document_id": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\联通业务\\沃专线\\4 申请表_中国联通互联网专线接入业务（沃专线类）新装申请表.pdf",
+      "product_name": "",
+      "carrier": "",
+      "version": "",
+      "effective_date": "",
+      "document_status": ""
+    },
+    "parties_and_application": {
+      "agent": {
+        "agent_name": "",
+        "sales_name": "",
+        "sales_contact": ""
+      },
+      "customer": {
+        "name": "",
+        "filled_values": [],
+        "is_blank_form": true
+      },
+      "application_fields": {
+        "required": [
+          {
+            "label": "客户名称",
+            "field_key": "customer_name",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*客户名称"
+          },
+          {
+            "label": "客户证件地址",
+            "field_key": "customer_cert_address",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "客户证件地址"
+          },
+          {
+            "label": "客户证件类型",
+            "field_key": "customer_cert_type",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*客户证件类型"
+          },
+          {
+            "label": "客户证件号码",
+            "field_key": "customer_cert_number",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*客户证件号码"
+          },
+          {
+            "label": "经办人姓名",
+            "field_key": "agent_name",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*经办人姓名"
+          },
+          {
+            "label": "联系电话",
+            "field_key": "contact_phone",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*联系电话"
+          },
+          {
+            "label": "经办人证件类型",
+            "field_key": "agent_cert_type",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*经办人证件类型"
+          },
+          {
+            "label": "经办人证件号码",
+            "field_key": "agent_cert_number",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*经办人证件号码"
+          },
+          {
+            "label": "账单地址",
+            "field_key": "billing_address",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*账单地址"
+          },
+          {
+            "label": "邮编",
+            "field_key": "postal_code",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*邮编"
+          },
+          {
+            "label": "收件人",
+            "field_key": "recipient",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*收件人"
+          },
+          {
+            "label": "收件人联系电话",
+            "field_key": "recipient_phone",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*收件人联系电话"
+          },
+          {
+            "label": "客户经理",
+            "field_key": "account_manager",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*客户经理"
+          },
+          {
+            "label": "填单人员",
+            "field_key": "order_filler",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*填单人员"
+          },
+          {
+            "label": "归属部门",
+            "field_key": "department",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*归属部门"
+          },
+          {
+            "label": "现场联系人名称",
+            "field_key": "onsite_contact_name",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*现场联系人名称 On-site Contact"
+          },
+          {
+            "label": "现场联系人电话",
+            "field_key": "onsite_contact_phone",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*现场联系人电话 On-site Telephone"
+          }
+        ],
+        "optional": [
+          {
+            "label": "电子邮件",
+            "field_key": "email",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "电子邮件"
+          },
+          {
+            "label": "客户自带",
+            "field_key": "customer_provided",
+            "required": false,
+            "value": null,
+            "options": [
+              "□客户自带"
+            ],
+            "value_type": "checkbox",
+            "raw_text": "□客户自带"
+          },
+          {
+            "label": "IPv4 地址",
+            "field_key": "ipv4_address",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "IPv4 地址 IPv4 Address"
+          }
+        ]
+      },
+      "application_notes": []
+    },
+    "pricing_info": {
+      "source_type": "application_form",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\联通业务\\沃专线\\4 申请表_中国联通互联网专线接入业务（沃专线类）新装申请表.pdf",
+      "one_time_fees": [
+        {
+          "name": "一次性费用",
+          "amount": null,
+          "currency": "CNY",
+          "unit": "元",
+          "applicable_to": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "一次性费用 ￥ 元"
+        }
+      ],
+      "base_package_prices": [
+        {
+          "name": "数据基本月租费",
+          "speed": "",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "",
+          "has_voice": null,
+          "price": null,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "数据基本月租费 ￥ 元/"
+        },
+        {
+          "name": "接入电路使用费",
+          "speed": "",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "",
+          "has_voice": null,
+          "price": null,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "接入电路使用费￥ 元/"
+        },
+        {
+          "name": "IP 地址月租费",
+          "speed": "",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "",
+          "has_voice": null,
+          "price": null,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "IP 地址月租费 ￥ 元/"
+        },
+        {
+          "name": "域名服务费",
+          "speed": "",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "",
+          "has_voice": null,
+          "price": null,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "域名服务费 ￥ 元/"
+        }
+      ],
+      "addon_prices": [],
+      "fee_and_term_rules": [
+        {
+          "name": "预付款",
+          "category": "",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "CNY",
+          "unit": "元",
+          "period": "",
+          "formula": "",
+          "conditions": [],
+          "description": "",
+          "raw_text": "预付款： 元"
+        }
+      ],
+      "discount_policy": []
+    },
+    "agreement_rules": [
+      {
+        "rule_type": "restriction",
+        "description": "甲方应遵守国家相关的法律、法规，不得利用租用乙方的服务从事损害国家网络信息安全的行为",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "甲方有违反此条规定的行为发生"
+        ],
+        "consequence": "乙方有权立即终止对甲方的服务，由此造成的一切损失由甲方承担",
+        "raw_text": "四、甲方应遵守国家相关的法律、法规，不得利用租用乙方的服务从事损害国家网络信息安全的行为，若甲方有违反此条规定的行为发生，乙方有权立即终止对甲方的服务，由此造成的一切损失由甲方承担；"
+      },
+      {
+        "rule_type": "termination",
+        "description": "乙方有权立即停止向甲方提供服务并追回所有拖欠费用，由此造成的一切后果均由甲方承担，同时，甲方应当向乙方按照中国联通互联网专线接入业务（沃专线类）标准资费支付自开通之日到发现上述行为之日的月租之和作为违约金",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "甲方有违反国家相关法律、法规，利用租用乙方的服务从事损害国家网络信息安全的行为"
+        ],
+        "consequence": "乙方有权立即停止向甲方提供服务并追回所有拖欠费用，由此造成的一切后果均由甲方承担，同时，甲方应当向乙方按照中国联通互联网专线接入业务（沃专线类）标准资费支付自开通之日到发现上述行为之日的月租之和作为违约金",
+        "raw_text": "否则，乙方有权立即停止向甲方提供服务并追回所有拖欠费用，由此造成的一切后果均由甲方承担，同时，甲方应当向乙方按照中国联通互联网专线接入业务（沃专线类）标准资费支付自开通之日到发现上述行为之日的月租之和作为违约金。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "甲方逾期未支付通信费用，乙方有权要求其补缴费用，并按照所欠费用每日加收3‰的违约金",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "甲方逾期未支付通信费用"
+        ],
+        "consequence": "乙方有权要求其补缴费用，并按照所欠费用每日加收3‰的违约金",
+        "raw_text": "遵照《中华人民共和国电信条例》的规定，甲方逾期未支付通信费用，乙方有权要求其补缴费用，并按照所欠费用每日加收3‰的违约金。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "甲方逾期未支付通信费用超过30日，乙方有权暂停服务",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "甲方逾期未支付通信费用超过30日"
+        ],
+        "consequence": "乙方有权暂停服务",
+        "raw_text": "甲方逾期未支付通信费用超过30日，乙方有权暂停服务。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "甲方逾期未支付通信费用超过90日的，乙方有权终止服务，并有权依法追缴欠费和违约金",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "甲方逾期未支付通信费用超过90日"
+        ],
+        "consequence": "乙方有权终止服务，并有权依法追缴欠费和违约金",
+        "raw_text": "甲方逾期未支付通信费用超过90日的，乙方有权终止服务，并有权依法追缴欠费和违约金。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "乙方亦有权决定不在前述时间点（但不少于前述时间）行使暂停服务或终止服务的权利；如乙方未在前述时间点行使停机的权利，乙方有权依据实际停机的时间，主张甲方欠费期间的全部通信费及违约金，甲方不得以乙方有权停机而未停机作为拒绝支付通信费的理由",
+        "severity": "",
+        "applies_to": [
+          "乙方"
+        ],
+        "obligation_party": "乙方",
+        "conditions": [
+          "乙方未在前述时间点行使停机的权利"
+        ],
+        "consequence": "乙方有权依据实际停机的时间，主张甲方欠费期间的全部通信费及违约金，甲方不得以乙方有权停机而未停机作为拒绝支付通信费的理由",
+        "raw_text": "乙方亦有权决定不在前述时间点（但不少于前述时间）行使暂停服务或终止服务（以下合称：停机）的权利；如乙方（未在前述时间点行使停机的权利，乙方有权依据实际停机的时间，主张甲方欠费期间的全部通信费及违约金，甲方不得以乙方有权停机而未停机作为拒绝支付通信费的理由；"
+      },
+      {
+        "rule_type": "termination",
+        "description": "如果甲方终止该协议，须提前30天书面提出协议终止申请。甲方协议终止当月的月度使用费按照全月使用费收取",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "甲方终止该协议"
+        ],
+        "consequence": "须提前30天书面提出协议终止申请，协议终止当月的月度使用费按照全月使用费收取",
+        "raw_text": "九、如果甲方终止该协议，须提前30天书面提出协议终止申请。甲方协议终止当月的月度使用费按照全月使用费收取。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "如果甲方签约享受了乙方提供的折扣和/或优惠（包括促销和预付方式），并已承诺合同期限，甲方在合同期限内原则上可以申请移机，但不得申请终止服务、停机保号、变更付费方式、降低速率等可能导致原合同签订金额下降的服务",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "甲方签约享受了乙方提供的折扣和/或优惠（包括促销和预付方式），并已承诺合同期限"
+        ],
+        "consequence": "甲方在合同期限内原则上可以申请移机，但不得申请终止服务、停机保号、变更付费方式、降低速率等可能导致原合同签订金额下降的服务",
+        "raw_text": "如果甲方签约享受了乙方提供的折扣和/或优惠（包括促销和预付方式），并已承诺合同期限，甲方在合同期限内原则上可以申请移机，但不得申请终止服务、停机保号、变更付费方式、降低速率等可能导致原合同签订金额下降的服务【注：“合同期限”自业务开通当月开始，至到期自然月最后一天终止】。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "甲方用于经营IDC、ISP、CDN等业务时需提供增值电信业务经营许可证（附经营范围、年检情况记录表），甲方不得擅自改变使用用途，甲方变更使用用途时，应及时以书面方式告知乙方，否则乙方有权终止协议，并对此不承担任何责任",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "甲方",
+        "conditions": [
+          "甲方用于经营IDC、ISP、CDN等业务",
+          "甲方擅自改变使用用途或变更使用用途时未及时以书面方式告知乙方"
+        ],
+        "consequence": "乙方有权终止协议，并对此不承担任何责任",
+        "raw_text": "十、甲方用于经营IDC、ISP、CDN等业务时需提供增值电信业务经营许可证（附经营范围、年检情况记录表），甲方不得擅自改变使用用途，甲方变更使用用途时，应及时以书面方式告知乙方，否则乙方有权终止协议，并对此不承担任何责任。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "甲乙双方对本协议的具体内容负有保密责任。未经对方事先书面同意，任何一方不得将双方的合作及本协议的具体内容披露给任何第三方",
+        "severity": "",
+        "applies_to": [
+          "甲方",
+          "乙方"
+        ],
+        "obligation_party": "双方",
+        "conditions": [
+          "未经对方事先书面同意"
+        ],
+        "consequence": "如果一方违约，遵守协议的一方应有权通过有关法律程序或有关政府部门的行政程序获得补偿。如果有需要通过法院或行政程序强制执行本协议的任何条款，胜诉方应有权被判定获得合理和必要的诉讼费用的赔偿，包括合理的律师费",
+        "raw_text": "十三、甲乙双方对本协议的具体内容负有保密责任。未经对方事先书面同意，任何一方不得将双方的合作及本协议的具体内容披露给任何第三方。如果一方违约，遵守协议的一方应有权通过有关法律程序或有关政府部门的行政程序获得补偿。如果有需要通过法院或行政程序强制执行本协议的任何条款，胜诉方应有权被判定获得合理和必要的诉讼费用的赔偿，包括合理的律师费。"
+      },
+      {
+        "rule_type": "after_sales",
+        "description": "因本协议而发生的争议，双方应首先通过友好协商解决争议",
+        "severity": "",
+        "applies_to": [
+          "甲方",
+          "乙方"
+        ],
+        "obligation_party": "双方",
+        "conditions": [
+          "因本协议而发生的争议"
+        ],
+        "consequence": "双方应首先通过友好协商解决争议",
+        "raw_text": "十七、因本协议而发生的争议，双方应首先通过友好协商解决争议。"
+      }
+    ],
+    "eligibility_and_constraints": [
+      {
+        "name": "禁止转让或转售/出租",
+        "description": "甲方未经乙方书面同意，不得将中国联通互联网专线接入业务转让、出售或出租给第三方。",
+        "condition": "甲方拟转让、出售或出租中国联通互联网专线接入业务。",
+        "result": "未经乙方同意不得实施转让、出售或出租行为。",
+        "applies_to": [
+          "中国联通互联网专线接入业务",
+          "甲方"
+        ],
+        "severity": "high",
+        "raw_text": "甲方未经乙方同意不得转让或出售/出租中国联通互联网专线接入业务。"
+      },
+      {
+        "name": "增值电信业务经营许可证要求",
+        "description": "甲方用于经营IDC、ISP、CDN等业务时，需提供增值电信业务经营许可证（附经营范围、年检情况记录表），且不得擅自改变使用用途。变更用途须书面告知乙方，否则乙方有权终止协议且不承担责任。",
+        "condition": "甲方将专线用于经营IDC、ISP、CDN等业务，或拟变更使用用途。",
+        "result": "需提供增值电信业务经营许可证及相关材料；变更用途须书面告知乙方，否则乙方有权终止协议。",
+        "applies_to": [
+          "甲方",
+          "IDC业务",
+          "ISP业务",
+          "CDN业务"
+        ],
+        "severity": "critical",
+        "raw_text": "甲方用于经营IDC、ISP、CDN等业务时需提供增值电信业务经营许可证（附经营范围、年检情况记录表），甲方不得擅自改变使用用途，甲方变更使用用途时，应及时以书面方式告知乙方，否则乙方有权终止协议，并对此不承担任何责任。"
+      },
+      {
+        "name": "保密义务",
+        "description": "未经对方事先书面同意，任何一方不得将双方的合作及本协议的具体内容披露给任何第三方。",
+        "condition": "任何一方拟向第三方披露双方合作或协议具体内容。",
+        "result": "须事先取得对方书面同意，否则不得披露。",
+        "applies_to": [
+          "甲方",
+          "乙方",
+          "合作协议",
+          "协议内容"
+        ],
+        "severity": "high",
+        "raw_text": "未经对方事先书面同意，任何一方不得将双方的合作及本协议的具体内容披露给任何第三方。"
+      },
+      {
+        "name": "不可抗力免责",
+        "description": "因不可抗力（包括严重自然灾害、政府行为、第三方电路故障等）造成的线路中断或系统无法正常工作，导致甲方通信中断而造成的损失，乙方不承担任何责任。双方应努力减小不可抗力造成的损失。",
+        "condition": "发生不可抗力事件，包括严重自然灾害、政府行为、第三方电路故障等，导致线路中断或系统无法正常工作。",
+        "result": "乙方对因此造成的甲方通信中断损失不承担任何责任。",
+        "applies_to": [
+          "乙方",
+          "甲方",
+          "线路中断",
+          "系统故障"
+        ],
+        "severity": "medium",
+        "raw_text": "因不可抗力造成的线路中断或无法保证系统正常工作，而导致甲方通信中断而造成的损失，乙方不承担任何责任。“不可抗力事件”包括严重自然灾害、政府行为、第三方电路故障等不可抗拒的事件。甲乙双方应努力减小不可抗力造成的损失。"
+      }
+    ]
+  },
+  "supplementary_info": {
+    "product_intro": {
+      "product_name": "沃专线",
+      "full_description": "全程物理独享光纤 FTTO/OTN 硬管道，独立纤芯、独立板卡端口，直接上联联通CNCNet 精品核心骨干网，不经过楼宇共享交换机、无带宽争抢，全链路硬件隔离，提供标准化 SLA 服务保障协议。是联通政企最高等级互联网接入产品。",
+      "application_scenarios": "集团总部、上市企业、金融机构百人以上大型办公，多分支机构全国组网，核心 ERP、财务系统、内网数据外网访问，零中断办公刚需；IDC 机房、服务器集群、云服务商自建多台官网、企业邮箱、数据库、游戏/直播服务器集群，需要大量公网 IP、大带宽上行、稳定推流、7×24 小时在线；跨国外贸、跨境电商、涉外企业对接海外独立站、亚马逊、海外云服务器、跨国视频会议，标配国际精品出口，降低跨境延迟与丢包；产业园独栋厂房、研发中心、影视渲染基地超大文件上传下载、4K/8K 远程渲染、多终端高并发，长期大流量占用，拒绝共享带宽卡顿；连锁集团总部（全国门店统一管理）上千家门店 VPN 组网、收银数据实时回传、全国监控集中存储，双路由保障不中断。"
+    },
+    "product_keywords": {
+      "raw_keywords": "沃专线、精品 DIA 专线、金牌互联网专线、联通高端独享专线、OTN 硬管道专线、CNCNet 精品专线、全程物理独享、OTN 全光传输、独立纤芯隔离、上下行对称、双路由冗余备份、99.99% 高可用、2 小时故障上门、SLA 服务等级协议、低时延低丢包、骨干核心层直连、批量静态公网 IP、最高 256 个公网 IP、网段分配、域名反向解析、服务器集群部署、IDC 机房对接、多外网业务承载、是联通政企最高等级互联网接入产品。"
+    },
+    "pricing_info": {
+      "source_type": "pricing_sheet",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\联通业务\\沃专线\\2 资费表.xlsx",
+      "one_time_fees": [
+        {
+          "name": "初装费",
+          "amount": 3000.0,
+          "currency": "CNY",
+          "unit": "元/次",
+          "applicable_to": [
+            "月付用户"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "月付 3000"
+        },
+        {
+          "name": "开户费",
+          "amount": 100.0,
+          "currency": "CNY",
+          "unit": "元/次",
+          "applicable_to": [
+            "月付用户"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "月付 100"
+        },
+        {
+          "name": "承诺在网优惠初装费",
+          "amount": 0.0,
+          "currency": "CNY",
+          "unit": "元/次",
+          "applicable_to": [
+            "月付用户"
+          ],
+          "conditions": [
+            "承诺在网"
+          ],
+          "description": "",
+          "raw_text": "月付 0"
+        },
+        {
+          "name": "楼内移机费",
+          "amount": 100.0,
+          "currency": "CNY",
+          "unit": "元/次",
+          "applicable_to": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "楼内移机费：元/次 100"
+        },
+        {
+          "name": "楼外移机费",
+          "amount": 300.0,
+          "currency": "CNY",
+          "unit": "元/次",
+          "applicable_to": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "楼外移机费：元/次 300"
+        }
+      ],
+      "base_package_prices": [
+        {
+          "name": "静态路由接入-10M",
+          "speed": "10M",
+          "upstream_speed": "10M",
+          "downstream_speed": "10M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 2400.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "免费提供IP地址数量4-16个"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "10M 2400 优惠价（8折） 1920 免费提供IP地址数量（个） 4--16 最多可申请IP地址数量（个） 32"
+        },
+        {
+          "name": "静态路由接入-20M",
+          "speed": "20M",
+          "upstream_speed": "20M",
+          "downstream_speed": "20M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 4857.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "免费提供IP地址数量4-16个"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "20M 4857 优惠价（8折） 3885.6 免费提供IP地址数量（个） 4--16 最多可申请IP地址数量（个） 32"
+        },
+        {
+          "name": "静态路由接入-30M",
+          "speed": "30M",
+          "upstream_speed": "30M",
+          "downstream_speed": "30M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 7314.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "免费提供IP地址数量4-16个"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "30M 7314 优惠价（8折） 5851.2 免费提供IP地址数量（个） 4--16 最多可申请IP地址数量（个） 32"
+        },
+        {
+          "name": "静态路由接入-40M",
+          "speed": "40M",
+          "upstream_speed": "40M",
+          "downstream_speed": "40M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 9771.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "免费提供IP地址数量4-16个"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "40M 9771 优惠价（8折） 7816.8 免费提供IP地址数量（个） 4--16 最多可申请IP地址数量（个） 32"
+        },
+        {
+          "name": "静态路由接入-45M",
+          "speed": "45M",
+          "upstream_speed": "45M",
+          "downstream_speed": "45M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 13050.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "免费提供IP地址数量4-16个"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "45M 13050 优惠价（8折） 10440 免费提供IP地址数量（个） 4--16 最多可申请IP地址数量（个） 32"
+        },
+        {
+          "name": "静态路由接入-50M",
+          "speed": "50M",
+          "upstream_speed": "50M",
+          "downstream_speed": "50M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 11973.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "免费提供IP地址数量4-16个"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "50M 11973 优惠价（8折） 9578.4 免费提供IP地址数量（个） 4--16 最多可申请IP地址数量（个） 32"
+        },
+        {
+          "name": "静态路由接入-60M",
+          "speed": "60M",
+          "upstream_speed": "60M",
+          "downstream_speed": "60M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 13918.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "免费提供IP地址数量4-16个"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "60M 13918 优惠价（8折） 11134.4 免费提供IP地址数量（个） 4--16 最多可申请IP地址数量（个） 32"
+        },
+        {
+          "name": "静态路由接入-70M",
+          "speed": "70M",
+          "upstream_speed": "70M",
+          "downstream_speed": "70M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 15864.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "免费提供IP地址数量4-16个"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "70M 15864 优惠价（8折） 12691.2 免费提供IP地址数量（个） 4--16 最多可申请IP地址数量（个） 32"
+        },
+        {
+          "name": "静态路由接入-80M",
+          "speed": "80M",
+          "upstream_speed": "80M",
+          "downstream_speed": "80M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 17809.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "免费提供IP地址数量4-16个"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "80M 17809 优惠价（8折） 14247.2 免费提供IP地址数量（个） 4--16 最多可申请IP地址数量（个） 32"
+        },
+        {
+          "name": "静态路由接入-90M",
+          "speed": "90M",
+          "upstream_speed": "90M",
+          "downstream_speed": "90M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 19755.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "免费提供IP地址数量4-16个"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "90M 19755 优惠价（8折） 15804 免费提供IP地址数量（个） 4--16 最多可申请IP地址数量（个） 32"
+        },
+        {
+          "name": "静态路由接入-100M",
+          "speed": "100M",
+          "upstream_speed": "100M",
+          "downstream_speed": "100M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 21700.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "免费提供IP地址数量4-32个"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "100M 21700 优惠价（8折） 17360 免费提供IP地址数量（个） 4--32 最多可申请IP地址数量（个） 64"
+        },
+        {
+          "name": "静态路由接入-200M",
+          "speed": "200M",
+          "upstream_speed": "200M",
+          "downstream_speed": "200M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 41500.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "免费提供IP地址数量4-32个"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "200M 41500 优惠价（8折） 33200 免费提供IP地址数量（个） 4--32 最多可申请IP地址数量（个） 128"
+        },
+        {
+          "name": "静态路由接入-500M",
+          "speed": "500M",
+          "upstream_speed": "500M",
+          "downstream_speed": "500M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 101000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "免费提供IP地址数量4-64个"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "500M 101000 优惠价（8折） 80800 免费提供IP地址数量（个） 4-64 最多可申请IP地址数量（个） 128"
+        },
+        {
+          "name": "静态路由接入-1G",
+          "speed": "1G",
+          "upstream_speed": "1G",
+          "downstream_speed": "1G",
+          "bandwidth_unit": "Gbps",
+          "has_voice": null,
+          "price": 192500.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "免费提供IP地址数量4-128个"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "1G 192500 优惠价（8折） 154000 免费提供IP地址数量（个） 4--128 最多可申请IP地址数量（个） 256"
+        },
+        {
+          "name": "静态路由接入-2.5G",
+          "speed": "2.5G",
+          "upstream_speed": "2.5G",
+          "downstream_speed": "2.5G",
+          "bandwidth_unit": "Gbps",
+          "has_voice": null,
+          "price": 442900.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "免费提供IP地址数量4-128个"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "2.5G 442900 优惠价（8折） 354320 免费提供IP地址数量（个） 4--128 最多可申请IP地址数量（个） 256"
+        },
+        {
+          "name": "静态路由接入-10G",
+          "speed": "10G",
+          "upstream_speed": "10G",
+          "downstream_speed": "10G",
+          "bandwidth_unit": "Gbps",
+          "has_voice": null,
+          "price": 1694600.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "免费提供IP地址数量4-256个"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "10 G 1694600 优惠价（8折） 1355680 免费提供IP地址数量（个） 4-256 最多可申请IP地址数量（个） 512"
+        },
+        {
+          "name": "BGP路由接入-10M-全穿透",
+          "speed": "10M",
+          "upstream_speed": "10M",
+          "downstream_speed": "10M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 6500.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "10M 全穿透 6500"
+        },
+        {
+          "name": "BGP路由接入-10M-国内穿透",
+          "speed": "10M",
+          "upstream_speed": "10M",
+          "downstream_speed": "10M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 3900.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "10M 国内穿透 3900"
+        },
+        {
+          "name": "BGP路由接入-10M-非穿透",
+          "speed": "10M",
+          "upstream_speed": "10M",
+          "downstream_speed": "10M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 3500.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "10M 非穿透 3500"
+        },
+        {
+          "name": "BGP路由接入-45M-全穿透",
+          "speed": "45M",
+          "upstream_speed": "45M",
+          "downstream_speed": "45M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 27000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "45M 全穿透 27000"
+        },
+        {
+          "name": "BGP路由接入-45M-国内穿透",
+          "speed": "45M",
+          "upstream_speed": "45M",
+          "downstream_speed": "45M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 16000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "45M 国内穿透 16000"
+        },
+        {
+          "name": "BGP路由接入-45M-非穿透",
+          "speed": "45M",
+          "upstream_speed": "45M",
+          "downstream_speed": "45M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 14000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "45M 非穿透 14000"
+        },
+        {
+          "name": "BGP路由接入-100M-全穿透",
+          "speed": "100M",
+          "upstream_speed": "100M",
+          "downstream_speed": "100M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 57000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "100M 全穿透 57000"
+        },
+        {
+          "name": "BGP路由接入-100M-国内穿透",
+          "speed": "100M",
+          "upstream_speed": "100M",
+          "downstream_speed": "100M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 34000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "100M 国内穿透 34000"
+        },
+        {
+          "name": "BGP路由接入-100M-非穿透",
+          "speed": "100M",
+          "upstream_speed": "100M",
+          "downstream_speed": "100M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 31000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "100M 非穿透 31000"
+        },
+        {
+          "name": "BGP路由接入-500M-全穿透",
+          "speed": "500M",
+          "upstream_speed": "500M",
+          "downstream_speed": "500M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 270000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "500M 全穿透 270000"
+        },
+        {
+          "name": "BGP路由接入-500M-国内穿透",
+          "speed": "500M",
+          "upstream_speed": "500M",
+          "downstream_speed": "500M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 160000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "500M 国内穿透 160000"
+        },
+        {
+          "name": "BGP路由接入-500M-非穿透",
+          "speed": "500M",
+          "upstream_speed": "500M",
+          "downstream_speed": "500M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 140000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "500M 非穿透 140000"
+        },
+        {
+          "name": "BGP路由接入-1G-全穿透",
+          "speed": "1G",
+          "upstream_speed": "1G",
+          "downstream_speed": "1G",
+          "bandwidth_unit": "Gbps",
+          "has_voice": null,
+          "price": 510000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "1G 全穿透 510000"
+        },
+        {
+          "name": "BGP路由接入-1G-国内穿透",
+          "speed": "1G",
+          "upstream_speed": "1G",
+          "downstream_speed": "1G",
+          "bandwidth_unit": "Gbps",
+          "has_voice": null,
+          "price": 300000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "1G 国内穿透 300000"
+        },
+        {
+          "name": "BGP路由接入-1G-非穿透",
+          "speed": "1G",
+          "upstream_speed": "1G",
+          "downstream_speed": "1G",
+          "bandwidth_unit": "Gbps",
+          "has_voice": null,
+          "price": 270000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "1G 非穿透 270000"
+        }
+      ],
+      "addon_prices": [
+        {
+          "name": "付费IPv4地址",
+          "category": "IP地址",
+          "spec": "1个",
+          "price": 50.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "付费 IPv4 地址数量 1 收费（元/月） 50"
+        },
+        {
+          "name": "付费IPv6地址段/64",
+          "category": "IP地址",
+          "spec": "/64",
+          "price": 50.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "付费 IPv6 地址段前缀位数 /64 收费（元/月） 50"
+        },
+        {
+          "name": "付费IPv6地址段/60",
+          "category": "IP地址",
+          "spec": "/60",
+          "price": 800.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "付费 IPv6 地址段前缀位数 /60 收费（元/月） 800"
+        },
+        {
+          "name": "付费IPv6地址段/56",
+          "category": "IP地址",
+          "spec": "/56",
+          "price": 6400.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "付费 IPv6 地址段前缀位数 /56 收费（元/月） 6400"
+        },
+        {
+          "name": "付费IPv6地址段/52",
+          "category": "IP地址",
+          "spec": "/52",
+          "price": 25600.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "付费 IPv6 地址段前缀位数 /52 收费（元/月） 25600"
+        },
+        {
+          "name": "付费IPv6地址段/48",
+          "category": "IP地址",
+          "spec": "/48",
+          "price": 51200.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "付费 IPv6 地址段前缀位数 /48 收费（元/月） 51200"
+        }
+      ],
+      "fee_and_term_rules": [],
+      "discount_policy": [
+        {
+          "name": "静态路由接入优惠价",
+          "category": "折扣",
+          "applicable_to": [
+            "静态路由接入"
+          ],
+          "standard_price": null,
+          "discount_rate": 0.8,
+          "discounted_price": null,
+          "currency": "CNY",
+          "unit": "元/月",
+          "conditions": [],
+          "description": "网络使用费8折优惠",
+          "raw_text": "优惠价（8折）"
+        }
+      ]
+    },
+    "application_materials": []
+  },
+  "extraction_meta": {
+    "generated_at": "2026-06-24T16:17:58",
+    "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\联通业务\\沃专线",
+    "method": "llm_schema_module_extraction_no_normalization",
+    "validation_issues": [
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[0].speed",
+        "message": "基础套餐缺少速率"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[1].speed",
+        "message": "基础套餐缺少速率"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[2].speed",
+        "message": "基础套餐缺少速率"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[3].speed",
+        "message": "基础套餐缺少速率"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.document_info",
+        "message": "申请表基本信息基本为空，可能是切块或文档转换质量不足"
+      }
+    ],
+    "validation_issue_count": 5
+  }
+}

@@ -1,0 +1,1936 @@
+{
+  "application_form_info": {
+    "document_info": {
+      "document_id": "",
+      "source_file": "E:\\GitHub\\产品数据\\组网\\电信\\本地国内MSTP\\4 申请表_转定用的大客户需求表.doc",
+      "product_name": "",
+      "carrier": "",
+      "version": "",
+      "effective_date": "",
+      "document_status": null
+    },
+    "parties_and_application": {
+      "agent": {
+        "agent_name": "",
+        "sales_name": "",
+        "sales_contact": ""
+      },
+      "customer": {
+        "name": "",
+        "filled_values": [],
+        "is_blank_form": true
+      },
+      "application_fields": {
+        "required": [],
+        "optional": [
+          {
+            "label": "联系人",
+            "field_key": "contact_person",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "联 系 人"
+          },
+          {
+            "label": "联系电话",
+            "field_key": "phone_number",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "联系电话"
+          },
+          {
+            "label": "E-MAIL",
+            "field_key": "email",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "E-MAIL"
+          },
+          {
+            "label": "个人客标",
+            "field_key": "customer_label",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "个人 客标"
+          },
+          {
+            "label": "账单地址",
+            "field_key": "billing_address",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "",
+            "raw_text": "账单地址"
+          }
+        ]
+      },
+      "application_notes": []
+    },
+    "pricing_info": {
+      "source_type": "application_form",
+      "source_file": "E:\\GitHub\\产品数据\\组网\\电信\\本地国内MSTP\\4 申请表_转定用的大客户需求表.doc",
+      "one_time_fees": [],
+      "base_package_prices": [
+        {
+          "name": "MSTP",
+          "speed": "",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "",
+          "has_voice": null,
+          "price": null,
+          "currency": "",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "**☑**MSTP **√**月付 月租费：________元 容量（____根____M MSTP）"
+        }
+      ],
+      "addon_prices": [],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "agreement_rules": [],
+    "eligibility_and_constraints": []
+  },
+  "supplementary_info": {
+    "product_intro": {
+      "product_name": "本地国内MSTP",
+      "full_description": "MSTP业务利用先进的多业务光传输综合平台，利用灵活的光传输技术，可以将以太网、 IP、宽带业务整合在一起，经济有效地提供各种数据服务和不同的服务类别，无缝实现了光传输网、TDM 网络及数据网的融合。基于 SDH 的 MSTP 主要以提供以太网透明传输业务为主，MSTP业务主要有以功能有：1. 以太网业务的接入功能 MSTP上提供的以太网10/100/1000Mbit/s接口，用户端设备可采用以太接口上连至MSTP 接入设备，节省了用户端设备的投资和端口投资，符合通信 IP 化的发展趋势。2. 具有以太网业务的透明传送功能 MSTP 可以满足各种带宽的需求，可提供 N*2M、N*155M 以及其它定制带宽的互联业务， 极大的方便了用户的带宽扩展和提速。MSTP业务可实现点到点或点到多点灵活的组网方式，方便用户构建自己的企业网。3. 具有独享的带宽保证和安全性保证 MSTP 基于二层透传，为用户提供与 SDH 相同的高安全性保证，同时又具有比SDH 更好的灵活性及扩展性。",
+      "application_scenarios": "['企业可使用 MSTP 专线作为广域网组成自己的企业网络，实现企业内部关键生产业务、 办公自动化业务、语音、视频等综合业务的传输。', '票务系统', '银行、证券等金融系统', '物流系统', '企业专网']"
+    },
+    "product_keywords": {
+      "raw_keywords": "点对点组网,本地组网,国内组网,线路延时，带宽利用率,是否具备资源,需要多长时间开通,使用人数，应用场景,需要多少带宽,打折,月租费,一次性费用,合同协议期,协议期内拆机违约金"
+    },
+    "pricing_info": {
+      "source_type": "pricing_sheet",
+      "source_file": "E:\\GitHub\\产品数据\\组网\\电信\\本地国内MSTP\\2 资费表.xlsx",
+      "one_time_fees": [
+        {
+          "name": "本地MSTP(有资源)",
+          "amount": 1500.0,
+          "currency": "CNY",
+          "unit": "",
+          "applicable_to": [
+            "本地MSTP"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "有资源 | 1500"
+        },
+        {
+          "name": "本地MSTP(无资源)",
+          "amount": 1500.0,
+          "currency": "CNY",
+          "unit": "",
+          "applicable_to": [
+            "本地MSTP"
+          ],
+          "conditions": [],
+          "description": "",
+          "raw_text": "无资源 | 1500"
+        },
+        {
+          "name": "国内MSTP(有资源)",
+          "amount": 1300.0,
+          "currency": "CNY",
+          "unit": "",
+          "applicable_to": [
+            "国内MSTP"
+          ],
+          "conditions": [
+            "上海端1300元，外地端可减免0元，最终以询价为准"
+          ],
+          "description": "",
+          "raw_text": "有资源 | 1300 | 可减免,0元 | 最终以询价为准"
+        },
+        {
+          "name": "国内MSTP(无资源)",
+          "amount": 1300.0,
+          "currency": "CNY",
+          "unit": "",
+          "applicable_to": [
+            "国内MSTP"
+          ],
+          "conditions": [
+            "上海端1300元，外地端勘查后报价，最终以询价为准"
+          ],
+          "description": "",
+          "raw_text": "无资源 | 1300 | 勘查后，外地报价 | 最终以询价为准"
+        }
+      ],
+      "base_package_prices": [
+        {
+          "name": "本地MSTP专线",
+          "speed": "1M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 1333.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折666.5元/月"
+          ],
+          "description": "",
+          "raw_text": "1M | 1333 | 666.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "2M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 2000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折1000元/月"
+          ],
+          "description": "",
+          "raw_text": "2M | 2000 | 1000"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "4M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 3333.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折1666.5元/月"
+          ],
+          "description": "",
+          "raw_text": "4M | 3333 | 1666.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "6M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 4667.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折2333.5元/月"
+          ],
+          "description": "",
+          "raw_text": "6M | 4667 | 2333.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "8M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 6000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折3000元/月"
+          ],
+          "description": "",
+          "raw_text": "8M | 6000 | 3000"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "10M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 6769.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折3384.5元/月"
+          ],
+          "description": "",
+          "raw_text": "10M | 6769 | 3384.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "15M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 8692.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折4346元/月"
+          ],
+          "description": "",
+          "raw_text": "15M | 8692 | 4346"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "20M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 10615.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折5307.5元/月"
+          ],
+          "description": "",
+          "raw_text": "20M | 10615 | 5307.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "25M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 12538.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折6269元/月"
+          ],
+          "description": "",
+          "raw_text": "25M | 12538 | 6269"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "30M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 14462.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折7231元/月"
+          ],
+          "description": "",
+          "raw_text": "30M | 14462 | 7231"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "34M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 16000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折8000元/月"
+          ],
+          "description": "",
+          "raw_text": "34M | 16000 | 8000"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "40M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 17388.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折8694元/月"
+          ],
+          "description": "",
+          "raw_text": "40M | 17388 | 8694"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "50M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 19702.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折9851元/月"
+          ],
+          "description": "",
+          "raw_text": "50M | 19702 | 9851"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "60M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 22017.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折11008.5元/月"
+          ],
+          "description": "",
+          "raw_text": "60M | 22017 | 11008.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "70M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 24331.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折12165.5元/月"
+          ],
+          "description": "",
+          "raw_text": "70M | 24331 | 12165.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "80M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 26645.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折13322.5元/月"
+          ],
+          "description": "",
+          "raw_text": "80M | 26645 | 13322.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "90M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 28959.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折14479.5元/月"
+          ],
+          "description": "",
+          "raw_text": "90M | 28959 | 14479.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "100M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 31273.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折15636.5元/月"
+          ],
+          "description": "",
+          "raw_text": "100M | 31273 | 15636.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "150M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 42843.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折21421.5元/月"
+          ],
+          "description": "",
+          "raw_text": "150M | 42843 | 21421.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "155M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 44000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折22000元/月"
+          ],
+          "description": "",
+          "raw_text": "155M | 44000 | 22000"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "200M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 51612.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折25806元/月"
+          ],
+          "description": "",
+          "raw_text": "200M | 51612 | 25806"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "250M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 60071.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折30035.5元/月"
+          ],
+          "description": "",
+          "raw_text": "250M | 60071 | 30035.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "300M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 68529.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折34264.5元/月"
+          ],
+          "description": "",
+          "raw_text": "300M | 68529 | 34264.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "350M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 76987.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折38493.5元/月"
+          ],
+          "description": "",
+          "raw_text": "350M | 76987 | 38493.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "400M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 85445.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折42722.5元/月"
+          ],
+          "description": "",
+          "raw_text": "400M | 85445 | 42722.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "450M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 93904.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折46952元/月"
+          ],
+          "description": "",
+          "raw_text": "450M | 93904 | 46952"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "500M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 102362.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折51181元/月"
+          ],
+          "description": "",
+          "raw_text": "500M | 102362 | 51181"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "550M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 110820.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折55410元/月"
+          ],
+          "description": "",
+          "raw_text": "550M | 110820 | 55410"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "600M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 119278.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折59639元/月"
+          ],
+          "description": "",
+          "raw_text": "600M | 119278 | 59639"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "622M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 123000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折61500元/月"
+          ],
+          "description": "",
+          "raw_text": "622M | 123000 | 61500"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "650M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 126295.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折63147.5元/月"
+          ],
+          "description": "",
+          "raw_text": "650M | 126295 | 63147.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "700M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 132179.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折66089.5元/月"
+          ],
+          "description": "",
+          "raw_text": "700M | 132179 | 66089.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "750M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 138063.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折69031.5元/月"
+          ],
+          "description": "",
+          "raw_text": "750M | 138063 | 69031.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "800M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 143947.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折71973.5元/月"
+          ],
+          "description": "",
+          "raw_text": "800M | 143947 | 71973.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "850M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 149831.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折74915.5元/月"
+          ],
+          "description": "",
+          "raw_text": "850M | 149831 | 74915.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "900M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 155715.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折77857.5元/月"
+          ],
+          "description": "",
+          "raw_text": "900M | 155715 | 77857.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "950M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 161599.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折80799.5元/月"
+          ],
+          "description": "",
+          "raw_text": "950M | 161599 | 80799.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "1G",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "G",
+          "has_voice": false,
+          "price": 167482.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折83741元/月"
+          ],
+          "description": "",
+          "raw_text": "1G | 167482 | 83741"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "2G",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "G",
+          "has_voice": false,
+          "price": 285161.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折142580.5元/月"
+          ],
+          "description": "",
+          "raw_text": "2G | 285161 | 142580.5"
+        },
+        {
+          "name": "本地MSTP专线",
+          "speed": "2.5G",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "G",
+          "has_voice": false,
+          "price": 344000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "授权5折172000元/月"
+          ],
+          "description": "",
+          "raw_text": "2.5G | 344000 | 172000"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "1M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 6833.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费1333元，国内端口费1333元，国内月租费4167元，授权5折3416.5元/月"
+          ],
+          "description": "",
+          "raw_text": "1M | 1333 | 1333 | 4167 | 6833 | 3416.5"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "2M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 10000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费2000元，国内端口费2000元，国内月租费6000元，授权5折5000元/月"
+          ],
+          "description": "",
+          "raw_text": "2M | 2000 | 2000 | 6000 | 10000 | 5000"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "4M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 16333.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费3333元，国内端口费3333元，国内月租费9667元，授权5折8166.5元/月"
+          ],
+          "description": "",
+          "raw_text": "4M | 3333 | 3333 | 9667 | 16333 | 8166.5"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "6M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 22667.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费4667元，国内端口费4667元，国内月租费13333元，授权5折11333.5元/月"
+          ],
+          "description": "",
+          "raw_text": "6M | 4667 | 4667 | 13333 | 22667 | 11333.5"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "8M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 29000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费6000元，国内端口费6000元，国内月租费17000元，授权5折14500元/月"
+          ],
+          "description": "",
+          "raw_text": "8M | 6000 | 6000 | 17000 | 29000 | 14500"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "10M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 32846.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费6769元，国内端口费6769元，国内月租费19308元，授权5折16423元/月"
+          ],
+          "description": "",
+          "raw_text": "10M | 6769 | 6769 | 19308 | 32846 | 16423"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "15M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 42461.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费8692元，国内端口费8692元，国内月租费25077元，授权5折21230.5元/月"
+          ],
+          "description": "",
+          "raw_text": "15M | 8692 | 8692 | 25077 | 42461 | 21230.5"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "20M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 52076.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费10615元，国内端口费10615元，国内月租费30846元，授权5折26038元/月"
+          ],
+          "description": "",
+          "raw_text": "20M | 10615 | 10615 | 30846 | 52076 | 26038"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "25M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 61691.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费12538元，国内端口费12538元，国内月租费36615元，授权5折30845.5元/月"
+          ],
+          "description": "",
+          "raw_text": "25M | 12538 | 12538 | 36615 | 61691 | 30845.5"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "30M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 71309.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费14462元，国内端口费14462元，国内月租费42385元，授权5折35654.5元/月"
+          ],
+          "description": "",
+          "raw_text": "30M | 14462 | 14462 | 42385 | 71309 | 35654.5"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "34M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 79000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费16000元，国内端口费16000元，国内月租费47000元，授权5折39500元/月"
+          ],
+          "description": "",
+          "raw_text": "34M | 16000 | 16000 | 47000 | 79000 | 39500"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "40M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 85991.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费17388元，国内端口费17388元，国内月租费51215元，授权5折42995.5元/月"
+          ],
+          "description": "",
+          "raw_text": "40M | 17388 | 17388 | 51215 | 85991 | 42995.5"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "50M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 97644.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费19702元，国内端口费19702元，国内月租费58240元，授权5折48822元/月"
+          ],
+          "description": "",
+          "raw_text": "50M | 19702 | 19702 | 58240 | 97644 | 48822"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "60M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 109298.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费22017元，国内端口费22017元，国内月租费65264元，授权5折54649元/月"
+          ],
+          "description": "",
+          "raw_text": "60M | 22017 | 22017 | 65264 | 109298 | 54649"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "70M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 120951.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费24331元，国内端口费24331元，国内月租费72289元，授权5折60475.5元/月"
+          ],
+          "description": "",
+          "raw_text": "70M | 24331 | 24331 | 72289 | 120951 | 60475.5"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "80M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 132604.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费26645元，国内端口费26645元，国内月租费79314元，授权5折66302元/月"
+          ],
+          "description": "",
+          "raw_text": "80M | 26645 | 26645 | 79314 | 132604 | 66302"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "90M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 144257.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费28959元，国内端口费28959元，国内月租费86339元，授权5折72128.5元/月"
+          ],
+          "description": "",
+          "raw_text": "90M | 28959 | 28959 | 86339 | 144257 | 72128.5"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "100M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 155910.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费31273元，国内端口费31273元，国内月租费93364元，授权5折77955元/月"
+          ],
+          "description": "",
+          "raw_text": "100M | 31273 | 31273 | 93364 | 155910 | 77955"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "150M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 214174.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费42843元，国内端口费42843元，国内月租费128488元，授权5折107087元/月"
+          ],
+          "description": "",
+          "raw_text": "150M | 42843 | 42843 | 128488 | 214174 | 107087"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "155M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 220000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费44000元，国内端口费44000元，国内月租费132000元，授权5折110000元/月"
+          ],
+          "description": "",
+          "raw_text": "155M | 44000 | 44000 | 132000 | 220000 | 110000"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "200M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 258158.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费51612元，国内端口费51612元，国内月租费154934元，授权5折129079元/月"
+          ],
+          "description": "",
+          "raw_text": "200M | 51612 | 51612 | 154934 | 258158 | 129079"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "250M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 300557.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费60071元，国内端口费60071元，国内月租费180415元，授权5折150278.5元/月"
+          ],
+          "description": "",
+          "raw_text": "250M | 60071 | 60071 | 180415 | 300557 | 150278.5"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "300M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 342955.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费68529元，国内端口费68529元，国内月租费205897元，授权5折171477.5元/月"
+          ],
+          "description": "",
+          "raw_text": "300M | 68529 | 68529 | 205897 | 342955 | 171477.5"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "350M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 385353.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费76987元，国内端口费76987元，国内月租费231379元，授权5折192676.5元/月"
+          ],
+          "description": "",
+          "raw_text": "350M | 76987 | 76987 | 231379 | 385353 | 192676.5"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "400M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 427751.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费85445元，国内端口费85445元，国内月租费256861元，授权5折213875.5元/月"
+          ],
+          "description": "",
+          "raw_text": "400M | 85445 | 85445 | 256861 | 427751 | 213875.5"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "450M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 470151.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费93904元，国内端口费93904元，国内月租费282343元，授权5折235075.5元/月"
+          ],
+          "description": "",
+          "raw_text": "450M | 93904 | 93904 | 282343 | 470151 | 235075.5"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "500M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 512548.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费102362元，国内端口费102362元，国内月租费307824元，授权5折256274元/月"
+          ],
+          "description": "",
+          "raw_text": "500M | 102362 | 102362 | 307824 | 512548 | 256274"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "550M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 554946.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费110820元，国内端口费110820元，国内月租费333306元，授权5折277473元/月"
+          ],
+          "description": "",
+          "raw_text": "550M | 110820 | 110820 | 333306 | 554946 | 277473"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "600M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 597344.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费119278元，国内端口费119278元，国内月租费358788元，授权5折298672元/月"
+          ],
+          "description": "",
+          "raw_text": "600M | 119278 | 119278 | 358788 | 597344 | 298672"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "622M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 616000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费123000元，国内端口费123000元，国内月租费370000元，授权5折308000元/月"
+          ],
+          "description": "",
+          "raw_text": "622M | 123000 | 123000 | 370000 | 616000 | 308000"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "650M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 632475.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费126295元，国内端口费126295元，国内月租费379885元，授权5折316237.5元/月"
+          ],
+          "description": "",
+          "raw_text": "650M | 126295 | 126295 | 379885 | 632475 | 316237.5"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "700M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 661895.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费132179元，国内端口费132179元，国内月租费397537元，授权5折330947.5元/月"
+          ],
+          "description": "",
+          "raw_text": "700M | 132179 | 132179 | 397537 | 661895 | 330947.5"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "750M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 691314.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费138063元，国内端口费138063元，国内月租费415188元，授权5折345657元/月"
+          ],
+          "description": "",
+          "raw_text": "750M | 138063 | 138063 | 415188 | 691314 | 345657"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "800M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 720734.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费143947元，国内端口费143947元，国内月租费432840元，授权5折360367元/月"
+          ],
+          "description": "",
+          "raw_text": "800M | 143947 | 143947 | 432840 | 720734 | 360367"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "850M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 750154.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费149831元，国内端口费149831元，国内月租费450492元，授权5折375077元/月"
+          ],
+          "description": "",
+          "raw_text": "850M | 149831 | 149831 | 450492 | 750154 | 375077"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "900M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 779574.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费155715元，国内端口费155715元，国内月租费468144元，授权5折389787元/月"
+          ],
+          "description": "",
+          "raw_text": "900M | 155715 | 155715 | 468144 | 779574 | 389787"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "950M",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": false,
+          "price": 808994.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费161599元，国内端口费161599元，国内月租费485796元，授权5折404497元/月"
+          ],
+          "description": "",
+          "raw_text": "950M | 161599 | 161599 | 485796 | 808994 | 404497"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "1G",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "G",
+          "has_voice": false,
+          "price": 838411.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费167482元，国内端口费167482元，国内月租费503447元，授权5折419205.5元/月"
+          ],
+          "description": "",
+          "raw_text": "1G | 167482 | 167482 | 503447 | 838411 | 419205.5"
+        },
+        {
+          "name": "国内MSTP专线",
+          "speed": "2.5G",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "G",
+          "has_voice": false,
+          "price": 1721000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [
+            "本地端口费344000元，国内端口费344000元，国内月租费1033000元，授权5折860500元/月"
+          ],
+          "description": "",
+          "raw_text": "2.5G | 344000 | 344000 | 1033000 | 1721000 | 860500"
+        }
+      ],
+      "addon_prices": [],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "application_materials": [
+      {
+        "material_type": "表单",
+        "name": "客户基本信息表",
+        "description": "提前确认两端地址",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": false,
+        "copy_required": false,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [],
+        "related_constraints": [],
+        "raw_text": "客户基本信息表，无需盖章，提前确认两端地址；",
+        "source_file": "E:\\GitHub\\产品数据\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "营业执照复印件",
+        "description": "加盖公章，扫描件",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [],
+        "related_constraints": [],
+        "raw_text": "营业执照复印件加盖公章，扫描件；",
+        "source_file": "E:\\GitHub\\产品数据\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "经办人身份证正反面复印件",
+        "description": "加盖公章，扫描件",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [],
+        "related_constraints": [],
+        "raw_text": "经办人身份证正反面复印件加盖公章，扫描件；",
+        "source_file": "E:\\GitHub\\产品数据\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "其他",
+        "name": "客户确认合同内容",
+        "description": "并回复",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": false,
+        "copy_required": false,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [],
+        "related_constraints": [],
+        "raw_text": "客户确认合同内容，并回复；",
+        "source_file": "E:\\GitHub\\产品数据\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "合同",
+        "name": "电信正式合同水印版",
+        "description": "客户签字、加盖公章和骑缝章",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": true,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": false,
+        "pages_or_locations": [
+          "骑缝章"
+        ],
+        "handling_notes": [],
+        "related_constraints": [],
+        "raw_text": "电信正式合同水印版客户签字、加盖公章和骑缝章；",
+        "source_file": "E:\\GitHub\\产品数据\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "授权书",
+        "name": "授权委托书",
+        "description": "加盖公章",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [],
+        "related_constraints": [],
+        "raw_text": "授权委托书，加盖公章；",
+        "source_file": "E:\\GitHub\\产品数据\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "表单",
+        "name": "大客户需求表",
+        "description": "加盖公章",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [],
+        "related_constraints": [],
+        "raw_text": "大客户需求表，加盖公章；",
+        "source_file": "E:\\GitHub\\产品数据\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "营业执照复印件",
+        "description": "加盖公章",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [],
+        "related_constraints": [],
+        "raw_text": "营业执照复印件，加盖公章；",
+        "source_file": "E:\\GitHub\\产品数据\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "经办人身份证正反面复印件",
+        "description": "加盖公章",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [],
+        "related_constraints": [],
+        "raw_text": "经办人身份证正反面复印件，加盖公章；",
+        "source_file": "E:\\GitHub\\产品数据\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "承诺书",
+        "name": "风险告知及免责函",
+        "description": "如碰到需要使用老设备的，需要额外盖章",
+        "required": false,
+        "applicable_to": [],
+        "conditions": [
+          "需要使用老设备"
+        ],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [],
+        "related_constraints": [],
+        "raw_text": "如碰到需要使用老设备的，需要额外盖章风险告知及免责函。",
+        "source_file": "E:\\GitHub\\产品数据\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "担保书",
+        "name": "上海公司电信业务担保书",
+        "description": "盖公章",
+        "required": true,
+        "applicable_to": [
+          "外地公司"
+        ],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [],
+        "related_constraints": [
+          "外地公司需担保"
+        ],
+        "raw_text": "上海公司电信业务担保书，盖公章",
+        "source_file": "E:\\GitHub\\产品数据\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "担保公司营业执照复印件",
+        "description": "盖公章",
+        "required": true,
+        "applicable_to": [
+          "外地公司"
+        ],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [],
+        "related_constraints": [
+          "外地公司需担保"
+        ],
+        "raw_text": "担保公司营业执照复印件，盖公章",
+        "source_file": "E:\\GitHub\\产品数据\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "担保公司经办人身份证正反面复印件",
+        "description": "盖公章",
+        "required": true,
+        "applicable_to": [
+          "外地公司"
+        ],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [],
+        "related_constraints": [
+          "外地公司需担保"
+        ],
+        "raw_text": "担保公司经办人身份证正反面复印件，盖公章",
+        "source_file": "E:\\GitHub\\产品数据\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      }
+    ]
+  },
+  "extraction_meta": {
+    "generated_at": "2026-06-18T16:44:18",
+    "source_file": "E:\\GitHub\\产品数据\\组网\\电信\\本地国内MSTP",
+    "method": "llm_schema_module_extraction_no_normalization",
+    "validation_issues": [
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[0].speed",
+        "message": "基础套餐缺少速率"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.document_info",
+        "message": "申请表基本信息基本为空，可能是切块或文档转换质量不足"
+      }
+    ],
+    "validation_issue_count": 2
+  }
+}

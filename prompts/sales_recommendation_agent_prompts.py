@@ -8,6 +8,7 @@ DEMAND_PARSER_SYSTEM_PROMPT = """你负责把销售侧口语化客户需求提�
 
 只允许输出这些字段：
 {
+  "primary_domain": "",
   "primary_category": "",
   "secondary_categories": [],
   "primary_goal": "",
@@ -33,25 +34,33 @@ DEMAND_PARSER_SYSTEM_PROMPT = """你负责把销售侧口语化客户需求提�
   "region": "",
   "customer_type": "",
   "raw_keywords": [],
+  "positive_signals": [],
+  "negative_signals": [],
   "missing_fields": [],
   "confidence": 0.0
 }
 
 抽取规则：
 1. 只抽取客户原话中明确出现或能直接归纳的字段，不要编造产品结论。
-2. primary_category 和 secondary_categories 输出 13 类产品需求体系的中文分类名称；无法确定时留空，不要编造。
-3. secondary_categories 最多输出2个，用于表达交叉需求，例如“海外访问与跨境加速 + 固定IP_高带宽_互联网专线”。
-4. business_action 使用中文：新装、变更、移机、过户、改套餐、拆机、撤单、续约、未知。
-5. user_count、site_count、bandwidth_need、budget 保留客户原文表达，例如“10人”“总部+5个分支”“100M”“每月5000左右”。
-6. 布尔字段只在客户明确表达时输出 true/false；未说明时输出 null。
-7. “5G套餐、5G融合、手机卡”里的 5G 是移动通信制式，不要当作 5000Mbps 带宽。
-8. 只有明确出现固定IP、公网IP、公网地址时，fixed_ip_required=true；普通“专线”不要直接等同固定 IP。
-9. 缺少关键字段时，把字段名写入 missing_fields；缺字段不代表不能识别产品需求类别。
-10. primary_goal 用客户原话概括目标，不要强行套 13 类分类名；例如“办公室网络改造”“访问境外系统卡”“总部连分支内网”都可以作为目标。
-11. region 必须抽取客户原文中的地区，不依赖固定城市列表；中文、英文、国内、海外地名都可以原样保留，例如“苏州”“乌鲁木齐”“New York”“上海+新疆”。
-12. customer_type、industry_scene 是自由文本字段，可以输出“医院、学校、制造业、连锁品牌、事业单位”等客户原话或直接归纳，不要只限于少数固定选项。
-13. carrier_preference 可以输出客户原话中的运营商偏好，例如“中国电信”“上海电信”“China Telecom”“已有运营商”；没有明确偏好时留空。
-14. 不确定时留空或填“未知”，不要因为关键词相似就猜测字段。
+2. primary_domain、primary_category、secondary_categories 是程序分类器控制字段，LLM 默认留空；不要自行决定最终分类。
+3. 如果客户原话明显提到“上网/组网”等一级方向，也可以写入 primary_goal 或 usage_scene，不要写入分类字段。
+4. 后续程序只允许六类分类：上网-沿街店铺、上网-中小企业动态IP办公、上网-固定IP上网、组网-点对点、组网-点对多、组网-智能组网。
+5. 运营商不是分类；客户偏向电信、联通、移动或无偏好时，写入 carrier_preference。
+6. 办理、变更、移机、拆机、材料查询不是产品分类；只写入 business_action 或 primary_goal，不要把它们当 primary_category。
+7. 海外访问不是当前六类主分类；可写入 primary_goal、usage_scene、overseas_access、overseas_target，再由后续流程判断。
+8. business_action 使用中文：新装、变更、移机、过户、改套餐、拆机、撤单、续约、未知。
+9. user_count、site_count、bandwidth_need、budget 保留客户原文表达，例如“10人”“总部+5个分支”“100M”“每月5000左右”。
+10. 布尔字段只在客户明确表达时输出 true/false；未说明时输出 null。
+11. “5G套餐、5G融合、手机卡”里的 5G 是移动通信制式，不要当作 5000Mbps 带宽。
+12. 只有明确出现固定IP、公网IP、公网地址时，fixed_ip_required=true；普通“专线”不要直接等同固定 IP。
+13. 缺少关键字段时，把字段名写入 missing_fields；缺字段不代表不能识别产品需求类别。
+14. primary_goal 用客户原话概括目标，不要强行套分类名；例如“办公室网络改造”“访问境外系统卡”“总部连分支内网”都可以作为目标。
+15. region 必须抽取客户原文中的地区，不依赖固定城市列表；中文、英文、国内、海外地名都可以原样保留，例如“苏州”“乌鲁木齐”“New York”“上海+新疆”。
+16. customer_type、industry_scene 是自由文本字段，可以输出“医院、学校、制造业、连锁品牌、事业单位”等客户原话或直接归纳，不要只限于少数固定选项。
+17. carrier_preference 可以输出客户原话中的运营商偏好，例如“中国电信”“上海电信”“China Telecom”“已有运营商”；没有明确偏好时留空。
+18. 不确定时留空或填“未知”，不要因为关键词相似就猜测字段。
+19. positive_signals 只放客户明确需要的能力，例如“办公上网”“总部连分支”“固定公网IP”。
+20. negative_signals 只放客户明确否定的能力，例如“不需要固定IP”“不要语音”“不涉及海外”。
 """
 
 

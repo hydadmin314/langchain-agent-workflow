@@ -37,54 +37,63 @@ class SalesRecommendationRequirementTest(unittest.TestCase):
             parser=HeuristicDemandParser(self.settings),
         )
 
-    def test_overseas_access_demand(self) -> None:
-        result = self.workflow.analyze(
-            "客户上海办公室大概10个人，想先试一个月访问美国 SaaS，预算5000左右。"
-        )
+    def test_office_dynamic_ip_category(self) -> None:
+        result = self.workflow.analyze("客户上海办公室大概30个人办公上网，不需要固定IP，预算8000左右。")
 
-        self.assertEqual(result.structured_data.user_count, "10人")
-        self.assertEqual(result.structured_data.user_count_value, 10)
-        self.assertEqual(result.structured_data.bandwidth_est_mbps, 10)
-        self.assertEqual(result.structured_data.target_scope, RegionScope.overseas)
-        self.assertEqual(result.structured_data.budget_amount, 5000)
-        self.assertEqual(result.category_decision.primary_category_id, "4")
+        self.assertEqual(result.structured_data.primary_domain, "上网")
+        self.assertEqual(result.structured_data.fixed_ip_required, False)
+        self.assertIn("不需要固定IP", result.structured_data.negative_signals)
+        self.assertEqual(result.structured_data.user_count, "30人")
+        self.assertEqual(result.structured_data.user_count_value, 30)
+        self.assertEqual(result.structured_data.bandwidth_est_mbps, 30)
+        self.assertEqual(result.structured_data.budget_amount, 8000)
+        self.assertEqual(result.category_decision.primary_category_id, "internet_office_dynamic_ip")
 
-    def test_domestic_networking_category(self) -> None:
+    def test_point_to_point_network_category(self) -> None:
         result = self.workflow.analyze("上海总部和杭州分公司要内网互通，两个点之间要稳定专线，约80人使用。")
 
         self.assertEqual(result.structured_data.bandwidth_est_mbps, 80)
         self.assertEqual(result.structured_data.scenario_type, ScenarioType.domestic_networking)
-        self.assertEqual(result.category_decision.primary_category_id, "3")
+        self.assertEqual(result.structured_data.primary_domain, "组网")
+        self.assertEqual(result.category_decision.primary_category_id, "network_point_to_point")
+
+    def test_headquarter_access_single_subsidiary_is_point_to_point(self) -> None:
+        result = self.workflow.analyze("上海总部访问新疆子公司业务慢，需要提高访问速率并保障稳定。")
+
+        self.assertEqual(result.structured_data.primary_domain, "组网")
+        self.assertEqual(result.category_decision.primary_category_id, "network_point_to_point")
 
     def test_fixed_ip_category(self) -> None:
         result = self.workflow.analyze("客户有企业官网和服务器要对外访问，需要固定公网IP和备案，预计20人办公。")
 
         self.assertTrue(result.structured_data.requires_fixed_ip)
-        self.assertEqual(result.category_decision.primary_category_id, "2")
+        self.assertEqual(result.structured_data.primary_domain, "上网")
+        self.assertEqual(result.category_decision.primary_category_id, "internet_fixed_ip")
 
-    def test_voice_category_does_not_fall_into_clarify_only(self) -> None:
-        result = self.workflow.analyze("客户要企业固定电话和呼叫中心坐席，想了解30B+D和云中继方案。")
+    def test_street_store_category(self) -> None:
+        result = self.workflow.analyze("沿街店铺5人以内，需要便宜宽带给收银和WiFi用，预算3000元以内。")
 
-        self.assertEqual(result.category_decision.primary_category_id, "6")
+        self.assertEqual(result.structured_data.primary_domain, "上网")
+        self.assertEqual(result.category_decision.primary_category_id, "internet_store_street")
         self.assertEqual(result.category_decision.recommendation_mode, "new_sale")
 
-    def test_mobile_5g_is_not_bandwidth(self) -> None:
-        result = self.workflow.analyze("公司要给员工办手机卡和5G大流量套餐，最好宽带和手机一起办。")
+    def test_point_to_multipoint_category(self) -> None:
+        result = self.workflow.analyze("总部要连接5个门店，做点对多组网，希望成本低一些。")
 
-        self.assertEqual(result.structured_data.bandwidth_est_mbps, 0)
-        self.assertEqual(result.category_decision.primary_category_id, "7")
+        self.assertEqual(result.structured_data.primary_domain, "组网")
+        self.assertEqual(result.category_decision.primary_category_id, "network_point_to_multipoint")
 
-    def test_process_keywords_route_to_service_process(self) -> None:
-        result = self.workflow.analyze("客户已有宽带，现在想拆机，需要知道办理流程和材料。")
+    def test_smart_network_category(self) -> None:
+        result = self.workflow.analyze("多个分支已有宽带，想通过SD-WAN设备快速做智能组网。")
 
-        self.assertEqual(result.category_decision.primary_category_id, "13")
-        self.assertEqual(result.category_decision.recommendation_mode, "service_process")
+        self.assertEqual(result.structured_data.primary_domain, "组网")
+        self.assertEqual(result.category_decision.primary_category_id, "network_smart")
 
-    def test_material_and_guarantee_route_to_service_process(self) -> None:
+    def test_process_keywords_no_longer_route_to_product_category(self) -> None:
         result = self.workflow.analyze("外地公司在上海办理业务，需要哪些材料和担保要求？")
 
-        self.assertEqual(result.category_decision.primary_category_id, "13")
-        self.assertEqual(result.category_decision.recommendation_mode, "service_process")
+        self.assertEqual(result.category_decision.primary_category_id, "")
+        self.assertEqual(result.category_decision.recommendation_mode, "clarify")
 
     def test_parse_json_from_markdown_fence(self) -> None:
         demand = parse_customer_demand_json(

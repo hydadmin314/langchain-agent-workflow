@@ -21,7 +21,7 @@ GEO_BOUNDARY_SYSTEM_PROMPT = """地域和跨境判断边界：
 2. 如果客户表达的是总部访问分支、访问异地业务、访问外地系统、跨省访问、多地互联、国内区域互联，应理解为国内异地/国内组网，不要把这类内容写入 overseas_target。
 3. overseas_target 只能填写真实境外目标，例如“美国 SaaS”“US server”“日本网站”；不能填写“国内多点组网”“总部+分支”“异地系统”这类国内组网描述。
 4. 如果不确定目标是否在境外，overseas_access 输出 null，overseas_target 留空，并把需要确认的字段写入 missing_fields。
-5. 例子：“上海总部访问新疆业务”属于国内跨区域访问，不是海外访问；应倾向“国内组网与点对点专线”，overseas_access=false 或 null，overseas_target=""。
+5. 例子：“上海总部访问新疆业务”属于国内跨区域访问，不是海外访问；如果是两点互联，可倾向“组网-点对点”，overseas_access=false 或 null，overseas_target=""。
 6. 例子：“Shanghai office accesses US SaaS slowly”属于海外访问，overseas_access=true，overseas_target="US SaaS"。
 7. 例子：“内部SaaS系统访问慢，不涉及海外”不是海外访问，overseas_access=false，overseas_target=""。
 8. 例子：“New York branch needs to access Shanghai ERP system”涉及境外地点访问中国系统，属于跨境/海外访问，overseas_access=true，overseas_target="Shanghai ERP system"。
@@ -125,6 +125,8 @@ class HeuristicDemandParser:
         bandwidth_text = extract_bandwidth_text(text)
         category_candidate_keywords = extract_category_candidate_keywords(text)
         raw_keywords = extract_keywords(text, category_candidate_keywords=category_candidate_keywords)
+        negative_signals = extract_negative_signals(text)
+        positive_signals = extract_positive_signals(raw_keywords=raw_keywords, negative_signals=negative_signals)
 
         missing_fields = [
             name
@@ -174,6 +176,8 @@ class HeuristicDemandParser:
             region=infer_region(text) or access_source or "",
             customer_type=infer_customer_type(text),
             raw_keywords=raw_keywords,
+            positive_signals=positive_signals,
+            negative_signals=negative_signals,
             confidence=min(confidence, 0.95),
             missing_fields=missing_fields,
         )
@@ -256,6 +260,8 @@ def merge_customer_demand(primary: CustomerDemand, fallback: CustomerDemand, *, 
         merged.concurrent_calls = fallback.concurrent_calls
     if not merged.raw_keywords:
         merged.raw_keywords = fallback.raw_keywords
+    merged.positive_signals = _dedupe([*primary.positive_signals, *fallback.positive_signals])
+    merged.negative_signals = _dedupe([*primary.negative_signals, *fallback.negative_signals])
 
     merged.missing_fields = [
         field_name
@@ -274,6 +280,16 @@ def normalize_customer_demand_semantics(demand: CustomerDemand, raw_text: str) -
     """
 
     normalized = demand.model_copy(deep=True)
+    normalized.primary_category = normalize_category_name(normalized.primary_category)
+    normalized.secondary_categories = [
+        category
+        for category in (normalize_category_name(item) for item in normalized.secondary_categories)
+        if category
+    ][:2]
+    normalized.primary_domain = normalize_primary_domain(
+        normalized.primary_domain,
+        normalized.primary_category,
+    )
     overseas_source = " ".join(
         [
             raw_text or "",
@@ -306,8 +322,9 @@ def normalize_customer_demand_semantics(demand: CustomerDemand, raw_text: str) -
         normalized.secondary_categories = [
             item for item in normalized.secondary_categories if "海外" not in item and "跨境" not in item
         ]
-        if normalized.primary_category == "海外访问与跨境加速":
+        if normalized.primary_category in OLD_REMOVED_CATEGORY_NAMES:
             normalized.primary_category = ""
+            normalized.primary_domain = ""
 
     if has_overseas and not has_overseas_negation:
         normalized.overseas_access = True
@@ -319,17 +336,20 @@ def normalize_customer_demand_semantics(demand: CustomerDemand, raw_text: str) -
         normalized.secondary_categories = [
             item for item in normalized.secondary_categories if "海外" not in item and "跨境" not in item
         ]
-        if normalized.primary_category == "海外访问与跨境加速":
-            normalized.primary_category = "国内组网与点对点专线" if has_domestic_networking else ""
+        if normalized.primary_category in OLD_REMOVED_CATEGORY_NAMES:
+            normalized.primary_category = ""
+            normalized.primary_domain = ""
 
     if has_domestic_networking and not has_overseas:
         if not normalized.site_count:
             normalized.site_count = "总部+分支"
-        if "国内组网与点对点专线" not in normalized.secondary_categories:
-            normalized.secondary_categories = [
-                "国内组网与点对点专线",
-                *normalized.secondary_categories,
-            ][:2]
+
+    if has_negated_fixed_ip_signal(raw_text, normalized):
+        normalized.fixed_ip_required = False
+        normalized.raw_keywords = remove_positive_fixed_ip_keywords(normalized.raw_keywords)
+        normalized.positive_signals = remove_positive_fixed_ip_keywords(normalized.positive_signals)
+        if "不需要固定IP" not in normalized.negative_signals:
+            normalized.negative_signals.append("不需要固定IP")
 
     return normalized
 
@@ -718,7 +738,7 @@ def infer_scenario_type(
 
 
 def extract_category_candidate_keywords(text: str) -> list[str]:
-    """从 13 类 taxonomy 中提取客户需求侧命中的候选关键词。"""
+    """从六类销售套餐 taxonomy 中提取客户需求侧命中的候选关键词。"""
 
     matched: list[str] = []
     normalized = text.lower()
@@ -755,6 +775,103 @@ def extract_keywords(text: str, *, category_candidate_keywords: list[str]) -> li
     if bandwidth:
         keywords.append(f"{bandwidth}M")
     return _dedupe(keywords)
+
+
+def extract_negative_signals(text: str) -> list[str]:
+    """抽取客户明确否定的需求信号。
+
+    这里只处理少量高风险否定，避免“不要固定IP”被后续关键词分类误解成“需要固定IP”。
+    """
+
+    patterns = {
+        "不需要固定IP": r"(不需要|不要|无须|无需|不用|不办).{0,8}(固定\s*IP|公网\s*IP|公网地址)",
+        "不需要语音": r"(不需要|不要|无须|无需|不用|不办).{0,8}(语音|固定电话|固话|云中继|商云通)",
+        "不涉及海外": r"(不涉及|不访问|不要|不需要|无须|无需).{0,8}(海外|国外|境外|跨境|国际)",
+    }
+    return [label for label, pattern in patterns.items() if re.search(pattern, text, re.I)]
+
+
+def extract_positive_signals(*, raw_keywords: list[str], negative_signals: list[str]) -> list[str]:
+    """从 raw_keywords 中拆出正向信号。
+
+    negative_signals 已经承载的否定表达不再重复放入正向信号，减少分类器误判。
+    """
+
+    negative_text = " ".join(negative_signals)
+    positive: list[str] = []
+    for keyword in raw_keywords:
+        if keyword and keyword not in negative_text:
+            positive.append(keyword)
+    return _dedupe(positive)
+
+
+def has_negated_fixed_ip_signal(raw_text: str, demand: CustomerDemand) -> bool:
+    """判断客户是否明确否定固定公网 IP。"""
+
+    if any("固定IP" in signal or "公网" in signal for signal in demand.negative_signals):
+        return True
+    return bool(re.search(r"(不需要|不要|无须|无需|不用|不办).{0,8}(固定\s*IP|公网\s*IP|公网地址)", raw_text, re.I))
+
+
+def remove_positive_fixed_ip_keywords(values: list[str]) -> list[str]:
+    """客户明确否定固定 IP 时，移除会误导分类器的正向固定 IP 关键词。"""
+
+    positive_fixed_ip_keywords = {"固定IP", "固定 IP", "公网IP", "公网 IP", "公网地址"}
+    return [value for value in values if value not in positive_fixed_ip_keywords]
+
+
+NEW_CATEGORY_NAME_BY_OLD_NAME = {
+    "企业上网与办公宽带": "上网-中小企业动态IP办公",
+    "固定IP_高带宽_互联网专线": "上网-固定IP上网",
+    "国内组网与点对点专线": "组网-点对点",
+    "门店_商铺_小微经营": "上网-沿街店铺",
+}
+
+OLD_REMOVED_CATEGORY_NAMES = {
+    "海外访问与跨境加速",
+    "固定电话_语音中继_呼叫业务",
+    "移动通信_流量_固移融合",
+    "云资源_IDC_算力托管",
+    "云办公_协同_云电脑",
+    "安全防护_运维代维_托管",
+    "行业场景_物联_视频_电梯",
+    "营销触达_来电展示_短信录音",
+    "办理变更_续约_拆机_撤单",
+    "停用历史_待确认",
+}
+
+PRIMARY_DOMAIN_BY_CATEGORY_NAME = {
+    "上网-沿街店铺": "上网",
+    "上网-中小企业动态IP办公": "上网",
+    "上网-固定IP上网": "上网",
+    "组网-点对点": "组网",
+    "组网-点对多": "组网",
+    "组网-智能组网": "组网",
+}
+
+
+def normalize_category_name(category_name: str) -> str:
+    """把旧 13 类分类名收敛到新六类；无法映射的旧类直接清空。"""
+
+    normalized = (category_name or "").strip()
+    if not normalized:
+        return ""
+    if normalized in PRIMARY_DOMAIN_BY_CATEGORY_NAME:
+        return normalized
+    if normalized in NEW_CATEGORY_NAME_BY_OLD_NAME:
+        return NEW_CATEGORY_NAME_BY_OLD_NAME[normalized]
+    if normalized in OLD_REMOVED_CATEGORY_NAMES:
+        return ""
+    return normalized
+
+
+def normalize_primary_domain(primary_domain: str, primary_category: str) -> str:
+    """一级业务域只允许上网/组网；分类明确时按分类回填。"""
+
+    normalized = (primary_domain or "").strip()
+    if normalized in {"上网", "组网"}:
+        return normalized
+    return PRIMARY_DOMAIN_BY_CATEGORY_NAME.get(primary_category, "")
 
 
 def has_explicit_overseas_signal(text: str) -> bool:

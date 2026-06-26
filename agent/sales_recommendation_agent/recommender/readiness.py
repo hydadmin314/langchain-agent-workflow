@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field, ValidationError
 
 from agent.sales_recommendation_agent.intent_parser.config import SalesRecommendationSettings
 from agent.sales_recommendation_agent.intent_parser.models import CustomerDemand, DemandCategoryDecision
-from agent.sales_recommendation_agent.intent_parser.parsers import extract_json_object, has_explicit_overseas_signal
+from agent.sales_recommendation_agent.intent_parser.parsers import extract_json_object
 from prompts.sales_recommendation_agent_prompts import (
     CLARIFICATION_QUESTION_SYSTEM_PROMPT,
     build_clarification_question_user_prompt,
@@ -101,7 +101,7 @@ class ReadinessRule(BaseModel):
 
 
 def build_readiness_rules() -> dict[str, ReadinessRule]:
-    """构建 13 类产品需求的最低推荐条件。
+    """构建新六类产品需求的最低推荐条件。
 
     这份配置是后续业务讨论最容易调整的地方。开发上尽量把规则集中在这里，
     避免散落到 Retriever、Scorer 或 Prompt 中。
@@ -117,20 +117,53 @@ def build_readiness_rules() -> dict[str, ReadinessRule]:
     )
 
     return {
-        "企业上网与办公宽带": ReadinessRule(
+        "上网-沿街店铺": ReadinessRule(
+            required_any=[["usage_scene", "industry_scene", "primary_goal", "raw_keywords"]],
+            assumable={
+                "bandwidth_need": "客户未明确带宽，暂按沿街店铺、小商铺常见收银、Wi-Fi、监控场景做初步推荐，后续需确认 50M/100M 等档位。",
+                "carrier_preference": "客户未明确运营商偏好，暂按无偏好处理。",
+                "fixed_ip_required": "暂按不需要固定公网 IP 处理。",
+            },
+            clarification_intents={
+                "usage_scene": ClarificationIntent(
+                    field="usage_scene",
+                    priority="high",
+                    intent="确认是否属于沿街店铺或小商铺场景",
+                    why="沿街店铺通常更关注低成本、快速开通、收银/Wi-Fi/监控等基础联网能力。",
+                    example_options=["沿街店铺", "小商铺", "餐饮零售", "单店办公"],
+                ),
+                "bandwidth_need": ClarificationIntent(
+                    field="bandwidth_need",
+                    priority="medium",
+                    intent="确认门店带宽或让客户按场景估算",
+                    why="带宽会影响套餐档位；客户不确定时，可按收银、访客 Wi-Fi、监控数量来建议。",
+                    example_options=["50M", "100M", "200M", "客户不确定，按门店规模建议"],
+                    term_explanations=[bandwidth_explanation],
+                ),
+                "carrier_preference": ClarificationIntent(
+                    field="carrier_preference",
+                    priority="low",
+                    intent="确认是否有运营商偏好",
+                    why="运营商不是产品需求分类，但会影响候选产品筛选。",
+                    example_options=["电信", "联通", "移动", "无偏好"],
+                ),
+            },
+            product_lock_hints=["旺铺宽带", "智联", "开店宝", "沿街店铺宽带"],
+        ),
+        "上网-中小企业动态IP办公": ReadinessRule(
             required_any=[["usage_scene", "user_count"]],
             assumable={
-                "bandwidth_need": "客户未明确带宽，暂按人数和办公场景做初步推荐，推荐结果需提示后续确认 50M/100M/200M 等档位。",
+                "bandwidth_need": "客户未明确带宽，暂按人数和办公场景做初步推荐，推荐结果需提示后续确认 100M/200M/500M 等档位。",
                 "fixed_ip_required": "暂按不需要固定公网 IP 处理。",
-                "voice_required": "暂按不需要语音/固定电话能力处理。",
+                "carrier_preference": "客户未明确运营商偏好，暂按无偏好处理。",
             },
             clarification_intents={
                 "usage_scene": ClarificationIntent(
                     field="usage_scene",
                     priority="high",
                     intent="确认办公上网使用场景",
-                    why="需要判断是普通办公室上网、门店经营，还是其他网络场景。",
-                    example_options=["办公室员工上网", "门店经营", "多点组网"],
+                    why="需要判断是中小企业办公动态 IP，还是固定 IP、组网等更高阶需求。",
+                    example_options=["办公室员工上网", "普通办公宽带", "多人日常上网"],
                 ),
                 "user_count": ClarificationIntent(
                     field="user_count",
@@ -155,20 +188,21 @@ def build_readiness_rules() -> dict[str, ReadinessRule]:
                     example_options=["需要", "不需要", "暂不确定"],
                     term_explanations=[fixed_ip_explanation],
                 ),
-                "voice_required": ClarificationIntent(
-                    field="voice_required",
-                    priority="medium",
-                    intent="确认是否需要语音/固定电话能力",
-                    why="是否带语音会影响商务专线等套餐版本筛选。",
-                    example_options=["需要", "不需要", "暂不确定"],
+                "carrier_preference": ClarificationIntent(
+                    field="carrier_preference",
+                    priority="low",
+                    intent="确认是否有运营商偏好",
+                    why="运营商偏好用于候选过滤，不作为需求主分类。",
+                    example_options=["电信", "联通", "移动", "无偏好"],
                 ),
             },
-            product_lock_hints=["商务专线", "精品专线", "智能专线"],
+            product_lock_hints=["智云上海专线", "智享", "智云", "商务宽带", "企业宽带"],
         ),
-        "固定IP_高带宽_互联网专线": ReadinessRule(
+        "上网-固定IP上网": ReadinessRule(
             required_any=[["fixed_ip_required", "server_or_idc_required", "primary_goal"]],
             assumable={
                 "bandwidth_need": "客户未明确带宽，暂按固定公网 IP/服务器访问方向做初步推荐，需后续确认 100M/200M/500M/1G 等档位。",
+                "carrier_preference": "客户未明确运营商偏好，暂按无偏好处理。",
             },
             clarification_intents={
                 "fixed_ip_required": ClarificationIntent(
@@ -194,22 +228,30 @@ def build_readiness_rules() -> dict[str, ReadinessRule]:
                     example_options=["100M", "200M", "500M", "1G", "客户不确定，按服务器/并发估算"],
                     term_explanations=[bandwidth_explanation],
                 ),
+                "carrier_preference": ClarificationIntent(
+                    field="carrier_preference",
+                    priority="low",
+                    intent="确认是否有运营商偏好",
+                    why="固定 IP 产品通常会受运营商资源影响，偏好可用于候选筛选。",
+                    example_options=["电信", "联通", "移动", "无偏好"],
+                ),
             },
-            product_lock_hints=["IPMAN", "BGP&IPMAN", "精品专线"],
+            product_lock_hints=["IPMAN", "BGP&IPMAN", "精品专线", "智光", "沃专线"],
         ),
-        "国内组网与点对点专线": ReadinessRule(
+        "组网-点对点": ReadinessRule(
             required_any=[["site_count", "usage_scene"]],
             assumable={
-                "bandwidth_need": "客户未明确组网带宽，暂按站点数和业务重要性做初步推荐，需后续确认每个站点大致带宽。",
+                "bandwidth_need": "客户未明确组网带宽，暂按两点互联和业务重要性做初步推荐，需后续确认每条线路的大致带宽。",
                 "server_or_idc_required": "暂按不涉及服务器或 IDC 场景处理。",
+                "carrier_preference": "客户未明确运营商偏好，暂按无偏好处理。",
             },
             clarification_intents={
                 "site_count": ClarificationIntent(
                     field="site_count",
                     priority="high",
-                    intent="确认点对点还是多点互联",
-                    why="站点数量和组网形态会决定 MPLS-VPN、SD-WAN、MSTP、IPRAN、OTN 等候选方向。",
-                    example_options=["点对点", "总部+分支", "多门店/多站点"],
+                    intent="确认是否为两个地点互联",
+                    why="点对点适合两端固定地点互联，站点数量会影响是否转向点对多或智能组网。",
+                    example_options=["A点到B点", "总部+一个分支", "两地机房互联"],
                 ),
                 "usage_scene": ClarificationIntent(
                     field="usage_scene",
@@ -226,240 +268,79 @@ def build_readiness_rules() -> dict[str, ReadinessRule]:
                     example_options=["每点50M", "每点100M", "每点200M以上", "客户不确定，按业务系统估算"],
                     term_explanations=[bandwidth_explanation],
                 ),
+                "carrier_preference": ClarificationIntent(
+                    field="carrier_preference",
+                    priority="low",
+                    intent="确认是否有运营商偏好",
+                    why="运营商资源会影响本地专线、MSTP、IPRAN、OTN 等候选范围。",
+                    example_options=["电信", "联通", "移动", "无偏好"],
+                ),
             },
-            product_lock_hints=["MPLS-VPN", "SD-WAN", "MSTP", "IPRAN", "OTN"],
+            product_lock_hints=["IPRAN", "MSTP", "OTN", "以太专线", "本地专线"],
         ),
-        "海外访问与跨境加速": ReadinessRule(
-            required_any=[["overseas_target", "primary_goal"], ["usage_scene", "site_count"]],
+        "组网-点对多": ReadinessRule(
+            required_any=[["site_count", "usage_scene", "primary_goal"]],
             assumable={
-                "bandwidth_need": "客户未明确带宽，暂按访问人数、海外目标和体验问题做初步推荐；海外访问还需关注时延、丢包和线路质量。",
-                "fixed_ip_required": "暂按不需要固定公网 IP 处理。",
-                "site_count": "暂按单个办公地点访问处理。",
+                "bandwidth_need": "客户未明确多点组网带宽，暂按站点数和业务重要性做初步推荐，需后续确认中心点和分支点带宽。",
+                "carrier_preference": "客户未明确运营商偏好，暂按无偏好处理。",
             },
-            default_assumptions=["暂按不要求明确跨境专线合规承诺处理。"],
             clarification_intents={
-                "overseas_target": ClarificationIntent(
-                    field="overseas_target",
-                    priority="high",
-                    intent="确认海外访问目标",
-                    why="访问海外 SaaS、自有海外服务器或普通海外网页，对候选产品方向影响很大。",
-                    example_options=["海外 SaaS", "自有海外服务器", "外贸网站", "普通海外网页"],
-                ),
-                "primary_goal": ClarificationIntent(
-                    field="primary_goal",
-                    priority="high",
-                    intent="确认客户主要想解决的问题",
-                    why="需要确认是海外访问慢、服务器对外访问，还是普通办公上网。",
-                    example_options=["海外访问慢", "服务器对外访问", "普通办公上网"],
-                ),
-                "usage_scene": ClarificationIntent(
-                    field="usage_scene",
-                    priority="high",
-                    intent="确认是单点还是多地访问",
-                    why="单办公室和多地访问会影响精品专线、智能专线、SD-WAN 等候选方向。",
-                    example_options=["单个办公室", "多个门店/分支", "总部+分支"],
-                ),
                 "site_count": ClarificationIntent(
                     field="site_count",
                     priority="high",
-                    intent="确认使用地点数量",
-                    why="多地访问海外 SaaS 时，可能需要评估 SD-WAN 或组网方案。",
-                    example_options=["单点", "多点", "总部+分支"],
+                    intent="确认多点数量和拓扑",
+                    why="点对多要明确中心点、分支数量和是否星型/爪形结构，才能选择 MPLS-VPN、IPRAN 等方案。",
+                    example_options=["总部+多个分支", "多个门店互联", "中心点+多分支"],
                 ),
                 "bandwidth_need": ClarificationIntent(
                     field="bandwidth_need",
                     priority="medium",
-                    intent="确认海外访问的带宽或体验要求",
-                    why="海外访问不只看带宽，还要看目标应用、时延、丢包和线路质量；客户不确定时，可先按人数和应用类型建议区间。",
-                    example_options=["50M-100M", "100M-200M", "200M以上", "客户不确定，按访问人数和应用建议"],
+                    intent="确认中心点和分支点带宽",
+                    why="点对多组网的带宽通常要分别看总部和分支，客户不确定时可按业务系统和人数估算。",
+                    example_options=["中心100M/分支50M", "每点100M", "客户不确定，按站点规模建议"],
                     term_explanations=[bandwidth_explanation],
                 ),
-                "fixed_ip_required": ClarificationIntent(
-                    field="fixed_ip_required",
-                    priority="high",
-                    intent="确认是否需要固定公网 IP",
-                    why="如果访问自有海外服务器且需要固定出口，候选产品可能转向 IPMAN 或 BGP&IPMAN。",
-                    example_options=["需要", "不需要", "暂不确定"],
-                    term_explanations=[fixed_ip_explanation],
+                "carrier_preference": ClarificationIntent(
+                    field="carrier_preference",
+                    priority="low",
+                    intent="确认是否有运营商偏好",
+                    why="运营商资源会影响多点组网覆盖和价格。",
+                    example_options=["电信", "联通", "移动", "无偏好"],
                 ),
             },
-            product_lock_hints=["精品专线", "智能专线", "商务专线", "IPMAN", "BGP&IPMAN", "SD-WAN"],
+            product_lock_hints=["MPLS-VPN", "IPRAN", "OTN", "MSTP", "多点组网"],
         ),
-        "门店_商铺_小微经营": ReadinessRule(
-            required_any=[["usage_scene", "industry_scene"]],
+        "组网-智能组网": ReadinessRule(
+            required_any=[["site_count", "usage_scene", "primary_goal"]],
             assumable={
-                "bandwidth_need": "客户未明确带宽，暂按门店人数、收银/WiFi/视频等场景做初步推荐，需后续确认档位。",
-                "voice_required": "暂按不需要语音处理。",
-                "fixed_ip_required": "暂按不需要固定公网 IP 处理。",
+                "bandwidth_need": "客户未明确智能组网带宽，暂按已有互联网线路和设备组网方向做初步推荐，需后续确认每个站点带宽。",
+                "carrier_preference": "客户未明确运营商偏好，暂按无偏好处理。",
             },
             clarification_intents={
-                "usage_scene": ClarificationIntent(
-                    field="usage_scene",
+                "site_count": ClarificationIntent(
+                    field="site_count",
                     priority="high",
-                    intent="确认门店或小微经营场景",
-                    why="单门店、连锁门店、酒店公寓等场景会影响候选产品范围。",
-                    example_options=["单门店", "连锁门店", "酒店/公寓", "小微线上业务"],
-                ),
-                "industry_scene": ClarificationIntent(
-                    field="industry_scene",
-                    priority="medium",
-                    intent="确认是否有行业经营场景",
-                    why="收银、WiFi、云宽、5G 融合等需求会影响旺铺宽带、开店宝等产品选择。",
-                    example_options=["收银", "门店 WiFi", "5G 融合", "云宽"],
+                    intent="确认需要接入的站点数量",
+                    why="智能组网通常用于多站点，是否已有宽带、是否需要设备接入会影响方案。",
+                    example_options=["多个门店", "总部+分支", "已有宽带上叠加组网"],
                 ),
                 "bandwidth_need": ClarificationIntent(
                     field="bandwidth_need",
                     priority="medium",
-                    intent="确认门店网络带宽",
-                    why="门店带宽通常和员工/访客 WiFi、收银、监控、云应用有关；客户不确定时，可以按门店规模建议。",
-                    example_options=["50M", "100M", "200M", "客户不确定，按门店规模建议"],
+                    intent="确认各站点的上网带宽",
+                    why="SD-WAN 或智能组网常叠加在现有宽带上，带宽会影响体验和设备选型。",
+                    example_options=["每点50M", "每点100M", "已有宽带不确定", "客户不确定，按门店规模建议"],
                     term_explanations=[bandwidth_explanation],
                 ),
-                "voice_required": ClarificationIntent(
-                    field="voice_required",
-                    priority="medium",
-                    intent="确认是否需要语音/固定电话",
-                    why="门店是否需要语音会影响是否筛选带语音版本或联动语音产品。",
-                    example_options=["需要", "不需要", "暂不确定"],
-                ),
-                "fixed_ip_required": ClarificationIntent(
-                    field="fixed_ip_required",
-                    priority="medium",
-                    intent="确认是否需要固定公网 IP",
-                    why="如需固定公网 IP，候选产品可能需要联动专线或固定 IP 类产品。",
-                    example_options=["需要", "不需要", "暂不确定"],
-                    term_explanations=[fixed_ip_explanation],
+                "carrier_preference": ClarificationIntent(
+                    field="carrier_preference",
+                    priority="low",
+                    intent="确认是否有运营商偏好",
+                    why="智能组网可结合已有线路，运营商偏好用于资源和候选筛选。",
+                    example_options=["电信", "联通", "移动", "无偏好", "已有运营商线路"],
                 ),
             },
-            product_lock_hints=["旺铺宽带", "开店宝", "小微上线", "小微在线", "沃商务企微宽带"],
-        ),
-        "固定电话_语音中继_呼叫业务": ReadinessRule(
-            required_any=[["voice_required", "primary_goal", "concurrent_calls"]],
-            assumable={"concurrent_calls": "暂按并发数量未明确处理，先按语音类候选方向评估。"},
-            clarification_intents={
-                "voice_required": ClarificationIntent(
-                    field="voice_required",
-                    priority="high",
-                    intent="确认语音业务类型",
-                    why="普通固定电话、多路并发、云中继会对应不同候选产品。",
-                    example_options=["普通固定电话", "呼叫中心/多路并发", "云化语音"],
-                ),
-                "concurrent_calls": ClarificationIntent(
-                    field="concurrent_calls",
-                    priority="high",
-                    intent="确认号码数或并发数",
-                    why="并发数会影响直线、30B+D、DID、云中继等产品选择。",
-                    example_options=["少量号码", "10路并发", "30B+D", "更多并发"],
-                ),
-            },
-            product_lock_hints=["直线", "30B+D", "DID", "云中继", "商云通", "商继通"],
-        ),
-        "移动通信_流量_固移融合": ReadinessRule(
-            required_any=[["user_count", "industry_scene", "primary_goal"]],
-            assumable={"voice_required": "暂按主要关注流量和移动通信能力处理。"},
-            clarification_intents={
-                "user_count": ClarificationIntent(
-                    field="user_count",
-                    priority="high",
-                    intent="确认卡数或使用规模",
-                    why="员工手机卡、设备流量卡和批量办理材料都依赖数量规模。",
-                    example_options=["员工手机卡数量", "设备卡数量", "不确定"],
-                ),
-                "primary_goal": ClarificationIntent(
-                    field="primary_goal",
-                    priority="high",
-                    intent="确认移动通信需求类型",
-                    why="需要判断是员工手机卡、行业流量卡，还是宽带手机融合。",
-                    example_options=["员工手机卡", "设备/行业流量卡", "固移融合"],
-                ),
-            },
-            product_lock_hints=["5G畅享", "行业大流量", "固移融合套餐"],
-        ),
-        "云资源_IDC_算力托管": ReadinessRule(
-            required_any=[["server_or_idc_required", "primary_goal"]],
-            clarification_intents={
-                "server_or_idc_required": ClarificationIntent(
-                    field="server_or_idc_required",
-                    priority="high",
-                    intent="确认云资源或 IDC 类型",
-                    why="云主机、物理托管、IDC 审批和线路接入会走不同候选方向。",
-                    example_options=["云服务器", "物理服务器托管", "IDC 机房", "算力资源"],
-                ),
-            },
-            product_lock_hints=["天翼云主机", "IDC", "IPMAN", "MSTP", "MPLS-VPN", "OTN"],
-        ),
-        "云办公_协同_云电脑": ReadinessRule(
-            required_any=[["cloud_office_required", "primary_goal"]],
-            clarification_intents={
-                "cloud_office_required": ClarificationIntent(
-                    field="cloud_office_required",
-                    priority="high",
-                    intent="确认云办公能力类型",
-                    why="云电脑、云盘、会议、文档协同对应不同产品方向。",
-                    example_options=["云电脑/云桌面", "云盘", "会议", "文档协同"],
-                ),
-            },
-            product_lock_hints=["天翼云电脑", "天翼企业云盘", "天翼云会议", "WPS云文档"],
-        ),
-        "安全防护_运维代维_托管": ReadinessRule(
-            required_any=[["security_required", "primary_goal"]],
-            clarification_intents={
-                "security_required": ClarificationIntent(
-                    field="security_required",
-                    priority="high",
-                    intent="确认安全或运维需求类型",
-                    why="防攻击、代维、网络托管、智能组网对应不同候选产品。",
-                    example_options=["防攻击", "日常运维", "上门维护", "网络托管/优化"],
-                ),
-            },
-            product_lock_hints=["云堤", "智云护航", "本地代维", "智能组网", "云网托管"],
-        ),
-        "行业场景_物联_视频_电梯": ReadinessRule(
-            required_any=[["industry_scene", "primary_goal"]],
-            clarification_intents={
-                "industry_scene": ClarificationIntent(
-                    field="industry_scene",
-                    priority="high",
-                    intent="确认行业场景",
-                    why="视频监控、电梯物联、地图图像等场景会锁定不同产品。",
-                    example_options=["视频监控", "门店看护", "物业电梯", "园区物联"],
-                ),
-            },
-            product_lock_hints=["天翼云眼", "智慧电梯", "天翼云图"],
-        ),
-        "营销触达_来电展示_短信录音": ReadinessRule(
-            required_any=[["marketing_touch_required", "primary_goal"]],
-            clarification_intents={
-                "marketing_touch_required": ClarificationIntent(
-                    field="marketing_touch_required",
-                    priority="high",
-                    intent="确认营销触达能力类型",
-                    why="400、来电名片、挂机短信、云录音分别对应不同候选产品。",
-                    example_options=["400热线", "来电名片", "通话录音", "挂机短信"],
-                ),
-            },
-            product_lock_hints=["预付费400", "来电名片", "云录音", "音证宝", "挂机短信"],
-        ),
-        "办理变更_续约_拆机_撤单": ReadinessRule(
-            required_all=["business_action"],
-            required_any=[["primary_goal", "usage_scene"]],
-            clarification_intents={
-                "business_action": ClarificationIntent(
-                    field="business_action",
-                    priority="high",
-                    intent="确认办理动作",
-                    why="第 13 类不进入普通新销售推荐，需要先确定办理动作。",
-                    example_options=["移机", "过户", "改套餐", "拆机", "撤单", "续约"],
-                ),
-                "primary_goal": ClarificationIntent(
-                    field="primary_goal",
-                    priority="high",
-                    intent="确认已有产品或业务",
-                    why="办理流程和材料清单依赖已有产品名称和合同状态。",
-                    example_options=["已有产品名称", "合同是否已签", "是否涉及退款/押金"],
-                ),
-            },
-            product_lock_hints=["办理流程模式", "材料清单", "规则说明"],
+            product_lock_hints=["SD-WAN", "MSTP-VPN", "智能组网", "设备组网"],
         ),
     }
 
@@ -501,41 +382,12 @@ class RecommendationReadinessEvaluator:
                             field="primary_goal",
                             priority="high",
                             intent="确认客户主要想解决的问题",
-                            why="当前无法稳定判断 13 类产品需求主分类。",
-                            example_options=["办公室上网", "固定 IP", "多点组网", "海外访问", "语音", "办理变更"],
+                            why="当前无法稳定判断六类产品需求主分类。",
+                            example_options=["沿街店铺上网", "中小企业办公上网", "固定 IP 上网", "点对点组网", "点对多组网", "智能组网"],
                         )
                     ]
                 ),
-                reason="当前无法匹配到明确的 13 类主分类，需要先确认客户主要需求。",
-            )
-
-        if category_decision.primary_category_id == "4" and not has_explicit_overseas_signal(
-            " ".join(
-                [
-                    demand.primary_goal or "",
-                    demand.usage_scene or "",
-                    demand.overseas_target or "",
-                    demand.region or "",
-                    *demand.raw_keywords,
-                ]
-            )
-        ):
-            return ReadinessResult(
-                decision="ask_clarification",
-                missing_conditions=["overseas_target"],
-                clarification_plan=ClarificationPlan(
-                    intents=[
-                        ClarificationIntent(
-                            field="overseas_target",
-                            priority="high",
-                            intent="确认访问目标是否在境外",
-                            why="当前主分类为海外访问，但需求字段里没有明确境外目标，可能是国内异地或总部分支访问。",
-                            example_options=["国内异地系统", "海外 SaaS", "国外服务器", "还不确定"],
-                        )
-                    ]
-                ),
-                reason="海外访问类缺少明确境外目标，需先确认是国内异地访问还是海外/跨境访问。",
-                product_lock_hints=rule.product_lock_hints,
+                reason="当前无法匹配到明确的六类主分类，需要先确认客户主要需求。",
             )
 
         missing_conditions = self._collect_missing_conditions(demand, rule)

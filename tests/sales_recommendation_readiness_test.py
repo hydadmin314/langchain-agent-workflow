@@ -23,20 +23,19 @@ class SalesRecommendationReadinessTest(unittest.TestCase):
     - 可假设字段不会直接写回 customer_need
     """
 
-    def test_overseas_need_can_recommend_with_assumptions(self) -> None:
+    def test_fixed_ip_need_can_recommend_with_assumptions(self) -> None:
         demand = CustomerDemand(
-            primary_category="海外访问与跨境加速",
-            primary_goal="海外访问",
-            usage_scene="上海办公室",
-            user_count="10人",
-            overseas_access=True,
-            overseas_target="美国SaaS",
+            primary_domain="上网",
+            primary_category="上网-固定IP上网",
+            primary_goal="服务器对外访问",
+            fixed_ip_required=True,
             budget="5000左右",
             region="上海",
         )
         category = DemandCategoryDecision(
-            primary_category_id="4",
-            primary_category_name="海外访问与跨境加速",
+            primary_domain="上网",
+            primary_category_id="internet_fixed_ip",
+            primary_category_name="上网-固定IP上网",
             recommendation_mode="new_sale",
         )
 
@@ -47,8 +46,33 @@ class SalesRecommendationReadinessTest(unittest.TestCase):
 
         self.assertEqual(result.decision, "ready_with_assumptions")
         self.assertFalse(result.missing_conditions)
-        self.assertIn("精品专线", result.product_lock_hints)
-        self.assertIsNone(demand.fixed_ip_required, "假设不能写回真实需求表")
+        self.assertIn("IPMAN", result.product_lock_hints)
+        self.assertEqual(demand.fixed_ip_required, True)
+
+    def test_point_to_point_network_can_recommend_with_bandwidth_assumption(self) -> None:
+        demand = CustomerDemand(
+            primary_domain="组网",
+            primary_category="组网-点对点",
+            primary_goal="上海总部访问新疆子公司业务",
+            usage_scene="总部与一个分支互联",
+            site_count="总部+1个分支",
+            region="上海+新疆",
+        )
+        category = DemandCategoryDecision(
+            primary_domain="组网",
+            primary_category_id="network_point_to_point",
+            primary_category_name="组网-点对点",
+            recommendation_mode="new_sale",
+        )
+
+        result = RecommendationReadinessEvaluator().evaluate(
+            demand=demand,
+            category_decision=category,
+        )
+
+        self.assertEqual(result.decision, "ready_with_assumptions")
+        self.assertFalse(result.missing_conditions)
+        self.assertIn("IPRAN", result.product_lock_hints)
 
     def test_unclear_need_should_ask_clarification(self) -> None:
         demand = CustomerDemand(primary_category="", primary_goal="", usage_scene="")
@@ -62,26 +86,6 @@ class SalesRecommendationReadinessTest(unittest.TestCase):
         self.assertEqual(result.decision, "ask_clarification")
         self.assertIn("primary_category", result.missing_conditions)
         self.assertTrue(result.clarification_plan.intents)
-
-    def test_service_process_ready_when_action_and_existing_product_are_clear(self) -> None:
-        demand = CustomerDemand(
-            primary_category="办理变更_续约_拆机_撤单",
-            primary_goal="已有宽带",
-            business_action="拆机",
-        )
-        category = DemandCategoryDecision(
-            primary_category_id="13",
-            primary_category_name="办理变更_续约_拆机_撤单",
-            recommendation_mode="service_process",
-        )
-
-        result = RecommendationReadinessEvaluator().evaluate(
-            demand=demand,
-            category_decision=category,
-        )
-
-        self.assertEqual(result.decision, "ready")
-        self.assertIn("办理流程模式", result.product_lock_hints)
 
     def test_fallback_clarification_is_available_without_llm(self) -> None:
         demand = CustomerDemand(primary_category="", primary_goal="", usage_scene="")

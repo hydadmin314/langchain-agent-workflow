@@ -9,11 +9,9 @@ from agent.sales_recommendation_agent.intent_parser import SalesRequirementWorkf
 from agent.sales_recommendation_agent.intent_parser.models import (
     CustomerDemand,
     DemandCategoryDecision,
-    DemandCategoryMatch,
     RequirementAnalysisResult,
 )
 from agent.sales_recommendation_agent.intent_parser.parsers import (
-    has_domestic_networking_signal,
     has_explicit_overseas_signal,
     has_negated_overseas_signal,
 )
@@ -141,11 +139,6 @@ class SalesRecommendationWorkflow:
             demand=merged_need,
             user_text=user_text,
         )
-        self._apply_category_priority_corrections(
-            demand=merged_need,
-            category_decision=category_decision,
-            user_text=user_text,
-        )
         self._sync_state_after_merge(
             state=state,
             demand=merged_need,
@@ -238,110 +231,13 @@ class SalesRecommendationWorkflow:
                 if target_match:
                     demand.overseas_target = target_match.group(0).strip()
 
-    def _apply_category_priority_corrections(
-        self,
-        *,
-        demand: CustomerDemand,
-        category_decision: DemandCategoryDecision,
-        user_text: str,
-    ) -> None:
-        """对合并后的分类结果做强场景优先级修正。
-
-        目前最典型的是海外访问：客户明确说“访问美国 SaaS 很慢”时，
-        主分类应该优先是“海外访问与跨境加速”，而不是被办公宽带或固定 IP 泛化词压过去。
-        """
-
-        if category_decision.primary_category_id == "13":
-            return
-
-        combined_text = " ".join(
-            [
-                user_text or "",
-                demand.primary_goal or "",
-                demand.usage_scene or "",
-                demand.site_count or "",
-                demand.fixed_ip_count or "",
-                *demand.raw_keywords,
-            ]
-        )
-        has_overseas = has_overseas_access_signal(user_text=user_text, demand=demand)
-        has_domestic_networking = has_domestic_networking_signal(combined_text)
-
-        if has_overseas:
-            demand.overseas_access = True
-            category_decision.category_matches = promote_category_match(
-                matches=category_decision.category_matches,
-                category_id="4",
-                category_name="海外访问与跨境加速",
-                score=96,
-                reason="命中海外访问强场景信号，提升为主分类。",
-                matched_keywords=["海外访问"],
-            )
-            primary = category_decision.category_matches[0]
-            category_decision.primary_category_id = primary.category_id
-            category_decision.primary_category_name = primary.category_name
-            category_decision.reason = primary.reason
-            demand.primary_category = primary.category_name
-            demand.secondary_categories = [
-                item.category_name
-                for item in category_decision.category_matches
-                if item.category_id != primary.category_id
-            ][:2]
-            return
-
-        if has_domestic_networking:
-            category_decision.category_matches = promote_category_match(
-                matches=category_decision.category_matches,
-                category_id="3",
-                category_name="国内组网与点对点专线",
-                score=94,
-                reason="命中国内异地/总部分支互联场景，提升为主分类。",
-                matched_keywords=["国内组网"],
-            )
-            primary = category_decision.category_matches[0]
-            category_decision.primary_category_id = primary.category_id
-            category_decision.primary_category_name = primary.category_name
-            category_decision.reason = primary.reason
-            demand.primary_category = primary.category_name
-            demand.secondary_categories = [
-                item.category_name
-                for item in category_decision.category_matches
-                if item.category_id != primary.category_id
-            ][:2]
-            return
-
-        # 明确固定公网 IP / 公网地址 / 服务器对外访问时，优先进入固定 IP 专线类。
-        if demand.requires_fixed_ip or re.search(r"(固定\s*IP|公网\s*IP|公网地址|固定公网|服务器对外)", combined_text, re.I):
-            category_decision.category_matches = promote_category_match(
-                matches=category_decision.category_matches,
-                category_id="2",
-                category_name="固定IP_高带宽_互联网专线",
-                score=94,
-                reason="命中固定公网 IP 或服务器对外访问场景，提升为主分类。",
-                matched_keywords=["固定公网IP"],
-            )
-            primary = category_decision.category_matches[0]
-            category_decision.primary_category_id = primary.category_id
-            category_decision.primary_category_name = primary.category_name
-            category_decision.reason = primary.reason
-            demand.primary_category = primary.category_name
-            demand.secondary_categories = [
-                item.category_name
-                for item in category_decision.category_matches
-                if item.category_id != primary.category_id
-            ][:2]
-            return
-
-        # 普通办公宽带、门店小微这类泛场景交给 LLM 分类和 taxonomy 得分处理。
-        # 这里不再做关键词提权，避免 workflow 逐渐变成第二套规则分类器。
-
     def _classify_merged_need(
         self,
         *,
         demand: CustomerDemand,
         user_text: str,
     ) -> DemandCategoryDecision:
-        """对合并后的需求重新做 13 类分类。
+        """对合并后的需求重新做六类分类。
 
         单轮解析得到的分类只代表“本轮输入”；多轮场景必须基于合并后的 customer_need 重新判断。
         """
@@ -356,6 +252,7 @@ class SalesRecommendationWorkflow:
 
         category_decision = classifier.classify(demand=demand, raw_text=user_text)
         demand.primary_category = category_decision.primary_category_name
+        demand.primary_domain = category_decision.primary_domain
         demand.secondary_categories = [
             item.category_name
             for item in category_decision.category_matches
@@ -481,70 +378,3 @@ def build_programmatic_recommendation_message(comparison_result: ComparisonResul
         f"已根据当前需求召回并排序候选产品，优先建议查看：{name}。"
         "后续可结合价格、协议期、可选包和办理材料做人工确认。"
     )
-
-
-def has_overseas_access_signal(*, user_text: str, demand: CustomerDemand) -> bool:
-    """只在出现明确境外/跨境信号时才认为是海外访问。
-
-    这里不能把 overseas_target 非空直接当成海外信号，因为上游模型偶尔会把
-    “国内多点组网”“总部访问分支”误写进 overseas_target。最终判断统一走
-    has_explicit_overseas_signal，避免国内异地访问被错误提升到海外访问类。
-    """
-
-    return has_explicit_overseas_signal(
-        " ".join(
-            [
-                user_text or "",
-                demand.overseas_target or "",
-                demand.primary_goal or "",
-                demand.usage_scene or "",
-                demand.primary_category or "",
-                *demand.secondary_categories,
-                demand.region or "",
-                *demand.raw_keywords,
-            ]
-        )
-    )
-
-
-def promote_category_match(
-    *,
-    matches: list[DemandCategoryMatch],
-    category_id: str,
-    category_name: str,
-    score: float,
-    reason: str,
-    matched_keywords: list[str] | None = None,
-) -> list[DemandCategoryMatch]:
-    """把指定分类提升到 matches 首位，保留其它候选分类作为辅助分类。"""
-
-    updated: list[DemandCategoryMatch] = []
-    found = False
-    for match in matches:
-        if match.category_id == category_id:
-            found = True
-            updated.append(
-                DemandCategoryMatch(
-                    category_id=match.category_id,
-                    category_name=match.category_name,
-                    score=max(match.score, score),
-                    matched_keywords=match.matched_keywords,
-                    reason=reason,
-                )
-            )
-        else:
-            updated.append(match)
-
-    if not found:
-        updated.append(
-            DemandCategoryMatch(
-                category_id=category_id,
-                category_name=category_name,
-                score=score,
-                matched_keywords=matched_keywords or [category_name],
-                reason=reason,
-            )
-        )
-
-    updated.sort(key=lambda item: item.score, reverse=True)
-    return updated[:3]

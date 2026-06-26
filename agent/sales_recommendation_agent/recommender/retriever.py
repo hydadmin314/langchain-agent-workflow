@@ -9,7 +9,7 @@ from agent.sales_recommendation_agent.recommender.models import CandidateRetriev
 
 
 class CandidateRetriever:
-    """按 13 类产品需求分类体系召回候选产品。
+    """按新六类产品需求分类体系召回候选产品。
 
     本层只负责“召回可能相关的产品”，不做最终推荐结论，也不做报价核算。
     """

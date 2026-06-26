@@ -15,9 +15,7 @@ from agent.sales_recommendation_agent.recommender.models import (
 )
 from agent.sales_recommendation_agent.recommender.rule_filter import (
     FIXED_IP_EVIDENCE_KEYWORDS,
-    MOBILE_EVIDENCE_KEYWORDS,
     OVERSEAS_EVIDENCE_KEYWORDS,
-    PROCESS_IDENTITY_KEYWORDS,
     build_product_identity_text,
     build_product_text,
     contains_any,
@@ -30,7 +28,6 @@ from agent.sales_recommendation_agent.recommender.rule_filter import (
 RISK_PENALTY_BY_CODE = {
     "missing_fixed_ip_evidence": -15.0,
     "missing_overseas_evidence": -12.0,
-    "mobile_candidate_may_be_broadband_bundle": -8.0,
     "budget_without_price_evidence": -12.0,
 }
 
@@ -220,38 +217,15 @@ class CandidateScorer:
                 )
             )
 
-        if category_decision.primary_category_id == "4" and contains_any(product_text, OVERSEAS_EVIDENCE_KEYWORDS):
+        if demand.overseas_access is True and contains_any(product_text, OVERSEAS_EVIDENCE_KEYWORDS):
             reasons.append(
                 ScoreReason(
                     code="overseas_evidence_match",
                     score_delta=10.0,
-                    message="客户需求为海外访问/跨境加速，候选包含海外、国际、BGP、IPMAN、精品专线或智能专线等证据。",
+                    message="客户提到海外/跨境访问诉求，候选包含海外、国际、BGP、IPMAN、精品专线或智能专线等证据。",
                     evidence=short_evidence(product_text, OVERSEAS_EVIDENCE_KEYWORDS),
                 )
             )
-
-        if category_decision.primary_category_id == "7" and contains_any(product_text, MOBILE_EVIDENCE_KEYWORDS):
-            reasons.append(
-                ScoreReason(
-                    code="mobile_evidence_match",
-                    score_delta=10.0,
-                    message="客户需求为移动通信/流量，候选包含移动、5G、流量、手机卡等证据。",
-                    evidence=short_evidence(product_text, MOBILE_EVIDENCE_KEYWORDS),
-                )
-            )
-
-        if category_decision.recommendation_mode == "service_process":
-            identity_text = build_product_identity_text(product)
-            process_hits = matched_keywords(identity_text, PROCESS_IDENTITY_KEYWORDS)
-            if process_hits:
-                reasons.append(
-                    ScoreReason(
-                        code="service_process_identity_match",
-                        score_delta=16.0 + min(len(process_hits), 4),
-                        message="当前是办理/变更/续约/拆机类需求，候选标题或路径命中流程类证据。",
-                        evidence=", ".join(process_hits[:6]),
-                    )
-                )
 
         if demand.budget_amount is not None and has_price_evidence(product):
             reasons.append(

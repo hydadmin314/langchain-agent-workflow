@@ -94,6 +94,89 @@ class SalesProductRepositoryTest(unittest.TestCase):
             self.assertEqual(len(product.fee_rules), 1)
             self.assertEqual(len(product.constraints), 1)
 
+    def test_load_product_candidate_from_new_product_json_shape(self) -> None:
+        """新产品结构下，优先从 supplementary_info 提取产品推荐信息。"""
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            payload = {
+                "application_form_info": {
+                    "document_info": {
+                        "document_id": "",
+                        "source_file": r"E:\GitHub\产品\组网\电信\本地国内MPLS-VPN\4 申请表.docx",
+                        "product_name": "",
+                        "carrier": "",
+                        "document_status": None,
+                    },
+                    "pricing_info": {
+                        "base_package_prices": [
+                            {
+                                "name": "申请表兜底套餐",
+                                "price": 100,
+                                "currency": "CNY",
+                                "billing_period": "月",
+                            }
+                        ],
+                    },
+                    "agreement_rules": [],
+                    "eligibility_and_constraints": [],
+                },
+                "supplementary_info": {
+                    "product_intro": {
+                        "product_name": "MPLS-VPN",
+                        "full_description": "适合总部和分支之间进行安全稳定的企业组网。",
+                        "application_scenarios": "总部+分支、企业专网",
+                    },
+                    "product_keywords": {
+                        "raw_keywords": "组网 点对多 MPLS VPN 企业专网",
+                    },
+                    "pricing_info": {
+                        "source_type": "pricing_sheet",
+                        "base_package_prices": [
+                            {
+                                "name": "本地MPLS-VPN 10M",
+                                "speed": "10M",
+                                "price": 1200,
+                                "currency": "CNY",
+                                "billing_period": "月",
+                                "raw_text": "10M 1200元/月",
+                            }
+                        ],
+                        "addon_prices": [],
+                        "one_time_fees": [
+                            {
+                                "name": "一次性费用",
+                                "amount": 1300,
+                                "currency": "CNY",
+                                "unit": "元",
+                                "raw_text": "一次性费用 1300元",
+                            }
+                        ],
+                        "fee_and_term_rules": [],
+                        "discount_policy": [],
+                    },
+                },
+                "extraction_meta": {},
+            }
+            (root / "product_test.json").write_text(
+                json.dumps(payload, ensure_ascii=False),
+                encoding="utf-8",
+            )
+
+            result = ProductRepository(root).load_result()
+
+            self.assertEqual(result.product_count, 1)
+            self.assertEqual(result.error_count, 0)
+            product = result.products[0]
+            self.assertEqual(product.document_id, "product_test")
+            self.assertEqual(product.product_name, "MPLS-VPN")
+            self.assertEqual(product.carrier, "电信")
+            self.assertEqual(product.category_path, "组网/电信/本地国内MPLS-VPN")
+            self.assertEqual(product.packages[0].package_name, "本地MPLS-VPN 10M")
+            self.assertEqual(product.packages[0].price, 1200)
+            self.assertEqual(len(product.fee_rules), 1)
+            self.assertIn("企业专网", product.keywords)
+
 
 if __name__ == "__main__":
     unittest.main()

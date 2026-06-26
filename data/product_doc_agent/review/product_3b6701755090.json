@@ -1,0 +1,162 @@
+{
+  "application_form_info": {
+    "document_info": {
+      "document_id": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\移动业务\\商务酒店宽带",
+      "product_name": "",
+      "carrier": "",
+      "version": "",
+      "effective_date": null,
+      "document_status": null
+    },
+    "parties_and_application": {
+      "agent": {
+        "agent_name": "",
+        "sales_name": "",
+        "sales_contact": ""
+      },
+      "customer": {
+        "name": "",
+        "filled_values": [],
+        "is_blank_form": true
+      },
+      "application_fields": {
+        "required": [],
+        "optional": []
+      },
+      "application_notes": []
+    },
+    "pricing_info": {
+      "source_type": "application_form",
+      "source_file": "",
+      "one_time_fees": [],
+      "base_package_prices": [],
+      "addon_prices": [],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "agreement_rules": [],
+    "eligibility_and_constraints": []
+  },
+  "supplementary_info": {
+    "product_intro": {
+      "product_name": "和商务酒店宽带",
+      "full_description": "和商务酒店宽带是中国移动政企专为酒店、宾馆、民宿、公寓、客栈定制的商用光纤宽带产品，归属和商务政企宽带体系，采用 FTTH/FTTR 全光接入，面向客房客用 Wi-Fi、前台收银、酒店电视、内部办公一体化组网，区别普通商铺宽带、高端互联网专线，兼顾性价比与高密度并发承载能力。",
+      "application_scenarios": "客房客用网络（差旅住客商务办公、影音娱乐、直播博主民宿、长租公寓/人才公寓）；酒店公区场景（大堂、休息区、餐厅顾客公共Wi-Fi，多功能会议室、宴会厅，泳池、健身房、走廊全域无死角Wi-Fi漫游）；酒店内部运营业务（前台收银系统、PMS房态管理、预订平台联网，客房智能客控，多路监控摄像头实时回传、云端存储，酒店办公电脑、财务系统、员工内网，客房IPTV电视信号直播、点播服务）；连锁酒店拓展场景（多分店统一组网，SD-WAN跨区域互联，主备双宽带链路）；配套增值场景（酒店线上团购、小程序推广、入住Wi-Fi营销引流、访客上网行为管控）"
+    },
+    "product_keywords": {
+      "raw_keywords": "和商务酒店宽带、酒店商用光纤、宾馆宽带、民宿宽带、人才公寓宽带、FTTR 酒店全光组网、商用 Wi-Fi 6、酒店 IPTV、客房宽带、连锁酒店组网、商用级并发、客网隔离、对公企业宽带、经济型酒店套餐、星级精品酒店宽带"
+    },
+    "pricing_info": {
+      "source_type": "pricing_sheet",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\移动业务\\商务酒店宽带\\~$2 资费表.xlsx",
+      "one_time_fees": [
+        {
+          "name": "安装调试费",
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "applicable_to": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": ""
+        }
+      ],
+      "base_package_prices": [
+        {
+          "name": "",
+          "speed": "",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "",
+          "has_voice": null,
+          "price": null,
+          "currency": "",
+          "unit": "",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": ""
+        }
+      ],
+      "addon_prices": [
+        {
+          "name": "",
+          "category": "",
+          "spec": "",
+          "price": null,
+          "currency": "",
+          "unit": "",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": ""
+        }
+      ],
+      "fee_and_term_rules": [
+        {
+          "name": "",
+          "category": "",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "",
+          "formula": "",
+          "conditions": [],
+          "description": "",
+          "raw_text": ""
+        }
+      ],
+      "discount_policy": [
+        {
+          "name": "",
+          "category": "",
+          "applicable_to": [],
+          "standard_price": null,
+          "discount_rate": null,
+          "discounted_price": null,
+          "currency": "",
+          "unit": "",
+          "conditions": [],
+          "description": "",
+          "raw_text": ""
+        }
+      ]
+    },
+    "application_materials": []
+  },
+  "extraction_meta": {
+    "generated_at": "2026-06-23T15:33:13",
+    "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\移动业务\\商务酒店宽带",
+    "method": "llm_schema_module_extraction_no_normalization",
+    "validation_issues": [
+      {
+        "severity": "warning",
+        "path": "$.application_form_info.pricing_info.source_file",
+        "message": "缺少来源文件"
+      },
+      {
+        "severity": "warning",
+        "path": "supplementary_info.pricing_info.base_package_prices[0].speed",
+        "message": "基础套餐缺少速率"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.document_info",
+        "message": "申请表基本信息基本为空，可能是切块或文档转换质量不足"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.parties_and_application.application_fields",
+        "message": "申请表没有抽到字段信息"
+      }
+    ],
+    "validation_issue_count": 4
+  }
+}
