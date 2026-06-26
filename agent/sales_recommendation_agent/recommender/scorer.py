@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
+import re
 
 from agent.sales_recommendation_agent.intent_parser.models import CustomerDemand, DemandCategoryDecision
 from agent.sales_recommendation_agent.intent_parser.taxonomy import DEMAND_CATEGORY_RULES_BY_ID
@@ -15,9 +16,7 @@ from agent.sales_recommendation_agent.recommender.models import (
 )
 from agent.sales_recommendation_agent.recommender.rule_filter import (
     FIXED_IP_EVIDENCE_KEYWORDS,
-    MOBILE_EVIDENCE_KEYWORDS,
     OVERSEAS_EVIDENCE_KEYWORDS,
-    PROCESS_IDENTITY_KEYWORDS,
     build_product_identity_text,
     build_product_text,
     contains_any,
@@ -30,7 +29,6 @@ from agent.sales_recommendation_agent.recommender.rule_filter import (
 RISK_PENALTY_BY_CODE = {
     "missing_fixed_ip_evidence": -15.0,
     "missing_overseas_evidence": -12.0,
-    "mobile_candidate_may_be_broadband_bundle": -8.0,
     "budget_without_price_evidence": -12.0,
 }
 
@@ -113,6 +111,14 @@ class CandidateScorer:
         # 3. 客户明确说出的关键需求，用确定性证据加分。
         score_reasons.extend(
             self._score_demand_evidence(
+                demand=demand,
+                category_decision=category_decision,
+                product=product,
+                product_text=product_text,
+            )
+        )
+        score_reasons.extend(
+            score_flowchart_fit(
                 demand=demand,
                 category_decision=category_decision,
                 product=product,
@@ -220,38 +226,15 @@ class CandidateScorer:
                 )
             )
 
-        if category_decision.primary_category_id == "4" and contains_any(product_text, OVERSEAS_EVIDENCE_KEYWORDS):
+        if demand.overseas_access is True and contains_any(product_text, OVERSEAS_EVIDENCE_KEYWORDS):
             reasons.append(
                 ScoreReason(
                     code="overseas_evidence_match",
                     score_delta=10.0,
-                    message="客户需求为海外访问/跨境加速，候选包含海外、国际、BGP、IPMAN、精品专线或智能专线等证据。",
+                    message="客户提到海外/跨境访问诉求，候选包含海外、国际、BGP、IPMAN、精品专线或智能专线等证据。",
                     evidence=short_evidence(product_text, OVERSEAS_EVIDENCE_KEYWORDS),
                 )
             )
-
-        if category_decision.primary_category_id == "7" and contains_any(product_text, MOBILE_EVIDENCE_KEYWORDS):
-            reasons.append(
-                ScoreReason(
-                    code="mobile_evidence_match",
-                    score_delta=10.0,
-                    message="客户需求为移动通信/流量，候选包含移动、5G、流量、手机卡等证据。",
-                    evidence=short_evidence(product_text, MOBILE_EVIDENCE_KEYWORDS),
-                )
-            )
-
-        if category_decision.recommendation_mode == "service_process":
-            identity_text = build_product_identity_text(product)
-            process_hits = matched_keywords(identity_text, PROCESS_IDENTITY_KEYWORDS)
-            if process_hits:
-                reasons.append(
-                    ScoreReason(
-                        code="service_process_identity_match",
-                        score_delta=16.0 + min(len(process_hits), 4),
-                        message="当前是办理/变更/续约/拆机类需求，候选标题或路径命中流程类证据。",
-                        evidence=", ".join(process_hits[:6]),
-                    )
-                )
 
         if demand.budget_amount is not None and has_price_evidence(product):
             reasons.append(
@@ -319,6 +302,120 @@ def has_capacity_or_bandwidth_evidence(text: str) -> bool:
             "副卡",
         ),
     )
+
+
+def score_fixed_ip_count_fit(
+    *,
+    demand: CustomerDemand,
+    product_text: str,
+) -> ScoreReason | None:
+    """固定 IP 场景按 IP 数量做稳定分流。
+
+    业务口径：13 个以内优先精品专线；超过 13 个或大段 IP 优先 IPMAN。
+    这里只调整同类候选的排序，不改变分类和召回边界。
+    """
+
+    count = first_int(demand.fixed_ip_count)
+    if count is None:
+        return None
+
+    if count <= 13 and contains_any(product_text, ("精品专线",)):
+        return ScoreReason(
+            code="flowchart_fixed_ip_small_count_boutique_line",
+            score_delta=28.0,
+            message="客户固定 IP 数量在 13 个以内，优先匹配精品专线/互联网专线类候选。",
+            evidence=f"{count}个固定IP",
+        )
+
+    if count <= 13 and contains_any(product_text, ("互联网专线", "沃专线", "智光", "沃动车")):
+        return ScoreReason(
+            code="flowchart_fixed_ip_small_count_boutique_line",
+            score_delta=12.0,
+            message="客户固定 IP 数量在 13 个以内，可匹配互联网专线类候选，但需优先核实精品专线套餐。",
+            evidence=f"{count}个固定IP",
+        )
+
+    if count > 13 and contains_any(product_text, ("IPMAN", "BGP&IPMAN", "BGP", "城域网专线")):
+        return ScoreReason(
+            code="flowchart_fixed_ip_large_count_primary",
+            score_delta=24.0,
+            message="客户固定 IP 数量超过 13 个，优先匹配 IPMAN/BGP&IPMAN 类候选。",
+            evidence=f"{count}个固定IP",
+        )
+
+    return None
+
+
+def score_flowchart_fit(
+    *,
+    demand: CustomerDemand,
+    category_decision: DemandCategoryDecision,
+    product: ProductCandidate,
+    product_text: str,
+) -> list[ScoreReason]:
+    reasons: list[ScoreReason] = []
+    category_id = category_decision.primary_category_id
+    product_identity_text = build_product_identity_text(product)
+    demand_text = " ".join(
+        [
+            demand.primary_goal,
+            demand.usage_scene,
+            demand.site_count,
+            demand.user_count,
+            demand.budget,
+            demand.fixed_ip_count or "",
+        ]
+    )
+
+    if category_id in {"internet_store_street", "5"} and is_small_store_need(demand, demand_text):
+        if contains_any(product_identity_text, ("开店宝", "旺铺宽带", "沃商铺", "商铺宽带", "智联")):
+            reasons.append(
+                ScoreReason(
+                    code="flowchart_small_store_primary",
+                    score_delta=24.0,
+                    message="客户属于沿街/小商铺低预算上网场景，优先匹配开店宝、旺铺或商铺宽带类候选。",
+                )
+            )
+
+    fixed_ip_reason = score_fixed_ip_count_fit(demand=demand, product_text=product_identity_text)
+    if fixed_ip_reason is not None:
+        reasons.append(fixed_ip_reason)
+
+    if category_id in {"network_point_to_point", "3"} and is_point_to_point_need(demand_text):
+        if contains_any(product_identity_text, ("IPRAN", "MSTP", "OTN", "电路出租", "以太专线", "点到点", "点对点")):
+            reasons.append(
+                ScoreReason(
+                    code="flowchart_networking_point_to_point",
+                    score_delta=20.0,
+                    message="客户属于两点/点对点互联场景，优先匹配 IPRAN、MSTP、OTN 或以太专线类候选。",
+                )
+            )
+
+    return reasons
+
+
+def is_small_store_need(demand: CustomerDemand, demand_text: str) -> bool:
+    store_signal = contains_any(
+        demand_text,
+        ("沿街", "店铺", "商铺", "门店", "餐饮", "零售", "收银", "外卖", "开店"),
+    )
+    small_scale = (demand.user_count_value or 9999) <= 5
+    low_budget = demand.budget_amount is not None and demand.budget_amount <= 3000
+    return store_signal and (small_scale or low_budget)
+
+
+def is_point_to_point_need(demand_text: str) -> bool:
+    return contains_any(
+        demand_text,
+        ("点对点", "两点", "两个点", "两个站点", "2个站点", "总部和仓库", "总部到分公司", "A点到B点"),
+    )
+
+
+def first_int(text: str | None) -> int | None:
+    if not text:
+        return None
+    match = re.search(r"\d+", text)
+    return int(match.group(0)) if match else None
 
 
 def dedupe(values: Iterable[str]) -> list[str]:

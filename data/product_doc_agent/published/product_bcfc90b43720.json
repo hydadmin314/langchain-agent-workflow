@@ -1,0 +1,341 @@
+{
+  "application_form_info": {
+    "document_info": {
+      "document_id": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\移动业务\\移动光网宽带",
+      "product_name": "",
+      "carrier": "",
+      "version": "",
+      "effective_date": null,
+      "document_status": null
+    },
+    "parties_and_application": {
+      "agent": {
+        "agent_name": "",
+        "sales_name": "",
+        "sales_contact": ""
+      },
+      "customer": {
+        "name": "",
+        "filled_values": [],
+        "is_blank_form": true
+      },
+      "application_fields": {
+        "required": [],
+        "optional": []
+      },
+      "application_notes": []
+    },
+    "pricing_info": {
+      "source_type": "application_form",
+      "source_file": "",
+      "one_time_fees": [],
+      "base_package_prices": [],
+      "addon_prices": [],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "agreement_rules": [],
+    "eligibility_and_constraints": []
+  },
+  "supplementary_info": {
+    "product_intro": {
+      "product_name": "移动光网宽带",
+      "full_description": "移动光网宽带基于FTTH 光纤到户 / F5G 千兆光网技术，通过光纤线路直接入户，分为家庭光宽带（爱家宽带）、政企商务光宽带两大产品线，实现高速、低时延、大并发有线互联网接入，配套魔百和 IPTV、FTTR 全屋光组网、企业专线增值服务，是移动 5G + 千兆光双底座核心业务。",
+      "application_scenarios": "沿街商铺 / 小店：收银系统、监控摄像头、顾客 Wi-Fi、外卖接单；中小微办公室：员工办公、企业视频会议、云桌面、财务系统；连锁门店：多门店内网互通，库存、收银数据实时同步；产业园 / 工作室：设计渲染、短视频剪辑、大文件云端存储；安防场景：多路高清监控 7×24 小时上传存储；政企轻专线：小型单位对外官网、小程序、远程运维"
+    },
+    "product_keywords": {
+      "raw_keywords": "移动光宽带、FTTH 光纤到户、F5G 千兆光网、极光宽带、千兆宽带、企业光纤、高上行带宽、监控专线、低时延稳定、政企专属运维、多线路备份、中小微降本增效"
+    },
+    "pricing_info": {
+      "source_type": "pricing_sheet",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\移动业务\\移动光网宽带\\2 资费表.xlsx",
+      "one_time_fees": [
+        {
+          "name": "一次性费用",
+          "amount": null,
+          "currency": "CNY",
+          "unit": "元",
+          "applicable_to": [],
+          "conditions": [],
+          "description": "原价500到1000元，可申请减免",
+          "raw_text": "原价：500到1000元，可申请减免"
+        }
+      ],
+      "base_package_prices": [
+        {
+          "name": "商务版/园区版 50M/50M",
+          "speed": "50M/50M",
+          "upstream_speed": "50M",
+          "downstream_speed": "50M",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 1980.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "指导价",
+          "raw_text": "50M/50M 1980"
+        },
+        {
+          "name": "商务版/园区版 50M/50M 承诺在网1年",
+          "speed": "50M/50M",
+          "upstream_speed": "50M",
+          "downstream_speed": "50M",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 1536.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "1年",
+          "included_items": [],
+          "conditions": [],
+          "description": "承诺在网1年可优惠",
+          "raw_text": "50M/50M 1536"
+        },
+        {
+          "name": "商务版/园区版 50M/50M 承诺在网2年",
+          "speed": "50M/50M",
+          "upstream_speed": "50M",
+          "downstream_speed": "50M",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 1440.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "2年",
+          "included_items": [],
+          "conditions": [],
+          "description": "承诺在网2年可优惠",
+          "raw_text": "50M/50M 1440"
+        },
+        {
+          "name": "商务版/园区版 100M/100M",
+          "speed": "100M/100M",
+          "upstream_speed": "100M",
+          "downstream_speed": "100M",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 2980.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "指导价",
+          "raw_text": "100M/100M 2980"
+        },
+        {
+          "name": "商务版/园区版 100M/100M 承诺在网1年",
+          "speed": "100M/100M",
+          "upstream_speed": "100M",
+          "downstream_speed": "100M",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 2016.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "1年",
+          "included_items": [],
+          "conditions": [],
+          "description": "承诺在网1年可优惠",
+          "raw_text": "100M/100M 2016"
+        },
+        {
+          "name": "商务版/园区版 100M/100M 承诺在网2年",
+          "speed": "100M/100M",
+          "upstream_speed": "100M",
+          "downstream_speed": "100M",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 2640.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "2年",
+          "included_items": [],
+          "conditions": [],
+          "description": "承诺在网2年可优惠",
+          "raw_text": "100M/100M 2640"
+        },
+        {
+          "name": "商务版/园区版 200M/200M",
+          "speed": "200M/200M",
+          "upstream_speed": "200M",
+          "downstream_speed": "200M",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 3980.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "指导价",
+          "raw_text": "200M/200M 3980"
+        },
+        {
+          "name": "商务版/园区版 200M/200M 承诺在网1年",
+          "speed": "200M/200M",
+          "upstream_speed": "200M",
+          "downstream_speed": "200M",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 2736.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "1年",
+          "included_items": [],
+          "conditions": [],
+          "description": "承诺在网1年可优惠",
+          "raw_text": "200M/200M 2736"
+        },
+        {
+          "name": "商务版/园区版 200M/200M 承诺在网2年",
+          "speed": "200M/200M",
+          "upstream_speed": "200M",
+          "downstream_speed": "200M",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 2640.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "2年",
+          "included_items": [],
+          "conditions": [],
+          "description": "承诺在网2年可优惠",
+          "raw_text": "200M/200M 2640"
+        },
+        {
+          "name": "商务版/园区版 200M/1000M",
+          "speed": "200M/1000M",
+          "upstream_speed": "200M",
+          "downstream_speed": "1000M",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 8980.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "指导价",
+          "raw_text": "200M/1000M 8980"
+        },
+        {
+          "name": "商务版/园区版 200M/1000M 承诺在网1年",
+          "speed": "200M/1000M",
+          "upstream_speed": "200M",
+          "downstream_speed": "1000M",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 6876.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "1年",
+          "included_items": [],
+          "conditions": [],
+          "description": "承诺在网1年可优惠",
+          "raw_text": "200M/1000M 6876"
+        },
+        {
+          "name": "商务版/园区版 200M/1000M 承诺在网2年",
+          "speed": "200M/1000M",
+          "upstream_speed": "200M",
+          "downstream_speed": "1000M",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 5880.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "2年",
+          "included_items": [],
+          "conditions": [],
+          "description": "承诺在网2年可优惠",
+          "raw_text": "200M/1000M 5880"
+        }
+      ],
+      "addon_prices": [],
+      "fee_and_term_rules": [],
+      "discount_policy": [
+        {
+          "name": "承诺在网1年优惠",
+          "category": "",
+          "applicable_to": [
+            "50M/50M",
+            "100M/100M",
+            "200M/200M",
+            "200M/1000M"
+          ],
+          "standard_price": null,
+          "discount_rate": null,
+          "discounted_price": null,
+          "currency": "CNY",
+          "unit": "元/年",
+          "conditions": [
+            "承诺在网1年"
+          ],
+          "description": "承诺在网1年可享受优惠价格",
+          "raw_text": "承诺在网1年可优惠：元/年"
+        },
+        {
+          "name": "承诺在网2年优惠",
+          "category": "",
+          "applicable_to": [
+            "50M/50M",
+            "100M/100M",
+            "200M/200M",
+            "200M/1000M"
+          ],
+          "standard_price": null,
+          "discount_rate": null,
+          "discounted_price": null,
+          "currency": "CNY",
+          "unit": "元/年",
+          "conditions": [
+            "承诺在网2年"
+          ],
+          "description": "承诺在网2年可享受优惠价格",
+          "raw_text": "承诺在网2年可优惠：元/年"
+        }
+      ]
+    },
+    "application_materials": []
+  },
+  "extraction_meta": {
+    "generated_at": "2026-06-23T15:41:22",
+    "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\移动业务\\移动光网宽带",
+    "method": "llm_schema_module_extraction_no_normalization",
+    "validation_issues": [
+      {
+        "severity": "warning",
+        "path": "$.application_form_info.pricing_info.source_file",
+        "message": "缺少来源文件"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.document_info",
+        "message": "申请表基本信息基本为空，可能是切块或文档转换质量不足"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.parties_and_application.application_fields",
+        "message": "申请表没有抽到字段信息"
+      }
+    ],
+    "validation_issue_count": 3
+  }
+}

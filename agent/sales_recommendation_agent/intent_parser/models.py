@@ -38,7 +38,8 @@ class CustomerDemand(BaseModel):
     这版字段面向销售推荐：保留业务可读文本字段，后续程序需要数值时通过兼容属性解析。
     """
 
-    primary_category: str = Field(default="", description="13类中的主分类名称。")
+    primary_domain: str = Field(default="", description="一级业务域：上网或组网。")
+    primary_category: str = Field(default="", description="六类销售套餐分类中的主分类名称。")
     secondary_categories: list[str] = Field(default_factory=list, description="辅助分类，最多2个，用于交叉需求。")
     primary_goal: str = Field(default="", description="客户原始目标，例如办公上网、固定IP、云中继。")
     usage_scene: str = Field(default="", description="使用场景，例如办公室、门店、总部+分支。")
@@ -69,6 +70,8 @@ class CustomerDemand(BaseModel):
     customer_type: str = Field(default="", description="客户类型。")
 
     raw_keywords: list[str] = Field(default_factory=list, description="从原始需求中保留的关键触发词。")
+    positive_signals: list[str] = Field(default_factory=list, description="客户明确表达的正向需求信号。")
+    negative_signals: list[str] = Field(default_factory=list, description="客户明确否定的需求信号。")
     confidence: float = Field(default=0.6, ge=0, le=1, description="需求解析置信度。")
     missing_fields: list[str] = Field(default_factory=list, description="后续销售需要追问的关键字段。")
 
@@ -189,13 +192,22 @@ class CustomerDemand(BaseModel):
 
     @property
     def scenario_type(self) -> ScenarioType:
-        """兼容旧字段：粗场景只作为辅助，不作为最终 13 类分类。"""
+        """兼容旧字段：粗场景只作为辅助，不作为最终六类分类。"""
 
         if self.overseas_access is True:
             return ScenarioType.overseas_access
         if self.fixed_ip_required is True or self.bandwidth_est_mbps >= 100:
             return ScenarioType.dedicated_ip_or_high_bandwidth
-        if any(keyword in self.primary_goal + self.usage_scene for keyword in ("组网", "互通", "总部", "分支")):
+        networking_text = " ".join(
+            [
+                self.primary_goal,
+                self.usage_scene,
+                self.site_count,
+                *self.raw_keywords,
+                *self.secondary_categories,
+            ]
+        )
+        if any(keyword in networking_text for keyword in ("组网", "互通", "总部", "分支", "分公司", "点对点")):
             return ScenarioType.domestic_networking
         return ScenarioType.unknown
 
@@ -219,6 +231,8 @@ class CustomerDemand(BaseModel):
             self.region,
             self.customer_type,
             *self.raw_keywords,
+            *self.positive_signals,
+            *self.negative_signals,
         ]
         if self.fixed_ip_required is True:
             values.append("固定IP")
@@ -256,10 +270,11 @@ def _dedupe(values: list[str]) -> list[str]:
 
 
 class DemandCategoryMatch(BaseModel):
-    """13 类产品需求分类体系中的命中结果。"""
+    """六类销售套餐分类体系中的命中结果。"""
 
     category_id: str
     category_name: str
+    primary_domain: str = ""
     score: float = 0.0
     matched_keywords: list[str] = Field(default_factory=list)
     reason: str = ""
@@ -268,11 +283,12 @@ class DemandCategoryMatch(BaseModel):
 class DemandCategoryDecision(BaseModel):
     """需求分类结果。
 
-    推荐主流程只依赖 13 类产品需求分类，不再依赖早期 4 类粗路由。
+    推荐主流程只依赖上网/组网六类销售套餐分类，不再依赖早期 4 类粗路由。
     """
 
     primary_category_id: str = ""
     primary_category_name: str = ""
+    primary_domain: str = ""
     category_matches: list[DemandCategoryMatch] = Field(default_factory=list)
     recommendation_mode: str = "clarify"
     confidence: float = 0.0

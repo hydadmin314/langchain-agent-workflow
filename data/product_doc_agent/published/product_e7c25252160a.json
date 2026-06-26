@@ -1,0 +1,327 @@
+{
+  "application_form_info": {
+    "document_info": {
+      "document_id": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内OTN",
+      "product_name": "",
+      "carrier": "",
+      "version": "",
+      "effective_date": null,
+      "document_status": null
+    },
+    "parties_and_application": {
+      "agent": {
+        "agent_name": "",
+        "sales_name": "",
+        "sales_contact": ""
+      },
+      "customer": {
+        "name": "",
+        "filled_values": [],
+        "is_blank_form": true
+      },
+      "application_fields": {
+        "required": [],
+        "optional": []
+      },
+      "application_notes": []
+    },
+    "pricing_info": {
+      "source_type": "application_form",
+      "source_file": "",
+      "one_time_fees": [],
+      "base_package_prices": [],
+      "addon_prices": [],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "agreement_rules": [],
+    "eligibility_and_constraints": []
+  },
+  "supplementary_info": {
+    "product_intro": {
+      "product_name": "OTN",
+      "full_description": "大带宽传输专线产品是指依托于中国电信的传输网，为客户提供 GE 及以上带宽的传输专线业务，该业务可通过不同的保护方式为客户提供不同的服务等级，目前可支持的接口类型包括 GE、STM-16、10GE WAN、10GE LAN、STM-64、OTU2、STM-256、OTU3、40GE 、100GE 等。根据电路可用率指标，大带宽传输专线产品分为四个业务类型：双路由自动保护+三路由恢复、双路由自动保护、双路由负荷分担和单路由。目前该业务主要针对跨域业务。主要业务特性：大带宽传送能力，可提供 GE 及以上带宽的端到端通道保证；多业务承载功能，可提供 SDH、以太网、OTN 等多种业务接入，可提供 GE 及以上多种带宽速率接入，满足不同类型客户的对业务的透明传送需求；提供多业务类型，可通过采用不同的组网方案满足客户对于业务的不同需求。",
+      "application_scenarios": "用户业务需求在 1GE 以上，接入 OTN 网络，原则上用户带宽只以整数倍数递升。例如 10G、40G。用户需求 40G 以上带宽业务，原则上需在用户端新建设备来满足。"
+    },
+    "product_keywords": {
+      "raw_keywords": "线路延时，带宽利用率，是否具备资源，需要多长时间开通，使用人数，应用场景，需要多少带宽，打折，月租费，一次性费用，合同协议期，协议期内拆机违约金"
+    },
+    "pricing_info": {
+      "source_type": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内OTN\\2 资费表.xlsx",
+      "one_time_fees": [],
+      "base_package_prices": [],
+      "addon_prices": [],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "application_materials": [
+      {
+        "material_type": "表单",
+        "name": "客户基本信息表",
+        "description": "提交信息上单阶段使用，提前确认两端地址",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": false,
+        "copy_required": false,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "无需盖章"
+        ],
+        "related_constraints": [],
+        "raw_text": "客户基本信息表，无需盖章，提前确认两端地址",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内OTN\\4-6 本地国内OTN申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "营业执照复印件",
+        "description": "提交信息上单阶段使用",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章",
+          "扫描件"
+        ],
+        "related_constraints": [],
+        "raw_text": "营业执照复印件加盖公章，扫描件",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内OTN\\4-6 本地国内OTN申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "经办人身份证正反面复印件",
+        "description": "提交信息上单阶段使用",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章",
+          "扫描件"
+        ],
+        "related_constraints": [],
+        "raw_text": "经办人身份证正反面复印件加盖公章，扫描件",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内OTN\\4-6 本地国内OTN申请手续提示.txt"
+      },
+      {
+        "material_type": "合同",
+        "name": "电信正式合同水印版",
+        "description": "走正式合同阶段使用",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": true,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": false,
+        "pages_or_locations": [
+          "骑缝章"
+        ],
+        "handling_notes": [
+          "客户签字",
+          "加盖公章和骑缝章"
+        ],
+        "related_constraints": [],
+        "raw_text": "电信正式合同水印版客户签字、加盖公章和骑缝章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内OTN\\4-6 本地国内OTN申请手续提示.txt"
+      },
+      {
+        "material_type": "授权书",
+        "name": "授权委托书",
+        "description": "与合同一起提交的纸质手续",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章"
+        ],
+        "related_constraints": [],
+        "raw_text": "授权委托书，加盖公章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内OTN\\4-6 本地国内OTN申请手续提示.txt"
+      },
+      {
+        "material_type": "表单",
+        "name": "大客户需求表",
+        "description": "与合同一起提交的纸质手续",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章"
+        ],
+        "related_constraints": [],
+        "raw_text": "大客户需求表，加盖公章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内OTN\\4-6 本地国内OTN申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "营业执照复印件",
+        "description": "与合同一起提交的纸质手续",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章"
+        ],
+        "related_constraints": [],
+        "raw_text": "营业执照复印件，加盖公章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内OTN\\4-6 本地国内OTN申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "经办人身份证正反面复印件",
+        "description": "与合同一起提交的纸质手续",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章"
+        ],
+        "related_constraints": [],
+        "raw_text": "经办人身份证正反面复印件，加盖公章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内OTN\\4-6 本地国内OTN申请手续提示.txt"
+      },
+      {
+        "material_type": "担保书",
+        "name": "上海公司电信业务担保书",
+        "description": "外地公司申请本地OTN时需补充的手续",
+        "required": true,
+        "applicable_to": [
+          "外地公司"
+        ],
+        "conditions": [
+          "外地公司申请本地OTN"
+        ],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "盖公章"
+        ],
+        "related_constraints": [
+          "外地公司需担保"
+        ],
+        "raw_text": "上海公司电信业务担保书，盖公章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内OTN\\4-6 本地国内OTN申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "担保公司营业执照复印件",
+        "description": "外地公司申请本地OTN时需补充的手续",
+        "required": true,
+        "applicable_to": [
+          "外地公司"
+        ],
+        "conditions": [
+          "外地公司申请本地OTN"
+        ],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "盖公章"
+        ],
+        "related_constraints": [
+          "外地公司需担保"
+        ],
+        "raw_text": "担保公司营业执照复印件，盖公章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内OTN\\4-6 本地国内OTN申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "担保公司经办人身份证正反面复印件",
+        "description": "外地公司申请本地OTN时需补充的手续",
+        "required": true,
+        "applicable_to": [
+          "外地公司"
+        ],
+        "conditions": [
+          "外地公司申请本地OTN"
+        ],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "盖公章"
+        ],
+        "related_constraints": [
+          "外地公司需担保"
+        ],
+        "raw_text": "担保公司经办人身份证正反面复印件，盖公章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内OTN\\4-6 本地国内OTN申请手续提示.txt"
+      }
+    ]
+  },
+  "extraction_meta": {
+    "generated_at": "2026-06-23T16:04:48",
+    "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内OTN",
+    "method": "llm_schema_module_extraction_no_normalization",
+    "validation_issues": [
+      {
+        "severity": "error",
+        "path": "document.4 申请表_转定用的大客户需求表OTN.doc",
+        "message": "RuntimeError: 缺少 Word COM 依赖，请先安装 pywin32：pip install pywin32"
+      },
+      {
+        "severity": "warning",
+        "path": "$.application_form_info.pricing_info.source_file",
+        "message": "缺少来源文件"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.document_info",
+        "message": "申请表基本信息基本为空，可能是切块或文档转换质量不足"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.parties_and_application.application_fields",
+        "message": "申请表没有抽到字段信息"
+      },
+      {
+        "severity": "warning",
+        "path": "supplementary_info.pricing_info",
+        "message": "资费表没有抽到有效资费"
+      }
+    ],
+    "validation_issue_count": 5
+  }
+}

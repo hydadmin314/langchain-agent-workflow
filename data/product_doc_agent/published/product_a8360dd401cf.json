@@ -1,0 +1,1155 @@
+{
+  "application_form_info": {
+    "document_info": {
+      "document_id": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\联通业务\\智享（沃快车）\\4 申请表_中国联通互联网宽带接入业务（沃快车）新装申请单.pdf",
+      "product_name": "",
+      "carrier": "",
+      "version": "",
+      "effective_date": "",
+      "document_status": ""
+    },
+    "parties_and_application": {
+      "agent": {
+        "agent_name": "",
+        "sales_name": "",
+        "sales_contact": ""
+      },
+      "customer": {
+        "name": "",
+        "filled_values": [],
+        "is_blank_form": true
+      },
+      "application_fields": {
+        "required": [
+          {
+            "label": "客户名称",
+            "field_key": "customer_name",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*客户名称"
+          },
+          {
+            "label": "客户证件类型",
+            "field_key": "customer_cert_type",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*客户证件类型"
+          },
+          {
+            "label": "客户证件号码",
+            "field_key": "customer_cert_number",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*客户证件号码"
+          },
+          {
+            "label": "经办人姓名",
+            "field_key": "agent_name",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*经办人姓名"
+          },
+          {
+            "label": "联系电话",
+            "field_key": "contact_phone",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*联系电话"
+          },
+          {
+            "label": "经办人证件类型",
+            "field_key": "agent_cert_type",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*经办人证件类型"
+          },
+          {
+            "label": "经办人证件号码",
+            "field_key": "agent_cert_number",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*经办人证件号码"
+          },
+          {
+            "label": "账单地址",
+            "field_key": "billing_address",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*账单地址"
+          },
+          {
+            "label": "收件人",
+            "field_key": "recipient",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*收件人"
+          },
+          {
+            "label": "收件人联系电话",
+            "field_key": "recipient_phone",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*收件人联系电话"
+          },
+          {
+            "label": "客户经理",
+            "field_key": "account_manager",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*客户经理"
+          },
+          {
+            "label": "填单人员",
+            "field_key": "order_filler",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*填单人员"
+          },
+          {
+            "label": "归属部门",
+            "field_key": "department",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*归属部门"
+          },
+          {
+            "label": "现场联系人名称",
+            "field_key": "on_site_contact_name",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*现场联系人名称 On-site Contact"
+          },
+          {
+            "label": "现场联系人电话",
+            "field_key": "on_site_contact_phone",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "*现场联系人电话 On-site Telephone"
+          }
+        ],
+        "optional": [
+          {
+            "label": "客户证件地址",
+            "field_key": "customer_cert_address",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "客户证件地址"
+          },
+          {
+            "label": "邮编",
+            "field_key": "postal_code",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "邮编"
+          },
+          {
+            "label": "电子邮件",
+            "field_key": "email",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "电子邮件"
+          },
+          {
+            "label": "备注说明",
+            "field_key": "remarks",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "备注说明"
+          },
+          {
+            "label": "云业务联系人名称",
+            "field_key": "cloud_contact_name",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "云业务联系人名称"
+          },
+          {
+            "label": "联系人电话",
+            "field_key": "cloud_contact_phone",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "联系人电话"
+          },
+          {
+            "label": "联系人邮箱",
+            "field_key": "cloud_contact_email",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "联系人邮箱"
+          }
+        ]
+      },
+      "application_notes": [
+        "参加活动的客户需另行签订《上海联通公有云-沃云 A 产品服务协议》或《上海联通公有云-沃云 T 产品服务协议》。"
+      ]
+    },
+    "pricing_info": {
+      "source_type": "application_form",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\联通业务\\智享（沃快车）\\4 申请表_中国联通互联网宽带接入业务（沃快车）新装申请单.pdf",
+      "one_time_fees": [
+        {
+          "name": "安装调试费",
+          "amount": null,
+          "currency": "CNY",
+          "unit": "",
+          "applicable_to": [],
+          "conditions": [],
+          "description": "一次性费用包括安装调试费",
+          "raw_text": "一次性费用包括安装调试费"
+        },
+        {
+          "name": "域名服务费",
+          "amount": null,
+          "currency": "CNY",
+          "unit": "",
+          "applicable_to": [],
+          "conditions": [],
+          "description": "一次性费用包括域名服务费",
+          "raw_text": "一次性费用包括域名服务费"
+        }
+      ],
+      "base_package_prices": [
+        {
+          "name": "沃快车极速版宽带",
+          "speed": "",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "",
+          "has_voice": null,
+          "price": null,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [
+            "宽带网络资源费"
+          ],
+          "conditions": [
+            "上网方式动态拨号方式"
+          ],
+          "description": "沃快车极速版宽带上网方式动态拨号方式，套餐月租金含宽带网络资源费",
+          "raw_text": "沃快车极速版宽带上网方式动态拨号方式，套餐月租金含宽带网络资源费。"
+        }
+      ],
+      "addon_prices": [
+        {
+          "name": "沃金TV可选包",
+          "category": "增值业务",
+          "spec": "",
+          "price": null,
+          "currency": "CNY",
+          "unit": "",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [
+            "宽带主业务"
+          ],
+          "conditions": [
+            "与宽带主业务同开同停"
+          ],
+          "description": "沃金TV可选包与宽带主业务同开同停",
+          "raw_text": "沃金TV可选包与宽带主业务同开同停；"
+        }
+      ],
+      "fee_and_term_rules": [
+        {
+          "name": "首月折算",
+          "category": "计费规则",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "CNY",
+          "unit": "",
+          "period": "首月",
+          "formula": "月使用费*实际使用天数/当期计费周期天数",
+          "conditions": [
+            "业务开通的第一个月，若甲方使用业务计费期不足一个月"
+          ],
+          "description": "业务开通的第一个月，若甲方使用业务计费期不足一个月，当月的月度使用费按照：月使用费*实际使用天数/当期计费周期天数进行计算",
+          "raw_text": "业务开通的第一个月，若甲方使用业务计费期不足一个月，当月的月度使用费按照：月使用费*实际使用天数/当期计费周期天数进行计算。"
+        },
+        {
+          "name": "停机保号费",
+          "category": "费用规则",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "CNY",
+          "unit": "元/月",
+          "period": "月",
+          "formula": "标准月租的20%",
+          "conditions": [
+            "参加过优惠活动（含年付）的客户在承诺期内不提供停机保号服务"
+          ],
+          "description": "如客户需要办理停机保号业务，停机保号费按标准月租的20%每月收取",
+          "raw_text": "如客户需要办理停机保号业务，停机保号费按标准月租的20%每月收取，但参加过优惠活动（含年付）的客户在承诺期内不提供停机保号服务。"
+        },
+        {
+          "name": "违约金",
+          "category": "违约规则",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "CNY",
+          "unit": "日",
+          "period": "日",
+          "formula": "所欠费用每日加收3‰",
+          "conditions": [
+            "甲方逾期未支付通信费用"
+          ],
+          "description": "甲方逾期未支付通信费用，乙方有权要求其补缴费用，并按照所欠费用每日加收3‰的违约金",
+          "raw_text": "遵照《中华人民共和国电信条例》的规定，甲方逾期未支付通信费用，乙方有权要求其补缴费用，并按照所欠费用每日加收3‰的违约金。"
+        },
+        {
+          "name": "违规使用违约金",
+          "category": "违约规则",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "CNY",
+          "unit": "",
+          "period": "",
+          "formula": "自开通之日到发现上述行为之日的月租之和",
+          "conditions": [
+            "甲方违规使用"
+          ],
+          "description": "甲方应当向乙方按照中国联通互联网专线接入业务（沃专线类）标准资费支付自开通之日到发现上述行为之日的月租之和作为违约金",
+          "raw_text": "同时，甲方应当向乙方按照中国联通互联网专线接入业务（沃专线类）标准资费支付自开通之日到发现上述行为之日的月租之和作为违约金。"
+        },
+        {
+          "name": "协议终止当月费用",
+          "category": "计费规则",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "CNY",
+          "unit": "元/月",
+          "period": "月",
+          "formula": "全月使用费",
+          "conditions": [
+            "甲方协议终止当月"
+          ],
+          "description": "甲方协议终止当月的月度使用费按照全月使用费收取",
+          "raw_text": "甲方协议终止当月的月度使用费按照全月使用费收取。"
+        },
+        {
+          "name": "合同期限",
+          "category": "期限规则",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "1年",
+          "formula": "",
+          "conditions": [
+            "参加云网融合套餐"
+          ],
+          "description": "参加云网融合套餐的业务期限为1年",
+          "raw_text": "参加云网融合套餐的业务期限为1年"
+        },
+        {
+          "name": "优惠返还",
+          "category": "违约规则",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "CNY",
+          "unit": "",
+          "period": "",
+          "formula": "一次性费用优惠款项（一次性费用标准资费与成交价的差额）+ 月使用费优惠款项（月使用费标准资费与成交价的差额与已使用的月份数的乘积）",
+          "conditions": [
+            "甲方在合同期限内违反约定申请终止服务、停机保号、变更付费方式、降低速率等"
+          ],
+          "description": "乙方有权要求甲方返还已享有的一次性费用优惠款项（即一次性费用标准资费与成交价的差额），同时还应当向乙方返还其已有的月使用费优惠款项（即月使用费标准资费与成交价的差额与已使用的月份数的乘积）",
+          "raw_text": "如甲方在合同期限内违反上述约定，乙方有权要求甲方返还已享有的一次性费用优惠款项（即一次性费用标准资费与成交价的差额），同时还应当向乙方返还其已有的月使用费优惠款项（即月使用费标准资费与成交价的差额与已使用的月份数的乘积）。"
+        },
+        {
+          "name": "自动顺延",
+          "category": "期限规则",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "",
+          "formula": "",
+          "conditions": [
+            "有效期满前一个月，若双方无异议"
+          ],
+          "description": "有效期满前一个月，若双方无异议，本合同自动顺延，顺延事项包括但不限于资费标准、付费方式以及该付费方式下承担的赔付责任，顺延期即为甲方所选择的付费方式对应的业务使用期，可连续顺延",
+          "raw_text": "有效期满前一个月，若双方无异议，本合同自动顺延【注：顺延事项包括但不限于资费标准、付费方式以及该付费方式下承担的赔付责任，顺延期即为甲方所选择的付费方式对应的业务使用期，可连续顺延】。"
+        }
+      ],
+      "discount_policy": [
+        {
+          "name": "云网融合套餐优惠",
+          "category": "套餐折扣",
+          "applicable_to": [
+            "宽带月租"
+          ],
+          "standard_price": null,
+          "discount_rate": null,
+          "discounted_price": null,
+          "currency": "CNY",
+          "unit": "",
+          "conditions": [
+            "活动期内",
+            "每月正常缴费"
+          ],
+          "description": "活动期内可享受宽带月租优惠，1年后宽带与公有云业务将分别按照标准价格收费。上述优惠仅限活动内指定宽带业务网络使用费的月租优惠，超出活动内指定月租部分另行收费。",
+          "raw_text": "参加云网融合套餐的业务期限为1年，活动期内可享受宽带月租优惠，1年后宽带与公有云业务将分别按照标准价格收费。乙方每月正常缴费可享受活动优惠，上述优惠仅限活动内指定宽带业务网络使用费的月租优惠，超出活动内指定月租部分另行收费。"
+        }
+      ]
+    },
+    "agreement_rules": [
+      {
+        "rule_type": "restriction",
+        "description": "参加活动的客户需另行签订《上海联通公有云-沃云 A 产品服务协议》或《上海联通公有云-沃云 T 产品服务协议》。",
+        "severity": "",
+        "applies_to": [
+          "参加活动的客户"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "参加活动"
+        ],
+        "consequence": "",
+        "raw_text": "参加活动的客户需另行签订《上海联通公有云-沃云 A 产品服务协议》或《上海联通公有云-沃云 T 产品服务协议》。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "所有客户信息必须填写准确、真实、有效，并愿意接受及遵守前面协议书之各项条款。",
+        "severity": "",
+        "applies_to": [
+          "客户"
+        ],
+        "obligation_party": "客户",
+        "conditions": [],
+        "consequence": "",
+        "raw_text": "所有客户信息必须填写准确、真实、有效，并愿意接受及遵守前面协议书之各项条款。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "按照电信管理机构的要求终止或者暂停对违法网站的接入服务。",
+        "severity": "",
+        "applies_to": [
+          "服务商"
+        ],
+        "obligation_party": "服务商",
+        "conditions": [
+          "电信管理机构要求"
+        ],
+        "consequence": "终止或者暂停对违法网站的接入服务",
+        "raw_text": "按照电信管理机构的要求终止或者暂停对违法网站的接入服务。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "当发现用户端系统感染木马（受控端或控制端）或僵尸网络（受控端或控制端），必须按照中国联通的要求进行彻底整改，逾期拒不整改的，中国联通有权对其暂停互联网接入直至整改完成，情节严重的中国联通可中止或终止接入协议，不承担任何法律责任。",
+        "severity": "",
+        "applies_to": [
+          "用户"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "发现用户端系统感染木马或僵尸网络",
+          "逾期拒不整改"
+        ],
+        "consequence": "暂停互联网接入直至整改完成，情节严重的可中止或终止接入协议",
+        "raw_text": "当发现用户端系统感染木马（受控端或控制端）或僵尸网络（受控端或控制端），必须按照中国联通的要求进行彻底整改，逾期拒不整改的，中国联通有权对其暂停互联网接入直至整改完成，情节严重的中国联通可中止或终止接入协议，不承担任何法律责任。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "严禁用户发送垃圾邮件，一旦发现必须按照中国联通的要求进行彻底整改，逾期拒不整改的，中国联通有权对其暂停互联网接入直至整改完成，情节严重的中国联通可中止或终止接入协议，不承担任何法律责任。",
+        "severity": "",
+        "applies_to": [
+          "用户"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "发现用户发送垃圾邮件",
+          "逾期拒不整改"
+        ],
+        "consequence": "暂停互联网接入直至整改完成，情节严重的可中止或终止接入协议",
+        "raw_text": "严禁用户发送垃圾邮件，一旦发现必须按照中国联通的要求进行彻底整改，逾期拒不整改的，中国联通有权对其暂停互联网接入直至整改完成，情节严重的中国联通可中止或终止接入协议，不承担任何法律责任。"
+      },
+      {
+        "rule_type": "after_sales",
+        "description": "活动到期后，甲方可凭宽带或公有云业务终止协议单独终止各项业务，终止单项业务时套餐优惠关系取消。",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "活动到期"
+        ],
+        "consequence": "终止单项业务时套餐优惠关系取消",
+        "raw_text": "活动到期后，甲方可凭宽带或公有云业务终止协议单独终止各项业务，终止单项业务时套餐优惠关系取消。"
+      },
+      {
+        "rule_type": "after_sales",
+        "description": "客户办理相关产品注销手续时，若有终端接入设备，需归还该设备，不能退还的，客户应赔偿与该设备等值的金额。",
+        "severity": "",
+        "applies_to": [
+          "客户"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "办理相关产品注销手续",
+          "有终端接入设备",
+          "不能退还"
+        ],
+        "consequence": "赔偿与该设备等值的金额",
+        "raw_text": "客户办理相关产品注销手续时，若有终端接入设备，需归还该设备，不能退还的，客户应赔偿与该设备等值的金额。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "如甲方通过乙方线路经营网吧，甲方需要取得相应的法定经营许可证，并向乙方提供相关材料，不合规定的，乙方有权终止提供接入服务。",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "通过乙方线路经营网吧",
+          "未取得法定经营许可证或未提供相关材料"
+        ],
+        "consequence": "乙方有权终止提供接入服务",
+        "raw_text": "如甲方通过乙方线路经营网吧，甲方需要取得相应的法定经营许可证，并向乙方提供相关材料，不合规定的，乙方有权终止提供接入服务。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "甲方应遵守国家相关的法律、法规，不得利用租用乙方的服务从事损害国家网络信息安全的行为，若甲方有违反此规定的行为发生，乙方有权立即终止对甲方的服务，由此造成的一切损失由甲方承担。",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "利用租用乙方的服务从事损害国家网络信息安全的行为"
+        ],
+        "consequence": "乙方有权立即终止对甲方的服务，由此造成的一切损失由甲方承担",
+        "raw_text": "甲方应遵守国家相关的法律、法规，不得利用租用乙方的服务从事损害国家网络信息安全的行为，若甲方有违反此规定的行为发生，乙方有权立即终止对甲方的服务，由此造成的一切损失由甲方承担；"
+      },
+      {
+        "rule_type": "termination",
+        "description": "否则，乙方有权立即停止向甲方提供服务并追回所有拖欠费用，由此造成的一切后果均由甲方承担。",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "拖欠费用"
+        ],
+        "consequence": "乙方有权立即停止向甲方提供服务并追回所有拖欠费用，由此造成的一切后果均由甲方承担",
+        "raw_text": "否则，乙方有权立即停止向甲方提供服务并追回所有拖欠费用，由此造成的一切后果均由甲方承担。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "同时，甲方应当向乙方按照中国联通互联网专线接入业务（沃专线类）标准资费支付自开通之日到发现上述行为之日的月租之和作为违约金。",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "发生上述违规行为"
+        ],
+        "consequence": "支付自开通之日到发现上述行为之日的月租之和作为违约金",
+        "raw_text": "同时，甲方应当向乙方按照中国联通互联网专线接入业务（沃专线类）标准资费支付自开通之日到发现上述行为之日的月租之和作为违约金。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "甲方订购的公有云业务属于包年服务，则服务未到期前，甲方应承诺在合同期限内不提出终止服务。",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "订购的公有云业务属于包年服务",
+          "服务未到期"
+        ],
+        "consequence": "在合同期限内不提出终止服务",
+        "raw_text": "甲方订购的公有云业务属于包年服务，则服务未到期前，甲方应承诺在合同期限内不提出终止服务。"
+      },
+      {
+        "rule_type": "after_sales",
+        "description": "除法定及乙方和甲方另行约定外，自本服务条款期满或因任何原因导致本服务条款提前终止之日起的7个自然日内，乙方应继续存储甲方的数据，逾期将不再保留甲方数据，甲方需自行承担其数据被销毁后引发的一切后果。",
+        "severity": "",
+        "applies_to": [
+          "乙方",
+          "甲方"
+        ],
+        "obligation_party": "双方",
+        "conditions": [
+          "服务条款期满或提前终止"
+        ],
+        "consequence": "逾期将不再保留甲方数据，甲方需自行承担其数据被销毁后引发的一切后果",
+        "raw_text": "除法定及乙方和甲方另行约定外，自本服务条款期满或因任何原因导致本服务条款提前终止之日起的7个自然日内，乙方应继续存储甲方的数据，逾期将不再保留甲方数据，甲方需自行承担其数据被销毁后引发的一切后果。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "甲方逾期未支付通信费用，乙方有权要求其补缴费用，并按照所欠费用每日加收3‰的违约金。",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "逾期未支付通信费用"
+        ],
+        "consequence": "补缴费用，并按照所欠费用每日加收3‰的违约金",
+        "raw_text": "遵照《中华人民共和国电信条例》的规定，甲方逾期未支付通信费用，乙方有权要求其补缴费用，并按照所欠费用每日加收3‰的违约金。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "甲方逾期未支付通信费用超过30日，乙方有权暂停服务。",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "逾期未支付通信费用超过30日"
+        ],
+        "consequence": "乙方有权暂停服务",
+        "raw_text": "甲方逾期未支付通信费用超过30日，乙方有权暂停服务。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "甲方逾期未支付通信费用超过90日的，乙方有权终止服务，并有权依法追缴欠费和违约金。",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "逾期未支付通信费用超过90日"
+        ],
+        "consequence": "乙方有权终止服务，并有权依法追缴欠费和违约金",
+        "raw_text": "甲方逾期未支付通信费用超过90日的，乙方有权终止服务，并有权依法追缴欠费和违约金。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "乙方亦有权决定不在前述时间点（但不少于前述时间）行使暂停服务或终止服务（以下合称：停机）的权利；如乙方未在前述时间点行使停机的权利，乙方有权依据实际停机的时间，主张甲方欠费期间的全部通信费及违约金，甲方不得以乙方有权停机而未停机作为拒绝支付通信费的理由。",
+        "severity": "",
+        "applies_to": [
+          "乙方",
+          "甲方"
+        ],
+        "obligation_party": "双方",
+        "conditions": [
+          "乙方未在前述时间点行使停机的权利"
+        ],
+        "consequence": "乙方有权依据实际停机的时间，主张甲方欠费期间的全部通信费及违约金",
+        "raw_text": "乙方亦有权决定不在前述时间点（但不少于前述时间）行使暂停服务或终止服务（以下合称：停机）的权利；如乙方未在前述时间点行使停机的权利，乙方有权依据实际停机的时间，主张甲方欠费期间的全部通信费及违约金，甲方不得以乙方有权停机而未停机作为拒绝支付通信费的理由；"
+      },
+      {
+        "rule_type": "termination",
+        "description": "甲乙双方均具备终止本协议的权利，如需终止，一方应提前30日书面提出协议终止申请。",
+        "severity": "",
+        "applies_to": [
+          "甲方",
+          "乙方"
+        ],
+        "obligation_party": "双方",
+        "conditions": [
+          "需终止协议"
+        ],
+        "consequence": "提前30日书面提出协议终止申请",
+        "raw_text": "甲乙双方均具备终止本协议的权利，如需终止，一方应提前30日书面提出协议终止申请。"
+      },
+      {
+        "rule_type": "after_sales",
+        "description": "在甲方按合同规定的金额支付所欠费用及违约金后，乙方同意与甲方签订终止合同并停止服务。甲方协议终止当月的月度使用费按照全月使用费收取。",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "甲方按合同规定的金额支付所欠费用及违约金"
+        ],
+        "consequence": "乙方同意与甲方签订终止合同并停止服务，终止当月月度使用费按照全月使用费收取",
+        "raw_text": "在甲方按合同规定的金额支付所欠费用及违约金后，乙方同意与甲方签订终止合同并停止服务。甲方协议终止当月的月度使用费按照全月使用费收取。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "如甲方在1个月后仍不交纳所欠费用及违约金的，乙方有权销毁并终止为甲方开立的计算资源和相关的增值服务。",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "在1个月后仍不交纳所欠费用及违约金"
+        ],
+        "consequence": "乙方有权销毁并终止为甲方开立的计算资源和相关的增值服务",
+        "raw_text": "如甲方在1个月后仍不交纳所欠费用及违约金的，乙方有权销毁并终止为甲方开立的计算资源和相关的增值服务。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "如果甲方签约享受了乙方提供的折扣和/或优惠（包括促销和预付方式），并已承诺合同期限，甲方在合同期限内原则上不可以申请移机，但不得申请终止服务、停机保号、变更付费方式、降低速率等可能导致原合同签订金额下降的服务。",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "签约享受了乙方提供的折扣和/或优惠",
+          "已承诺合同期限"
+        ],
+        "consequence": "在合同期限内原则上不可以申请移机，不得申请终止服务、停机保号、变更付费方式、降低速率等可能导致原合同签订金额下降的服务",
+        "raw_text": "如果甲方签约享受了乙方提供的折扣和/或优惠（包括促销和预付方式），并已承诺合同期限，甲方在合同期限内原则上不可以申请移机，但不得申请终止服务、停机保号、变更付费方式、降低速率等可能导致原合同签订金额下降的服务【注：“合同期限”自业务开通当月开始，至到期自然月最后一天终止】；"
+      },
+      {
+        "rule_type": "termination",
+        "description": "如乙方升级、故障处理等涉及到客户端设备及线路施工的，甲方应予以必要的配合，否则乙方有权终止服务。",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "乙方升级、故障处理等涉及到客户端设备及线路施工",
+          "甲方不予必要的配合"
+        ],
+        "consequence": "乙方有权终止服务",
+        "raw_text": "如乙方升级、故障处理等涉及到客户端设备及线路施工的，甲方应予以必要的配合，否则乙方有权终止服务。"
+      },
+      {
+        "rule_type": "after_sales",
+        "description": "由此带来的合同提前终止，甲方将免于返还已享受的优惠款项。",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "合同提前终止"
+        ],
+        "consequence": "甲方将免于返还已享受的优惠款项",
+        "raw_text": "由此带来的合同提前终止，甲方将免于返还已享受的优惠款项。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "甲乙双方对本协议的具体内容负有保密责任。未经对方事先书面同意，任何一方不得将双方的合作及本协议的具体内容披露给任何第三方。",
+        "severity": "",
+        "applies_to": [
+          "甲方",
+          "乙方"
+        ],
+        "obligation_party": "双方",
+        "conditions": [
+          "未经对方事先书面同意"
+        ],
+        "consequence": "不得将双方的合作及本协议的具体内容披露给任何第三方",
+        "raw_text": "甲乙双方对本协议的具体内容负有保密责任。未经对方事先书面同意，任何一方不得将双方的合作及本协议的具体内容披露给任何第三方。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "如果一方违约，遵守协议的一方应有权通过有关司法程序或有关政府部门的行政程序获得补偿。如果有需要通过法院或行政程序强制执行本协议的任何条款，胜诉方应有权被判定获得合理和必要的诉讼费用的赔偿，包括合理的律师费。",
+        "severity": "",
+        "applies_to": [
+          "甲方",
+          "乙方"
+        ],
+        "obligation_party": "双方",
+        "conditions": [
+          "一方违约"
+        ],
+        "consequence": "遵守协议的一方应有权通过有关司法程序或有关政府部门的行政程序获得补偿，胜诉方应有权被判定获得合理和必要的诉讼费用的赔偿，包括合理的律师费",
+        "raw_text": "如果一方违约，遵守协议的一方应有权通过有关司法程序或有关政府部门的行政程序获得补偿。如果有需要通过法院或行政程序强制执行本协议的任何条款，胜诉方应有权被判定获得合理和必要的诉讼费用的赔偿，包括合理的律师费。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "有效期满前一个月，若双方无异议，本合同自动顺延。甲方在顺延期限内原则上可以申请移机，但不得申请终止服务、停机保号、变更付费方式、降低速率等可能导致原合同签订金额下降的服务。",
+        "severity": "",
+        "applies_to": [
+          "甲方"
+        ],
+        "obligation_party": "客户",
+        "conditions": [
+          "合同自动顺延"
+        ],
+        "consequence": "在顺延期限内原则上可以申请移机，但不得申请终止服务、停机保号、变更付费方式、降低速率等可能导致原合同签订金额下降的服务",
+        "raw_text": "有效期满前一个月，若双方无异议，本合同自动顺延【注：顺延事项包括但不限于资费标准、付费方式以及该付费方式下承担的赔付责任，顺延期即为甲方所选择的付费方式对应的业务使用期，可连续顺延】。甲方在顺延期限内原则上可以申请移机，但不得申请终止服务、停机保号、变更付费方式、降低速率等可能导致原合同签订金额下降的服务。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "因本协议而发生的争议，双方应首先通过友好协商解决争议。",
+        "severity": "",
+        "applies_to": [
+          "甲方",
+          "乙方"
+        ],
+        "obligation_party": "双方",
+        "conditions": [
+          "因本协议而发生争议"
+        ],
+        "consequence": "双方应首先通过友好协商解决争议",
+        "raw_text": "因本协议而发生的争议，双方应首先通过友好协商解决争议。"
+      },
+      {
+        "rule_type": "restriction",
+        "description": "本协议的有效性、解释、执行及履行和争议解决应适用中华人民共和国已颁布并可公开获得的法律和地方法规，但如与本协议有关的特别事项没有适用的已颁布和可公开获得的中国法律时，应参照一般国际商事惯例。",
+        "severity": "",
+        "applies_to": [
+          "甲方",
+          "乙方"
+        ],
+        "obligation_party": "双方",
+        "conditions": [
+          "与本协议有关的特别事项没有适用的已颁布和可公开获得的中国法律"
+        ],
+        "consequence": "应参照一般国际商事惯例",
+        "raw_text": "本协议的有效性、解释、执行及履行和争议解决应适用中华人民共和国已颁布并可公开获得的法律和地方法规，但如与本协议有关的特别事项没有适用的已颁布和可公开获得的中国法律时，应参照一般国际商事惯例。"
+      }
+    ],
+    "eligibility_and_constraints": [
+      {
+        "name": "遵守互联网管理法规",
+        "description": "用户须严格遵守《互联网信息服务管理办法》、《计算机信息网络国际联网安全保护管理办法》、《互联网电子公告服务管理规定》、《互联网网络安全应急预案》、《电信业务经营许可管理办法》、《木马和僵尸网络监测与处置机制》等法规和行政规章制度，不得利用服务从事危害国家安全、泄露国家秘密、违法犯罪、妨碍社会治安的活动。",
+        "condition": "办理或使用互联网接入服务",
+        "result": "须承诺遵守相关法规，否则可能无法办理或承担法律责任",
+        "applies_to": [
+          "互联网接入服务",
+          "所有客户"
+        ],
+        "severity": "critical",
+        "raw_text": "一、 严格遵守《互联网信息服务管理办法》、《计算机信息网络国际联网安全保护管理办法》、《互联网电子公告服务管理规定》、《互联网网络安全应急预案》、《电信业务经营许可管理办法》、《木马和僵尸网络监测与处置机制》（工信部保[2009]157 号）等有关法规和行政规章制度，不得利用所用的服务从事危害国家安全、泄露国家秘密、违法犯罪、妨碍社会治安的活动。"
+      },
+      {
+        "name": "禁止传播违法信息",
+        "description": "任何组织或个人不得利用电信网络资源制作、复制、发布、传播含有违法内容的信息；不得擅自下载境外互联网信息在国内发布，不得利用广告联盟等方式链接到非法网站。",
+        "condition": "使用电信网络资源发布或传播信息",
+        "result": "禁止相关行为，否则承担法律责任",
+        "applies_to": [
+          "电信网络资源",
+          "所有客户"
+        ],
+        "severity": "critical",
+        "raw_text": "二、 任何组织或者个人不得利用电信网络资源制作、复制、发布、传播含有下列内容的信息： 不得擅自下载境外互联网的信息在国内网站上发布，不利用广告联盟等方式链接到非法网站。"
+      },
+      {
+        "name": "禁止转租网络接入资源",
+        "description": "用户应当租用获得相应经营许可证的基础电信业务经营者提供的网络接入等电信资源从事业务经营活动，不得向其他从事网站接入服务的增值电信业务经营者转租所获得的网络接入等电信资源。",
+        "condition": "用户获得网络接入等电信资源后",
+        "result": "不得转租给其他增值电信业务经营者",
+        "applies_to": [
+          "网络接入服务",
+          "企业客户"
+        ],
+        "severity": "high",
+        "raw_text": "(一) 应当租用获得相应经营许可证的基础电信业务经营者提供的网络接入等电信资源从事业务经营活动，不得向其他从事网站接入服务的增值电信业务经营者转租所获得的网络接入等电信资源；"
+      },
+      {
+        "name": "禁止向个人提供经营用电信资源",
+        "description": "不得向个人提供用于经营电信业务的电信资源或者提供网络接入、业务接入服务。",
+        "condition": "向个人提供电信资源或接入服务",
+        "result": "禁止提供",
+        "applies_to": [
+          "电信资源",
+          "网络接入服务",
+          "个人客户"
+        ],
+        "severity": "high",
+        "raw_text": "不得向个人提供用于经营电信业务的电信资源或者提供网络接入、业务接入服务。"
+      },
+      {
+        "name": "禁止为未备案网站提供服务",
+        "description": "不得为未经许可或者未备案的网站提供接入或代收费等服务。",
+        "condition": "网站未经许可或未备案",
+        "result": "不得提供接入或代收费服务",
+        "applies_to": [
+          "网站接入服务",
+          "代收费服务",
+          "所有客户"
+        ],
+        "severity": "high",
+        "raw_text": "(二) 不得为未经许可或者未备案的网站提供接入或代收费等服务。"
+      },
+      {
+        "name": "IP地址使用限制",
+        "description": "由中国联通分配的IP地址，用户只有使用权，不可转让他人使用，用户退出时IP地址使用权自动取消。如需使用中国联通IP地址进行互联网增值电信业务经营活动，必须提供工业和信息化部颁布的相关经营资质，否则不得经营该项业务。",
+        "condition": "使用中国联通分配的IP地址",
+        "result": "不可转让IP地址；经营增值电信业务须提供工信部经营资质",
+        "applies_to": [
+          "IP地址",
+          "互联网专线接入",
+          "所有客户"
+        ],
+        "severity": "high",
+        "raw_text": "七、 对于由中国联通分配的 IP 地址，用户只有使用权，不可转让他人使用，用户退出时 IP 地址使用权自动取消。 如需使用中国联通 IP 地址进行互联网增值电信业务经营活动的，必须提供工业和信息化部颁布的相关经营资质、否则不得经营该项业务。"
+      },
+      {
+        "name": "承诺书签署盖章生效",
+        "description": "此承诺书经单位签署盖章后生效，并由中国联通负责保管。",
+        "condition": "办理业务需签署承诺书",
+        "result": "须签署盖章后承诺书方可生效",
+        "applies_to": [
+          "所有客户",
+          "业务办理"
+        ],
+        "severity": "medium",
+        "raw_text": "此承诺书经我单位签署盖章后生效，并由中国联通负责保管。"
+      },
+      {
+        "name": "优惠仅限指定宽带月租",
+        "description": "乙方每月正常缴费可享受活动优惠，上述优惠仅限活动内指定宽带业务网络使用费的月租优惠，超出活动内指定月租部分另行收费。",
+        "condition": "享受活动优惠",
+        "result": "优惠仅限指定宽带月租，超出部分另行收费",
+        "applies_to": [
+          "宽带业务",
+          "活动优惠",
+          "乙方客户"
+        ],
+        "severity": "medium",
+        "raw_text": "9、 乙方每月正常缴费可享受活动优惠，上述优惠仅限活动内指定宽带业务网络使用费的月租优惠，超出活动内指定月租部分另行收费。"
+      },
+      {
+        "name": "禁止未经同意转让或出售业务",
+        "description": "甲方未经乙方同意不得转让或出售/出租中国联通互联网专线接入业务。",
+        "condition": "甲方拟转让或出售/出租互联网专线接入业务",
+        "result": "须经乙方同意，否则禁止转让或出售/出租",
+        "applies_to": [
+          "互联网专线接入业务",
+          "甲方客户"
+        ],
+        "severity": "high",
+        "raw_text": "甲方未经乙方同意不得转让或出售/出租中国联通互联网专线接入业务。"
+      },
+      {
+        "name": "保密义务",
+        "description": "未经对方事先书面同意，任何一方不得将双方的合作及本协议的具体内容披露给任何第三方。",
+        "condition": "拟披露合作及协议内容给第三方",
+        "result": "须事先获得对方书面同意，否则禁止披露",
+        "applies_to": [
+          "所有客户",
+          "合作协议"
+        ],
+        "severity": "medium",
+        "raw_text": "未经对方事先书面同意，任何一方不得将双方的合作及本协议的具体内容披露给任何第三方。"
+      },
+      {
+        "name": "不可抗力免责",
+        "description": "因不可抗力造成的线路中断或无法保证系统正常工作，而导致甲方通信中断而造成的损失，乙方不承担任何责任。不可抗力事件包括严重自然灾害、政府行为、第三方电路故障等不可抗拒的事件。",
+        "condition": "发生不可抗力事件导致线路中断或系统异常",
+        "result": "乙方不承担因此造成的损失责任",
+        "applies_to": [
+          "互联网专线接入",
+          "所有客户"
+        ],
+        "severity": "medium",
+        "raw_text": "十九、 因不可抗力造成的线路中断或无法保证系统正常工作，而导致甲方通信中断而造成的损失，乙方不承担任何责任。 “不可抗力事件”包括严重自然灾害、政府行为、第三方电路故障等不可抗拒的事件。"
+      }
+    ]
+  },
+  "supplementary_info": {
+    "product_intro": {
+      "product_name": "智享（沃快车）",
+      "full_description": "沃快车（智享套餐 / 智享云宽）属于共享型政企 DIA 互联网接入，采用 FTTB+LAN/EPON 光纤组网，RJ45 网线入户，楼内独立 VLAN 隔离，上联联通 169 骨干城域网，上下行对称带宽，专门解决企业多终端办公、文件上传、视频会议卡顿痛点。",
+      "application_scenarios": "标准款支持30–50 台办公终端，适配中小公司全员工同时上网。1. 甲级 / 乙级写字楼中小公司：贸易、咨询、设计、广告、新媒体、财务事务所，员工 10–50 人。2. 产业园区独栋 / 分层企业：科技小微企业、软件开发、电商运营、直播工作室。3. 联合办公、共享办公室、孵化器批量办公区。4. 培训机构、律所、中介总公司（区别门店沃商铺）。"
+    },
+    "product_keywords": {
+      "raw_keywords": "快车、智享套餐、智享云宽、企业 DIA 宽带、写字楼办公宽带、商务对称光纤、联通政企宽带、上下行对称、光纤入户、独立 VLAN、动态 IP、多终端并发、500M 千兆办公网、文件高速上传、突发带宽扩容、远程 VPN、视频会议稳定传输"
+    },
+    "pricing_info": {
+      "source_type": "pricing_sheet",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\联通业务\\智享（沃快车）\\2 资费表.xlsx",
+      "one_time_fees": [
+        {
+          "name": "初装费",
+          "amount": 500.0,
+          "currency": "CNY",
+          "unit": "元/次",
+          "applicable_to": [
+            "月付用户"
+          ],
+          "conditions": [],
+          "description": "月付用户初装费500元",
+          "raw_text": "月付用户 500 500"
+        },
+        {
+          "name": "初装费",
+          "amount": 0.0,
+          "currency": "CNY",
+          "unit": "元/次",
+          "applicable_to": [
+            "年付用户"
+          ],
+          "conditions": [],
+          "description": "年付用户初装费0元",
+          "raw_text": "年付用户 0 0"
+        }
+      ],
+      "base_package_prices": [
+        {
+          "name": "智享（沃快车）",
+          "speed": "上行500M/下行500M",
+          "upstream_speed": "500M",
+          "downstream_speed": "500M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 600.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "端口速率上行500M/下行500M月付费用",
+          "raw_text": "上行500M/下行500M 600 5760 7200"
+        },
+        {
+          "name": "智享（沃快车）",
+          "speed": "上行500M/下行500M",
+          "upstream_speed": "500M",
+          "downstream_speed": "500M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 5760.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "端口速率上行500M/下行500M年付费用",
+          "raw_text": "上行500M/下行500M 600 5760 7200"
+        },
+        {
+          "name": "智享（沃快车）",
+          "speed": "上行500M/下行500M",
+          "upstream_speed": "500M",
+          "downstream_speed": "500M",
+          "bandwidth_unit": "Mbps",
+          "has_voice": null,
+          "price": 7200.0,
+          "currency": "CNY",
+          "unit": "元/2年",
+          "billing_period": "2年",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "端口速率上行500M/下行500M 2年付费用",
+          "raw_text": "上行500M/下行500M 600 5760 7200"
+        },
+        {
+          "name": "智享（沃快车）",
+          "speed": "上行1G/下行1G",
+          "upstream_speed": "1G",
+          "downstream_speed": "1G",
+          "bandwidth_unit": "Gbps",
+          "has_voice": null,
+          "price": 1000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "端口速率上行1G/下行1G月付费用",
+          "raw_text": "上行1G/下行1G 1000 9600 12000"
+        },
+        {
+          "name": "智享（沃快车）",
+          "speed": "上行1G/下行1G",
+          "upstream_speed": "1G",
+          "downstream_speed": "1G",
+          "bandwidth_unit": "Gbps",
+          "has_voice": null,
+          "price": 9600.0,
+          "currency": "CNY",
+          "unit": "元/年",
+          "billing_period": "年",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "端口速率上行1G/下行1G年付费用",
+          "raw_text": "上行1G/下行1G 1000 9600 12000"
+        },
+        {
+          "name": "智享（沃快车）",
+          "speed": "上行1G/下行1G",
+          "upstream_speed": "1G",
+          "downstream_speed": "1G",
+          "bandwidth_unit": "Gbps",
+          "has_voice": null,
+          "price": 12000.0,
+          "currency": "CNY",
+          "unit": "元/2年",
+          "billing_period": "2年",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "端口速率上行1G/下行1G 2年付费用",
+          "raw_text": "上行1G/下行1G 1000 9600 12000"
+        }
+      ],
+      "addon_prices": [],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "application_materials": []
+  },
+  "extraction_meta": {
+    "generated_at": "2026-06-24T16:26:52",
+    "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\联通业务\\智享（沃快车）",
+    "method": "llm_schema_module_extraction_no_normalization",
+    "validation_issues": [
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[0].speed",
+        "message": "基础套餐缺少速率"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.document_info",
+        "message": "申请表基本信息基本为空，可能是切块或文档转换质量不足"
+      }
+    ],
+    "validation_issue_count": 2
+  }
+}

@@ -1,0 +1,294 @@
+{
+  "application_form_info": {
+    "document_info": {
+      "document_id": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\联通\\本地国内MSTP\\4 申请表_联通MSTP样本.pdf",
+      "product_name": "",
+      "carrier": "",
+      "version": "",
+      "effective_date": "",
+      "document_status": ""
+    },
+    "parties_and_application": {
+      "agent": {
+        "agent_name": "",
+        "sales_name": "",
+        "sales_contact": ""
+      },
+      "customer": {
+        "name": "*有限公司",
+        "filled_values": [
+          "经办人名称:***",
+          "经办人联系电:138"
+        ],
+        "is_blank_form": false
+      },
+      "application_fields": {
+        "required": [
+          {
+            "label": "客户名称",
+            "field_key": "customer_name",
+            "required": true,
+            "value": "*有限公司",
+            "options": [],
+            "value_type": "string",
+            "raw_text": "客户名称 *有限公司"
+          },
+          {
+            "label": "经办人名称",
+            "field_key": "agent_name",
+            "required": true,
+            "value": "***",
+            "options": [],
+            "value_type": "string",
+            "raw_text": "经办人名称 ***"
+          },
+          {
+            "label": "经办人联系电",
+            "field_key": "agent_phone",
+            "required": true,
+            "value": "138",
+            "options": [],
+            "value_type": "string",
+            "raw_text": "经办人联系电 138"
+          },
+          {
+            "label": "经办人证件类",
+            "field_key": "agent_id_type",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "经办人证件类"
+          },
+          {
+            "label": "经办人证件号",
+            "field_key": "agent_id_number",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "经办人证件号"
+          }
+        ],
+        "optional": []
+      },
+      "application_notes": []
+    },
+    "pricing_info": {
+      "source_type": "application_form",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\联通\\本地国内MSTP\\4 申请表_联通MSTP样本.pdf",
+      "one_time_fees": [
+        {
+          "name": "一次性费用",
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "applicable_to": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "一次性费用 | o"
+        }
+      ],
+      "base_package_prices": [
+        {
+          "name": "",
+          "speed": "",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": null,
+          "currency": "",
+          "unit": "",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "电路租用范围 | 本地区内 | 速率 | M | 一次性费用 | o | 付费类型 | 缴费期 | 年付"
+        }
+      ],
+      "addon_prices": [],
+      "fee_and_term_rules": [
+        {
+          "name": "缴费期",
+          "category": "",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "年付",
+          "formula": "",
+          "conditions": [],
+          "description": "",
+          "raw_text": "缴费期 | 年付"
+        }
+      ],
+      "discount_policy": []
+    },
+    "agreement_rules": [
+      {
+        "rule_type": "restriction",
+        "description": "若甲方有违反此条规定的行为发生，乙方有权立即终止对甲方的服务，由此造成的一切损失由甲方承担。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "甲方",
+        "conditions": [
+          "甲方有违反此条规定的行为发生"
+        ],
+        "consequence": "乙方有权立即终止对甲方的服务，由此造成的一切损失由甲方承担。",
+        "raw_text": "若甲方有违反此条规定的行为发生，乙方有权立即终止对甲方的服务，由此造成的一切损失由甲方承担。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "停止向甲方提供服务并追回所有拖欠费用，由此造成的一切后果均由甲方承担，同时乙方保留对甲方的追索权利。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "甲方",
+        "conditions": [],
+        "consequence": "停止向甲方提供服务并追回所有拖欠费用，由此造成的一切后果均由甲方承担，同时乙方保留对甲方的追索权利。",
+        "raw_text": "停止向甲方提供服务并追回所有拖欠费用，由此造成的一切后果均由甲方承担，同时乙方保留对甲"
+      },
+      {
+        "rule_type": "termination",
+        "description": "甲方逾期未支付通信费用，乙方有权要求其补缴费用，并按照所欠费用每日加收3%的违约金。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "甲方",
+        "conditions": [
+          "甲方逾期未支付通信费用"
+        ],
+        "consequence": "乙方有权要求其补缴费用，并按照所欠费用每日加收3%的违约金。",
+        "raw_text": "甲方逾期未支付通信费用，乙方有权要求其补缴费用，并按照所欠费用每日加收3%的违约金。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "甲方逾期未支付通信费用超过30日，乙方有权暂停服务。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "甲方",
+        "conditions": [
+          "甲方逾期未支付通信费用超过30日"
+        ],
+        "consequence": "乙方有权暂停服务。",
+        "raw_text": "甲方逾期未支付通信费用超过30日，乙方有权暂停服务。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "甲方逾期未支付通信费用超过90日的，乙方有权终止服务，并有权依法追缴欠费和违约金。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "甲方",
+        "conditions": [
+          "甲方逾期未支付通信费用超过90日"
+        ],
+        "consequence": "乙方有权终止服务，并有权依法追缴欠费和违约金。",
+        "raw_text": "甲方逾期未支付通信费用超过90日的，乙方有权终止服务，并有权依法追缴欠费和违约金。"
+      },
+      {
+        "rule_type": "termination",
+        "description": "乙方亦有权决定不在前述时间点(但不少于前述时间)行使暂停服务或终止服务(以下合称：停机)的权利；如乙方未在前述时间点行使停机的权利，乙方有权依据实际停机的时间，主张甲方欠费期间的全部通信费及违约金。",
+        "severity": "",
+        "applies_to": [],
+        "obligation_party": "乙方",
+        "conditions": [
+          "乙方未在前述时间点行使停机的权利"
+        ],
+        "consequence": "乙方有权依据实际停机的时间，主张甲方欠费期间的全部通信费及违约金。",
+        "raw_text": "乙方亦有权决定不在前述时间点(但不少于前述时间)行使暂停服务或终止服务(以下合称：停机)的权利；如乙方(未在前述时间点行使停机的权利，乙方有权依据实际停机的时间，主张甲方欠费期间的全部通信费及违约金，甲方"
+      }
+    ],
+    "eligibility_and_constraints": [
+      {
+        "name": "遵守国家法律与网络安全义务",
+        "description": "甲方应遵守国家相关的法律、法规，不得利用租用乙方的服务从事损害国家网络信息安全的行为。",
+        "condition": "甲方使用乙方服务期间",
+        "result": "甲方须承担相应法律责任",
+        "applies_to": [
+          "甲方",
+          "中国联通国内数字电路业务"
+        ],
+        "severity": "critical",
+        "raw_text": "甲方应遵守国家相关的法律、法规，不得利用租用乙方的服务从事损害国家网络信息安全的"
+      },
+      {
+        "name": "禁止擅自转让或转售业务",
+        "description": "甲方未经乙方同意不得转让或出售/出租中国联通国内数字电路业务，否则乙方有权立即采取措施。",
+        "condition": "甲方未经乙方同意转让或出售/出租中国联通国内数字电路业务",
+        "result": "乙方有权立即采取措施",
+        "applies_to": [
+          "甲方",
+          "中国联通国内数字电路业务"
+        ],
+        "severity": "high",
+        "raw_text": "甲方未经乙方同意不得转让或出售/出租中国联通国内数字电路业务。否则， 乙方有权立即"
+      },
+      {
+        "name": "不得以未停机为由拒付通信费",
+        "description": "甲方不得以乙方有权停机而未予停机作为拒绝支付通信费的理由。",
+        "condition": "乙方有权停机但未执行停机操作",
+        "result": "甲方仍须支付通信费",
+        "applies_to": [
+          "甲方"
+        ],
+        "severity": "medium",
+        "raw_text": "不得以乙方有权停机而未予停机作为拒绝支付通信费的理由；"
+      },
+      {
+        "name": "停机须依据合同条款办理",
+        "description": "甲方如需停机，应依据本合同第八条办理。",
+        "condition": "甲方需要停机",
+        "result": "须依据合同第八条办理停机手续",
+        "applies_to": [
+          "甲方"
+        ],
+        "severity": "medium",
+        "raw_text": "甲方如需停机，应依据本合同第八条"
+      }
+    ]
+  },
+  "supplementary_info": {
+    "product_intro": {
+      "product_name": "中国联通广域以太网专线",
+      "full_description": "中国联通广域以太网专线产品构建于MSTP(Multi-Service Transfer Platform)设备平台上，通过以太网接口为客户提供点对点的数据专线业务。该产品基于SDH传输技术，采用GFP封装协议实现以太网的帧到SDH的VC通道的映射，为用户提供兼有SDH网络的高可靠性与以太网的易用性的多速率数据传送功能。产品功能包括：点到点专线连接、业务汇聚协助企业构建企业专网、互联网接入服务、物理隔离保证带宽和安全性、安全可靠使用PDH/SDH自愈环等传输技术、实时性强每千公里时延<12ms误码率低于10-7、应用广泛支持数据话音图像等多种业务、高性价比全程带宽独享。产品优势包括：接入灵活速率升级方便、提供电信级专业服务、节省客户设备投资、保证业务网络安全、技术简单方便管理、提高传输效率和质量。",
+      "application_scenarios": "政府、企业、金融、军队、学校等客户，用于其组建专网需求。"
+    },
+    "product_keywords": {
+      "raw_keywords": "点对点组网,本地组网,国内组网,线路延时,带宽利用率,是否具备资源,需要多长时间开通,使用人数,应用场景,需要多少带宽,打折,月租费,一次性费用,合同协议期,协议期内拆机违约金"
+    },
+    "pricing_info": {
+      "source_type": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\联通\\本地国内MSTP\\2 资费表.xlsx",
+      "one_time_fees": [],
+      "base_package_prices": [],
+      "addon_prices": [],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "application_materials": []
+  },
+  "extraction_meta": {
+    "generated_at": "2026-06-24T17:47:51",
+    "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\联通\\本地国内MSTP",
+    "method": "llm_schema_module_extraction_no_normalization",
+    "validation_issues": [
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[0].speed",
+        "message": "基础套餐缺少速率"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.document_info",
+        "message": "申请表基本信息基本为空，可能是切块或文档转换质量不足"
+      },
+      {
+        "severity": "warning",
+        "path": "supplementary_info.pricing_info",
+        "message": "资费表没有抽到有效资费"
+      }
+    ],
+    "validation_issue_count": 3
+  }
+}

@@ -86,7 +86,14 @@ FIELD_LABELS = {
     "customer_type": "客户类型",
 }
 
-HIDDEN_DISPLAY_FIELDS = {"raw_keywords", "confidence", "missing_fields"}
+HIDDEN_DISPLAY_FIELDS = {
+    "raw_keywords",
+    "positive_signals",
+    "negative_signals",
+    "confidence",
+    "missing_fields",
+    "primary_domain",
+}
 NEGATED_FIXED_IP_PATTERN = re.compile(
     r"(?:不需要|不要|无需|不用).{0,8}(?:固定\s*(?:公网\s*)?IP|公网\s*IP)",
     re.I,
@@ -197,6 +204,7 @@ class StrictRetryRecommendationExplainer(RecommendationExplainer):
                 result = parse_explanation_result(self._invoke_llm(current_prompt))
                 return apply_explanation_safety_guards(
                     result=result,
+                    demand=demand,
                     category_decision=category_decision,
                     comparison_result=comparison_result,
                 )
@@ -785,6 +793,7 @@ def apply_single_call_output(
         )
         result.explanation = apply_explanation_safety_guards(
             result=explanation,
+            demand=result.customer_need,
             category_decision=result.category_decision,
             comparison_result=result.comparison,
         )
@@ -1299,9 +1308,21 @@ def build_ranking(result: SalesRecommendationWorkflowResult) -> list[dict[str, A
                     reason.model_dump(mode="json")
                     for reason in (scored.risk_penalties if scored else [])
                 ],
-                "matchedStrengths": list(compared.matched_strengths),
-                "riskWarnings": list(compared.risk_warnings),
-                "missingInfo": list(compared.missing_info),
+                "matchedStrengths": compact_user_facing_notes(
+                    compared.matched_strengths,
+                    max_items=5,
+                    max_chars=180,
+                ),
+                "riskWarnings": compact_user_facing_notes(
+                    compared.risk_warnings,
+                    max_items=5,
+                    max_chars=180,
+                ),
+                "missingInfo": compact_user_facing_notes(
+                    compared.missing_info,
+                    max_items=5,
+                    max_chars=160,
+                ),
                 "packageSummary": package_summary,
                 "feeSummary": compared.fee_summary.model_dump(mode="json"),
                 "optionalPackageSummary": compared.optional_package_summary.model_dump(mode="json"),
@@ -1352,17 +1373,25 @@ def build_recommendation(
     explanation = result.explanation
     prices = top["packageSummary"].get("price_range") or "资料未给出明确价格"
     speeds = "、".join(top["packageSummary"].get("speeds") or []) or "待确认"
-    strengths = top["matchedStrengths"][:3] or ["当前候选在程序排序中综合得分最高。"]
+    strengths = compact_user_facing_notes(
+        top["matchedStrengths"],
+        max_items=3,
+        max_chars=140,
+    ) or ["当前候选在程序排序中综合得分最高。"]
     model_risks = list(explanation.risk_reminders) if explanation else []
     risks = [
         compact_display_text(item, max_chars=120)
         for item in dedupe(
             [
                 *model_risks,
-                *top["missingInfo"],
+                *compact_user_facing_notes(top["missingInfo"], max_items=3, max_chars=120),
                 *(result.readiness.assumptions if result.readiness else []),
-                *top["constraintSummary"].get("important_risks", []),
-                *top["riskWarnings"],
+                *compact_user_facing_notes(
+                    top["constraintSummary"].get("important_risks", []),
+                    max_items=3,
+                    max_chars=120,
+                ),
+                *compact_user_facing_notes(top["riskWarnings"], max_items=3, max_chars=120),
                 *(result.comparison.global_warnings if result.comparison else []),
             ]
         )[:3]
@@ -1452,6 +1481,12 @@ def category_label(category_id: str, category_name: str) -> str:
 
 def scene_id(category_id: str) -> str:
     return {
+        "internet_store_street": "store",
+        "internet_office_dynamic_ip": "pricing",
+        "internet_fixed_ip": "fixed_ip",
+        "network_point_to_point": "networking",
+        "network_point_to_multipoint": "networking",
+        "network_smart": "networking",
         "1": "pricing",
         "2": "fixed_ip",
         "3": "networking",
@@ -1533,9 +1568,45 @@ def dedupe(values: list[str]) -> list[str]:
 
 def compact_display_text(value: str, *, max_chars: int) -> str:
     text = re.sub(r"\s+", " ", str(value or "")).strip()
+    if "（证据：" in text:
+        prefix, evidence = text.split("（证据：", 1)
+        if len(evidence) > 80:
+            text = prefix.rstrip("，。；; ") + "。"
+    text = re.sub(
+        r"（证据：([^）]{80,})）",
+        "",
+        text,
+    )
     if len(text) <= max_chars:
         return text
     return text[: max_chars - 1].rstrip("，。；; ") + "…"
+
+
+def compact_user_facing_notes(
+    values: list[str],
+    *,
+    max_items: int,
+    max_chars: int,
+) -> list[str]:
+    return [
+        compact_display_text(item, max_chars=max_chars)
+        for item in dedupe([str(value or "").strip() for value in values])
+        if is_user_facing_note(item)
+    ][:max_items]
+
+
+def is_user_facing_note(value: str) -> bool:
+    text = str(value or "").strip()
+    if not text:
+        return False
+    internal_markers = (
+        "ProductCandidate",
+        "application_materials",
+        "尚未进入",
+        "model_dump",
+        "document_id",
+    )
+    return not any(marker in text for marker in internal_markers)
 
 
 def main() -> None:

@@ -1,0 +1,446 @@
+{
+  "application_form_info": {
+    "document_info": {
+      "document_id": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内MSTP\\4 申请表_转定用的大客户需求表.doc",
+      "product_name": "",
+      "carrier": "",
+      "version": "",
+      "effective_date": "",
+      "document_status": ""
+    },
+    "parties_and_application": {
+      "agent": {
+        "agent_name": "",
+        "sales_name": "",
+        "sales_contact": ""
+      },
+      "customer": {
+        "name": "",
+        "filled_values": [],
+        "is_blank_form": true
+      },
+      "application_fields": {
+        "required": [],
+        "optional": [
+          {
+            "label": "联系人",
+            "field_key": "contact_person",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "联 系 人"
+          },
+          {
+            "label": "联系电话",
+            "field_key": "contact_phone",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "联系电话"
+          },
+          {
+            "label": "E-MAIL",
+            "field_key": "email",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "E-MAIL"
+          },
+          {
+            "label": "个人客标",
+            "field_key": "personal_customer_label",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "个人 客标"
+          },
+          {
+            "label": "账单地址",
+            "field_key": "billing_address",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "text",
+            "raw_text": "账单地址"
+          }
+        ]
+      },
+      "application_notes": []
+    },
+    "pricing_info": {
+      "source_type": "application_form",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内MSTP\\4 申请表_转定用的大客户需求表.doc",
+      "one_time_fees": [
+        {
+          "name": "一次性费用",
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "applicable_to": [],
+          "conditions": [],
+          "description": "一次性费用金额未填写，勾选了减免选项",
+          "raw_text": "一次性费用：□____ ____元 □ 减免"
+        }
+      ],
+      "base_package_prices": [
+        {
+          "name": "MSTP",
+          "speed": "",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "",
+          "has_voice": null,
+          "price": null,
+          "currency": "",
+          "unit": "元/月",
+          "billing_period": "月",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "MSTP电路，月付，月租费金额未填写",
+          "raw_text": "☑MSTP √月付 月租费：___________元"
+        }
+      ],
+      "addon_prices": [],
+      "fee_and_term_rules": [
+        {
+          "name": "月付",
+          "category": "计费周期",
+          "applicable_to": [
+            "MSTP"
+          ],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "月",
+          "formula": "",
+          "conditions": [],
+          "description": "计费方式为月付",
+          "raw_text": "√月付"
+        }
+      ],
+      "discount_policy": [
+        {
+          "name": "折扣",
+          "category": "折扣",
+          "applicable_to": [],
+          "standard_price": null,
+          "discount_rate": null,
+          "discounted_price": null,
+          "currency": "",
+          "unit": "",
+          "conditions": [],
+          "description": "折扣率未填写",
+          "raw_text": "折扣：______ 折"
+        }
+      ]
+    },
+    "agreement_rules": [],
+    "eligibility_and_constraints": []
+  },
+  "supplementary_info": {
+    "product_intro": {
+      "product_name": "本地国内MSTP",
+      "full_description": "MSTP业务利用先进的多业务光传输综合平台，利用灵活的光传输技术，可以将以太网、 IP、宽带业务整合在一起，经济有效地提供各种数据服务和不同的服务类别，无缝实现了光传输网、TDM 网络及数据网的融合。基于 SDH 的 MSTP 主要以提供以太网透明传输业务为主，MSTP业务主要有以功能有：1. 以太网业务的接入功能 MSTP上提供的以太网10/100/1000Mbit/s接口，用户端设备可采用以太接口上连至MSTP 接入设备，节省了用户端设备的投资和端口投资，符合通信 IP 化的发展趋势。2. 具有以太网业务的透明传送功能 MSTP 可以满足各种带宽的需求，可提供 N*2M、N*155M 以及其它定制带宽的互联业务， 极大的方便了用户的带宽扩展和提速。MSTP业务可实现点到点或点到多点灵活的组网方式，方便用户构建自己的企业网。3. 具有独享的带宽保证和安全性保证 MSTP 基于二层透传，为用户提供与 SDH 相同的高安全性保证，同时又具有比SDH 更好的灵活性及扩展性。产品特点：泛用性，适用于任何高速率、信息量大、实时性强的业务传送；安全性，安全性有保障，比纯粹基于互联网的VPN业务安全性更高；可选性，带宽灵活，在1M到2.5G的区间内，可以灵活选择；灵活性，组网灵活，可支持星形网络、环形网络、点到点连接、多点汇聚等。适用群体：金融、证券、保险业；外资及合资企业；交通运输行业；政府机关。",
+      "application_scenarios": "企业可使用 MSTP 专线作为广域网组成自己的企业网络，实现企业内部关键生产业务、 办公自动化业务、语音、视频等综合业务的传输。票务系统。银行、证券等金融系统。物流系统。企业专网。"
+    },
+    "product_keywords": {
+      "raw_keywords": "点对点组网,本地组网,国内组网,线路延时,带宽利用率,是否具备资源,需要多长时间开通,使用人数,应用场景,需要多少带宽,打折,月租费,一次性费用,合同协议期,协议期内拆机违约金"
+    },
+    "pricing_info": {
+      "source_type": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内MSTP\\2 资费表.xlsx",
+      "one_time_fees": [],
+      "base_package_prices": [],
+      "addon_prices": [],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "application_materials": [
+      {
+        "material_type": "表单",
+        "name": "客户基本信息表",
+        "description": "提交信息上单阶段使用，无需盖章，提前确认两端地址",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": false,
+        "copy_required": false,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "无需盖章",
+          "提前确认两端地址"
+        ],
+        "related_constraints": [],
+        "raw_text": "1、客户基本信息表，无需盖章，提前确认两端地址；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "营业执照复印件",
+        "description": "提交信息上单阶段使用，加盖公章，提供扫描件",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章",
+          "扫描件"
+        ],
+        "related_constraints": [],
+        "raw_text": "2、营业执照复印件加盖公章，扫描件；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "经办人身份证正反面复印件",
+        "description": "提交信息上单阶段使用，加盖公章，提供扫描件",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章",
+          "扫描件"
+        ],
+        "related_constraints": [],
+        "raw_text": "3、经办人身份证正反面复印件加盖公章，扫描件；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "合同",
+        "name": "电信正式合同水印版",
+        "description": "走正式合同阶段使用，客户签字、加盖公章和骑缝章",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": true,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [
+          "骑缝章"
+        ],
+        "handling_notes": [
+          "水印版",
+          "客户签字",
+          "加盖公章",
+          "加盖骑缝章"
+        ],
+        "related_constraints": [],
+        "raw_text": "1、电信正式合同水印版客户签字、加盖公章和骑缝章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "授权书",
+        "name": "授权委托书",
+        "description": "与正式合同一起提交，加盖公章",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章"
+        ],
+        "related_constraints": [],
+        "raw_text": "（1）授权委托书，加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "表单",
+        "name": "大客户需求表",
+        "description": "与正式合同一起提交，加盖公章",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章"
+        ],
+        "related_constraints": [],
+        "raw_text": "（2）大客户需求表，加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "营业执照复印件",
+        "description": "与正式合同一起提交，加盖公章",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章"
+        ],
+        "related_constraints": [],
+        "raw_text": "（3）营业执照复印件，加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "经办人身份证正反面复印件",
+        "description": "与正式合同一起提交，加盖公章",
+        "required": true,
+        "applicable_to": [],
+        "conditions": [],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "加盖公章"
+        ],
+        "related_constraints": [],
+        "raw_text": "（4）经办人身份证正反面复印件，加盖公章；",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "承诺书",
+        "name": "风险告知及免责函",
+        "description": "如碰到需要使用老设备时额外盖章提交",
+        "required": false,
+        "applicable_to": [],
+        "conditions": [
+          "需要使用老设备"
+        ],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "额外盖章"
+        ],
+        "related_constraints": [],
+        "raw_text": "（5）如碰到需要使用老设备的，需要额外盖章风险告知及免责函。",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "担保书",
+        "name": "上海公司电信业务担保书",
+        "description": "外地公司申请本地MSTP时补充手续，盖公章",
+        "required": true,
+        "applicable_to": [
+          "外地公司"
+        ],
+        "conditions": [
+          "外地公司申请本地MSTP"
+        ],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": false,
+        "original_required": true,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "盖公章"
+        ],
+        "related_constraints": [
+          "外地公司需担保"
+        ],
+        "raw_text": "（1）上海公司电信业务担保书，盖公章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "担保公司营业执照复印件",
+        "description": "外地公司申请本地MSTP时补充手续，盖公章",
+        "required": true,
+        "applicable_to": [
+          "外地公司"
+        ],
+        "conditions": [
+          "外地公司申请本地MSTP"
+        ],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "盖公章"
+        ],
+        "related_constraints": [
+          "外地公司需担保"
+        ],
+        "raw_text": "（2）担保公司营业执照复印件，盖公章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      },
+      {
+        "material_type": "证件",
+        "name": "担保公司经办人身份证正反面复印件",
+        "description": "外地公司申请本地MSTP时补充手续，盖公章",
+        "required": true,
+        "applicable_to": [
+          "外地公司"
+        ],
+        "conditions": [
+          "外地公司申请本地MSTP"
+        ],
+        "signature_required": false,
+        "seal_required": true,
+        "copy_required": true,
+        "original_required": false,
+        "pages_or_locations": [],
+        "handling_notes": [
+          "盖公章"
+        ],
+        "related_constraints": [
+          "外地公司需担保"
+        ],
+        "raw_text": "（3）担保公司经办人身份证正反面复印件，盖公章",
+        "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内MSTP\\4-5 本地国内MSTP申请手续提示.txt"
+      }
+    ]
+  },
+  "extraction_meta": {
+    "generated_at": "2026-06-23T15:57:34",
+    "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\本地国内MSTP",
+    "method": "llm_schema_module_extraction_no_normalization",
+    "validation_issues": [
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[0].speed",
+        "message": "基础套餐缺少速率"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.document_info",
+        "message": "申请表基本信息基本为空，可能是切块或文档转换质量不足"
+      },
+      {
+        "severity": "warning",
+        "path": "supplementary_info.pricing_info",
+        "message": "资费表没有抽到有效资费"
+      }
+    ],
+    "validation_issue_count": 3
+  }
+}

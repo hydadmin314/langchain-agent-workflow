@@ -513,6 +513,155 @@ class SalesCandidateRetrieverTest(unittest.TestCase):
             "doc_cloud_trunk",
         )
 
+    def test_scorer_prefers_small_store_product_for_low_budget_store_scene(self) -> None:
+        demand = CustomerDemand(
+            primary_category="门店_商铺_小微经营",
+            usage_scene="沿街餐饮门店，收银和外卖平台上网",
+            user_count="5人",
+            budget="3000元以内",
+        )
+        category_decision = DemandCategoryDecision(primary_category_id="5", recommendation_mode="new_sale")
+        store_product = FilteredCandidate(
+            decision="keep",
+            candidate=RetrievedCandidate(
+                retrieval_score=20,
+                product=ProductCandidate(
+                    document_id="doc_store",
+                    product_name="开店宝宽带",
+                    document_status="active",
+                    keywords=["开店宝", "旺铺宽带", "门店"],
+                    packages=[PackageCandidate(package_name="开店宝基础版", price=1999)],
+                ),
+            ),
+        )
+        expensive_line = FilteredCandidate(
+            decision="keep",
+            candidate=RetrievedCandidate(
+                retrieval_score=35,
+                product=ProductCandidate(
+                    document_id="doc_dedicated_line",
+                    product_name="精品专线",
+                    document_status="active",
+                    keywords=["精品专线", "互联网专线"],
+                ),
+            ),
+        )
+        filter_result = CandidateFilterResult(
+            primary_category_id="5",
+            recommendation_mode="new_sale",
+            total_candidates=2,
+            kept_count=2,
+            kept_candidates=[expensive_line, store_product],
+        )
+
+        result = CandidateScorer().score(
+            demand=demand,
+            category_decision=category_decision,
+            filter_result=filter_result,
+        )
+
+        self.assertEqual(result.scored_candidates[0].filtered_candidate.candidate.product.document_id, "doc_store")
+        reason_codes = [reason.code for reason in result.scored_candidates[0].score_reasons]
+        self.assertIn("flowchart_small_store_primary", reason_codes)
+
+    def test_scorer_prefers_ipman_when_fixed_ip_count_is_large(self) -> None:
+        demand = CustomerDemand(
+            fixed_ip_required=True,
+            fixed_ip_count="32个",
+            primary_goal="服务器对外访问，需要固定公网IP",
+        )
+        category_decision = DemandCategoryDecision(primary_category_id="2", recommendation_mode="new_sale")
+        boutique_line = FilteredCandidate(
+            decision="keep",
+            candidate=RetrievedCandidate(
+                retrieval_score=35,
+                product=ProductCandidate(
+                    document_id="doc_boutique",
+                    product_name="精品专线",
+                    document_status="active",
+                    keywords=["精品专线", "公网IP"],
+                ),
+            ),
+        )
+        ipman = FilteredCandidate(
+            decision="keep",
+            candidate=RetrievedCandidate(
+                retrieval_score=20,
+                product=ProductCandidate(
+                    document_id="doc_ipman",
+                    product_name="IPMAN",
+                    document_status="active",
+                    keywords=["IPMAN", "BGP", "固定IP", "公网IP"],
+                ),
+            ),
+        )
+        filter_result = CandidateFilterResult(
+            primary_category_id="2",
+            recommendation_mode="new_sale",
+            total_candidates=2,
+            kept_count=2,
+            kept_candidates=[boutique_line, ipman],
+        )
+
+        result = CandidateScorer().score(
+            demand=demand,
+            category_decision=category_decision,
+            filter_result=filter_result,
+        )
+
+        self.assertEqual(result.scored_candidates[0].filtered_candidate.candidate.product.document_id, "doc_ipman")
+        reason_codes = [reason.code for reason in result.scored_candidates[0].score_reasons]
+        self.assertIn("flowchart_fixed_ip_large_count_primary", reason_codes)
+
+    def test_scorer_prefers_ipran_for_point_to_point_networking(self) -> None:
+        demand = CustomerDemand(
+            primary_category="国内组网与点对点专线",
+            usage_scene="总部和仓库点对点互联",
+            site_count="2个站点",
+        )
+        category_decision = DemandCategoryDecision(primary_category_id="3", recommendation_mode="new_sale")
+        sdwan = FilteredCandidate(
+            decision="keep",
+            candidate=RetrievedCandidate(
+                retrieval_score=26,
+                product=ProductCandidate(
+                    document_id="doc_sdwan",
+                    product_name="SD-WAN",
+                    document_status="active",
+                    keywords=["SD-WAN", "组网"],
+                ),
+            ),
+        )
+        ipran = FilteredCandidate(
+            decision="keep",
+            candidate=RetrievedCandidate(
+                retrieval_score=20,
+                product=ProductCandidate(
+                    document_id="doc_ipran",
+                    product_name="本地IPRAN",
+                    document_status="active",
+                    keywords=["IPRAN", "点对点", "组网"],
+                ),
+            ),
+        )
+        filter_result = CandidateFilterResult(
+            primary_category_id="3",
+            recommendation_mode="new_sale",
+            total_candidates=2,
+            kept_count=2,
+            kept_candidates=[sdwan, ipran],
+        )
+
+        result = CandidateScorer().score(
+            demand=demand,
+            category_decision=category_decision,
+            filter_result=filter_result,
+        )
+
+        self.assertEqual(result.scored_candidates[0].filtered_candidate.candidate.product.document_id, "doc_ipran")
+        reason_codes = [reason.code for reason in result.scored_candidates[0].score_reasons]
+        self.assertIn("flowchart_networking_point_to_point", reason_codes)
+
     def test_comparator_builds_structured_product_summary(self) -> None:
         demand = CustomerDemand(budget=5000)
         category_decision = DemandCategoryDecision(primary_category_id="4", recommendation_mode="new_sale")

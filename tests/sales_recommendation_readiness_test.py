@@ -83,6 +83,27 @@ class SalesRecommendationReadinessTest(unittest.TestCase):
         self.assertEqual(result.decision, "ready")
         self.assertIn("办理流程模式", result.product_lock_hints)
 
+    def test_fixed_ip_readiness_tracks_ip_count_question(self) -> None:
+        demand = CustomerDemand(
+            primary_category="固定IP_高带宽_互联网专线",
+            primary_goal="服务器对外访问",
+            fixed_ip_required=True,
+        )
+        category = DemandCategoryDecision(
+            primary_category_id="2",
+            primary_category_name="固定IP_高带宽_互联网专线",
+            recommendation_mode="new_sale",
+        )
+
+        result = RecommendationReadinessEvaluator().evaluate(
+            demand=demand,
+            category_decision=category,
+        )
+
+        self.assertEqual(result.decision, "ready_with_assumptions")
+        self.assertTrue(any("IP 数量" in item or "13 个以内" in item for item in result.assumptions))
+        self.assertIn("IPMAN", result.product_lock_hints)
+
     def test_fallback_clarification_is_available_without_llm(self) -> None:
         demand = CustomerDemand(primary_category="", primary_goal="", usage_scene="")
         category = DemandCategoryDecision(primary_category_id="", primary_category_name="")

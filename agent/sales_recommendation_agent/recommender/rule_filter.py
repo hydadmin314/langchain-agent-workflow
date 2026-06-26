@@ -13,25 +13,6 @@ from agent.sales_recommendation_agent.recommender.models import (
 )
 
 
-# 第 13 类是售后/办理流程，不应该混进普通新销售套餐推荐。
-PROCESS_IDENTITY_KEYWORDS = (
-    "变更",
-    "续约",
-    "拆机",
-    "撤单",
-    "移机",
-    "过户",
-    "更名",
-    "退费",
-    "退款",
-    "停机",
-    "销户",
-    "付款方式",
-    "账单",
-    "流程",
-    "受理单",
-)
-
 # 固定 IP 需求只看明确证据，不把普通“专线”直接等同为固定 IP。
 FIXED_IP_EVIDENCE_KEYWORDS = (
     "固定IP",
@@ -61,32 +42,6 @@ OVERSEAS_EVIDENCE_KEYWORDS = (
     "精品专线",
     "智能专线",
     "SD-WAN",
-)
-
-# 移动通信类需求如果完全没有这些证据，基本就是泛召回噪声。
-MOBILE_EVIDENCE_KEYWORDS = (
-    "5G",
-    "流量",
-    "手机卡",
-    "主卡",
-    "副卡",
-    "固移融合",
-    "SIM",
-    "语音流量",
-    "移动业务",
-    "移动套餐",
-    "移动通信",
-)
-
-# 用于识别“主体更像宽带/专线，但包含少量移动权益”的候选，先保留并提示风险。
-BROADBAND_EVIDENCE_KEYWORDS = (
-    "宽带",
-    "专线",
-    "互联网专线",
-    "精品专线",
-    "商务专线",
-    "IPMAN",
-    "BGP",
 )
 
 
@@ -158,26 +113,7 @@ class CandidateRuleFilter:
             )
             return FilteredCandidate(candidate=candidate, decision="remove", filter_reasons=reasons)
 
-        # 规则 2：第 13 类属于办理/变更/续约/拆机等流程，不混入普通新销售套餐。
-        if is_service_process(category_decision):
-            # 这里只看标题、路径、文档类型等身份字段，不看正文条款。
-            # 普通套餐合同里也可能出现“拆机/变更/违约”，不能因此当成办理流程文档。
-            identity_text = build_product_identity_text(product)
-            if not contains_any(identity_text, PROCESS_IDENTITY_KEYWORDS):
-                reasons.append(
-                    FilterReason(
-                        code="service_process_mismatch",
-                        severity="error",
-                        message="当前需求是办理/变更/续约/拆机类流程，但该候选缺少流程或手续相关证据。",
-                        evidence=short_evidence(
-                            identity_text,
-                            PROCESS_IDENTITY_KEYWORDS,
-                        ),
-                    )
-                )
-                return FilteredCandidate(candidate=candidate, decision="remove", filter_reasons=reasons)
-
-        # 规则 3：客户明确要求固定 IP 时，候选没有固定 IP/BGP/IPMAN 等证据则提示风险。
+        # 规则 2：客户明确要求固定 IP 时，候选没有固定 IP/BGP/IPMAN 等证据则提示风险。
         if demand.requires_fixed_ip and not contains_any(product_text, FIXED_IP_EVIDENCE_KEYWORDS):
             reasons.append(
                 FilterReason(
@@ -189,58 +125,19 @@ class CandidateRuleFilter:
             )
             risk_tags.append("fixed_ip_needs_confirmation")
 
-        # 规则 4：海外访问类需求如果没有海外/国际/精品专线等证据，先保留但打风险。
-        if category_decision.primary_category_id == "4" and not contains_any(product_text, OVERSEAS_EVIDENCE_KEYWORDS):
+        # 规则 3：海外访问只是需求属性，不是主分类；有海外诉求但候选缺少证据时先保留并提示风险。
+        if demand.overseas_access is True and not contains_any(product_text, OVERSEAS_EVIDENCE_KEYWORDS):
             reasons.append(
                 FilterReason(
                     code="missing_overseas_evidence",
                     severity="warning",
-                    message="客户需求为海外访问/跨境加速，但该候选缺少海外、国际、跨境、BGP、IPMAN、精品专线、智能专线等证据。",
+                    message="客户提到海外/跨境访问诉求，但该候选缺少海外、国际、跨境、BGP、IPMAN、精品专线、智能专线等证据。",
                     evidence=short_evidence(product_text, OVERSEAS_EVIDENCE_KEYWORDS),
                 )
             )
             risk_tags.append("overseas_capability_needs_confirmation")
 
-        # 规则 5：移动流量类完全没有移动证据时移除；若主体像宽带/专线，则保留并提示。
-        if category_decision.primary_category_id == "7":
-            identity_text = build_product_identity_text(product)
-            has_mobile_identity = contains_any(identity_text, MOBILE_EVIDENCE_KEYWORDS)
-            has_mobile_evidence = contains_any(product_text, MOBILE_EVIDENCE_KEYWORDS)
-            looks_like_broadband_bundle = contains_any(product_text, BROADBAND_EVIDENCE_KEYWORDS)
-            if not has_mobile_evidence:
-                reasons.append(
-                    FilterReason(
-                        code="mobile_category_without_mobile_evidence",
-                        severity="error",
-                        message="当前需求是移动通信/流量/固移融合，但该候选没有移动、5G、流量、手机卡等证据。",
-                        evidence=short_evidence(product_text, MOBILE_EVIDENCE_KEYWORDS),
-                    )
-                )
-                return FilteredCandidate(candidate=candidate, decision="remove", filter_reasons=reasons)
-
-            if not has_mobile_identity and not looks_like_broadband_bundle:
-                reasons.append(
-                    FilterReason(
-                        code="mobile_category_weak_body_evidence",
-                        severity="error",
-                        message="当前需求是移动通信/流量，但移动证据只出现在正文弱相关位置，产品标题、路径或产品族没有移动业务证据。",
-                        evidence=short_evidence(product_text, MOBILE_EVIDENCE_KEYWORDS),
-                    )
-                )
-                return FilteredCandidate(candidate=candidate, decision="remove", filter_reasons=reasons)
-
-            if not has_mobile_identity and looks_like_broadband_bundle:
-                reasons.append(
-                    FilterReason(
-                        code="mobile_candidate_may_be_broadband_bundle",
-                        severity="warning",
-                        message="该候选包含移动权益证据，但主体可能是宽带/专线套餐，需确认是否适合作为移动流量主推荐。",
-                        evidence=short_evidence(product_text, BROADBAND_EVIDENCE_KEYWORDS),
-                    )
-                )
-                risk_tags.append("mobile_bundle_needs_confirmation")
-
-        # 规则 6：客户给出预算时，如果候选没有任何价格或费用规则，提示后续报价风险。
+        # 规则 4：客户给出预算时，如果候选没有任何价格或费用规则，提示后续报价风险。
         if demand.budget_amount is not None and not has_price_evidence(product):
             reasons.append(
                 FilterReason(
@@ -271,17 +168,6 @@ class CandidateRuleFilter:
         if not retrieval_result.candidates and retrieval_result.clarify_questions:
             warnings.append("当前没有召回候选，已返回追问信息。")
         return warnings
-
-
-def is_service_process(category_decision: DemandCategoryDecision) -> bool:
-    """判断当前需求是否属于办理/变更/续约/拆机等流程类。"""
-
-    return (
-        category_decision.primary_category_id == "13"
-        or category_decision.recommendation_mode == "service_process"
-    )
-
-
 def has_price_evidence(product: ProductCandidate) -> bool:
     """判断候选是否具备基础价格证据。
 

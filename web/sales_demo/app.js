@@ -1,5 +1,5 @@
 (function () {
-  const DEFAULT_QUERY = "客户准备开一个经营场所，目前只说想先把网络规划起来";
+  const DEFAULT_QUERY = "沿街奶茶店准备新装宽带，主要用于收银、外卖接单、店内 Wi-Fi 和监控。";
   const EXPECTED_RUNTIME_VERSION = "sales-demo-single-v5";
   const DEMO_CASES = Array.isArray(window.SALES_DEMO_CASES) ? window.SALES_DEMO_CASES : [];
 

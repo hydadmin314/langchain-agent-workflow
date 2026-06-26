@@ -1,0 +1,756 @@
+{
+  "application_form_info": {
+    "document_info": {
+      "document_id": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\SD-WAN\\4 申请表_ 国内SD-WAN申请单填写模板.xlsx",
+      "product_name": "SDWAN群组",
+      "carrier": "",
+      "version": "",
+      "effective_date": "",
+      "document_status": ""
+    },
+    "parties_and_application": {
+      "agent": {
+        "agent_name": "张三",
+        "sales_name": "张三",
+        "sales_contact": "18900000000"
+      },
+      "customer": {
+        "name": "",
+        "filled_values": [
+          "产权客户：例：上海电信",
+          "安装地址：例：南崇明路1号甲1层",
+          "使用客户：例：上海电信",
+          "联系人：张三",
+          "联系电话：18900000000",
+          "客户名称：例：上海电信",
+          "联系人：林某",
+          "联系人手机：18000000000",
+          "客户邮箱：xx@no.com",
+          "统一社会信用代码：营业执照上18位代码",
+          "安装地址：例：南崇明路1号甲1层",
+          "帐务联系人：林某",
+          "联系电话：18000000000",
+          "备注：厂商必填：例缔安（必填）"
+        ],
+        "is_blank_form": false
+      },
+      "application_fields": {
+        "required": [
+          {
+            "label": "产权客户",
+            "field_key": "产权客户",
+            "required": true,
+            "value": "例：上海电信",
+            "options": [],
+            "value_type": "string",
+            "raw_text": "产权客户 | 例：上海电信"
+          },
+          {
+            "label": "安装地址",
+            "field_key": "安装地址",
+            "required": true,
+            "value": "例：南崇明路1号甲1层",
+            "options": [],
+            "value_type": "string",
+            "raw_text": "安装地址 | 例：南崇明路1号甲1层"
+          },
+          {
+            "label": "使用客户",
+            "field_key": "使用客户",
+            "required": true,
+            "value": "例：上海电信",
+            "options": [],
+            "value_type": "string",
+            "raw_text": "使用客户 | 例：上海电信"
+          },
+          {
+            "label": "联系人",
+            "field_key": "联系人",
+            "required": true,
+            "value": "张三",
+            "options": [],
+            "value_type": "string",
+            "raw_text": "联系人 | 张三"
+          },
+          {
+            "label": "联系电话",
+            "field_key": "联系电话",
+            "required": true,
+            "value": "18900000000",
+            "options": [],
+            "value_type": "string",
+            "raw_text": "联系电话 | 18900000000"
+          },
+          {
+            "label": "用户签章（必须与客户名一致）",
+            "field_key": "用户签章",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "用户签章（必须与客户名一致）：红章与产权户名需一直 |"
+          },
+          {
+            "label": "客户名称",
+            "field_key": "客户名称",
+            "required": true,
+            "value": "例：上海电信",
+            "options": [],
+            "value_type": "string",
+            "raw_text": "客户名称 | | | 例：上海电信"
+          },
+          {
+            "label": "联系人",
+            "field_key": "联系人",
+            "required": true,
+            "value": "林某",
+            "options": [],
+            "value_type": "string",
+            "raw_text": "联系人 | | | 林某"
+          },
+          {
+            "label": "联系人手机",
+            "field_key": "联系人手机",
+            "required": true,
+            "value": "18000000000",
+            "options": [],
+            "value_type": "string",
+            "raw_text": "联系人手机 | | | | 18000000000"
+          },
+          {
+            "label": "客户邮箱",
+            "field_key": "客户邮箱",
+            "required": true,
+            "value": "xx@no.com",
+            "options": [],
+            "value_type": "string",
+            "raw_text": "客户邮箱 | | | xx@no.com"
+          },
+          {
+            "label": "统一社会信用代码",
+            "field_key": "统一社会信用代码",
+            "required": true,
+            "value": "营业执照上18位代码",
+            "options": [],
+            "value_type": "string",
+            "raw_text": "统一社会信用代码 | | | | 营业执照上18位代码"
+          },
+          {
+            "label": "安装地址",
+            "field_key": "安装地址",
+            "required": true,
+            "value": "例：南崇明路1号甲1层",
+            "options": [],
+            "value_type": "string",
+            "raw_text": "安装地址： | | | 例：南崇明路1号甲1层"
+          },
+          {
+            "label": "帐务联系人",
+            "field_key": "帐务联系人",
+            "required": true,
+            "value": "林某",
+            "options": [],
+            "value_type": "string",
+            "raw_text": "帐务联系人 | | | 林某"
+          },
+          {
+            "label": "联系电话",
+            "field_key": "联系电话",
+            "required": true,
+            "value": "18000000000",
+            "options": [],
+            "value_type": "string",
+            "raw_text": "联系电话 | | | | 18000000000"
+          },
+          {
+            "label": "备注",
+            "field_key": "备注",
+            "required": true,
+            "value": "厂商必填：例缔安（必填）",
+            "options": [],
+            "value_type": "string",
+            "raw_text": "备注： | | | 厂商必填：例缔安（必填）"
+          },
+          {
+            "label": "用户签章（必须与客户名一致）",
+            "field_key": "用户签章",
+            "required": true,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "用户签章（必须与客户名一致）：红章与客户名称必须一致"
+          }
+        ],
+        "optional": [
+          {
+            "label": "□新建网群号",
+            "field_key": "新建网群号",
+            "required": false,
+            "value": null,
+            "options": [
+              "新建网群号"
+            ],
+            "value_type": "checkbox",
+            "raw_text": "□新建网群号"
+          },
+          {
+            "label": "组网方案",
+            "field_key": "组网方案",
+            "required": false,
+            "value": "尊享型2",
+            "options": [],
+            "value_type": "string",
+            "raw_text": "组网方案 | | 尊享型2"
+          },
+          {
+            "label": "是否POP节点",
+            "field_key": "是否POP节点",
+            "required": false,
+            "value": null,
+            "options": [
+              "是",
+              "否"
+            ],
+            "value_type": "radio",
+            "raw_text": "是否POP\\n节点"
+          },
+          {
+            "label": "POP节点位置",
+            "field_key": "POP节点位置",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "POP节点\\n位置"
+          },
+          {
+            "label": "安装地址",
+            "field_key": "安装地址",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "安装地址"
+          },
+          {
+            "label": "账单地址",
+            "field_key": "账单地址",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "账单地址"
+          },
+          {
+            "label": "群号",
+            "field_key": "群号",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "群号"
+          },
+          {
+            "label": "LAN侧VLAN信息",
+            "field_key": "LAN侧VLAN信息",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "LAN侧VLAN信息"
+          },
+          {
+            "label": "LAN侧互联地址",
+            "field_key": "LAN侧互联地址",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "LAN侧互联地址"
+          },
+          {
+            "label": "安装联系人",
+            "field_key": "安装联系人",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "安装联系人"
+          },
+          {
+            "label": "安装联系人电话",
+            "field_key": "安装联系人电话",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "安装联系人电话"
+          },
+          {
+            "label": "组网类型",
+            "field_key": "组网类型",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "组网类型"
+          },
+          {
+            "label": "宽带速率（设备能力）",
+            "field_key": "宽带速率",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "宽带速率\\n（设备能力）"
+          },
+          {
+            "label": "设备类型",
+            "field_key": "设备类型",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "设备类型"
+          },
+          {
+            "label": "单价（元/月）",
+            "field_key": "单价",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "单价\\n（元/月）"
+          },
+          {
+            "label": "DK编号",
+            "field_key": "DK编号",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "DK编号"
+          },
+          {
+            "label": "Internet",
+            "field_key": "Internet",
+            "required": false,
+            "value": null,
+            "options": [
+              "是",
+              "否"
+            ],
+            "value_type": "radio",
+            "raw_text": "Internet"
+          },
+          {
+            "label": "MPLSVPN",
+            "field_key": "MPLSVPN",
+            "required": false,
+            "value": null,
+            "options": [
+              "是",
+              "否"
+            ],
+            "value_type": "radio",
+            "raw_text": "MPLSVPN"
+          },
+          {
+            "label": "LTE",
+            "field_key": "LTE",
+            "required": false,
+            "value": null,
+            "options": [
+              "是",
+              "否"
+            ],
+            "value_type": "radio",
+            "raw_text": "LTE"
+          },
+          {
+            "label": "是否主备",
+            "field_key": "是否主备",
+            "required": false,
+            "value": null,
+            "options": [
+              "是",
+              "否"
+            ],
+            "value_type": "radio",
+            "raw_text": "是否\\n主备"
+          },
+          {
+            "label": "设备签收人",
+            "field_key": "设备签收人",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "设备签收人"
+          },
+          {
+            "label": "联系人",
+            "field_key": "联系人",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "联系人"
+          },
+          {
+            "label": "联系电话",
+            "field_key": "联系电话",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "联系电话"
+          },
+          {
+            "label": "要求完工日期",
+            "field_key": "要求完工日期",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "要求完工日期"
+          },
+          {
+            "label": "备注",
+            "field_key": "备注",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "备注"
+          },
+          {
+            "label": "Underlay电路信息",
+            "field_key": "Underlay电路信息",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "Underlay电路信息"
+          },
+          {
+            "label": "SD-WAN国内组网通道月租费",
+            "field_key": "SD-WAN国内组网通道月租费",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "SD-WAN国内组网通道月租费"
+          },
+          {
+            "label": "四层防火墙价格",
+            "field_key": "四层防火墙价格",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "四层防火墙价格"
+          },
+          {
+            "label": "入侵检测和防御价格",
+            "field_key": "入侵检测和防御价格",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "入侵检测和防御价格"
+          },
+          {
+            "label": "安全审计价格",
+            "field_key": "安全审计价格",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "安全审计价格"
+          },
+          {
+            "label": "WEB应用防护价格",
+            "field_key": "WEB应用防护价格",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "WEB应用防护价格"
+          },
+          {
+            "label": "SLA服务价格",
+            "field_key": "SLA服务价格",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "SLA服务价格"
+          },
+          {
+            "label": "SD-WAN国内组网多云接入端口费",
+            "field_key": "SD-WAN国内组网多云接入端口费",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "SD-WAN国内组网多云接入端口费"
+          },
+          {
+            "label": "SD-WAN国内组网增值服务月租费",
+            "field_key": "SD-WAN国内组网增值服务月租费",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "SD-WAN国内组网增值服务月租费"
+          },
+          {
+            "label": "设备串号",
+            "field_key": "设备串号",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "设备串号"
+          },
+          {
+            "label": "设备编号",
+            "field_key": "设备编号",
+            "required": false,
+            "value": null,
+            "options": [],
+            "value_type": "string",
+            "raw_text": "设备编号"
+          }
+        ]
+      },
+      "application_notes": [
+        "备注：请客户提供两证复印件（机构代码证/工商登记证、经办人身份证）",
+        "客户须知",
+        "一.数据专线客户应遵守国家的有关法律、法规和通信规章制度，并接受电信部门的监督、检查。",
+        "*如用户终端在云上，请安装地址明确虚机云商、节点位置；",
+        "用户签章（必须与客户名一致）："
+      ]
+    },
+    "pricing_info": {
+      "source_type": "application_form",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\SD-WAN\\4 申请表_ 国内SD-WAN申请单填写模板.xlsx",
+      "one_time_fees": [
+        {
+          "name": "一次性业务费",
+          "amount": null,
+          "currency": "CNY",
+          "unit": "元/点",
+          "applicable_to": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "一次性业务费 | | | | ______ 元/点 |"
+        }
+      ],
+      "base_package_prices": [
+        {
+          "name": "SD-WAN国内组网通道月租费",
+          "speed": "",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "",
+          "has_voice": null,
+          "price": null,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "SD-WAN国内组网通道月租费"
+        },
+        {
+          "name": "SD-WAN国内组网增值服务月租费",
+          "speed": "",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "",
+          "has_voice": null,
+          "price": null,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "SD-WAN国内组网增值服务月租费"
+        }
+      ],
+      "addon_prices": [
+        {
+          "name": "四层防火墙价格",
+          "category": "安全服务",
+          "spec": "",
+          "price": null,
+          "currency": "CNY",
+          "unit": "",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "四层防火墙价格"
+        },
+        {
+          "name": "入侵检测和防御价格",
+          "category": "安全服务",
+          "spec": "",
+          "price": null,
+          "currency": "CNY",
+          "unit": "",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "入侵检测和防御价格"
+        },
+        {
+          "name": "安全审计价格",
+          "category": "安全服务",
+          "spec": "",
+          "price": null,
+          "currency": "CNY",
+          "unit": "",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "安全审计价格"
+        },
+        {
+          "name": "WEB应用防护价格",
+          "category": "安全服务",
+          "spec": "",
+          "price": null,
+          "currency": "CNY",
+          "unit": "",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "WEB应用防护价格"
+        },
+        {
+          "name": "SLA服务价格",
+          "category": "增值服务",
+          "spec": "",
+          "price": null,
+          "currency": "CNY",
+          "unit": "",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "SLA服务价格"
+        },
+        {
+          "name": "SD-WAN国内组网多云接入端口费",
+          "category": "端口费",
+          "spec": "",
+          "price": null,
+          "currency": "CNY",
+          "unit": "",
+          "billing_period": "",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "",
+          "raw_text": "SD-WAN国内组网多云接入端口费"
+        }
+      ],
+      "fee_and_term_rules": [
+        {
+          "name": "付费方式",
+          "category": "付费方式",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "monthly",
+          "formula": "",
+          "conditions": [],
+          "description": "月付",
+          "raw_text": "付费方式 | 月付"
+        },
+        {
+          "name": "付费周期",
+          "category": "付费周期",
+          "applicable_to": [],
+          "amount": null,
+          "currency": "",
+          "unit": "",
+          "period": "monthly",
+          "formula": "",
+          "conditions": [],
+          "description": "月付",
+          "raw_text": "付费周期： | | | ■月付 □年付 □其他____"
+        }
+      ],
+      "discount_policy": []
+    },
+    "agreement_rules": [],
+    "eligibility_and_constraints": []
+  },
+  "supplementary_info": {
+    "product_intro": {
+      "product_name": "SDWAN",
+      "full_description": "SD-WAN（ Software Defined Wide Area Network ）：软件定义广域网。是将 SDN/NFV技术, 广域网优化技术, 和传统互联网核心技术(MPLS/BGP等) 应用到各类广域网场景中所形成的一种服务能力，这种服务用于连接广阔地理范围的企业网络、数据中心、互联网应用及云服务。天翼云SD-WAN方案建立了一张 SD-WAN 骨干网供用户使用，依托中国电信的优质骨干网络，在 POP 的密集程度，网络质量和骨干带宽，以及跨境资质上具备其他云厂家无法比拟的优势。同时，作为三大运营商之一，中国电信具备全国甚至全球骨干网的运营能力，能够提供更优质的 SD-WAN 骨干网服务能力，也具备承载网可调的天然优势，而且开放其他云品牌的融合接入能力，不绑定自有品牌，在组网和入云两个层面上具备独到的优势。",
+      "application_scenarios": "互联网隧道直连组网；接入骨干网POP点组网；专线混合链路组网；互联网统一出口归集；软终端就近入云"
+    },
+    "product_keywords": {
+      "raw_keywords": "本地组网,国内组网,线路延时，带宽利用率,是否具备资源,需要多长时间开通,使用人数，应用场景,需要多少带宽,折扣率,月租费,一次性费用,合同协议期,协议期内拆机违约金,内网地址,网状结构,分支结构,基本信息,设备功能,应用场景,网络信息,云端业务调研,测试环境,接入方式,组网方式,点到点/点到多点/全互联,配置自动化,部署难度"
+    },
+    "pricing_info": {
+      "source_type": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\SD-WAN\\2 资费表_本地国内翼互联SDWAN资费.xlsx",
+      "one_time_fees": [],
+      "base_package_prices": [],
+      "addon_prices": [],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "application_materials": []
+  },
+  "extraction_meta": {
+    "generated_at": "2026-06-23T15:43:35",
+    "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\组网\\电信\\SD-WAN",
+    "method": "llm_schema_module_extraction_no_normalization",
+    "validation_issues": [
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[0].speed",
+        "message": "基础套餐缺少速率"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.pricing_info.base_package_prices[1].speed",
+        "message": "基础套餐缺少速率"
+      },
+      {
+        "severity": "warning",
+        "path": "supplementary_info.pricing_info",
+        "message": "资费表没有抽到有效资费"
+      }
+    ],
+    "validation_issue_count": 3
+  }
+}

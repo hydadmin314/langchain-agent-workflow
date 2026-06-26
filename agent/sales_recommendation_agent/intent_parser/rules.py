@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from typing import Iterable
 
 from agent.sales_recommendation_agent.intent_parser.models import (
@@ -15,9 +16,9 @@ from agent.sales_recommendation_agent.intent_parser.taxonomy import (
 
 
 class DemandCategoryClassifier:
-    """基于 13 类产品需求分类体系的确定性分类器。
+    """基于上网/组网六类销售套餐分类体系的确定性分类器。
 
-    LLM 只负责给出 category_candidate_keywords，最终分类由这套 taxonomy 规则完成，
+    LLM 只负责抽取需求事实和正/负向信号，最终分类由这套 taxonomy 规则完成，
     这样后续新增产品类时可以稳定扩展，不依赖模型自由发挥分类名。
     """
 
@@ -41,25 +42,30 @@ class DemandCategoryClassifier:
                 DemandCategoryMatch(
                     category_id=rule.category_id,
                     category_name=rule.category_name,
+                    primary_domain=rule.primary_domain,
                     score=score,
                     matched_keywords=matched_keywords,
                     reason=f"命中需求分类关键词：{', '.join(matched_keywords)}",
                 )
             )
 
-        # “办理流程/材料/变更/拆机”等诉求不是新销售推荐，优先进入第 13 类。
-        # 这里做成通用流程词优先级，不绑定具体运营商或产品名称，避免后续新增产品时反复补规则。
-        matches = self._apply_priority_overrides(matches=matches, demand_text=demand_text)
+        matches = self._apply_priority_corrections(
+            matches=matches,
+            demand=demand,
+            raw_text=raw_text,
+            demand_text=demand_text,
+        )
         matches.sort(key=lambda item: item.score, reverse=True)
         if not matches:
             return DemandCategoryDecision(
                 primary_category_id="",
                 primary_category_name="",
+                primary_domain="",
                 category_matches=[],
                 recommendation_mode="clarify",
                 confidence=0.0,
                 clarify_questions=self._build_generic_clarify_questions(demand),
-                reason="未命中 13 类产品需求分类关键词，需要先澄清客户需求。",
+                reason="未命中上网/组网六类销售套餐分类关键词，需要先澄清客户需求。",
             )
 
         primary = matches[0]
@@ -69,6 +75,7 @@ class DemandCategoryClassifier:
         return DemandCategoryDecision(
             primary_category_id=primary.category_id,
             primary_category_name=primary.category_name,
+            primary_domain=rule.primary_domain,
             category_matches=matches[:3],
             recommendation_mode=rule.recommendation_mode,
             confidence=round(confidence, 2),
@@ -80,8 +87,6 @@ class DemandCategoryClassifier:
     def _build_demand_text(self, demand: CustomerDemand, *, raw_text: str = "") -> str:
         values = [
             raw_text,
-            demand.primary_category,
-            *demand.secondary_categories,
             demand.primary_goal,
             demand.usage_scene,
             demand.business_action,
@@ -99,11 +104,55 @@ class DemandCategoryClassifier:
             demand.customer_type,
             demand.scenario_type.value,
             *demand.raw_keywords,
-            *demand.category_candidate_keywords,
+            *demand.positive_signals,
+            *demand.negative_signals,
             "固定IP" if demand.requires_fixed_ip else "",
             f"{demand.bandwidth_est_mbps}M" if demand.bandwidth_est_mbps else "",
         ]
         return " ".join(value for value in values if value)
+
+    def _apply_priority_corrections(
+        self,
+        *,
+        matches: list[DemandCategoryMatch],
+        demand: CustomerDemand,
+        raw_text: str,
+        demand_text: str,
+    ) -> list[DemandCategoryMatch]:
+        """分类器内的高置信纠偏。
+
+        这些逻辑属于“理解用户需求”，因此统一放在 intent_parser 中，
+        不再散落到推荐总 workflow 里做补丁式修正。
+        """
+
+        if demand.fixed_ip_required is False or has_negated_fixed_ip_signal(demand_text):
+            return promote_category_match(
+                matches=matches,
+                rule=self.rules_by_id[select_non_fixed_internet_category_id(raw_text or demand_text)],
+                score=120,
+                reason="用户明确表示不需要固定公网 IP，纠正为非固定 IP 上网类主分类。",
+                matched_keywords=["不需要固定IP"],
+            )
+
+        if has_domestic_site_access_signal(demand_text):
+            return promote_category_match(
+                matches=matches,
+                rule=self.rules_by_id[select_network_category_id(raw_text or demand_text)],
+                score=120,
+                reason="命中国内异地/总部与分支互联场景，提升为组网类主分类。",
+                matched_keywords=["国内组网"],
+            )
+
+        if demand.requires_fixed_ip or has_positive_fixed_ip_signal(demand_text):
+            return promote_category_match(
+                matches=matches,
+                rule=self.rules_by_id["internet_fixed_ip"],
+                score=120,
+                reason="命中固定公网 IP 或服务器对外访问场景，提升为上网固定 IP 类主分类。",
+                matched_keywords=["固定公网IP"],
+            )
+
+        return matches
 
     def _build_clarify_questions(self, *, demand: CustomerDemand, rule: DemandCategoryRule) -> list[str]:
         questions = list(rule.clarify_questions)
@@ -118,7 +167,7 @@ class DemandCategoryClassifier:
     def _build_generic_clarify_questions(self, demand: CustomerDemand) -> list[str]:
         questions_by_field = {
             "usage_scene": "客户从哪里访问或使用业务？例如上海办公室、门店、总部或分公司。",
-            "primary_goal": "客户最核心想解决什么问题？例如办公上网、海外访问、固定IP、云中继或 IDC。",
+            "primary_goal": "客户最核心想解决什么问题？例如沿街店铺上网、办公上网、固定IP、点对点互联或智能组网。",
             "user_count": "预计多少人、多少终端、多少号码或多少坐席使用？",
             "business_action": "客户是新装、变更、移机、过户、改套餐、拆机、撤单还是续约？",
             "budget": "客户大致预算是多少？",
@@ -129,85 +178,15 @@ class DemandCategoryClassifier:
     def _scenario_boost(self, *, demand: CustomerDemand, category_id: str) -> float:
         """用早期兼容字段做轻量加权，避免泛化关键词压过强场景关键词。"""
 
-        if demand.scenario_type.value == "overseas_access" and category_id == "4":
+        if demand.scenario_type.value == "domestic_networking" and category_id in {
+            "network_point_to_point",
+            "network_point_to_multipoint",
+            "network_smart",
+        }:
             return 8
-        if demand.scenario_type.value == "domestic_networking" and category_id == "3":
-            return 8
-        if demand.requires_fixed_ip and category_id == "2":
+        if demand.requires_fixed_ip and category_id == "internet_fixed_ip":
             return 8
         return 0
-
-    def _apply_priority_overrides(
-        self,
-        *,
-        matches: list[DemandCategoryMatch],
-        demand_text: str,
-    ) -> list[DemandCategoryMatch]:
-        process_keywords = _matched_keywords(demand_text, SERVICE_PROCESS_STRONG_KEYWORDS)
-        if not process_keywords:
-            return matches
-
-        category_id = "13"
-        rule = self.rules_by_id.get(category_id) or DEMAND_CATEGORY_RULES_BY_ID[category_id]
-        process_score = 80 + 4 * len(process_keywords)
-        reason = f"命中办理流程/材料类强关键词：{', '.join(process_keywords)}"
-
-        updated: list[DemandCategoryMatch] = []
-        has_process_match = False
-        for match in matches:
-            if match.category_id != category_id:
-                updated.append(match)
-                continue
-
-            has_process_match = True
-            merged_keywords = _dedupe([*match.matched_keywords, *process_keywords])
-            updated.append(
-                DemandCategoryMatch(
-                    category_id=match.category_id,
-                    category_name=match.category_name,
-                    score=max(match.score, process_score),
-                    matched_keywords=merged_keywords,
-                    reason=reason,
-                )
-            )
-
-        if not has_process_match:
-            updated.append(
-                DemandCategoryMatch(
-                    category_id=rule.category_id,
-                    category_name=rule.category_name,
-                    score=process_score,
-                    matched_keywords=process_keywords,
-                    reason=reason,
-                )
-            )
-
-        return updated
-
-
-SERVICE_PROCESS_STRONG_KEYWORDS = (
-    "办理流程",
-    "办理手续",
-    "办理材料",
-    "申请材料",
-    "需要哪些材料",
-    "材料",
-    "手续",
-    "流程",
-    "担保",
-    "授权",
-    "盖章",
-    "拆机",
-    "撤单",
-    "续约",
-    "变更",
-    "移机",
-    "过户",
-    "更名",
-    "退费",
-    "停机",
-    "销户",
-)
 
 
 def _matched_keywords(text: str, keywords: Iterable[str]) -> list[str]:
@@ -217,6 +196,91 @@ def _matched_keywords(text: str, keywords: Iterable[str]) -> list[str]:
         if keyword and keyword.lower() in normalized:
             matched.append(keyword)
     return _dedupe(matched)
+
+
+def promote_category_match(
+    *,
+    matches: list[DemandCategoryMatch],
+    rule: DemandCategoryRule,
+    score: float,
+    reason: str,
+    matched_keywords: list[str],
+) -> list[DemandCategoryMatch]:
+    """把指定分类提升到候选首位，保留其它候选作为辅助分类。"""
+
+    updated: list[DemandCategoryMatch] = []
+    found = False
+    for match in matches:
+        if match.category_id == rule.category_id:
+            found = True
+            updated.append(
+                DemandCategoryMatch(
+                    category_id=match.category_id,
+                    category_name=match.category_name,
+                    primary_domain=match.primary_domain,
+                    score=max(match.score, score),
+                    matched_keywords=_dedupe([*match.matched_keywords, *matched_keywords]),
+                    reason=reason,
+                )
+            )
+        else:
+            updated.append(match)
+
+    if not found:
+        updated.append(
+            DemandCategoryMatch(
+                category_id=rule.category_id,
+                category_name=rule.category_name,
+                primary_domain=rule.primary_domain,
+                score=score,
+                matched_keywords=matched_keywords,
+                reason=reason,
+            )
+        )
+    updated.sort(key=lambda item: item.score, reverse=True)
+    return updated[:3]
+
+
+def has_negated_fixed_ip_signal(text: str) -> bool:
+    """识别固定 IP 否定表达。"""
+
+    return bool(re.search(r"(不需要|不要|无须|无需|不用|不办).{0,8}(固定\s*IP|公网\s*IP|公网地址)", text, re.I))
+
+
+def has_positive_fixed_ip_signal(text: str) -> bool:
+    """识别固定 IP 正向表达，否定表达优先级由上游先处理。"""
+
+    return bool(re.search(r"(固定\s*IP|公网\s*IP|公网地址|固定公网|服务器对外)", text, re.I))
+
+
+def has_domestic_site_access_signal(text: str) -> bool:
+    """识别“总部访问分支/子公司”这类国内组网表达。
+
+    这里不枚举城市，只看组织关系和访问/互联动作。
+    """
+
+    return bool(
+        re.search(r"(总部|总公司|办公室).{0,20}(访问|连接|连通|互联|组网).{0,20}(分支|分公司|子公司|门店)", text)
+        or re.search(r"(分支|分公司|子公司|门店).{0,20}(访问|连接|连通|互联|组网).{0,20}(总部|总公司|办公室)", text)
+    )
+
+
+def select_network_category_id(text: str) -> str:
+    """在三类组网子类中做高置信分流。"""
+
+    if re.search(r"(SD-?WAN|智能组网|设备组网|已有宽带|互联网组网|VPN|虚拟专网)", text, re.I):
+        return "network_smart"
+    if re.search(r"(点对多|多点|多个分支|多分支|多门店|多站点|星型|爪形|总部\+?多个)", text, re.I):
+        return "network_point_to_multipoint"
+    return "network_point_to_point"
+
+
+def select_non_fixed_internet_category_id(text: str) -> str:
+    """固定 IP 被明确否定时，在上网类里选择更合适的非固定 IP 分类。"""
+
+    if re.search(r"(沿街|店铺|商铺|门店|餐饮|零售|收银|开店|旺铺)", text):
+        return "internet_store_street"
+    return "internet_office_dynamic_ip"
 
 
 def _dedupe(values: Iterable[str]) -> list[str]:

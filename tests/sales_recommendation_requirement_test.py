@@ -62,6 +62,27 @@ class SalesRecommendationRequirementTest(unittest.TestCase):
         self.assertTrue(result.structured_data.requires_fixed_ip)
         self.assertEqual(result.category_decision.primary_category_id, "2")
 
+    def test_small_store_low_budget_routes_to_store_scene(self) -> None:
+        result = self.workflow.analyze("沿街路边店，5人以内，收银外卖和WiFi都要用，预算3000元以内。")
+
+        self.assertEqual(result.category_decision.primary_category_id, "5")
+        self.assertEqual(result.structured_data.user_count_value, 5)
+        self.assertEqual(result.structured_data.budget_amount, 3000)
+        self.assertIn("门店", result.structured_data.usage_scene)
+
+    def test_large_fixed_ip_count_stays_in_fixed_ip_scene(self) -> None:
+        result = self.workflow.analyze("客户服务器对外访问，需要32个固定IP，想了解IPMAN方向。")
+
+        self.assertEqual(result.category_decision.primary_category_id, "2")
+        self.assertTrue(result.structured_data.fixed_ip_required)
+        self.assertIn("32", result.structured_data.fixed_ip_count or "")
+
+    def test_point_to_many_star_networking_routes_to_networking_scene(self) -> None:
+        result = self.workflow.analyze("总部到两个分支做点对多组网，想用爪形结构，比网状少拉线。")
+
+        self.assertEqual(result.category_decision.primary_category_id, "3")
+        self.assertEqual(result.structured_data.site_count, "点对多")
+
     def test_voice_category_does_not_fall_into_clarify_only(self) -> None:
         result = self.workflow.analyze("客户要企业固定电话和呼叫中心坐席，想了解30B+D和云中继方案。")
 

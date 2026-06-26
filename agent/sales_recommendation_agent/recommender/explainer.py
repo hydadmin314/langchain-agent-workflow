@@ -76,6 +76,7 @@ class RecommendationExplainer:
             )
         return apply_explanation_safety_guards(
             result=result,
+            demand=demand,
             category_decision=category_decision,
             comparison_result=comparison_result,
         )
@@ -269,8 +270,8 @@ def build_fallback_explanation(
     ]
     clarifying_questions = build_readiness_questions(readiness_result)
     risk_reminders = list(comparison_result.global_warnings)
-    if category_decision.primary_category_id == "4":
-        risk_reminders.append("海外访问与跨境加速需要进一步确认资源、合规和实际访问效果。")
+    if demand.overseas_access is True:
+        risk_reminders.append("客户提到海外/跨境访问诉求，需要进一步确认资源、合规和实际访问效果。")
     if readiness_result and readiness_result.assumptions:
         risk_reminders.extend(readiness_result.assumptions)
 
@@ -349,6 +350,7 @@ def build_readiness_questions(readiness_result: ReadinessResult | None) -> list[
 def apply_explanation_safety_guards(
     *,
     result: RecommendationExplanationResult,
+    demand: CustomerDemand,
     category_decision: DemandCategoryDecision,
     comparison_result: ComparisonResult,
 ) -> RecommendationExplanationResult:
@@ -369,10 +371,10 @@ def apply_explanation_safety_guards(
     for note in category_decision.notes:
         append_unique(result.risk_reminders, note)
 
-    if category_decision.primary_category_id == "4":
+    if demand.overseas_access is True:
         append_unique(
             result.risk_reminders,
-            "海外访问与跨境加速涉及资源、合规和实际访问效果确认，不能直接承诺访问效果。",
+            "客户提到海外/跨境访问诉求，涉及资源、合规和实际访问效果确认，不能直接承诺访问效果。",
         )
     if any(product.risk_warnings for product in comparison_result.products):
         for product in comparison_result.products:

@@ -152,14 +152,6 @@ class CandidateComparator:
             self._summarize_material_dimension(compared_products),
         ]
 
-        if category_decision.recommendation_mode == "service_process":
-            dimensions.append(
-                ComparisonDimension(
-                    dimension="办理流程",
-                    summary="当前需求属于办理/变更/续约/拆机类，应优先比较流程、材料和限制，不按普通套餐能力推荐。",
-                )
-            )
-
         return dimensions
 
     def _summarize_package_dimension(self, products: list[ComparedProduct]) -> ComparisonDimension:

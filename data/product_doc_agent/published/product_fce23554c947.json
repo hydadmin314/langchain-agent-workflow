@@ -1,0 +1,349 @@
+{
+  "application_form_info": {
+    "document_info": {
+      "document_id": "",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\移动业务\\移动互联网宽带",
+      "product_name": "",
+      "carrier": "",
+      "version": "",
+      "effective_date": null,
+      "document_status": null
+    },
+    "parties_and_application": {
+      "agent": {
+        "agent_name": "",
+        "sales_name": "",
+        "sales_contact": ""
+      },
+      "customer": {
+        "name": "",
+        "filled_values": [],
+        "is_blank_form": true
+      },
+      "application_fields": {
+        "required": [],
+        "optional": []
+      },
+      "application_notes": []
+    },
+    "pricing_info": {
+      "source_type": "application_form",
+      "source_file": "",
+      "one_time_fees": [],
+      "base_package_prices": [],
+      "addon_prices": [],
+      "fee_and_term_rules": [],
+      "discount_policy": []
+    },
+    "agreement_rules": [],
+    "eligibility_and_constraints": []
+  },
+  "supplementary_info": {
+    "product_intro": {
+      "product_name": "移动互联网专线",
+      "full_description": "是面向政企集团客户的高端独享光纤上网业务，通过 PON/OTN/PTN 光纤直连移动 CMNet 骨干互联网，提供物理独享、上下行对称带宽、静态公网 IP、SLA 等级保障的专属互联网通道，区别于共享式商务宽带，属于运营商级生产业务专线。",
+      "application_scenarios": "企业对外业务发布；高上传实时业务场景；集团跨区域协同办公；生产级稳定办公（对网络中断零容忍）；云网融合场景；大型公共场景"
+    },
+    "product_keywords": {
+      "raw_keywords": "CMNET 互联网专线、光纤专线、OTN 精品专线、PON 专线、裸光纤专线、集团专线、企业独享专线、对称带宽、静态公网 IP、固定 IP 专线、独享带宽、骨干直连、PTN 传输、无源光网络、SLA 服务保障、低时延、低丢包、高并发、双链路备份、IPv4/IPv6 双栈"
+    },
+    "pricing_info": {
+      "source_type": "pricing_sheet",
+      "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\移动业务\\移动互联网宽带\\2 资费表.xlsx",
+      "one_time_fees": [
+        {
+          "name": "互联网专线一次性费用",
+          "amount": 1500.0,
+          "currency": "CNY",
+          "unit": "元",
+          "applicable_to": [],
+          "conditions": [
+            "可申请减免"
+          ],
+          "description": "原价：1500元，可申请减免",
+          "raw_text": "原价：1500元，可申请减免"
+        }
+      ],
+      "base_package_prices": [
+        {
+          "name": "互联网专线月租费",
+          "speed": "10",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 750.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "免费IP地址（可用）1个"
+          ],
+          "conditions": [
+            "可优惠价格：375元/月"
+          ],
+          "description": "端口速率10M，标准价750元/月，可优惠价格375元/月，免费IP地址1个",
+          "raw_text": "10M | 750 | 375 | 1"
+        },
+        {
+          "name": "互联网专线月租费",
+          "speed": "20",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 1388.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "免费IP地址（可用）1个"
+          ],
+          "conditions": [
+            "可优惠价格：694元/月"
+          ],
+          "description": "端口速率20M，标准价1388元/月，可优惠价格694元/月，免费IP地址1个",
+          "raw_text": "20M | 1388 | 694 | 1"
+        },
+        {
+          "name": "互联网专线月租费",
+          "speed": "50",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 3300.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "免费IP地址（可用）1个"
+          ],
+          "conditions": [
+            "可优惠价格：1500元/月"
+          ],
+          "description": "端口速率50M，标准价3300元/月，可优惠价格1500元/月，免费IP地址1个",
+          "raw_text": "50M | 3300 | 1500 | 1"
+        },
+        {
+          "name": "互联网专线月租费",
+          "speed": "100",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 6900.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "免费IP地址（可用）1个"
+          ],
+          "conditions": [
+            "可优惠价格：3000元/月"
+          ],
+          "description": "端口速率100M，标准价6900元/月，可优惠价格3000元/月，免费IP地址1个",
+          "raw_text": "100M | 6900 | 3000 | 1"
+        },
+        {
+          "name": "互联网专线月租费",
+          "speed": "200",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 13500.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "免费IP地址（可用）5个"
+          ],
+          "conditions": [
+            "可优惠价格：6000元/月"
+          ],
+          "description": "端口速率200M，标准价13500元/月，可优惠价格6000元/月，免费IP地址5个",
+          "raw_text": "200M | 13500 | 6000 | 5"
+        },
+        {
+          "name": "互联网专线月租费",
+          "speed": "300",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 20000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "免费IP地址（可用）5个"
+          ],
+          "conditions": [
+            "可优惠价格：9000元/月"
+          ],
+          "description": "端口速率300M，标准价20000元/月，可优惠价格9000元/月，免费IP地址5个",
+          "raw_text": "300M | 20000 | 9000 | 5"
+        },
+        {
+          "name": "互联网专线月租费",
+          "speed": "500",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 32500.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "免费IP地址（可用）13个"
+          ],
+          "conditions": [
+            "可优惠价格：15000元/月"
+          ],
+          "description": "端口速率500M，标准价32500元/月，可优惠价格15000元/月，免费IP地址13个",
+          "raw_text": "500M | 32500 | 15000 | 13"
+        },
+        {
+          "name": "互联网专线月租费",
+          "speed": "1000",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 61500.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "免费IP地址（可用）61个"
+          ],
+          "conditions": [
+            "可优惠价格：24600元/月"
+          ],
+          "description": "端口速率1G，标准价61500元/月，可优惠价格24600元/月，免费IP地址61个",
+          "raw_text": "1G | 61500 | 24600 | 61"
+        },
+        {
+          "name": "互联网专线月租费",
+          "speed": "2500",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 141500.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "免费IP地址（可用）125个"
+          ],
+          "conditions": [
+            "可优惠价格：56600元/月"
+          ],
+          "description": "端口速率2.5G，标准价141500元/月，可优惠价格56600元/月，免费IP地址125个",
+          "raw_text": "2.5G | 141500 | 56600 | 125"
+        },
+        {
+          "name": "互联网专线月租费",
+          "speed": "10000",
+          "upstream_speed": "",
+          "downstream_speed": "",
+          "bandwidth_unit": "M",
+          "has_voice": null,
+          "price": 541000.0,
+          "currency": "CNY",
+          "unit": "元/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [
+            "免费IP地址（可用）253个"
+          ],
+          "conditions": [
+            "可优惠价格：216400元/月"
+          ],
+          "description": "端口速率10G，标准价541000元/月，可优惠价格216400元/月，免费IP地址253个",
+          "raw_text": "10G | 541000 | 216400 | 253"
+        }
+      ],
+      "addon_prices": [
+        {
+          "name": "增加IP地址",
+          "category": "IP地址",
+          "spec": "个",
+          "price": 100.0,
+          "currency": "CNY",
+          "unit": "元/个/月",
+          "billing_period": "monthly",
+          "contract_period": "",
+          "included_items": [],
+          "required_with": [],
+          "conditions": [],
+          "description": "如需增加IP地址：100元/个/月",
+          "raw_text": "如需增加IP地址：100元/个/月"
+        }
+      ],
+      "fee_and_term_rules": [],
+      "discount_policy": [
+        {
+          "name": "互联网专线月租费优惠",
+          "category": "月租费折扣",
+          "applicable_to": [
+            "10M",
+            "20M",
+            "50M",
+            "100M",
+            "200M",
+            "300M",
+            "500M",
+            "1G",
+            "2.5G",
+            "10G"
+          ],
+          "standard_price": null,
+          "discount_rate": null,
+          "discounted_price": null,
+          "currency": "CNY",
+          "unit": "元/月",
+          "conditions": [],
+          "description": "各档速率均有可优惠价格，具体为：10M 375元/月，20M 694元/月，50M 1500元/月，100M 3000元/月，200M 6000元/月，300M 9000元/月，500M 15000元/月，1G 24600元/月，2.5G 56600元/月，10G 216400元/月",
+          "raw_text": "可优惠价格：元/月 | 375 | 694 | 1500 | 3000 | 6000 | 9000 | 15000 | 24600 | 56600 | 216400"
+        }
+      ]
+    },
+    "application_materials": []
+  },
+  "extraction_meta": {
+    "generated_at": "2026-06-23T15:37:28",
+    "source_file": "E:\\Code\\langchain-agent-workflow-updata\\data\\产品\\上网\\移动业务\\移动互联网宽带",
+    "method": "llm_schema_module_extraction_no_normalization",
+    "validation_issues": [
+      {
+        "severity": "warning",
+        "path": "$.application_form_info.pricing_info.source_file",
+        "message": "缺少来源文件"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.document_info",
+        "message": "申请表基本信息基本为空，可能是切块或文档转换质量不足"
+      },
+      {
+        "severity": "warning",
+        "path": "application_form_info.parties_and_application.application_fields",
+        "message": "申请表没有抽到字段信息"
+      }
+    ],
+    "validation_issue_count": 3
+  }
+}
